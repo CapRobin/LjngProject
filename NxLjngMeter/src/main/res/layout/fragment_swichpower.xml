@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/content"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    <RelativeLayout
+            style="@style/page_title"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/page_title_height" >
+
+        <Button
+            android:id="@+id/back_btn"
+            style="@style/back_button_style"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:background="@null"
+            android:text="@string/back_btn"/>
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/page_title_str"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="开阀/关阀" />
+        
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+    
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            
+            <Button android:id="@+id/on"
+                android:layout_width="140dip"
+                android:layout_height="wrap_content"
+                android:textColor="@color/label_color"
+                android:text="开启阀门"
+                android:textSize="@dimen/text_size_16"
+                android:layout_gravity="center_horizontal" />
+            
+            <Button android:id="@+id/off"
+                android:layout_width="140dip"
+                android:layout_height="wrap_content"
+                android:textColor="@color/label_color"
+                android:text="关闭阀门"
+                android:textSize="@dimen/text_size_16"
+                android:layout_gravity="center_horizontal" />
+               
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+

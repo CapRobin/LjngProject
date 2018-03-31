@@ -1,0 +1,186 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion '25.0.0'
+    //解决httpclient无法使用的问题 在android6.0的里面有效
+    useLibrary 'org.apache.http.legacy'
+
+    defaultConfig {
+        applicationId "com.zfg.org.myexample"
+        minSdkVersion 18
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled = true
+//      高斯模糊背景
+//        renderscriptTargetApi 23
+//        renderscriptSupportModeEnabled true
+//        ndk {
+//            moduleName "mycode"
+//            cFlags "-std=c++11 -fexceptions"
+////            moduleName "myprotocol"
+//            ldLibs "log", "z", "m"
+//            abiFilters 'x86', 'x86_64', 'armeabi', 'armeabi-v7a',
+//                    'arm64-v8a'
+//            stl "gnustl_shared" //这个对应的是 GNU_STL
+//        }
+
+//        externalNativeBuild{
+//            cmake {
+//                arguments
+//                '-DANDROID_PLATFORM=android-18',
+//                '-DANDROID_TOOLCHAIN=clang',
+//                '-DANDROID_STL=gnustl_static'
+//            }
+//        }
+
+//        externalNativeBuild {
+//            ndkBuild {
+//                targets "target1", "target2"
+//                arguments "NDK_APPLICATION_MK:=Application.mk"
+//                cFlags "-DTEST_C_FLAG1", "-DTEST_C_FLAG2"
+//                cppFlags "-DTEST_CPP_FLAG2", "-DTEST_CPP_FLAG2"
+//                abiFilters "armeabi-v7a", "armeabi"
+//            }
+//        }
+//        externalNativeBuild {
+//            cmake {
+//                cppFlags "-frtti -fexceptions"
+//            }
+//        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            ndk {
+//                moduleName "mycode"
+//                moduleName "myprotocol"
+//                abiFilters "armeabi", "armeabi-v7a", "x86"
+//            }
+        }
+    }
+
+
+
+//    productFlavors {
+//        x86 {
+//            versionCode Integer.parseInt("6" + defaultConfig.versionCode)
+//            ndk {
+//                abiFilter "x86"
+//            }
+//        }
+//        mips {
+//            versionCode Integer.parseInt("4" + defaultConfig.versionCode)
+//            ndk {
+//                abiFilter "mips"
+//            }
+//        }
+//        armv7 {
+//            versionCode Integer.parseInt("2" + defaultConfig.versionCode)
+//            ndk {
+//                abiFilter "armeabi-v7a"
+//            }
+//        }
+//        arm {
+//            versionCode Integer.parseInt("1" + defaultConfig.versionCode)
+//            ndk {
+//                abiFilters "armeabi", "armeabi-v7a"
+//            }
+//        }
+//        fat
+//    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+
+    }
+
+
+//    sourceSets {
+//        main {
+//            jni.srcDirs = ['src/cpp/']
+//        }
+//    }
+
+
+//    externalNativeBuild {
+//        cmake {
+//            path 'CMakeLists.txt'
+//        }
+//    }
+}
+
+
+
+dependencies {
+    //    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile files('libs/libammsdk.jar')
+    //    compile files('libs/android-support-v13.jar')
+    //    compile files('libs/AMap_Location_V2.5.0_20160526.jar')
+    //    compile files('libs/AMap_Search_V3.2.1_20160308.jar')
+    //    compile files('libs/AMap_3DMap_V3.3.2_20160525.jar')
+    //    compile files('libs/AMap_2DMap_V2.9.0_20160525.jar')
+    compile files('libs/alipaySdk-20161009.jar')
+    compile files('libs/Volley.jar')
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:support-annotations:23.4.0'
+    //    compile 'com.android.support:cardview-v7:23.4.0'
+    //    compile 'com.android.support:gridlayout-v7:23.4.0'
+    //    compile 'com.android.support:mediarouter-v7:23.4.0'
+    //    compile 'com.android.support:palette-v7:23.4.0'
+    compile 'com.android.support:recyclerview-v7:23.4.0'
+    compile 'com.android.support:preference-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'me.drakeet.materialdialog:library:1.3.1'
+    compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
+    compile('org.apache.httpcomponents:httpmime:4.3') {
+        exclude module: "httpclient"
+    }
+    //    compile 'org.apache.httpcomponents:httpclient:4.5.2'
+    //    compile 'org.apache.httpcomponents:httpcore:4.4.4'
+    //    compile 'org.apache.httpcomponents:httpmime:4.5.2'
+    //    compile 'commons-codec:commons-codec:1.9'
+    //    compile 'com.darwinsys:hirondelle-date4j:1.5.1'
+    //  数据库
+    compile 'de.greenrobot:greendao:2.1.0'
+    //  二维码扫描
+    compile 'com.google.zxing:javase:3.2.1'
+    //  周边搜索界面样式
+    //    compile 'com.skyfishjy.ripplebackground:library:1.0.1'
+    //  图片工具
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    //  GSON库
+    compile 'com.google.code.gson:gson-parent:2.6.2'
+    // RxJava
+    //    compile 'io.reactivex:rxandroid:1.1.0'
+    //    compile 'com.jakewharton.rxbinding:rxbinding:0.2.0'
+    //okhttp
+    //    compile 'com.squareup.okhttp3:okhttp:3.3.1'
+    //    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    //    compile 'com.squareup.okio:okio:1.5.0'
+    //  bootstrap样式按钮及其他
+    //    compile 'com.beardedhen:androidbootstrap:2.2.0'
+    //  高斯背景
+    //    compile 'com.github.goka.blurredgridmenu:blurredgridmenu:1.0.2'
+    //
+    //    compile 'com.github.alamkanak:android-week-view:1.2.6'
+    //    compile 'com.fasterxml.jackson.core:jackson-databind:2.4.4'
+    //    compile 'com.fasterxml.jackson.core:jackson-core:2.4.4'
+    //    compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.4'
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+}

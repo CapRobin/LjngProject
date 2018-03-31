@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ee_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            style="@style/page_title"
+            android:layout_width="fill_parent">
+
+            <Button
+                android:id="@+id/back_btn"
+                style="@style/back_button_style"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_alignParentLeft="true"
+                android:text="@string/back_btn" />
+
+            <TextView
+                style="@style/page_title_str"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/name_comble" />
+
+            <LinearLayout
+                android:layout_width="70dp"
+                android:layout_height="fill_parent"
+                android:layout_alignParentRight="true">
+
+                <Spinner
+                    android:id="@+id/meter_type_select"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:entries="@array/meters"></Spinner>
+
+                <TextView
+                    android:id="@+id/text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="6"
+                    android:gravity="right"
+                    android:text="▼"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/main_divider_line" />
+
+            <RelativeLayout
+                android:id="@+id/fraq_values"
+                style="@style/medicine_item"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    style="@style/medicine_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="22dip"
+                    android:text="@string/device_ble_fraq" />
+
+
+                <EditText
+                    android:id="@+id/set_fraq_value"
+                    style="@style/medicine_edittext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="22dip"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:hint="@string/slect_hint"
+                    android:textColorHint="@color/hint_color" />
+
+                <!--<TextView-->
+                <!--android:id="@+id/day_nion"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignRight="@id/set_fraq"-->
+                <!--android:text="@string/mhz"-->
+                <!--android:textColor="@color/label_color"-->
+                <!--android:textSize="@dimen/text_size_13" />-->
+
+                <!--<Button-->
+                <!--android:id="@+id/set_fraq"-->
+                <!--style="@style/button_style"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="40dip"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:layout_marginTop="30dip"-->
+                <!--android:background="@drawable/target_btn_bg"-->
+                <!--android:text="@string/set_fraq" />-->
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/main_divider_line" />
+
+            <RelativeLayout
+                android:id="@+id/command_select"
+                style="@style/medicine_item"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
+
+                <TextView
+                    android:id="@+id/textView3"
+                    style="@style/medicine_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="22dip"
+                    android:text="操作项" />
+
+                <EditText
+                    android:id="@+id/set_command_select"
+                    style="@style/medicine_edittext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="22dip"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:hint="@string/slect_hint"
+                    android:textColorHint="@color/hint_color" />
+
+
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/main_divider_line" />
+
+            <RelativeLayout
+                android:id="@+id/meter_addrs"
+                style="@style/medicine_item"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/textAddr"
+                    style="@style/medicine_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="22dip"
+                    android:text="@string/meter_addr" />
+
+                <EditText
+                    android:id="@+id/meter_addr"
+                    style="@style/medicine_edittext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="22dip"
+                    android:hint="@string/input_hint"
+                    android:inputType="numberSigned"
+                    android:textColorHint="@color/hint_color" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/main_divider_line" />
+
+            <RelativeLayout
+                android:id="@+id/meter_groupcharge"
+                style="@style/medicine_item"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/medicine_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="22dip"
+                    android:text="编程数据" />
+
+                <EditText
+                    android:id="@+id/meter_charge"
+                    style="@style/medicine_edittext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="22dip"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:hint="点击选择"
+                    android:textColorHint="@color/hint_color" />
+
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/main_divider_line" />
+
+            <RelativeLayout
+                android:id="@+id/read_meters"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/read_btn"
+                    style="@style/button_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dip"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/target_btn_bg"
+                    android:text="@string/command_meter" />
+            </RelativeLayout>
+
+            <ScrollView
+                android:id="@+id/scroll"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical">
+
+                    <ListView
+                        android:id="@+id/itemlist"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:cacheColorHint="#00000000"
+                        android:descendantFocusability="blocksDescendants"
+                        android:divider="@mipmap/divider"
+                        android:dividerHeight="0.8dip"
+                        android:fadingEdge="none"
+                        android:fastScrollEnabled="false"
+                        android:listSelector="@color/transparent"
+                        android:scrollingCache="false" />
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>
+

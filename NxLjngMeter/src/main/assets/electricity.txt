@@ -1,0 +1,1 @@
+{"dataList":[],"strBackFlag":"-6","strControllerName":"RealPowerReading","strMeterAddr":"201700000001","strRandom":"0"}

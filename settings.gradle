@@ -1,0 +1,2 @@
+include ':NxLjngMeter', ':Electricity', ':demo', ':ShowView'
+project(':Electricity').projectDir = new File('ElectricityMeter')

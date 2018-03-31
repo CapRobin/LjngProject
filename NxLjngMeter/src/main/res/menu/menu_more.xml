@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+       android:id="@+id/menu_cur_water_info"
+       android:title="@string/read_cur_water_info"
+       app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_water_price_info"
+        android:title="@string/read_cur_water_price_info"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_real_time_water_status"
+        android:title="@string/read_real_time_water_status"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_cur_gas_info"
+        android:title="@string/read_cur_gas_info"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_read_cur_gas_price_info"
+        android:title="@string/read_cur_gas_price_info"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_read_real_time_gas_status"
+        android:title="@string/read_real_time_gas_status"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_read_data_in_concentrator"
+        android:title="@string/read_data_in_concentrator"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_read_data_in_meter"
+        android:title="@string/read_data_in_meter"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_read_data_freezing_data"
+        android:title="@string/read_data_freezing_data"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_read_data_freezing_month_data"
+        android:title="@string/read_data_freezing_month_data"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_read_freezing_settlement_data"
+        android:title="@string/read_freezing_settlement_data"
+        app:showAsAction="never"/>
+
+</menu>

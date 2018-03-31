@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="left"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/infor_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dip"
+        android:layout_marginLeft="11dip"
+        android:text="疑难排解"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16" />
+
+    <LinearLayout
+        style="@style/info_item_container"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dip"
+        android:orientation="vertical" >
+
+        <com.zfg.org.myexample.widget.NListView
+            android:id="@+id/infor_list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:cacheColorHint="#00000000"
+            android:divider="@mipmap/divider"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="true"
+            android:listSelector="@drawable/listview_selector"
+            android:scrollingCache="false" >
+        </com.zfg.org.myexample.widget.NListView>
+    </LinearLayout>
+
+</LinearLayout>

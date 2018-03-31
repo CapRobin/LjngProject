@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:padding="18dip" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/page_title_height"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/dialog_operate_name"
+                style="@style/page_title"
+                android:layout_width="fill_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:text="ces"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_16" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="12.0dip"
+            android:paddingTop="13.0dip" >
+
+            <com.zfg.org.myexample.widget.wheel.WheelView
+                android:id="@+id/height_integer"
+                android:layout_width="100dip"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/ok_btn"
+                style="@style/dialog_btn_style"
+                android:layout_width="0dip"
+                android:layout_height="@dimen/list_button_height"
+                android:layout_weight="1"
+                android:text="确定" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

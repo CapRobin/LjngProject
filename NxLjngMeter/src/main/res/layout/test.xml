@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#f1f6f7"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fadingEdge="none"
+        android:fastScrollEnabled="true" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/layout_00"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dip"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:layout_marginTop="23dip" >
+
+                <TextView
+                    android:id="@+id/btText"
+                    android:layout_width="100dip"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:text="标      题:"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/btEdit"
+                    android:layout_width="fill_parent"
+                    android:layout_height="35dip"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="99dip"
+                    android:layout_marginRight="3dip"
+                    android:background="@drawable/textedit_bg"
+                    android:entries="@array/gcChandi"
+                    android:gravity="center_vertical"
+                    android:hint="如:供应***钢材多少吨..."
+                    android:textSize="11sp" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/cbxmAllView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:id="@+id/layout_1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip" >
+
+                    <TextView
+                        android:id="@+id/lbText"
+                        android:layout_width="100dip"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:text="类      别:"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/lbEdit"
+                        android:layout_width="fill_parent"
+                        android:layout_height="35dip"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="99dip"
+                        android:layout_marginRight="3dip"
+                        android:background="@drawable/textedit_bg"
+                        android:editable="false"
+                        android:gravity="center_vertical"
+                        android:textSize="13sp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/cbxmHideView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:background="@drawable/test_01"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:visibility="visible" >
+
+                    <com.zfg.org.myexample.adapter.NoScrollGridView
+                        android:id="@+id/lbGridView"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dip"
+                        android:horizontalSpacing="7dp"
+                        android:numColumns="3"
+                        android:verticalSpacing="7dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/settingView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+
+                <LinearLayout
+                    android:id="@+id/hiddenview2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layout_00"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:background="@drawable/test_01"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:visibility="gone" >
+
+                    <com.zfg.org.myexample.adapter.NoScrollGridView
+                        android:id="@+id/pmGridView"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dip"
+                        android:horizontalSpacing="7dp"
+                        android:numColumns="3"
+                        android:verticalSpacing="7dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/cxbhAllView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:id="@+id/layout_2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layout_2"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip" >
+
+                    <TextView
+                        android:id="@+id/ggText"
+                        android:layout_width="100dip"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:text="规      格:"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/ggEdit"
+                        android:layout_width="fill_parent"
+                        android:layout_height="35dip"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="99dip"
+                        android:layout_marginRight="3dip"
+                        android:background="@drawable/textedit_bg"
+                        android:editable="false"
+                        android:gravity="center_vertical"
+                        android:textSize="13sp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/cxbhHideView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layout_00"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:background="@drawable/test_01"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:visibility="visible" >
+
+                    <com.zfg.org.myexample.adapter.NoScrollGridView
+                        android:id="@+id/ggGridView"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dip"
+                        android:horizontalSpacing="7dp"
+                        android:numColumns="2"
+                        android:verticalSpacing="7dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/holder4"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:id="@+id/cbxmUnHideView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layout_2"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip" >
+
+                    <TextView
+                        android:id="@+id/cbxmTitle"
+                        android:layout_width="100dip"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:text="产      地:"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/cdEdit"
+                        android:layout_width="fill_parent"
+                        android:layout_height="35dip"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="99dip"
+                        android:layout_marginRight="3dip"
+                        android:background="@drawable/textedit_bg"
+                        android:editable="false"
+                        android:gravity="center_vertical"
+                        android:textSize="13sp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/hiddenview4"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layout_00"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:background="@drawable/test_01"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:visibility="visible" >
+
+                    <com.zfg.org.myexample.adapter.NoScrollGridView
+                        android:id="@+id/cdGridView"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dip"
+                        android:horizontalSpacing="7dp"
+                        android:numColumns="2"
+                        android:verticalSpacing="7dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/holder5"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+
+                <LinearLayout
+                    android:id="@+id/hiddenview5"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layout_00"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:background="@drawable/test_01"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:visibility="gone" >
+
+                    <com.zfg.org.myexample.adapter.NoScrollGridView
+                        android:id="@+id/slGridView"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dip"
+                        android:horizontalSpacing="7dp"
+                        android:numColumns="3"
+                        android:verticalSpacing="7dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/holder7"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:id="@+id/layout_4"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layout_2"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip" >
+
+                    <TextView
+                        android:id="@+id/jyfsText"
+                        android:layout_width="100dip"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:text="交易方式:"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/jyfsEdit"
+                        android:layout_width="fill_parent"
+                        android:layout_height="35dip"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="99dip"
+                        android:layout_marginRight="3dip"
+                        android:background="@drawable/textedit_bg"
+                        android:editable="false"
+                        android:gravity="center_vertical"
+                        android:textSize="13sp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/hiddenview7"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layout_00"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:background="@drawable/test_01"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:visibility="visible" >
+
+                    <com.zfg.org.myexample.adapter.NoScrollGridView
+                        android:id="@+id/jyfsGridView"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dip"
+                        android:horizontalSpacing="7dp"
+                        android:numColumns="2"
+                        android:verticalSpacing="7dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/publishSupplyBtn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout_7"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="20dip"
+                android:layout_marginTop="30dip"
+                android:background="@drawable/selector_btn"
+                android:padding="2dip"
+                android:text="发    布"
+                android:textSize="20sp" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_below="@+id/addinfoBtn"
+                android:layout_marginTop="25dip" >
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- 按键相关代码 -->
+
+</RelativeLayout>

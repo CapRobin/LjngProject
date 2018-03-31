@@ -1,0 +1,1298 @@
+<resources>
+
+    <string name="sbcb_title">水表数据</string>
+    <string name="dbcb_title">电表数据</string>
+    <string name="qbcb_title">气表数据</string>
+    <string name="rbcb_title">热表数据</string>
+    <!--水表查询项目-->
+    <string-array name="sbCheckItemType">
+        <item>抄读水表当前用水信息</item>
+        <item>抄读水表当前价格信息</item>
+        <item>抄读水表实时状态</item>
+    </string-array>
+
+    <!--电表查询项目-->
+    <string-array name="dbCheckItemType">
+        <item>抄读电表当前用电信息</item>
+        <item>抄读电表当前价格信息</item>
+        <item>抄读电表实时状态</item>
+    </string-array>
+
+    <!--气表查询项目-->
+    <string-array name="qbCheckItemType">
+        <item>抄读气表当前用气信息</item>
+        <item>抄读气表当前价格信息</item>
+        <item>抄读气表实时状态</item>
+    </string-array>
+
+    <!--热表查询项目-->
+    <string-array name="rbCheckItemType">
+        <item>抄读热表当前用气信息</item>
+        <item>抄读热表当前价格信息</item>
+        <item>抄读热表实时状态</item>
+    </string-array>
+
+
+    <string-array name="usertype">
+        <item>普通会员</item>
+        <item>公司商户</item>
+    </string-array>
+    <string-array name="steelStyle">
+        <item>型材</item>
+        <item>板材</item>
+        <item>建材</item>
+        <item>管材</item>
+        <item>特钢</item>
+        <item>金属材料</item>
+        <item>钢索具产</item>
+    </string-array>
+
+    <!-- 根据刚才类别选择品名 -->
+    <string-array name="gcPinming_01">
+        <item>工字钢</item>
+        <item>槽钢</item>
+        <item>角钢</item>
+        <item>方钢</item>
+        <item>重轨</item>
+        <item>高工钢</item>
+        <item>H型钢</item>
+        <item>不等边角钢</item>
+        <item>扁钢</item>
+        <item>轻轨</item>
+        <item>齿轮钢</item>
+        <item>六角钢</item>
+        <item>耐热钢棒</item>
+        <item>合结圆钢</item>
+        <item>合工圆钢</item>
+        <item>方管碳工钢</item>
+        <item>轴承钢</item>
+        <item>碳结圆钢</item>
+        <item>不锈圆钢</item>
+        <item>轴承圆钢</item>
+        <item>矩型管</item>
+        <item>弹簧钢</item>
+    </string-array>
+    <string-array name="gcPinming_02">
+        <item>中厚板</item>
+        <item>容器板</item>
+        <item>中板</item>
+        <item>碳结板</item>
+        <item>锅炉板</item>
+        <item>低合金板</item>
+        <item>花纹板</item>
+        <item>冷板</item>
+        <item>热板</item>
+        <item>冷卷板</item>
+        <item>热卷板</item>
+        <item>镀锌板</item>
+        <item>电镀锌板</item>
+        <item>电镀锌卷</item>
+        <item>锰板</item>
+        <item>不锈钢板</item>
+        <item>硅钢片</item>
+        <item>彩涂板</item>
+        <item>彩钢瓦楞铁</item>
+        <item>镀锌卷板</item>
+        <item>热轧带钢</item>
+    </string-array>
+    <string-array name="gcPinming_03">
+        <item>高线</item>
+        <item>普线</item>
+        <item>螺纹钢</item>
+        <item>圆钢</item>
+    </string-array>
+    <string-array name="gcPinming_04">
+        <item>方管</item>
+        <item>矩管</item>
+        <item>方矩管</item>
+        <item>无缝管</item>
+        <item>焊管</item>
+        <item>热镀锌管</item>
+        <item>冷镀锌管</item>
+        <item>螺旋管</item>
+        <item>不锈钢管</item>
+        <item>热轧无缝管</item>
+    </string-array>
+    <string-array name="gcPinming_05">
+        <item>合结钢</item>
+        <item>碳结钢</item>
+        <item>模具钢</item>
+        <item>硬线</item>
+        <item>拉丝材</item>
+        <item>轴承钢</item>
+    </string-array>
+    <string-array name="gcPinming_06">
+        <item>生铁</item>
+        <item>马口铁</item>
+        <item>铝</item>
+        <item>铅</item>
+        <item>黄铜</item>
+        <item>锡</item>
+        <item>锌</item>
+    </string-array>
+    <string-array name="gcPinming_07">
+        <item>钢丝绳</item>
+    </string-array>
+    <string-array name="gcPinming">
+        <item>螺纹钢</item>
+        <item>线材</item>
+        <item>盘螺</item>
+        <item>圆钢</item>
+        <item>无缝管</item>
+        <item>焊管</item>
+        <item>热轧板/卷</item>
+        <item>冷轧板/卷</item>
+        <item>中厚板</item>
+        <item>镀锌板</item>
+        <item>彩涂板</item>
+        <item>镀锡板</item>
+        <item>镀铝锌钢板</item>
+        <item>硅钢</item>
+        <item>带钢</item>
+        <item>工角槽</item>
+        <item>H型钢</item>
+        <item>方钢</item>
+        <item>扁钢</item>
+        <item>球扁钢</item>
+    </string-array>
+
+    <!-- 钢材规格 -->
+    <string-array name="gcGuige">
+        <item>材质：HPB235</item>
+        <item>材质：HRB335</item>
+        <item>材质：HRB400</item>
+        <item>材质：Q235</item>
+        <item>材质：ST12</item>
+        <item>材质：DC01</item>
+        <item>材质：Q235B</item>
+        <item>φ6.5mm</item>
+        <item>φ8-10mm</item>
+        <item>φ12mm</item>
+        <item>φ6.5-12mm</item>
+        <item>φ12-14mm</item>
+        <item>φ16mm</item>
+        <item>φ18mm</item>
+        <item>φ20mm</item>
+        <item>φ22mm</item>
+        <item>φ25mm</item>
+        <item>φ28-32mm</item>
+        <item>φ16-25mm</item>
+        <item>8mm</item>
+        <item>10mm</item>
+        <item>12mm</item>
+        <item>16-20mm</item>
+        <item>40*4</item>
+        <item>50*58</item>
+        <item>#16</item>
+        <item>#12</item>
+        <item>#25</item>
+        <item>#60*6</item>
+        <item>10#</item>
+        <item>16#a</item>
+        <item>5.5-11.5*1500*C</item>
+        <item>2.75mm*1500*C</item>
+        <item>1.8mm*1250*C</item>
+        <item>8#</item>
+        <item>12#</item>
+        <item>Φ6.5-10mm</item>
+        <item>3.5-11.5mm*1500*C</item>
+        <item>4.0-6.0*1500*6000mm</item>
+        <item>2.75mm*1250*C</item>
+        <item>50*5</item>
+        <item>φ5.4-12</item>
+        <item>φ9-15.24</item>
+
+        <!-- 产地 -->
+    </string-array>
+    <string-array name="gcChandi">
+        <item>产地1</item>
+        <item>产地2</item>
+        <item>产地3</item>
+    </string-array>
+    <!-- 数量单位 -->
+    <string-array name="gcShuliang">
+        <item>吨</item>
+        <item>根</item>
+        <item>米</item>
+        <item>公斤</item>
+    </string-array>
+    <!-- 是否国标 -->
+    <string-array name="isGuobiao">
+        <item>是</item>
+        <item>否</item>
+    </string-array>
+    <!-- 交易方式 -->
+    <string-array name="jyfs">
+        <item>线下交易</item>
+        <item>线上交易</item>
+    </string-array>
+    <!-- 钢材产地 -->
+    <string-array name="gccd">
+        <item>鞍本钢铁基地</item>
+        <item>京津唐钢铁基地</item>
+        <item>上海钢铁基地</item>
+        <item>武汉钢铁基地</item>
+        <item>攀钢基地</item>
+        <item>包头钢铁基地</item>
+        <item>太原钢铁基地</item>
+        <item>马鞍山钢铁基地</item>
+        <item>重庆钢铁基地</item>
+        <item>台湾中国钢铁公司</item>
+    </string-array>
+
+
+    <string name="button_login">Login</string>
+    <string name="button_signup">Sign Up</string>
+    <string name="button_confirm_login">Confirm Login</string>
+    <string name="button_cancel_login">Cancel Login</string>
+    <string name="button_confirm_signup">Confirm Sign Up</string>
+    <string name="button_cancel_signup">Cancel Sign Up</string>
+    <string name="edit_username">username</string>
+    <string name="edit_password">password</string>
+
+
+    <!-- 下拉刷新列表 -->
+    <string name="xlistview_header_hint_normal">下拉刷新</string>
+    <string name="xlistview_header_hint_ready">松开刷新数据</string>
+    <string name="xlistview_header_hint_loading">正在加载...</string>
+    <string name="xlistview_header_last_time">上次更新时间：</string>
+    <string name="xlistview_footer_hint_normal">查看更多</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
+    <string name="loading_text_str">加载中，请稍后...</string>
+
+    <!-- 条形码扫描 -->
+    <string name="scan_title">二维码扫描</string>
+    <string name="scan_text">将二维码放入框内, 即可自动扫描</string>
+
+    <string name="state">状态</string>
+    <string name="app_picker_name">应用</string>
+    <string name="app_name">宁光手持式采集系统</string>
+    <string name="compay_name">宁夏隆基宁光仪表股份有限公司</string>
+    <string name="alarm_management">报警管理</string>
+    <string name="content_report">系统设置</string>
+    <string name="system_management">系统设置</string>
+    <string name="sys_set">系统设置</string>
+    <string name="entry">数据查看</string>
+    <string name="data_entry">数据录入</string>
+    <string name="back_btn">返回</string>
+    <string name="scan_btn">扫描</string>
+    <string name="upload_btn">全部上传</string>
+    <string name="submit_btn">提交</string>
+    <string name="ok_btn">确定</string>
+    <string name="today">今天</string>
+    <string name="cur_week">本周</string>
+    <string name="cancel_str">取消</string>
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+    <string name="day_tian">天</string>
+    <string name="latitude_longitude">度</string>
+    <string name="label_shidu">％</string>
+    <string name="label_wendu">°C</string>
+    <string name="mhz">Hz</string>
+    <string name="vol">m³</string>
+    <string name="click_line_hard">点击连接设备</string>
+    <string name="sugar_test_plug">伴随状态</string>
+    <string name="input_mark">点击输入备注</string>
+    <string name="mark">备注</string>
+    <string name="connecting">正在连接设备</string>
+    <string name="normal">正常</string>
+    <string name="ci_unit">次</string>
+    <string name="week">周</string>
+    <string name="cache_sycn">缓存同步</string>
+    <string name="check_all">全选</string>
+    <string name="device_name">设备名称</string>
+    <string name="device_addr">设备地址</string>
+    <string name="user_self">自定义方案</string>
+    <string name="new_str">新</string>
+    <string name="add_equip">设备输入</string>
+    <string name="input_handle">手工输入</string>
+
+    <!-- 标题 -->
+    <string name="test_plan">检测计划</string>
+    <string name="test_equip">设备列表</string>
+    <string name="bleupload">蓝牙抄表数据上传</string>
+    <string name="alipay">支付宝支付</string>
+    <string name="wechatpay">微信支付</string>
+    <string name="maplocation">地图定位</string>
+    <string name="queryinfo">信息查询</string>
+    <string name="hisinfo">历史信息查询</string>
+    <string name="errorinfo">故障信息查询</string>
+    <string name="readingtask">任务查询</string>
+
+    <!-- 提示语 -->
+    <string name="toast_label">提示</string>
+    <string name="toast_time_after">时间还没到呢，生活很美好，咱不急！</string>
+    <string name="alarm_def_title">来自隆基宁光的提醒</string>
+    <string name="alarm_content">时间到了快干活</string>
+    <string name="alarm_default_time">1970-01-01 09:00</string>
+
+    <!-- 用户登录 -->
+    <string name="login">用户登录</string>
+    <string name="nameinput_tip">输入用户名</string>
+    <string name="pswinput_tip">输入密码</string>
+    <string name="metertype_tip">选择表类型</string>
+    <string name="forgetpsw">忘记密码？</string>
+    <string name="forgetpsw_title">忘记密码</string>
+    <string name="findpsw">找回密码</string>
+    <string name="check_tip">输入验证码</string>
+    <string name="phoneNumber">86+ 请输入手机号</string>
+    <string name="truelogin">确认登录</string>
+    <string name="get_validation_code">获取验证码</string>
+    <!--<string name="get_validation_code">获取验证码</string>-->
+
+    <!-- 步骤 -->
+    <string name="bluth_open">正在打开蓝牙设备</string>
+    <string name="connect_device">连接设备</string>
+    <string name="get_result">读取数据中</string>
+    <string name="step6">已获取数据</string>
+
+    <!-- 用户管理 -->
+    <string name="manage_user">用户管理</string>
+    <string name="personal_data">个人资料</string>
+    <string name="done">完成</string>
+    <string name="edit">编辑</string>
+    <string name="delete">删除</string>
+    <string name="nick_name">昵称</string>
+    <string name="age">年龄</string>
+    <string name="gender">性别</string>
+    <string name="nothing">无</string>
+    <string name="unlimited">不限</string>
+    <string name="logout">注销登录</string>
+
+    <!-- Toast提醒 -->
+    <!-- 用户 -->
+    <string name="loging_out">正在注销&#8230;</string>
+    <string name="logout_success">注销成功</string>
+    <string name="login_success">登录成功</string>
+    <string name="register_success">注册成功</string>
+    <string name="wrong_format">用户名或密码格式错误</string>
+    <string name="wrong_input">用户名或密码错误</string>
+    <string name="wrong_connection">连接失败，请检查网络</string>
+    <string name="user_notfound">用户不存在</string>
+    <string name="info_illformat">输入的参数有误</string>
+    <string name="modify_psw_success">修改密码成功</string>
+    <string name="modify_success">修改成功</string>
+    <string name="user_unlogin">登录过期，请重新登录</string>
+    <string name="request_error">请求失败，请返回重新操作</string>
+    <string name="server_error">请求失败啦，请稍后重新操作</string>
+    <string name="logout_label">注销</string>
+    <string name="exit_login">退出登录</string>
+    <string name="user_password">密   码：</string>
+
+    <string name="editing_member">正在修改数据&#8230;</string>
+    <string name="get_uinfo">正在获取个人信息&#8230;</string>
+    <string name="get_ulist">正在获取成员列表&#8230;</string>
+    <string name="setting_master">正在设置主成员&#8230;</string>
+    <string name="deleting_user">正在删除成员&#8230;</string>
+    <string name="adding_user">正在添加成员&#8230;</string>
+    <string name="update_ulist_success">更新列表成功</string>
+    <string name="set_master_success">设置主成员成功</string>
+    <string name="add_user_success">添加成员成功</string>
+    <string name="del_user_success">删除成员成功</string>
+
+
+    <!--标签-->
+    <string name="readdata">抄实时数据</string>
+    <string name="zhdl">磊</string>
+    <string name="swichpower">开关阀</string>
+    <string name="recharge">充值</string>
+    <string name="system">设置</string>
+    <string name="electricity_title">电表实时数据</string>
+
+    <!--报警管理-->
+    <string name="alarm_view">报警查看</string>
+    <string name="alarmdetail_view">报警设置明细</string>
+    <string name="alarm_setting">报警设置</string>
+    <string name="now_status">当前状态</string>
+    <string name="video_viewing">视频查看</string>
+    <string name="storage_id">仓库名称</string>
+    <string name="max_value">最高温度</string>
+    <string name="mix_value">最低温度</string>
+    <string name="max_shidu">最高湿度</string>
+    <string name="min_shidu">最低湿度</string>
+    <string name="shidu">当前湿度</string>
+    <string name="wendu">当前温度</string>
+
+    <string name="eat_plan_title">报警及参数管理</string>
+    <string name="parameter_view">参数查看</string>
+    <string name="input_hint">点击输入</string>
+    <string name="slect_hint">点击选择</string>
+
+    <!-- 冷库管理 -->
+    <string name="storage_content">存放内容</string>
+    <string name="storage_add">冷库新增</string>
+    <string name="medicine_num">冷库容积</string>
+    <string name="storage_capacity">冷库容积</string>
+    <string name="administrators">管理员</string>
+    <string name="label_latitude">经度</string>
+    <string name="label_longitude">纬度</string>
+
+    <string name="cubic_metre">m³</string>
+    <string name="medicine_toast">提醒</string>
+    <string name="data_input">项目录入</string>
+    <string name="open">打开</string>
+    <string name="close">关闭</string>
+    <string name="out_date">已过期</string>
+
+    <string name="next_btn">下一项</string>
+
+
+    <!-- 设置 -->
+    <string name="about_us">关于我们</string>
+    <string name="check_update">检测更新</string>
+    <string name="help_us">帮助</string>
+    <string name="report_us">意见反馈</string>
+    <string name="official_news">公告信息</string>
+    <string name="alarm_toast">暂无</string>
+    <string name="normal_question">常见问题</string>
+
+    <!-- 抄读实时数据 -->
+    <string name="read_cur_water_info">抄读气表当前用气信息</string>
+    <string name="read_cur_water_price_info">抄读气表当前价格信息</string>
+    <string name="read_real_time_water_status">抄读气表实时状态</string>
+    <string name="read_cur_gas_info">抄读气表当前用气信息</string>
+    <string name="read_cur_gas_price_info">抄读气表当前价格信息</string>
+    <string name="read_real_time_gas_status">抄读气表实时状态</string>
+    <string name="read_data_in_concentrator">抄读集中器中数据</string>
+    <string name="read_data_in_meter">抄读表中的数据</string>
+    <string name="read_data_freezing_data">抄读日冻结数据</string>
+    <string name="read_data_freezing_month_data">抄读月冻结数据</string>
+    <string name="read_freezing_settlement_data">抄读结算日冻结数据</string>
+
+
+    <!-- 单位 -->
+    <string name="g_unian">克</string>
+    <string name="clock">闹钟</string>
+    <string name="blood_unit">mmol/L</string>
+    <string name="user_name">用户名</string>
+    <string name="middle_user_level">中级用户</string>
+    <string name="start_check">初步：</string>
+    <string name="check_sub">诊断：</string>
+    <string name="check_doctor">诊断人：</string>
+
+    <string name="x">X</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="scan_devices">Scan Devices</string>
+    <string name="stop_device_scan">Stop Device Scan</string>
+    <string name="connect_failed">Connect Failed</string>
+    <string name="bluetooth_manager_initialization_failed">Bluetooth Manager Initialization failed</string>
+    <string name="unable_to_obtain_adapter">Unable to obtain a BluetoothAdapter.</string>
+    <string name="adapter_uninitialized">BluetoothAdapter not initialized</string>
+    <string name="device_unspecified">The device was unspecified</string>
+    <string name="device_not_found">Device not found</string>
+    <string name="no_gatt_info">No GATT information</string>
+    <string name="service_not_found">Service not found</string>
+    <string name="characteristic_not_found">Characteristic not found</string>
+    <string name="descriptor_not_found">Descriptor not found</string>
+    <string name="read_descriptor_failed">Read Descriptor failed</string>
+    <string name="set_notification_failed">Set characteristic notification failed</string>
+    <string name="write_characteristic_failed">Write characteristic failed</string>
+    <string name="disconnected">disconnected</string>
+    <string name="disconnecting">disconnecting</string>
+    <string name="read_characteristic_failed">Read Characteristic failed</string>
+    <string name="login_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="login_go_text">Sign In</string>
+    <string name="create_account_text">Create Account</string>
+    <string name="camera">Camera</string>
+    <string name="manual_measurement">Manual Measurement</string>
+    <string name="capture">Capture</string>
+    <string name="capture_title">Capture</string>
+    <string name="history">History</string>
+    <string name="equipment">Equipment</string>
+    <string name="workorders">Work Orders</string>
+    <string name="help">Help</string>
+    <string name="settings">Settings</string>
+    <string name="username">Username</string>
+    <string name="signout">Sign Out</string>
+    <string name="signout_confirm_message">Are you sure you want to sign out?</string>
+    <string name="service_discovery_error" formatted="false">Failed to discover services for %s, status = %d</string>
+    <string name="retry" formatted="false">Retrying %d</string>
+    <string name="retry_failed">Retry failed</string>
+    <string name="alphabetical">A-Z</string>
+    <string name="equipment_type">Type</string>
+    <string name="equipment_location">Location</string>
+    <string name="equipment_status">Status</string>
+    <string name="thermal_imager">Thermal Imager</string>
+    <string name="assign_equipment">Assign Equipment</string>
+    <string name="assign_work_order">Assign Work Order</string>
+    <string name="note_hint">Add Text Note</string>
+    <string name="voice_note">Voice Note</string>
+    <string name="no_measurement_data">No Data</string>
+    <string name="sort_by">Sort By:</string>
+    <string name="unassigned">Unassigned</string>
+    <string name="login_error">Login Error</string>
+    <string name="registration_error">Registration Error</string>
+    <string name="login_failed">Username or password incorrect, please try again</string>
+    <string name="logging_in">Logging in</string>
+    <string name="registering_mobile_device">Registering your mobile device</string>
+    <string name="connecting_to">Connecting to device</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_voice_note">Add Voice Note</string>
+    <string name="write_descriptor_failed">WriteDescriptor failed</string>
+    <string name="time_sec">seconds</string>
+    <string name="home">home</string>
+    <string name="client_visible">gone</string>
+    <string name="connect">Connect</string>
+    <string name="connected">Connected</string>
+    <string name="connection_timeout">Connection timed out</string>
+    <string name="failed_meas_type">failed to get measurement type for</string>
+    <string name="device_not_registered">device not registered</string>
+    <string name="device_not_captured">device not captured</string>
+    <string name="register_device_not_found">failed to find registered device</string>
+    <string name="bad_status_code">bad status code connecting to device</string>
+    <string name="combine_graphs">Combine Graphs</string>
+    <string name="three_phase_power">Turn on 3-phase monitor</string>
+    <string name="capturing">Capturing</string>
+    <string name="connection_error">Device Connection Error</string>
+    <string name="retrying_connection">Retrying connection</string>
+    <string name="start_recording">Start Recording</string>
+    <string name="stop_recording">Stop Recording</string>
+    <string name="start_playback">Start Playback</string>
+    <string name="stop_playback">Stop Playback</string>
+    <string name="fatal_error">Fatal Error</string>
+    <string name="record">Record</string>
+    <string name="playback">Playback</string>
+    <string name="measurement_data_uploaded">Measurement data uploaded</string>
+    <string name="measurement_upload_failed">Measurement upload failed</string>
+    <string name="status_error">Status code error</string>
+    <string name="loading_equipment_list">Loading Equipment List</string>
+    <string name="loading_measurement_history">Loading Measurement History</string>
+    <string name="no_devices_discovered">No Devices Discovered</string>
+    <string name="bad_measurement_type">Bad Measurement Type</string>
+    <string name="measurement_data_error">Measurement Data Error</string>
+    <string name="uploading_data">Uploading Data</string>
+    <string name="saved">Saved</string>
+    <string name="measurement_date_format">MM/dd/yyyy hh:mm:ss aa</string>
+    <string name="getting_measurement_item">Getting Measurement Item</string>
+    <string name="measurement_history_date_format">yyyy-MM-dd</string>
+    <string name="camera_image">Camera Image</string>
+    <string name="thermal_image">Thermal Image</string>
+    <string name="numeric">123.0</string>
+    <string name="loading_measurement_details">Loading Measurement Details</string>
+    <string name="measurement_data_background">Caching Measurement Data</string>
+    <string name="downloading_data">Downloading Data</string>
+    <string name="title_activity_share_format_chooser">ShareFormatChooserActivity</string>
+    <string name="next">Next</string>
+    <string name="measurement_data">Measurement Data</string>
+    <string name="recorded_data">Recorded Data</string>
+    <string name="thermal_images">Thermal Images</string>
+    <string name="send_email">Send a copy to my email</string>
+    <string name="include_voice_notes">Include voice notes</string>
+    <string name="select_format">Select Format</string>
+    <string name="manual_measurement_value_hint">0.0</string>
+    <string name="manual_measurement_unit_hint">Units</string>
+    <string name="invalid_value_input">Invalid measurement input.</string>
+    <string name="invalid_unit_input">Invalid unit input.  Please select a unit.</string>
+    <string name="registration_user_name">Username</string>
+    <string name="registration_password">Password</string>
+    <string name="registration_confirm_password">Confirm Passowrd</string>
+    <string name="registration_first_name">First Name</string>
+    <string name="registration_last_name">Last Name</string>
+    <string name="registration_email">Email</string>
+    <string name="registration_code">Registration Code</string>
+    <string name="registration_email_me">Email me with product updates and information</string>
+    <string name="registration_wait_message">Completing registration</string>
+    <string name="history_date_format">yyyy-MM-dd HH:mm</string>
+    <string name="rescan_devices">Scan For New Devices</string>
+    <string name="download_error">Download Error</string>
+    <string name="retrying_thermal_imager">Retrying Thermal Imager</string>
+    <string name="error_parsing_is2_data">Error Parsing Thermal Imager Data</string>
+    <string name="registration_success">Registration Completed</string>
+
+    <string name="title_activity_peripheral">Peripheral</string>
+    <string name="title_activity_hrdemo">HRDemoActivity</string>
+
+    <!-- 蓝牙界面-->
+    <string name="devices">BLE Devices</string>
+    <string name="menu_usr">Official Website</string>
+    <string name="share">Share</string>
+    <string name="share_title">Select app to share</string>
+    <string name="share_ex">Can\'t find share component to share</string>
+    <string name="menu_hex_send">HEX Send</string>
+    <string name="menu_asscii_send">ASSCII Send</string>
+    <string name="menu_clear_display">Clear Display</string>
+    <string name="share_text">USRBleAssistent,Let BLE development easier.DownLoad:http://xxx.xxx.xxx</string>
+    <string name="option_fail">Operation failure</string>
+    <string name="alert">Alert</string>
+    <string name="conn_disconnected">连接断开，请返回重新连接</string>
+    <string name="conn_disconnected_home">连接断开，请重新连接</string>
+    <string name="ok">OK</string>
+
+    <string name="connect_fail">Connection failure</string>
+
+    <string name="searching">Searching</string>
+    <string name="search_device_count">Have searched %1$d devices</string>
+
+    <string name="device_ble_fraq">通信频率</string>
+    <string name="command_select">执行操作</string>
+
+    <string name="device_ble_not_supported">设备不支持低功耗蓝牙</string>
+    <string name="pull_down_refresh">Pull down refresh</string>
+    <string name="title_activity_services">Services</string>
+    <string name="title_activity_characteritics">Characteritics</string>
+    <string name="unkonw_service">Unkonw Service</string>
+
+    <string name="gatt_services_read">Read</string>
+    <string name="gatt_services_write">Write</string>
+    <string name="gatt_services_notify">Notify</string>
+    <string name="gatt_services_indicate">Indicate</string>
+
+
+    <!-- Find Me profile elements -->
+    <string name="find_linkloss">Link Loss</string>
+    <string name="find_spinner_prompt">Select</string>
+    <string name="find_immediate_alert">Immediate Alert</string>
+    <string name="find_value_read_toast">Value read from kit: </string>
+    <string name="find_value_written_toast">Written </string>
+    <string name="find_value_success_toast"> successfully </string>
+
+    <!-- Blood pressure profile elements -->
+    <string name="blood_pressure">Blood Pressure</string>
+    <string name="blood_pressure_systolic">SYS</string>
+    <string name="blood_pressure_diastolic">DIA</string>
+    <string name="blood_pressure_start_btn">START</string>
+    <string name="blood_pressure_stop_btn">STOP</string>
+    <string name="blood_pressure_mmHg">mmHg</string>
+    <string name="blood_pressure_kPa"> kPa</string>
+
+    <!-- RSC profile elements -->
+    <string name="rsc_weight">Weight:</string>
+    <string name="rsc_weight_unit">kg</string>
+    <string name="rsc_time">Time:</string>
+    <string name="rsc_graph_title">Average Speed Vs Time</string>
+    <string name="rsc_calories">Calories burnt</string>
+    <string name="rsc_avg_speed">Avg Speed (km/h)</string>
+    <string name="rsc_avg_speed_unit">km/h</string>
+    <string name="rsc_distance_unit">km</string>
+    <string name="rsc_total_distance">Total Distance Ran</string>
+
+    <!-- CSC profile elements -->
+    <string name="csc_cadence">Cadence</string>
+    <string name="csc_cadence_graph">Cadence (rpm)</string>
+    <string name="csc_cadence_unit">rpm</string>
+    <string name="csc_distance_unit">Distance (km)</string>
+    <string name="csc_cadence_graph_title">Cadence Vs Time</string>
+    <string name="csc_cadence_graph_unit">Cadence (rpm)</string>
+    <string name="csc_total_distance">Total Distance Cycled</string>
+    <string name="csc_weight_toast">Enter a valid weight !</string>
+
+    <string name="csc_weight_toast_greater">Warning! The weight entered is greater than 200 kg</string>
+    <string name="csc_weight_toast_zero">Warning! The weight entered is less than 1 kg</string>
+    <string name="csc_weight_toast_empty">Warning!  No value entered in weight field</string>
+
+
+    <!-- Sensorhub profile elements -->
+    <string name="sen_hub">Sensor Hub</string>
+    <string name="sen_hub_locate">Locate Device</string>
+    <string name="sen_hub_locate_stop">Stop Alert</string>
+    <string name="sen_hub_accelerometer">Accelerometer</string>
+    <string name="sen_hub_accelerometer_x">X: </string>
+    <string name="sen_hub_accelerometer_Y">Y: </string>
+    <string name="sen_hub_accelerometer_Z">Z: </string>
+    <string name="sen_hub_temperature">Temperature</string>
+    <string name="sen_hub_temperature_unit">掳C</string>
+    <string name="sen_hub_battery">Battery Level</string>
+    <string name="sen_hub_battery_unit">%</string>
+    <string name="sen_hub_pressure">Pressure</string>
+    <string name="sen_hub_pressure_unit">Kpa</string>
+    <string name="sen_hub_sensor_scan_interval">Sensor Scan Interval</string>
+    <string name="sen_hub_sensor_type">Sensor Type</string>
+    <string name="sen_hub_threshold">Threshold</string>
+
+    <string-array name="findme_immediate_alert_array">
+        <item>No Alert</item>
+        <item>Mid Alert</item>
+        <item>High Alert</item>
+    </string-array>
+    <string-array name="filter_configuration_alert_array">
+        <item>Select Filter Configuration</item>
+        <item>None</item>
+        <item>Average</item>
+        <item>Medium</item>
+        <item>Custom</item>
+    </string-array>
+
+    <string name="send_to">Send to..</string>
+
+    <!-- Battery profile elements -->
+    <string name="battery_stop_notify">Stop Notify</string>
+    <string name="battery_start_notify">Start Notify</string>
+    <string name="battery_read">Read</string>
+
+    <!-- RDK profile elements -->
+    <string name="rdk_emulator_view">Remote Control RDK</string>
+    <string name="rdk_emulator_view_identifier">CY5672</string>
+    <string name="view_trackpad">VIEW TRACK PAD/MOTION SENSOR DATA</string>
+    <string name="view_microphone">VIEW MICROPHONE DATA</string>
+    <string name="volume">VOL</string>
+    <string name="channel">CH</string>
+    <string name="rdk_microphone">MICROPHONE DATA</string>
+    <string name="rdk_motion">TRACK PAD/MOTION SENSOR DATA</string>
+    <string name="property">PROPERTY</string>
+    <string name="format">FORMAT</string>
+    <string name="value">VALUE</string>
+    <string name="motion_x">X</string>
+    <string name="motion_y">Y</string>
+    <string name="motion_zwheel">Z-Wheel</string>
+    <string name="motion_tilt">Tilt</string>
+    <string name="motion_lcd">Left Click Down</string>
+    <string name="motion_lcu">Left Click Up</string>
+    <string name="motion_rcd">Right Click Down</string>
+    <string name="motion_rcu">Right Click Up</string>
+    <string name="motion_keycode">Keycode</string>
+    <string name="motion_default_value">00</string>
+    <string name="motion_clear">CLEAR COUNTERS</string>
+    <string name="motion_clear_data">CLEAR DATA</string>
+    <string name="speech_text">SPEECH TO TEXT</string>
+    <string name="hex">HEX</string>
+    <string name="record_stop">STOP</string>
+    <string name="convert">CONVERT</string>
+    <string name="change_api">CHANGE API KEY</string>
+    <string name="apikey_requirement_text">Please enter your developer API Key
+        for voice to text conversion</string>
+    <string name="volume_up">Volume Up</string>
+    <string name="volume_down">Volume Down</string>
+    <string name="channel_up">Channel Up</string>
+    <string name="channel_down">Channel Down</string>
+    <string name="power_on">On</string>
+    <string name="power_off">Off</string>
+    <string name="source">Source</string>
+
+    <string name="name_comble">蓝牙通信</string>
+    <string name="meter_addr">表地址</string>
+    <string name="meter_charge">充值气量</string>
+    <string name="reading_meter">抄表</string>
+    <string name="command_meter">执行</string>
+    <string name="close_meter">拉闸</string>
+    <string name="open_meter">合闸</string>
+    <string name="set_fraq">设频率</string>
+    <string name="uploaddata">数据上传</string>
+    <string name="freezing_time">冻结时间</string>
+    <string name="gas_consumption_indication">用气量示值</string>
+    <string name="billing_cycle_gas_indication">结算周期气量示值</string>
+    <string name="total_remaining_amount">剩余金额总</string>
+    <string name="local_remaining_amount">剩余金额本地</string>
+    <string name="local_purchase_gas">购气次数本地</string>
+    <string name="remote_remaining_amount">剩余金额远程</string>
+    <string name="remote_purchase_gas">购气次数远程</string>
+
+
+    <string name="app_back">返回</string>
+    <string name="app_ok">确定</string>
+    <string name="app_cancel">取消</string>
+    <string name="app_continue">继续</string>
+    <string name="app_tip">提示</string>
+    <string name="app_send">发送</string>
+    <string name="app_set">设置</string>
+    <string name="app_save">保存</string>
+    <string name="app_delete">删除</string>
+    <string name="app_nextstep">下一步</string>
+    <string name="app_prevstep">上一步</string>
+    <string name="app_finish">完成</string>
+    <string name="app_find">查找</string>
+    <string name="app_edit">编辑</string>
+
+    <!-- applet -->
+    <string name="applet_secimg_title">填写验证码</string>
+    <string name="applet_secimg_change">换一张图片</string>
+    <string name="applet_seccode_tip">验证码不能为空</string>
+    <string name="applet_seccode_fail_tip">验证码错误，请重新输入</string>
+
+    <!-- verify -->
+    <string name="verify_password_null_tip">密码不能为空，请输入密码</string>
+
+    <!-- format -->
+    <string name="fmt_date">M月d日</string>
+    <string name="fmt_longdate">yyyy年M月d日</string>
+    <string name="fmt_datetime" formatted="false">M月d日 %skk:mm</string>
+    <string name="fmt_patime">kk:mm</string>
+    <string name="fmt_longtime" formatted="false">yyyy年M月d日 %skk:mm</string>
+    <string name="fmt_in60min" formatted="false">%d分钟前</string>
+    <string name="fmt_justnow">1分钟内</string>
+    <string name="fmt_dawn">凌晨</string>
+    <string name="fmt_morning">早上</string>
+    <string name="fmt_noon">中午</string>
+    <string name="fmt_afternoon">下午</string>
+    <string name="fmt_evening">晚上</string>
+    <string name="fmt_pre_yesterday">昨天</string>
+    <string name="fmt_iap_err" formatted="false">网络连接不可用，请稍候重试</string>
+
+    <string name="app_share">分享</string>
+
+    <string name="enter">这是SDK_Sample的入口界面</string>
+    <string name="reg">将该app注册到微信</string>
+    <string name="goto_send">跳转到发消息界面</string>
+    <string name="goto_pay">跳转到支付界面</string>
+    <string name="goto_fav">跳转到收藏界面</string>
+    <string name="launch_wx">启动微信</string>
+    <string name="check_timeline_supported">检查是否支持发送到朋友圈</string>
+
+    <string name="send_to_wx_title">发送到微信</string>
+    <string name="get_from_wx_title">从微信接收</string>
+    <string name="show_from_wx_title">显示微信请求的消息</string>
+    <string name="pay_by_wx_title">通过微信支付</string>
+
+    <string name="errcode_success">发送成功</string>
+    <string name="errcode_cancel">发送取消</string>
+    <string name="errcode_deny">发送被拒绝</string>
+    <string name="errcode_unknown">发送返回</string>
+
+    <string name="launch_from_wx">Launch From Weixin</string>
+
+    <!-- WXMediaMessage -->
+    <string name="input_openid">输入openid</string>
+    <string name="input_scope">输入scope</string>
+
+    <string name="send">发送到微信</string>
+    <string name="receive">从微信接收</string>
+
+    <string name="is_timeline">是否分享到朋友圈</string>
+    <string name="send_text">发送文本</string>
+    <string name="send_text_default">这段文字发送自微信SDK示例程序</string>
+
+    <string name="send_img">发送图片</string>
+    <string-array name="send_img_item">
+        <item>发送图片的二进制数据</item>
+        <item>发送图片的本地路径</item>
+        <item>发送图片的URL</item>
+    </string-array>
+    <string name="send_img_file_not_exist">文件不存在</string>
+
+    <string name="send_file">发送文件</string>
+    <string-array name="send_file_item">
+        <item>发送文件的二进制数据</item>
+        <item>发送文件的本地路径</item>
+    </string-array>
+    <string name="send_file_file_not_exist">文件不存在</string>
+
+    <string name="send_pic">发送照片</string>
+
+    <string name="send_music">发送音乐</string>
+    <string-array name="send_music_item">
+        <item>发送音乐url</item>
+        <item>发送低带宽音乐url</item>
+    </string-array>
+
+    <string name="send_video">发送视频</string>
+    <string-array name="send_video_item">
+        <item>发送视频url</item>
+        <item>发送低带宽视频url</item>
+    </string-array>
+
+    <string name="send_webpage">发送网页</string>
+    <string-array name="send_webpage_item">
+        <item>发送网页url</item>
+    </string-array>
+
+    <string name="send_appdata">发送app消息</string>
+    <string-array name="send_appdata_item">
+        <item>发送app文件本地路径</item>
+        <item>发送app二进制数据</item>
+        <item>发送无附件的app</item>
+    </string-array>
+
+    <string name="send_emoji">发送表情消息</string>
+    <string-array name="send_emoji_item">
+        <item>发送表情本地路径</item>
+        <item>发送表情二进制数据</item>
+    </string-array>
+
+    <string-array name="send_emoji_item_format">
+        <item>发送GIF图片</item>
+        <item>发送非GIF图片</item>
+    </string-array>
+
+    <!-- GetFromWXActivity -->
+    <string name="share_text_to_weixin">回应文本到微信</string>
+    <string name="share_text_default">这段文字回应自微信SDK示例程序</string>
+    <string name="share_url_to_weixin">回应URL到微信</string>
+    <string name="share_pic_to_weixin">回应图片到微信</string>
+    <string name="share_music_to_weixin">回应音乐到微信</string>
+    <string name="share_video_to_weixin">回应视频到微信</string>
+    <string name="share_appdata_to_weixin">回应app消息到微信</string>
+
+    <string name="register_as_weixin_app_sender">注册微信事件发送器</string>
+    <string name="get_token_from_weixin">获取微信访问Token</string>
+    <string name="unregister_from_weixin">从微信反注册</string>
+
+    <string name="show_from_wx_tip">这个界面用于显示微信向第三方app请求显示的信息</string>
+
+    <!-- PayActivity -->
+    <string name="pay_by_wx">客户端签名微信支付</string>
+    <string name="pay_by_wxap">服务器端签名微信支付</string>
+    <string name="check_pay">检查微信版本是否支持支付</string>
+    <string name="input_reqkey">输入reqkey</string>
+    <string name="input_package_value">输入package value</string>
+    <string name="input_sign">输入sign</string>
+    <string name="getting_access_token">正在获取access token...</string>
+    <string name="get_access_token_succ">获取access token成功</string>
+    <string name="get_access_token_fail" formatted="false">获取access token失败，原因%s</string>
+    <string name="getting_prepayid">正在获取预支付订单...</string>
+    <string name="paying">支付中</string>
+    <string name="get_prepayid_succ">获取prepayid成功</string>
+    <string name="get_prepayid_fail" formatted="false">获取prepayid失败，原因%s</string>
+
+    <!-- WXPayEntryActivity -->
+    <string name="pay_result_tip">这个界面用于显示第三方app通过微信支付的结果</string>
+    <string name="pay_result_callback_msg" formatted="false">微信支付结果：%s</string>
+
+
+    <string name="title_main">高德定位SDK功能展示</string>
+    <string name="title_battery_saving">低功耗模式功能展示</string>
+    <string name="title_device_sensors">仅设备模式功能展示</string>
+    <string name="title_hight_accuracy">高精度模式功能展示</string>
+    <string name="title_lastLocation">最后位置功能展示</string>
+    <string name="title_geoFenceAlert">地理围栏功能展示</string>
+    <string name="title_assistantLocation">H5辅助定位展示</string>
+    <string name="title_alarmCPU">定时唤起CPU示例</string>
+
+    <string name="battery_saving">低功耗模式</string>
+    <string name="battery_saving_dec">仅使用高德网络定位，耗电量最低</string>
+    <string name="battery_saving_info">低功耗模式</string>
+
+    <string name="device_sensors">仅设备模式</string>
+    <string name="device_sensors_dec">无需网络连接，使用手机GPS模块定位，室外定位精度高，室内定位成功率低，耗电量高</string>
+
+    <string name="hight_accuracy">高精度模式</string>
+    <string name="hight_accuracy_dec">同时使用GPS和高德网络定位，优先返回精度高的定位结果，定位精度高，耗电量低</string>
+
+    <string name="lastLocation">最后位置</string>
+    <string name="lastLocation_dec">获取最后一次定位的位置，此位置是一个历史位置</string>
+
+    <string name="geoFenceAlert">地理围栏</string>
+    <string name="geoFenceAlert_dec">可以设置对进入或离开区域进行提醒</string>
+
+    <string name="assistantLocation">H5辅助定位</string>
+    <string name="assistantLocation_dec">展示H5辅助定位功能</string>
+
+    <string name="alarmCPU">定时唤起cpu</string>
+    <string name="alarmCPU_dec">通过一个闹钟程序后台定时唤起cpu</string>
+
+    <string name="location_contiue">持续定位</string>
+    <string name="location_once">单次定位</string>
+    <string name="interval">定位周期</string>
+    <string name="millsecond">毫秒</string>
+    <string name="needAddress">逆地理编码</string>
+    <string name="cacheAble">开启缓存</string>
+    <string name="gpsFirst">GPS优先</string>
+
+    <string name="alarmInterval">唤醒周期</string>
+    <string name="second">秒</string>
+
+    <string name="startLocation">开始定位</string>
+    <string name="stopLocation">停止定位</string>
+
+
+    <string name="getLastLocation">获取最后位置</string>
+
+    <string name="fenceRadius">围栏半径</string>
+    <string name="meter">米</string>
+    <string name="alertIn">进入提醒</string>
+    <string name="alertOut">离开提醒</string>
+
+    <string name="addFence">添加围栏</string>
+    <string name="removeFence">移除围栏</string>
+
+    <string name="startAssistantLocation">启动H5辅助定位</string>
+    <string name="stopAssistantLocation">停止H5辅助定位</string>
+    <string name="urlLocation">浏览器定位</string>
+    <string name="assistantLocationInfo">辅助定位已经启动，请点击模拟浏览器请求或者在浏览器中输入http://127.0.0.1:43689/进行测试</string>
+
+    <string name="defaultInteval">1000</string>
+
+    <string name="useCache">启用定位缓存</string>
+
+    <string name="animate">Animate</string>
+    <string name="basic_map">基本地图</string>
+    <string name="basic_description">介绍如何创建一个基本地图</string>
+    <string name="base_fragment_map">SupportMapFragment创建地图</string>
+    <string name="base_fragment_description">介绍SupportMapFragment方式创建地图</string>
+    <string name="camera_demo">Camera功能</string>
+    <string name="camera_description">介绍在地图中操作Camera各种功能</string>
+    <string name="heatmap_demo">热力图功能</string>
+    <string name="heatmap_description">介绍在地图中如何绘制热力图</string>
+    <string name="clear_map">Clear</string>
+    <string name="compass">指南针</string>
+    <string name="custom_info_contents">Custom info contents</string>
+    <string name="custom_info_window">Custom info window</string>
+    <string name="default_info_window">Default info window</string>
+    <string name="demo_title">AMaps3D Demos</string>
+    <string name="down_arrow">\u2193</string>
+    <string name="drag_melbourne">Drag Melbourne</string>
+    <string name="events_demo">Events功能</string>
+    <string name="events_description">介绍对地图的点击，长按，拖动地图事件功能</string>
+    <string name="fill_stroke">Fill Stroke</string>
+    <string name="fill_color">Fill Color</string>
+    <string name="go_to_zhongguancun">中关村</string>
+    <string name="go_to_lujiazui">陆家嘴</string>
+    <string name="hybrid">Hybrid</string>
+    <string name="location">正在定位中</string>
+    <string name="gpsfollow">追随</string>
+    <string name="gpslocate">定位</string>
+    <string name="gpsrotate">旋转</string>
+
+    <string-array name="layers_array">
+        <item>@string/normal</item>
+        <item>@string/satellite</item>
+        <item>@string/night_mode</item>
+        <item>@string/navi_mode</item>
+    </string-array>
+
+    <string name="poiclick_demo">地图Poi点击功能</string>
+    <string name="poiclick_description">介绍地图底图poi点击事件和处理</string>
+    <string name="layers_demo">Layers图层功能</string>
+    <string name="layers_description">介绍地图分别以正常、卫星模式展示出</string>
+    <string name="left_arrow">\u2190</string>
+    <string name="locationSensorGPS_demo">gps追随功能</string>
+    <string name="locationSensorGPS_demo_description">介绍如何用gps定位图标箭头随手机转动而转动</string>
+    <string name="locationsource_demo">Location小蓝点功能</string>
+    <string name="locationsource_description">介绍对系统定位显示小蓝点功能</string>
+    <string name="locationmodesource_demo">Location三种模式</string>
+    <string name="locationmodesource_description">介绍定位、追随、选择不同模式使用</string>
+    <string name="locationGPS_demo">gps定位功能</string>
+    <string name="locationGPS_description">介绍如何使用gps定位</string>
+    <string name="locationNetwork_description">介绍如何使用网络定位</string>
+    <string name="locationNetwork_demo">网络定位功能</string>
+    <string name="marker_demo">Markers功能</string>
+    <string name="marker_description">介绍在地图上添加marker和infoWindow</string>
+    <string name="mapOption_demo">AMapOptions实现地图</string>
+    <string name="mapOption_description">介绍用AMapOptions展示一个地图</string>
+    <string name="map_not_ready">SupportMapFragment初始化失败</string>
+    <string name="move_the_camera">移动camera</string>
+    <string name="touch_the_map">地图触摸事件</string>
+    <string name="my_location">My Location</string>
+    <string name="mylocation_layer">我的位置图层</string>
+    <string name="no_demos">No demos</string>
+    <string name="night_mode">Night</string>
+    <string name="navi_mode">Navi</string>
+    <string name="polygon_demo">Polygons功能</string>
+    <string name="polygon_description">介绍在地图绘制多边形</string>
+    <string name="polyline_demo">Polylines功能</string>
+    <string name="polyline_description">介绍在地图中绘制线条</string>
+    <string name="groundoverlay_demo">GroundOverlay功能</string>
+    <string name="groundoverlay_description">介绍在地图中绘制GroundOverlay功能</string>
+    <string name="circle_demo">Circles功能</string>
+    <string name="circle_description">介绍在地图中绘制圆形</string>
+    <string name="navigatearrow_demo">NavigateArrow功能</string>
+    <string name="navigatearrow_description">介绍如何在地图中绘制导航指示箭头功能</string>
+    <string name="arc_demo">Arc功能</string>
+    <string name="arc_description">介绍在地图中绘制弧形</string>
+    <string name="screenshot_demo">地图截屏功能</string>
+    <string name="screenshot_description">介绍对地图进行截屏</string>
+    <string name="properties_polyline">设置Polyline属性</string>
+    <string name="properties_polygon">设置Polygon属性</string>
+    <string name="properties_circle">设置Circle属性</string>
+    <string name="busline_demo">Busline公交查询</string>
+    <string name="busline_description">介绍如何在地图中绘制BusLine</string>
+    <string name="route_demo">Route路径规划</string>
+    <string name="route_description">介绍如何在地图中绘制Route</string>
+    <string name="cloud_demo">云图搜索</string>
+    <string name="cloud_description">介绍云图搜索功能</string>
+    <string name="indoormap_demo">室内地图功能</string>
+    <string name="indoormap_description">室内地图功能展示</string>
+    <string name="rotate">旋转手势</string>
+    <string name="reset_map">Reset</string>
+    <string name="right_arrow">\u2192</string>
+    <string name="satellite">Satellite</string>
+    <string name="scroll">滑动手势</string>
+    <string name="stop_animation">\u25A0</string>
+    <string name="stroke_width">Stroke Width</string>
+    <string name="tap_instructions">点击或者长按地图</string>
+    <string name="terrain">Terrain</string>
+    <string name="tilt">倾斜手势</string>
+    <string name="traffic">Traffic</string>
+    <string name="buildings">Buildings</string>
+    <string name="maptext">MapText</string>
+    <string name="transparency">Transparency</string>
+    <string name="opengl_demo">Opengl接口功能</string>
+    <string name="opengl_description">介绍地图中开放Opengl接口功能</string>
+    <string name="uisettings_demo">UI Settings功能</string>
+    <string name="uisettings_description">介绍地图中UI Settings功能</string>
+    <string name="geocoder_demo">地理编码 功能</string>
+    <string name="geocoder_description">介绍 geocoder地理编码 功能</string>
+    <string name="poikeywordsearch_demo">poi关键字搜索</string>
+    <string name="poikeywordsearch_description">介绍poi关键字搜索功能</string>
+    <string name="poiaroundsearch_demo">poi周边搜索</string>
+    <string name="poiaroundsearch_description">介绍poi周边搜索功能</string>
+    <string name="offlinemap_demo">离线地图功能</string>
+    <string name="offlinemap_description">介绍如何使用离线地图</string>
+    <string name="district_demo">行政区划查询</string>
+    <string name="district_description">政区划查询功能演示</string>
+    <string name="district_boundary_demo">行政区划边界查询</string>
+    <string name="district_boundary_description">政区划查询功能返回边界演示</string>
+    <string name="search_title">搜索关键字</string>
+    <string name="up_arrow">\u2191</string>
+    <string name="width">Width</string>
+    <string name="zoom_position">zoom显示及位置</string>
+    <string name="zoom_buttons">显示</string>
+    <string name="zoom_gestures">缩放手势</string>
+    <string name="zoom_in">+</string>
+    <string name="zoom_out">-</string>
+    <string name="scale">比例尺</string>
+    <string name="buttonScale">获取比例尺</string>
+
+    <!-- offlinemap -->
+    <string name="beijing">"北京"</string>
+    <string name="start">"开始"</string>
+    <string name="pause">"暂停"</string>
+    <string name="stop">"停止"</string>
+    <string name="remove">"删除"</string>
+    <string name="update">"更新"</string>
+    <string name="logo_position">logo位置</string>
+    <string name="bottom_left">左下</string>
+    <string name="bottom_center">底部居中</string>
+    <string name="bottom_right">右下</string>
+    <string name="center_right">右中</string>
+    <string name="map_screenshot">地图截屏</string>
+    <string name="error_network">搜索失败,请检查网络连接！</string>
+    <string name="error_key">key验证无效！</string>
+    <string name="error_other">未知错误，请稍后重试!错误码为</string>
+    <string name="no_result">对不起，没有搜索到相关数据！</string>
+    <string name="province">省</string>
+    <string name="city">市</string>
+    <string name="district">区/县</string>
+    <string name="all_offline">所有城市</string>
+    <string name="download_offline">下载管理</string>
+    <string name="city_name">城市名称</string>
+    <string name="city_size">城市大小</string>
+    <string name="download_progress">0%</string>
+    <string name="my_city">当前城市</string>
+    <string name="sso_complete">完成</string>
+    <string name="share_demo">短串分享</string>
+    <string name="share_description">短串分享功能演示</string>
+    <string name="weather_demo">天气查询</string>
+    <string name="weather_description">天气预报功能</string>
+    <string name="subpoi_demo">POI父子关系</string>
+    <string name="subpoi_description">介绍POI的父子关系功能</string>
+    <string name="weather_live">实时</string>
+    <string name="weather_forecast">预报</string>
+    <string name="report_time">发布时间</string>
+    <string name="location_share">位置分享</string>
+    <string name="route_share">路径规划分享</string>
+    <string name="poi_share">POI分享</string>
+    <string name="navi_share">导航分享</string>
+    <string name="osm_map">OSM地图</string>
+    <string name="abroad_demo">国内外地图切换</string>
+    <string name="osm_description">介绍如何替换高德底图,显示诸如osm之类的底图</string>
+    <string name="abroad_description">实现国内国外地图无缝切换</string>
+    <string name="sydney">悉尼</string>
+    <!-- 管理员  -->
+    <string name="adminster_login_str">管理员登陆</string>
+    <string name="new_user_register">新用户注册</string>
+    <string name="mobile_phone_registration">手机号注册</string>
+    <string name="input_validation_code">请输入验证码</string>
+
+    //用户类型
+    <string-array name="user_type">
+        <item>请选择用户类型</item>
+        <item>水表(Lora)</item>
+        <item>水表(Nbiot)</item>
+        <item>电表</item>
+        <item>气表</item>
+        <item>热表</item>
+    </string-array>
+
+    //
+    <string-array name="test_activity">
+        <item>请选择页面</item>
+        <item>水表页面</item>
+        <item>电表页面</item>
+        <item>气表页面</item>
+        <item>热表页面</item>
+    </string-array>
+
+    <string name="user_warn1">账号不能为空</string>
+    <string name="user_warn2">账号未匹配</string>
+    <string name="pwd_warn1">密码不能为空</string>
+    <string name="pwd_warn2">密码未匹配</string>
+    <string name="title_activity_t">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string-array name="list_preference_entries">
+        <item>Entry 1</item>
+        <item>Entry 2</item>
+        <item>Entry 3</item>
+    </string-array>
+
+    <string-array name="list_preference_entry_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="multi_select_list_preference_default_value" />
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+</resources>
