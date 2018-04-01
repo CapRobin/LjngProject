@@ -21,7 +21,6 @@ import android.widget.Toast;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.zfg.org.myexample.MainActivity;
 import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.RemoteControlActivity;
 import com.zfg.org.myexample.SystemAPI;

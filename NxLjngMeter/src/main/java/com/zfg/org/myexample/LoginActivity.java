@@ -1,7 +1,6 @@
 package com.zfg.org.myexample;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,6 +29,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.zfg.org.myexample.SoftKeyBoardSatusView.SoftkeyBoardListener;
 import com.zfg.org.myexample.activity.BasicActivity;
 import com.zfg.org.myexample.activity.DialogLoading;
+import com.zfg.org.myexample.activity.MainActivity;
 import com.zfg.org.myexample.db.MeterInfoBo;
 import com.zfg.org.myexample.db.UserBo;
 import com.zfg.org.myexample.db.UserInfoBo;
@@ -39,7 +39,6 @@ import com.zfg.org.myexample.service.DefSetService;
 import com.zfg.org.myexample.utils.CheckUtil;
 import com.zfg.org.myexample.utils.Config;
 import com.zfg.org.myexample.utils.ContantsUtil;
-import com.zfg.org.myexample.utils.HttpContants;
 import com.zfg.org.myexample.utils.HttpServiceUtil;
 import com.zfg.org.myexample.utils.HttpServiceUtil.CallBack;
 import com.zfg.org.myexample.utils.Preference;

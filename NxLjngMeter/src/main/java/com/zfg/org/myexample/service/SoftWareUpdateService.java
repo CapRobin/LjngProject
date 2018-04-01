@@ -12,7 +12,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 
-import com.zfg.org.myexample.MainActivity;
+import com.zfg.org.myexample.activity.MainActivity;
 import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.utils.Preference;
 

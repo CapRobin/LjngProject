@@ -1,6 +1,7 @@
 package com.zfg.org.myexample.adapter;
 
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 
@@ -35,9 +36,18 @@ public class ReadDataAdapter  extends MBaseAdapter {
         ViewHolder holder =  (ViewHolder) convertView.getTag();
         ReadDataItemModel dto = (ReadDataItemModel) itemObject;
 
-        holder.dataname.setText(dto.getDataname());
+        if(dto.getDataname().trim().equals("正向有功") || dto.getDataname().trim().equals("反向有功")){
+            holder.dataname.setTextColor(context.getResources().getColor(R.color.selector_bg_normal));
+            holder.dataname.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+            holder.datadata.setTextColor(context.getResources().getColor(R.color.selector_bg_normal));
+            holder.datadata.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+            holder.dataunit.setTextColor(context.getResources().getColor(R.color.selector_bg_normal));
+            holder.datadata.setTextSize(17);
+            holder.datadata.setTextSize(TypedValue.COMPLEX_UNIT_SP,17);
+        }
+        holder.dataname.setText(dto.getDataname()+"：");
         holder.datadata.setText(dto.getDatadata());
-        holder.dataunit.setText(dto.getDataunit());
+        holder.dataunit.setText("单位："+dto.getDataunit());
     }
 
     class ViewHolder{

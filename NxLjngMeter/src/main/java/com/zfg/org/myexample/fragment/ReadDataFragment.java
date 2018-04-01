@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -19,14 +18,12 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.zfg.org.myexample.MainActivity;
 import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.RemoteControlActivity;
 import com.zfg.org.myexample.SystemAPI;
 import com.zfg.org.myexample.ViewInject;
 import com.zfg.org.myexample.activity.BaseFragment;
 import com.zfg.org.myexample.activity.DialogLoading;
-import com.zfg.org.myexample.dto.readmeterModel;
 import com.zfg.org.myexample.utils.CheckUtil;
 import com.zfg.org.myexample.utils.HttpServiceUtil;
 import com.zfg.org.myexample.utils.HttpServiceUtil.CallBack;

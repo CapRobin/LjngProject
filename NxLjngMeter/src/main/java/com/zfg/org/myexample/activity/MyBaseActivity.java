@@ -1,13 +1,9 @@
 package com.zfg.org.myexample.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.zfg.org.myexample.MainActivity;
 import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.SystemAPI;
 import com.zfg.org.myexample.adapter.ReadDataAdapter;
@@ -19,7 +15,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,8 +22,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class MyBaseActivity extends BasicActivity {
 
@@ -51,6 +44,8 @@ public class MyBaseActivity extends BasicActivity {
 
 
         listdata = new ArrayList<ReadDataItemModel>();
+        listadapter = new ReadDataAdapter(context,listdata);
+//        getDataList_db.setAdapter(listadapter);
 
         initCallBack();
     }
@@ -78,23 +73,20 @@ public class MyBaseActivity extends BasicActivity {
      * Date：2018-03-31 09:36:42
      */
     
-    public void loadData(String meteraddr) {
+    public void loadData(String meteraddr,String tempJson) {
         searchTime =  df.format(new Date());
         try {
             JSONObject jsobj = new JSONObject();
             //临时使用
-//            //----------------->>
-//            meteraddr = "201700000001";
-//            String filename = "electricity.txt";
-//            String resultJson = tempJson(filename);
-//            //----------------->>
+            meteraddr = "201700000001";
+
             jsobj.put("meterAddr", meteraddr);
             jsobj.put("dataType", dataType);
             jsobj.put("varType", varType);
             jsobj.put("searchTime",searchTime);
-//            jsobj.put("resultJson",resultJson);
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("ngMeter", jsobj.toString());
+            map.put("tempJson", tempJson);
             loading = new DialogLoading(this);
             loading.show();
             setDialogLabel("开始抄表请等待...");
@@ -110,6 +102,7 @@ public class MyBaseActivity extends BasicActivity {
     }
 
     private void initCallBack() {
+        listdata.clear();
         dataCallback = new HttpServiceUtil.CallBack() {
             @Override
             public void callback(String json) {
@@ -129,8 +122,8 @@ public class MyBaseActivity extends BasicActivity {
                                 dto.of(pages.getJSONArray(i));
                                 listdata.add(dto);
                             }
+                            listadapter.notifyDataSetChanged();
                             mElectricityContent.setViewData();
-//                            listadapter.notifyDataSetChanged();
                         } else {
                             Toast.makeText(context,"数据返回错误，请重新操作",Toast.LENGTH_SHORT).show();
                         }
@@ -167,6 +160,21 @@ public class MyBaseActivity extends BasicActivity {
             loading = new DialogLoading(context);
         }
         loading.setDialogLabel(label);
+    }
+
+    public String tempJson(String fileName){
+//		String fileName = "user.java"; // 文件名字
+		String getString = "";
+		try {
+			InputStream in = getResources().getAssets().open(fileName);
+			int length = in.available();
+			byte[] buffer = new byte[length];
+			in.read(buffer);
+			getString = EncodingUtils.getString(buffer, "UTF-8");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return getString;
     }
 
 }

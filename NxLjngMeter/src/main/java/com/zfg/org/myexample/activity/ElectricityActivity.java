@@ -7,6 +7,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -25,40 +27,33 @@ import com.zfg.org.myexample.ViewInject;
 import com.zfg.org.myexample.adapter.MyLocationAdapter;
 import com.zfg.org.myexample.adapter.MyLocationAdapter2;
 import com.zfg.org.myexample.adapter.NoScrollGridView;
-import com.zfg.org.myexample.adapter.ReadDataAdapter;
 import com.zfg.org.myexample.db.MeterInfoBo;
 import com.zfg.org.myexample.db.dao.MeterInfo;
 import com.zfg.org.myexample.dto.MeterInfoCheckModel;
 import com.zfg.org.myexample.entity.RequestInfo;
-import com.zfg.org.myexample.model.ReadDataItemModel;
 import com.zfg.org.myexample.utils.CheckUtil;
 import com.zfg.org.myexample.utils.CommonUtil;
-import com.zfg.org.myexample.utils.HttpServiceUtil;
+import com.zfg.org.myexample.utils.Preference;
 
-import org.apache.http.util.EncodingUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Copyright © 2018 LJNG All rights reserved.
- *
+ * <p>
  * Name：ElectricityActivity
  * Describe：电表数据查询
  * Date：2018-03-30 13:33:20
  * Author: CapRobin@yeah.net
- *
  */
 public class ElectricityActivity extends MyBaseActivity {
+    private Preference preference;
     @ViewInject(id = R.id.cbxmAllView)
     private LinearLayout cbxmAllView;
     @ViewInject(id = R.id.cxbhAllView)
     private LinearLayout cxbhAllView;
+//    @ViewInject(id = R.id.mAllView)
+//    private LinearLayout mAllView;
     @ViewInject(id = R.id.cbxmEdit)
     private EditText cbxmEdit;
     @ViewInject(id = R.id.cxbhEdit)
@@ -66,7 +61,7 @@ public class ElectricityActivity extends MyBaseActivity {
     @ViewInject(id = R.id.cbxmHideInnerView)
     private NoScrollGridView cbxmHideInnerView;
     @ViewInject(id = R.id.cxbhInnerView)
-    private NoScrollGridView cxbhInnerView;
+    private ListView cxbhInnerView;
     @ViewInject(id = R.id.startSearch)
     private Button startSearch;
     @ViewInject(id = R.id.backHome)
@@ -79,27 +74,32 @@ public class ElectricityActivity extends MyBaseActivity {
     private ImageView searchNum;
     @ViewInject(id = R.id.getDataList_db)
     private ListView getDataList_db;
-
+    @ViewInject(id = R.id.settingView)
+    private LinearLayout settingView;
 
     private List<String> showListData1;
     private List<MeterInfoCheckModel> showListData2;
-//    private List<MeterInfoCheckModel> showListData23;
     private static String dbCheckItemType[] = null;
     private List<MeterInfo> meterinfos;
-    public List<MeterInfoCheckModel> tempList;
     private List<RequestInfo> mInfoList;
-
+    private LinearLayout.LayoutParams params1;
+    private LinearLayout.LayoutParams params2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_electricity);
         mElectricityContent = this;
+        preference = Preference.instance(this);
         showListData2 = new ArrayList<MeterInfoCheckModel>();
         dbCheckItemType = getResources().getStringArray(R.array.dbCheckItemType);
+        //设置ListView线条的颜色
+        getDataList_db.setDivider(new ColorDrawable(Color.GRAY));
+        getDataList_db.setDividerHeight(1);
+        settingView.setVisibility(View.VISIBLE);
+        getDataList_db.setVisibility(View.GONE);
         //加载数据
         setData();
-
         pageType.setText("电表数据");
         backHome.setOnClickListener(this);
         settingBtn.setOnClickListener(this);
@@ -108,9 +108,8 @@ public class ElectricityActivity extends MyBaseActivity {
         searchNum.setOnClickListener(this);
         startSearch.setOnClickListener(this);
 
-        initCallBack();
-
-
+        params1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
+        params2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, TypedValue.COMPLEX_UNIT_DIP,350);
     }
 
     @Override
@@ -120,7 +119,20 @@ public class ElectricityActivity extends MyBaseActivity {
                 finish();
                 break;
             case R.id.settingBtn:
-                Toast.makeText(ElectricityActivity.this, "设置", Toast.LENGTH_SHORT).show();
+
+                popViewisShow(3);
+//
+//                if (View.GONE == settingView.getVisibility()) {
+//                    settingView.setVisibility(View.VISIBLE);
+//                    getDataList_db.setVisibility(View.GONE);
+//                } else {
+//                    if (getDataList_db.getCount() > 0) {
+//                        settingView.setVisibility(View.GONE);
+//                        getDataList_db.setVisibility(View.VISIBLE);
+//                    } else {
+//                        setToast("请设置相关查询条件，进行抄表！");
+//                    }
+//                }
                 break;
             case R.id.cbxmEdit:
                 closeInputMethod();
@@ -128,13 +140,17 @@ public class ElectricityActivity extends MyBaseActivity {
                 break;
             case R.id.cxbhEdit:
                 if (View.GONE != cxbhAllView.findViewById(R.id.cxbhHideView).getVisibility()) {
-                    animateCollapsing(cxbhAllView.findViewById(R.id.cxbhHideView));
+                    animateClose(cxbhAllView.findViewById(R.id.cxbhHideView));
                 }
                 break;
             case R.id.searchNum:
-                cxbhEdit.setText("");
-                closeInputMethod();
-                popViewisShow(2);
+                if(!cbxmEdit.getText().equals("")){
+                    cxbhEdit.setText("");
+                    closeInputMethod();
+                    popViewisShow(2);
+                }else {
+                    setToast("请先选择抄表项目！");
+                }
                 break;
             case R.id.startSearch:
                 if (CheckUtil.isNull(cbxmEdit.getText())) {
@@ -145,72 +161,46 @@ public class ElectricityActivity extends MyBaseActivity {
                     Toast.makeText(context, "请输入查询表号！", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                //清楚刷新List数据
+                //清除刷新List数据
                 //clearData();
 
+                //获取本地Json字符串(临时使用)
+                String filename = "electricity.txt";
+                String resultJson = tempJson(filename);
+
                 //开始加载数据
-                loadData(CommonUtil.AddZeros(cxbhEdit.getText().toString()));
+                loadData(CommonUtil.AddZeros(cxbhEdit.getText().toString()), resultJson);
                 break;
         }
     }
-    protected void setViewData(){
-        listadapter = new ReadDataAdapter(context,listdata);
-//      列表适配器绑定
-        getDataList_db.setAdapter(listadapter);
-        getDataList_db.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                if (!scaning) {
-//                    loading.show();
-//                    connectDevice(data.get(position).getDevice());
+
+    /**
+     * Describe：网络返回数据后回调
+     * Params:
+     * Date：2018-04-01 20:29:17
+     */
+    protected void setViewData() {
+//        listadapter.notifyDataSetChanged();
+        if (listdata != null || listdata.size() > 0) {
+//            settingView.setVisibility(View.GONE);
+            animateClose(settingView);
+            getDataList_db.setVisibility(View.VISIBLE);
+
+            getDataList_db.setAdapter(listadapter);
+            listadapter.notifyDataSetChanged();
+            getDataList_db.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+                    setToast("没有其他数据啦");
+
 //                }
-            }
-        });
-        listadapter.notifyDataSetChanged();
-    }
-
-
-
-
-
-
-
-
-
-
-    private void initCallBack() {
-        dataCallback = new HttpServiceUtil.CallBack() {
-            @Override
-            public void callback(String json) {
-                setDialogLabel("抄表完成");
-                loading.dismiss();
-                // 解析json
-                if (json.length() > 3) {
-                    try {
-
-                        JSONObject jsonObject = new JSONObject(json);
-                        String jStatus = jsonObject.getString("strBackFlag");
-                        if (jStatus.equals("1")) {
-                            //解析简单数组
-                            JSONArray pages = jsonObject.getJSONArray("dataList");
-                            for (int i = 0; i < pages.length(); i++) {
-                                ReadDataItemModel dto = new ReadDataItemModel();
-                                dto.of(pages.getJSONArray(i));
-//                                listdata.add(dto);
-                            }
-//                            listadapter.notifyDataSetChanged();
-                        } else {
-                            Toast.makeText(context,"数据返回错误，请重新操作",Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-
                 }
-            }
-        };
+            });
+        } else {
+            //此处提示用户查询数据失败
+            setToast("获取数据失败，请重新尝试！");
+        }
     }
 
     /**
@@ -219,34 +209,24 @@ public class ElectricityActivity extends MyBaseActivity {
      * Date：2018-03-30 12:00:22
      */
     private void setData() {
-
-
         showListData1 = new ArrayList<String>();
-//        showListData23 = new ArrayList<MeterInfoCheckModel>();
 
         //加载第一个列表数据
         for (int i = 0; i < dbCheckItemType.length; i++) {
             showListData1.add(dbCheckItemType[i].toString());
         }
 
-        //加载第二个列表数据
-        //从数据库获取数据并组装成List
+        //加载第二个列表数据(从数据库获取数据并组装成List)
         MeterInfoBo meterbo = new MeterInfoBo(context);
         meterinfos = meterbo.listAllData();
-        for (int i=0;i<meterinfos.size();i++){
+        for (int i = 0; i < meterinfos.size(); i++) {
             if (meterinfos.get(i).getComm_address().toString().length() > 6) {
                 MeterInfoCheckModel model = new MeterInfoCheckModel(String.valueOf(i), meterinfos.get(i).getComm_address(), meterinfos.get(i).getMetertype(), false);
                 showListData2.add(model);
             }
         }
-//        for (int i = 0; i < data.size(); i++) {
-//            showListData23.add(meterinfos.get(i).getMetertype().toString()+"："+data.get(i).value.toString());
-//        }
-
         showView1(showListData1);
         showView2(showListData2);
-        tempList = showListData2;
-
     }
 
     /**
@@ -255,38 +235,41 @@ public class ElectricityActivity extends MyBaseActivity {
      * Date：2018-03-30 12:00:40
      */
     public void showView1(List<String> list) {
-
         MyLocationAdapter locationAdapter = new MyLocationAdapter(this, list);
         //设置ListView线条的颜色
         cbxmHideInnerView.setDivider(new ColorDrawable(Color.GRAY));
         cbxmHideInnerView.setDividerHeight(1);
-
         cbxmHideInnerView.setAdapter(locationAdapter);
         cbxmHideInnerView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 String checkType = showListData1.get(position);
                 cbxmEdit.setText(checkType);
                 popViewisShow(1);
-//                popViewisShow(2);
-                cxbhEdit.setFocusable(true);
-                cxbhEdit.requestFocus();
-                cxbhEdit.performClick();
-                switch (position){
+
+                if(TextUtils.isEmpty(cxbhEdit.getText())){
+                    popViewisShow(2);
+                    //模拟点击事件
+//                    searchNum.performClick();
+                }else {
+//                    cxbhEdit.setFocusable(true);
+                    cxbhEdit.requestFocus();
+
+                switch (position) {
                     case 0:
-                        setRequestInfo(checkType,0,1);
+                        setRequestInfo(checkType, 0, 1);
                         break;
                     case 1:
-                        setRequestInfo(checkType,1,0);
+                        setRequestInfo(checkType, 1, 0);
                         break;
                     case 2:
-                        setRequestInfo(checkType,2,0);
+                        setRequestInfo(checkType, 2, 0);
                         break;
                     default:
-                        Toast.makeText(context,"请重新选择",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "请重新选择", Toast.LENGTH_SHORT).show();
                         break;
+                }
                 }
             }
         });
@@ -298,7 +281,6 @@ public class ElectricityActivity extends MyBaseActivity {
      * Date：2018-03-30 12:00:40
      */
     public void showView2(List<MeterInfoCheckModel> list) {
-
         MyLocationAdapter2 locationAdapter = new MyLocationAdapter2(this, list);
         //设置ListView线条的颜色
         cxbhInnerView.setDivider(new ColorDrawable(Color.GRAY));
@@ -308,8 +290,7 @@ public class ElectricityActivity extends MyBaseActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                String  temStr = tempList.get(position).value;
+                String temStr = showListData2.get(position).value;
                 cxbhEdit.setText(temStr);
                 popViewisShow(2);
             }
@@ -326,19 +307,114 @@ public class ElectricityActivity extends MyBaseActivity {
         switch (id) {
             case 1:
                 if (View.GONE == cbxmAllView.findViewById(R.id.cbxmHideView).getVisibility()) {
-                    animateExpanding(cbxmAllView.findViewById(R.id.cbxmHideView));
+                    //关闭第二个View
+                    animateClose(cxbhAllView.findViewById(R.id.cxbhHideView));
+                    //打开第一个View
+                    animateOpen(cbxmAllView.findViewById(R.id.cbxmHideView));
                 } else {
-                    animateCollapsing(cbxmAllView.findViewById(R.id.cbxmHideView));
+                    //关闭第一个View
+                    animateClose(cbxmAllView.findViewById(R.id.cbxmHideView));
                 }
                 break;
             case 2:
                 if (View.GONE == cxbhAllView.findViewById(R.id.cxbhHideView).getVisibility()) {
-                    animateExpanding(cxbhAllView.findViewById(R.id.cxbhHideView));
+                    //关闭第一个View
+                    animateClose(cbxmAllView.findViewById(R.id.cbxmHideView));
+                    //打开第二个View
+
+                    cxbhAllView.setLayoutParams(params2);
+                    animateOpen2(cxbhAllView.findViewById(R.id.cxbhHideView));
                 } else {
-                    animateCollapsing(cxbhAllView.findViewById(R.id.cxbhHideView));
+                    //关闭第二个View
+                    animateClose(cxbhAllView.findViewById(R.id.cxbhHideView));
                 }
                 break;
+            case 3:
+                if (View.GONE == settingView.getVisibility()) {
+                    animateClose(getDataList_db);
+                    //打开View
+                    animateOpen(settingView);
+                } else {
+                    if (getDataList_db.getCount() > 0) {
+                        animateClose(settingView);
+                        getDataList_db.setLayoutParams(params1);
+                        setViewData();
+                        animateOpen(getDataList_db);
+                    } else {
+                        setToast("请设置相关查询条件，进行抄表！");
+                    }
+                }
+
+
+//                //关闭第二个View
+//                if (getDataList_db.getCount() > 0) {
+//                    getDataList_db.setVisibility(View.GONE);
+//                    animateClose(settingView);
+//                } else {
+//                    setToast("请设置相关查询条件，进行抄表！");
+//                }
+//                if (View.GONE == settingView.getVisibility()) {
+//                    settingView.setVisibility(View.VISIBLE);
+//                    getDataList_db.setVisibility(View.GONE);
+//                } else {
+//                    if (getDataList_db.getCount() > 0) {
+//                        settingView.setVisibility(View.GONE);
+//                        getDataList_db.setVisibility(View.VISIBLE);
+//                    } else {
+//                        setToast("请设置相关查询条件，进行抄表！");
+//                    }
+//                }
+
+
+                break;
         }
+    }
+
+    /**
+     * Describe：打开视图
+     * Params:
+     * Date：2018-03-30 13:26:31
+     */
+    public static void animateOpen(final View view) {
+        view.setVisibility(View.VISIBLE);
+
+        final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        final int heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        view.measure(widthSpec, heightSpec);
+
+        ValueAnimator animator = createHeightAnimator(view, 0, view.getMeasuredHeight());
+        animator.start();
+    }
+
+    public static void animateOpen2(final View view) {
+        view.setVisibility(View.VISIBLE);
+
+        final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        final int heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        view.measure(widthSpec, heightSpec);
+
+        ValueAnimator animator = createHeightAnimator(view, 0, 500);
+        animator.start();
+    }
+
+    /**
+     * Describe：隐藏视图
+     * Params:
+     * Date：2018-03-30 13:28:12
+     */
+
+    public static void animateClose(final View view) {
+        int origHeight = view.getHeight();
+
+        ValueAnimator animator = createHeightAnimator(view, origHeight, 0);
+        animator.addListener(new AnimatorListenerAdapter() {
+            public void onAnimationEnd(Animator animation) {
+                view.setVisibility(View.GONE);
+            }
+
+            ;
+        });
+        animator.start();
     }
 
     public static ValueAnimator createHeightAnimator(final View view, int start, int end) {
@@ -359,42 +435,6 @@ public class ElectricityActivity extends MyBaseActivity {
     }
 
     /**
-     * Describe：打开视图
-     * Params:
-     * Date：2018-03-30 13:26:31
-     */
-    public static void animateExpanding(final View view) {
-        view.setVisibility(View.VISIBLE);
-
-        final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        final int heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        view.measure(widthSpec, heightSpec);
-
-        ValueAnimator animator = createHeightAnimator(view, 0, view.getMeasuredHeight());
-        animator.start();
-    }
-
-    /**
-     * Describe：隐藏视图
-     * Params:
-     * Date：2018-03-30 13:28:12
-     */
-
-    public static void animateCollapsing(final View view) {
-        int origHeight = view.getHeight();
-
-        ValueAnimator animator = createHeightAnimator(view, origHeight, 0);
-        animator.addListener(new AnimatorListenerAdapter() {
-            public void onAnimationEnd(Animator animation) {
-                view.setVisibility(View.GONE);
-            }
-
-            ;
-        });
-        animator.start();
-    }
-
-    /**
      * @Describe：关闭输入法
      * @Throws:
      * @Date：2014年8月20日 上午11:58:30
@@ -403,11 +443,9 @@ public class ElectricityActivity extends MyBaseActivity {
     private void closeInputMethod() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         boolean isOpen = imm.isActive();
-
         // isOpen若返回true，则表示输入法打开
         if (isOpen) {
             imm.hideSoftInputFromWindow(ElectricityActivity.this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
-
     }
 }

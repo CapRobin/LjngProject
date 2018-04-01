@@ -10,11 +10,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.zfg.org.myexample.ComBleActivity;
-import com.zfg.org.myexample.MainActivity;
+import com.zfg.org.myexample.activity.MainActivity;
 import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.dialog.adapter.CheckAdapter;
 import com.zfg.org.myexample.dto.CheckModel;
-import com.zfg.org.myexample.utils.Preference;
 
 import java.util.ArrayList;
 import java.util.List;

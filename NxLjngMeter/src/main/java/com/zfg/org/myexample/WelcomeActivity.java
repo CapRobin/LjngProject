@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 
 import com.zfg.org.myexample.activity.BasicActivity;
+import com.zfg.org.myexample.activity.MainActivity;
 import com.zfg.org.myexample.utils.Preference;
 
 /**

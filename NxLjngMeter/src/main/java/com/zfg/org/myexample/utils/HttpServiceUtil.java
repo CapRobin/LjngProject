@@ -275,6 +275,10 @@ public class HttpServiceUtil {
                     rs = get(url, params);
                 }
                 String result = "".equals(rs) ? "{status:\"0\",message:\"访问出错，请检查网络连接\"}" : rs;
+
+                if (params.get("tempJson") != null){
+                    result = (String) params.get("tempJson");
+                }
                 final String content = result;
                 ThreadUtil.handler.postDelayed(new Runnable() {
                     @Override

@@ -1,4 +1,4 @@
-package com.zfg.org.myexample;
+package com.zfg.org.myexample.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,16 +17,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.zfg.org.myexample.activity.DemoActivity;
-import com.zfg.org.myexample.activity.ElectricityActivity1;
-import com.zfg.org.myexample.activity.BasicActivity;
+import com.zfg.org.myexample.BleActivity;
+import com.zfg.org.myexample.HisInfoActivity;
+import com.zfg.org.myexample.LoginActivity;
+import com.zfg.org.myexample.PlanActivity;
+import com.zfg.org.myexample.R;
+import com.zfg.org.myexample.ReadingTaskActivity;
+import com.zfg.org.myexample.RechargeActivity;
+import com.zfg.org.myexample.RemoteControlWaterActivity;
+import com.zfg.org.myexample.SettingActivity;
+import com.zfg.org.myexample.SwichPowerActivity;
+import com.zfg.org.myexample.UploadExceptionActivity;
+import com.zfg.org.myexample.ViewInject;
 //import com.zfg.org.myexample.ble1.PeripheralActivity;
 //import com.zfg.org.myexample.ble1.ScanningActivity;
 //import com.zfg.org.myexample.db.dao.UserInfo;
-import com.zfg.org.myexample.activity.GasMeterActivity;
-import com.zfg.org.myexample.activity.HeatMeterActivity;
-import com.zfg.org.myexample.activity.ElectricityActivity;
-import com.zfg.org.myexample.activity.WaterMeterActivity;
 import com.zfg.org.myexample.db.dao.UserInfo;
 import com.zfg.org.myexample.dialog.AlertDialogZfg;
 //import com.zfg.org.myexample.pay.weipay.PayActivity;

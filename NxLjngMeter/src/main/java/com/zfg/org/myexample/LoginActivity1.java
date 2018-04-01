@@ -26,6 +26,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.zfg.org.myexample.SoftKeyBoardSatusView.SoftkeyBoardListener;
 import com.zfg.org.myexample.activity.BasicActivity;
 import com.zfg.org.myexample.activity.DialogLoading;
+import com.zfg.org.myexample.activity.MainActivity;
 import com.zfg.org.myexample.db.MeterInfoBo;
 import com.zfg.org.myexample.db.UserBo;
 import com.zfg.org.myexample.db.UserInfoBo;
