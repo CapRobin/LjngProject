@@ -225,6 +225,7 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                         //ContantsUtil.setHOst( "http://192.168.0.46:8046/lggmr");
                         nameEditText.setText("wangtong");
                         pswEditText.setText("123456");
+                        userType = 1;
                         break;
                     //水表用户Nbiot
                     case 2:
@@ -232,6 +233,7 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                         //暂无内网地址
                         nameEditText.setText("lgg_nbiot");
                         pswEditText.setText("123456");
+                        userType = 1;
                         break;
                     //选择电表用户
                     case 3:
@@ -245,6 +247,7 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                         //ContantsUtil.setHOst("http://192.168.2.157:80/lggmr");
                         nameEditText.setText("lgg_nbiot");
                         pswEditText.setText("123456");
+                        userType = 2;
                         break;
                     //选择气表用户(暂时跟Lora水表地址一样)
                     case 4:
@@ -252,16 +255,17 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                         //ContantsUtil.setHOst( "http://192.168.0.46:8046/lggmr");
                         nameEditText.setText("wangtong");
                         pswEditText.setText("123456");
+                        userType = 3;
                         break;
                     //选择热表用户
                     case 5:
                         Toast.makeText(context,"该用户角色暂无数据",Toast.LENGTH_SHORT).show();
+                        userType = 4;
                         break;
                     default:
                         userType = 0;
                         break;
                 }
-                userType = i;
                 //本地存储用户类型
                 preference.putInt(Preference.USERTYPE, userType);
             }

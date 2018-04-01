@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -52,7 +51,7 @@ public class ElectricityActivity extends MyBaseActivity {
     private LinearLayout cbxmAllView;
     @ViewInject(id = R.id.cxbhAllView)
     private LinearLayout cxbhAllView;
-//    @ViewInject(id = R.id.mAllView)
+    //    @ViewInject(id = R.id.mAllView)
 //    private LinearLayout mAllView;
     @ViewInject(id = R.id.cbxmEdit)
     private EditText cbxmEdit;
@@ -81,9 +80,7 @@ public class ElectricityActivity extends MyBaseActivity {
     private List<MeterInfoCheckModel> showListData2;
     private static String dbCheckItemType[] = null;
     private List<MeterInfo> meterinfos;
-    private List<RequestInfo> mInfoList;
-    private LinearLayout.LayoutParams params1;
-    private LinearLayout.LayoutParams params2;
+    private int userType = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,16 +88,14 @@ public class ElectricityActivity extends MyBaseActivity {
         setContentView(R.layout.activity_electricity);
         mElectricityContent = this;
         preference = Preference.instance(this);
+        userType = preference.getInt(Preference.USERTYPE);
+        showListData1 = new ArrayList<String>();
         showListData2 = new ArrayList<MeterInfoCheckModel>();
-        dbCheckItemType = getResources().getStringArray(R.array.dbCheckItemType);
         //设置ListView线条的颜色
         getDataList_db.setDivider(new ColorDrawable(Color.GRAY));
         getDataList_db.setDividerHeight(1);
         settingView.setVisibility(View.VISIBLE);
         getDataList_db.setVisibility(View.GONE);
-        //加载数据
-        setData();
-        pageType.setText("电表数据");
         backHome.setOnClickListener(this);
         settingBtn.setOnClickListener(this);
         cbxmEdit.setOnClickListener(this);
@@ -108,8 +103,8 @@ public class ElectricityActivity extends MyBaseActivity {
         searchNum.setOnClickListener(this);
         startSearch.setOnClickListener(this);
 
-        params1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
-        params2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, TypedValue.COMPLEX_UNIT_DIP,350);
+        //初始化加载数据
+        setData(userType);
     }
 
     @Override
@@ -119,20 +114,18 @@ public class ElectricityActivity extends MyBaseActivity {
                 finish();
                 break;
             case R.id.settingBtn:
-
-                popViewisShow(3);
-//
-//                if (View.GONE == settingView.getVisibility()) {
-//                    settingView.setVisibility(View.VISIBLE);
-//                    getDataList_db.setVisibility(View.GONE);
-//                } else {
-//                    if (getDataList_db.getCount() > 0) {
-//                        settingView.setVisibility(View.GONE);
-//                        getDataList_db.setVisibility(View.VISIBLE);
-//                    } else {
-//                        setToast("请设置相关查询条件，进行抄表！");
-//                    }
-//                }
+//                popViewisShow(3);
+                if (View.GONE == settingView.getVisibility()) {
+                    settingView.setVisibility(View.VISIBLE);
+                    getDataList_db.setVisibility(View.GONE);
+                } else {
+                    if (getDataList_db.getCount() > 0) {
+                        settingView.setVisibility(View.GONE);
+                        getDataList_db.setVisibility(View.VISIBLE);
+                    } else {
+                        setToast("请设置相关查询条件，进行抄表！");
+                    }
+                }
                 break;
             case R.id.cbxmEdit:
                 closeInputMethod();
@@ -144,11 +137,11 @@ public class ElectricityActivity extends MyBaseActivity {
                 }
                 break;
             case R.id.searchNum:
-                if(!cbxmEdit.getText().equals("")){
+                if (!cbxmEdit.getText().equals("")) {
                     cxbhEdit.setText("");
                     closeInputMethod();
                     popViewisShow(2);
-                }else {
+                } else {
                     setToast("请先选择抄表项目！");
                 }
                 break;
@@ -182,8 +175,8 @@ public class ElectricityActivity extends MyBaseActivity {
     protected void setViewData() {
 //        listadapter.notifyDataSetChanged();
         if (listdata != null || listdata.size() > 0) {
-//            settingView.setVisibility(View.GONE);
-            animateClose(settingView);
+            settingView.setVisibility(View.GONE);
+//            animateClose(settingView);
             getDataList_db.setVisibility(View.VISIBLE);
 
             getDataList_db.setAdapter(listadapter);
@@ -208,15 +201,34 @@ public class ElectricityActivity extends MyBaseActivity {
      * Params:
      * Date：2018-03-30 12:00:22
      */
-    private void setData() {
-        showListData1 = new ArrayList<String>();
+    private void setData(int userType) {
+        setToast("登录用户为：" + userType);
+        switch (userType) {
+            case 1:
+                dbCheckItemType = getResources().getStringArray(R.array.sbCheckItemType);
+                break;
+            case 2:
+                dbCheckItemType = getResources().getStringArray(R.array.sbCheckItemType);
+                break;
+            case 3:
+                dbCheckItemType = getResources().getStringArray(R.array.dbCheckItemType);
+                break;
+            case 4:
+                dbCheckItemType = getResources().getStringArray(R.array.qbCheckItemType);
+                break;
+            case 5:
+                dbCheckItemType = getResources().getStringArray(R.array.rbCheckItemType);
+                break;
+            default:
+                Toast.makeText(context, "请重新选择", Toast.LENGTH_SHORT).show();
+                break;
+        }
 
         //加载第一个列表数据
         for (int i = 0; i < dbCheckItemType.length; i++) {
             showListData1.add(dbCheckItemType[i].toString());
         }
-
-        //加载第二个列表数据(从数据库获取数据并组装成List)
+        //统一(登录默认更新数据)加载第二个列表数据(从数据库获取数据并组装成List)
         MeterInfoBo meterbo = new MeterInfoBo(context);
         meterinfos = meterbo.listAllData();
         for (int i = 0; i < meterinfos.size(); i++) {
@@ -247,29 +259,15 @@ public class ElectricityActivity extends MyBaseActivity {
                 String checkType = showListData1.get(position);
                 cbxmEdit.setText(checkType);
                 popViewisShow(1);
-
-                if(TextUtils.isEmpty(cxbhEdit.getText())){
+                if (TextUtils.isEmpty(cxbhEdit.getText())) {
                     popViewisShow(2);
                     //模拟点击事件
 //                    searchNum.performClick();
-                }else {
+                } else {
 //                    cxbhEdit.setFocusable(true);
                     cxbhEdit.requestFocus();
-
-                switch (position) {
-                    case 0:
-                        setRequestInfo(checkType, 0, 1);
-                        break;
-                    case 1:
-                        setRequestInfo(checkType, 1, 0);
-                        break;
-                    case 2:
-                        setRequestInfo(checkType, 2, 0);
-                        break;
-                    default:
-                        Toast.makeText(context, "请重新选择", Toast.LENGTH_SHORT).show();
-                        break;
-                }
+                    //设置数据请求类型
+                    setType(position);
                 }
             }
         });
@@ -297,6 +295,47 @@ public class ElectricityActivity extends MyBaseActivity {
         });
     }
 
+    private void setType(int position) {
+        if (userType == 1 && position == 0) {
+            dataType = 5;
+            varType = 201;
+        } else if (userType == 1 && position == 1) {
+            dataType = 5;
+            varType = 202;
+        } else if (userType == 1 && position == 2) {
+            dataType = 5;
+            varType = 203;
+        } else if (userType == 2 && position == 0) {
+            dataType = 0;
+            varType = 1;
+        } else if (userType == 2 && position == 1) {
+            dataType = 1;
+            varType = 0;
+        } else if (userType == 2 && position == 2) {
+            dataType = 2;
+            varType = 0;
+        } else if (userType == 3 && position == 0) {
+            dataType = 5;
+            varType = 201;
+        } else if (userType == 3 && position == 1) {
+            dataType = 5;
+            varType = 202;
+        } else if (userType == 3 && position == 2) {
+            dataType = 5;
+            varType = 203;
+        } else if (userType == 4 && position == 0) {
+            dataType = 0;
+            varType = 0;
+        } else if (userType == 4 && position == 1) {
+            dataType = 0;
+            varType = 0;
+        } else if (userType == 4 && position == 2) {
+            dataType = 0;
+            varType = 0;
+        }
+        setToast("dataType==" + dataType + "~~~~varType==" + varType);
+    }
+
     /**
      * Describe：控制视图是否显示
      * Params:
@@ -321,9 +360,7 @@ public class ElectricityActivity extends MyBaseActivity {
                     //关闭第一个View
                     animateClose(cbxmAllView.findViewById(R.id.cbxmHideView));
                     //打开第二个View
-
-                    cxbhAllView.setLayoutParams(params2);
-                    animateOpen2(cxbhAllView.findViewById(R.id.cxbhHideView));
+                    animateOpen(cxbhAllView.findViewById(R.id.cxbhHideView));
                 } else {
                     //关闭第二个View
                     animateClose(cxbhAllView.findViewById(R.id.cxbhHideView));
@@ -337,7 +374,6 @@ public class ElectricityActivity extends MyBaseActivity {
                 } else {
                     if (getDataList_db.getCount() > 0) {
                         animateClose(settingView);
-                        getDataList_db.setLayoutParams(params1);
                         setViewData();
                         animateOpen(getDataList_db);
                     } else {
@@ -383,17 +419,6 @@ public class ElectricityActivity extends MyBaseActivity {
         view.measure(widthSpec, heightSpec);
 
         ValueAnimator animator = createHeightAnimator(view, 0, view.getMeasuredHeight());
-        animator.start();
-    }
-
-    public static void animateOpen2(final View view) {
-        view.setVisibility(View.VISIBLE);
-
-        final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        final int heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        view.measure(widthSpec, heightSpec);
-
-        ValueAnimator animator = createHeightAnimator(view, 0, 500);
         animator.start();
     }
 

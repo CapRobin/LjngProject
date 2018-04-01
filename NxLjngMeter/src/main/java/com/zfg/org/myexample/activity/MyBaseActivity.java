@@ -138,18 +138,6 @@ public class MyBaseActivity extends BasicActivity {
     }
     
     /**
-     * Describe：设置请求相关参数
-     * Params:
-     * Date：2018-03-31 10:19:19
-     */
-    
-    public void setRequestInfo(String checkTypes,int dataTypes,int varTypes){
-        this.checkType = checkTypes;
-        this.dataType = dataTypes;
-        this.varType = varTypes;
-    }
-
-    /**
      * Describe：设置Dialog提示信息
      * Params:
      * Date：2018-03-31 11:01:28
