@@ -4,6 +4,10 @@
         "source": "E:\\MySpace\\WorkSpace\\AsProject\\LjngProject\\ShowView\\src\\main\\res\\drawable-ldpi\\ic_launcher.png"
     },
     {
+        "merged": "E:\\MySpace\\WorkSpace\\LjngProject\\ShowView\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi\\ic_launcher.png",
+        "source": "E:\\MySpace\\WorkSpace\\LjngProject\\ShowView\\src\\main\\res\\drawable-ldpi\\ic_launcher.png"
+    },
+    {
         "merged": "E:\\MySpace\\DvptSpace\\AsProject\\LjngProject\\ShowView\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi\\ic_launcher.png",
         "source": "E:\\MySpace\\DvptSpace\\AsProject\\LjngProject\\ShowView\\src\\main\\res\\drawable-ldpi\\ic_launcher.png"
     }

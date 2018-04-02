@@ -1,0 +1,7 @@
+#Sun Apr 01 22:19:55 AWST 2018
+base.0=E\:\\MySpace\\DvptSpace\\AsProject\\LjngProject\\ShowView\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\2\\android-support-v4_952ed64a46a6f1d9f4d8e9188a3b71fa39d17df4
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=E\:\\MySpace\\DvptSpace\\AsProject\\LjngProject\\ShowView\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\2\\actionbarsherlock_472a2ce404bd9c6f93238183080e7bc4887e32f1\\classes.dex
+base.1=E\:\\MySpace\\DvptSpace\\AsProject\\LjngProject\\ShowView\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\2\\actionbarsherlock_472a2ce404bd9c6f93238183080e7bc4887e32f1
+file.0=E\:\\MySpace\\DvptSpace\\AsProject\\LjngProject\\ShowView\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\2\\android-support-v4_952ed64a46a6f1d9f4d8e9188a3b71fa39d17df4\\classes.dex
