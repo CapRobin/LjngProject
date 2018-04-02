@@ -15,7 +15,7 @@
         android:paddingTop="5dip" >
 
         <ImageView
-            android:id="@+id/photo"
+            android:id="@+id/logoTitle"
             android:layout_width="@dimen/photo_width"
             android:layout_height="@dimen/photo_width"
             android:scaleType="centerCrop"

@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -85,6 +87,21 @@ public class ElectricityActivity extends MyBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        Window window = this.getWindow();
+//        //取消状态栏透明
+//        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        //添加Flag把状态栏设为可绘制模式
+//        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//        //设置状态栏颜色
+//        window.setStatusBarColor(getResources().getColor(R.color.them_color));
+//        //设置系统状态栏处于可见状态
+//        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+//        //让view不根据系统窗口来调整自己的布局
+//        ViewGroup mContentView = (ViewGroup) window.findViewById(Window.ID_ANDROID_CONTENT);
+
+
+
         setContentView(R.layout.activity_electricity);
         mElectricityContent = this;
         preference = Preference.instance(this);
@@ -157,12 +174,12 @@ public class ElectricityActivity extends MyBaseActivity {
                 //清除刷新List数据
                 //clearData();
 
-                //获取本地Json字符串(临时使用)
+                //获取本地测试数据(Json文件)使用
                 String filename = "electricity.txt";
                 String resultJson = tempJson(filename);
 
                 //开始加载数据
-                loadData(CommonUtil.AddZeros(cxbhEdit.getText().toString()), resultJson);
+                loadData(CommonUtil.AddZeros(cxbhEdit.getText().toString()), resultJson,true);
                 break;
         }
     }
@@ -184,9 +201,7 @@ public class ElectricityActivity extends MyBaseActivity {
             getDataList_db.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
                     setToast("没有其他数据啦");
-
 //                }
                 }
             });
@@ -205,18 +220,19 @@ public class ElectricityActivity extends MyBaseActivity {
         setToast("登录用户为：" + userType);
         switch (userType) {
             case 1:
+                pageType.setText("水表数据");
                 dbCheckItemType = getResources().getStringArray(R.array.sbCheckItemType);
                 break;
             case 2:
-                dbCheckItemType = getResources().getStringArray(R.array.sbCheckItemType);
-                break;
-            case 3:
+                pageType.setText("电表表数据");
                 dbCheckItemType = getResources().getStringArray(R.array.dbCheckItemType);
                 break;
-            case 4:
+            case 3:
+                pageType.setText("气表数据");
                 dbCheckItemType = getResources().getStringArray(R.array.qbCheckItemType);
                 break;
-            case 5:
+            case 4:
+                pageType.setText("热表数据");
                 dbCheckItemType = getResources().getStringArray(R.array.rbCheckItemType);
                 break;
             default:

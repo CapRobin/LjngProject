@@ -276,6 +276,7 @@ public class HttpServiceUtil {
                 }
                 String result = "".equals(rs) ? "{status:\"0\",message:\"访问出错，请检查网络连接\"}" : rs;
 
+                //获取本地测试数据使用
                 if (params.get("tempJson") != null){
                     result = (String) params.get("tempJson");
                 }

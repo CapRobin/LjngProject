@@ -520,6 +520,7 @@
         <activity android:name=".activity.GasMeterActivity" />
         <activity android:name=".activity.HeatMeterActivity" />
         <activity android:name=".activity.ElectricityActivity" />
+        <activity android:name=".activity.MyTestActivity" />
         <activity android:name=".activity.DemoActivity" />
         <activity android:name=".activity.MyBaseActivity"></activity>
     </application>

@@ -48,7 +48,7 @@
                 android:layout_marginRight="20dp">
 
                 <com.zfg.org.myexample.widget.CircleImageView
-                    android:id="@+id/photo"
+                    android:id="@+id/logoTitle"
                     android:layout_width="@dimen/usercenter_photo_width"
                     android:layout_height="@dimen/usercenter_photo_width"
                     android:layout_alignParentLeft="true"
@@ -59,7 +59,7 @@
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
-                    android:layout_toRightOf="@id/photo"
+                    android:layout_toRightOf="@id/logoTitle"
                     android:layout_toLeftOf="@+id/matrix"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="8dip"

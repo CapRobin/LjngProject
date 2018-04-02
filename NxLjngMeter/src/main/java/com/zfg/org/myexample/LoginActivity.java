@@ -129,19 +129,13 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
         userBo = new UserBo(activity);
         userInfoBo = new UserInfoBo(activity);
         preference = Preference.instance(activity);
-        //---------------------
+
         initCallBack();
         init();
         initdata();
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    /**
-     * Describe：函数回调
-     * Params: 
-     * Date：2018-04-02 10:30:30
-     */
-    
     private void initCallBack() {
         loginCallback = new CallBack() {
             @Override
@@ -227,8 +221,8 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                         break;
                     //水表用户Lora
                     case 1:
-                        ContantsUtil.setHOst( "http://longi.nxlgg.com:8039/lggmr");
-                        //ContantsUtil.setHOst( "http://192.168.0.46:8046/lggmr");
+                        //ContantsUtil.setHOst( "http://longi.nxlgg.com:8039/lggmr");
+                        ContantsUtil.setHOst( "http://192.168.0.46:8046/lggmr");
                         nameEditText.setText("wangtong");
                         pswEditText.setText("123456");
                         userType = 1;

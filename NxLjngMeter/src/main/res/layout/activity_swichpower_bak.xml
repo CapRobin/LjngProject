@@ -1,184 +1,110 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/ee_content"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#EEEEEE"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/bolck_titlebar"
-        layout="@layout/block_header" />
-
     <RelativeLayout
-        android:id="@+id/login_edit_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/t_login_layout_editor_bg"
-        android:orientation="vertical" >
-        <RelativeLayout
-            android:id="@+id/bhLayout"
-            android:layout_width="match_parent"
-            android:layout_height="47dp"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:gravity="center"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:orientation="horizontal" >
+        style="@style/page_title"
+        android:layout_width="fill_parent">
+        <Button
+            android:id="@+id/back_btn"
+            style="@style/back_button_style"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:text="@string/back_btn" />
 
-            <TextView
-                android:id="@+id/bhText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:text="表           号:"
-                android:layout_centerVertical="true"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+        <!--<ImageButton-->
+            <!--android:id="@+id/back_btn"-->
+            <!--style="@style/button_style"-->
+            <!--android:layout_width="@dimen/page_title_height"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:src="@mipmap/arrow_left" />-->
 
-            <EditText
-                android:id="@+id/meter_addr"
-                android:layout_width="fill_parent"
-                android:layout_height="30dp"
-                android:layout_weight="1"
-                android:paddingLeft="5dp"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/bhText"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/t_login_layout_editor_bg"
-                android:textSize="13dp"
-                android:hint="输入表或选择地址"
-                android:singleLine="true" />
-        </RelativeLayout>
-
-        <View
-            android:id="@+id/lineView"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/bhLayout"
-            android:background="#ffc8c8c8" />
-
-        <RelativeLayout
-            android:id="@+id/ssss"
-            android:layout_width="match_parent"
-            android:layout_height="47dp"
-            android:layout_below="@+id/lineView"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:orientation="horizontal" >
-
-            <Button
-                android:id="@+id/select_addr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="选择表号"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:layout_centerVertical="true"
-                android:textColor="@color/black"
-                android:background="@drawable/selector_btn"
-                android:textSize="20sp" />
-
-            <CheckBox
-                android:id="@+id/openOrCloseBtn"
-                android:layout_width="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:button="@drawable/t_login_hide_password_selector"
-                android:clickable="true"
-                android:gravity="center_horizontal" />
-        </RelativeLayout>
-    </RelativeLayout>
-
-
-
-
-
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#EEEEEE"
-        android:layout_marginTop="5dp"
-        android:layout_centerInParent="true">
-
-
-
-
-        <LinearLayout
-            android:id="@+id/mLayout"
-            android:layout_width="200dp"
-            android:orientation="vertical"
+        <TextView
+            style="@style/page_title_str"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_height="200dp">
-
-        </LinearLayout>
+            android:text="@string/app_name" />
 
     </RelativeLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="none"
-        android:visibility="gone">
+        android:scrollbars="none">
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dip"
                 android:background="@color/main_divider_line" />
             <!--表号输入框-->
+            <RelativeLayout
+                android:id="@+id/meterAddrs"
+                style="@style/medicine_item"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
+                <LinearLayout
+                    android:id="@+id/inputIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="表    号："
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:id="@+id/meter_addr"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:hint="输入表地址"
+                        android:textColorHint="#D1D1D1"
+                        android:textSize="16sp"
+                        android:maxLength="12"
+                        android:background="@null"
+                        android:paddingLeft="10dp"/>
+
+                    <EditText
+                        android:id="@+id/select_addr"
+                        style="@style/medicine_edittext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:text="点击选择 >" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_below="@+id/inputIn"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:background="@color/main_divider_line" />
+            </RelativeLayout>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
@@ -189,6 +115,7 @@
                 android:paddingRight="20dp"
                 android:layout_marginBottom="12dp"
                 android:weightSum="1">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="90dp"
@@ -235,6 +162,20 @@
                 </LinearLayout>
 
             </LinearLayout>
+            <!--<com.zfg.org.myexample.compent.SwitchButton-->
+            <!--style="@style/SwitchItem"-->
+            <!--android:id="@+id/switch_main_1"-->
+            <!--android:text="开关阀"-->
+            <!--android:checked="true"-->
+            <!--android:background="@drawable/selector_preference_single"-->
+            <!--app:withTextInterval="16dp"-->
+            <!--app:frameDrawable="@drawable/switch_frame"-->
+            <!--app:stateDrawable="@drawable/selector_switch_state"-->
+            <!--app:stateMaskDrawable="@drawable/switch_state_mask"-->
+            <!--app:sliderDrawable="@drawable/selector_switch_slider"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent" />-->
+
         </LinearLayout>
     </ScrollView>
 
@@ -246,16 +187,14 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         app:maxProgress="100"
-        app:progress="15"
-        android:visibility="gone"/>
+        app:progress="15" />
 
     <LinearLayout
         android:id="@+id/recLayout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:gravity="bottom"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:orientation="vertical">
 
         <RelativeLayout
             style="@style/page_title"

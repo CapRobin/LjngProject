@@ -73,12 +73,12 @@ public class MyBaseActivity extends BasicActivity {
      * Date：2018-03-31 09:36:42
      */
     
-    public void loadData(String meteraddr,String tempJson) {
+    public void loadData(String meteraddr,String tempJson,boolean isTest) {
         searchTime =  df.format(new Date());
         try {
             JSONObject jsobj = new JSONObject();
-            //临时使用
-            meteraddr = "201700000001";
+            //获取本地测试数据使用
+            //meteraddr = "201700000001";
 
             jsobj.put("meterAddr", meteraddr);
             jsobj.put("dataType", dataType);
@@ -86,6 +86,7 @@ public class MyBaseActivity extends BasicActivity {
             jsobj.put("searchTime",searchTime);
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("ngMeter", jsobj.toString());
+            //获取本地测试数据使用
             map.put("tempJson", tempJson);
             loading = new DialogLoading(this);
             loading.show();

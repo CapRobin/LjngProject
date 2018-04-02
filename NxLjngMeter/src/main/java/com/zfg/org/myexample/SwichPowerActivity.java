@@ -1,27 +1,26 @@
 package com.zfg.org.myexample;
 
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zfg.org.myexample.activity.BaseFragment;
 import com.zfg.org.myexample.activity.BasicActivity;
 import com.zfg.org.myexample.activity.DialogLoading;
-import com.zfg.org.myexample.compent.SwitchButton;
 import com.zfg.org.myexample.compent.WaterWaveProgress;
 import com.zfg.org.myexample.dialog.MeterInfoDialog;
 import com.zfg.org.myexample.dto.MeterInfoCheckModel;
-import com.zfg.org.myexample.fragment.SwichPowerFragment;
-import com.zfg.org.myexample.dto.CheckModel;
 import com.zfg.org.myexample.utils.CommonUtil;
-import com.zfg.org.myexample.utils.ContantsUtil;
 import com.zfg.org.myexample.utils.HttpServiceUtil;
 import com.zfg.org.myexample.utils.Preference;
 
@@ -35,13 +34,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by Administrator on 2016-10-15.
+ * Copyright © 2018 LJNG All rights reserved.
+ *
+ * Name：SwichPowerActivity
+ * Describe：用来控制水电的开关
+ * Date：2018-04-02 18:56:17
+ * Author: CapRobin@yeah.net
+ *
  */
 public class SwichPowerActivity extends BasicActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
-    @ViewInject(id = R.id.back_btn)
-    private Button backBtn;
-
+    @ViewInject(id = R.id.backHome)
+    private Button backHome;
+    @ViewInject(id = R.id.settingBtn)
+    private ImageView settingBtn;
+    @ViewInject(id = R.id.pageTitle)
+    private TextView pageTitle;
     @ViewInject(id = R.id.btn_close)
     private Button btnclose;
 
@@ -51,14 +59,11 @@ public class SwichPowerActivity extends BasicActivity implements View.OnClickLis
     @ViewInject(id = R.id.waterWaveProgress1)
     private WaterWaveProgress waveProgress;
 
-    @ViewInject(id = R.id.meterAddrs)
-    private RelativeLayout meterAddrs;
-
     @ViewInject(id = R.id.meter_addr)
     private EditText meterAddr;
 
     @ViewInject(id = R.id.select_addr)
-    private EditText select_addr;
+    private Button select_addr;
 
     private Preference preference;
 
@@ -75,6 +80,14 @@ public class SwichPowerActivity extends BasicActivity implements View.OnClickLis
 
     private MeterInfoDialog meterInfoDialog;
 
+
+    @ViewInject(id = R.id.mLayout)
+    private LinearLayout mLayout;
+    private Drawable bg_a;
+    private Drawable bg_b;
+    //1：表示关；2表示开
+    private int isOpen = 1;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,12 +96,48 @@ public class SwichPowerActivity extends BasicActivity implements View.OnClickLis
 //        ContantsUtil.curUser; 当前用户id
         preference = Preference.instance(context);
         loading = new DialogLoading(activity);
+        settingBtn.setVisibility(View.GONE);
+        pageTitle.setText("合闸拉闸");
+
+
+        mLayout.setBackgroundResource(R.drawable.dp_g_200);
+        bg_a = ContextCompat.getDrawable(context, R.drawable.dp_g_200);
+        bg_b = ContextCompat.getDrawable(context, R.drawable.dp_k_200);
+        mLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isOpen == 1)
+                    closeSwich();
+                else if (isOpen == 0)
+                    openSwich();
+            }
+        });
+
         initActivity();
         initCallBack();
 
         waveProgress.setShowProgress(false);
         waveProgress.animateWave();
     }
+
+    private void closeSwich() {
+        mLayout.setBackgroundResource(R.drawable.dp_g_200);
+        //渐变切换
+        TransitionDrawable td = new TransitionDrawable(new Drawable[]{bg_a, bg_b});
+        mLayout.setBackgroundDrawable(td);
+        td.startTransition(1000);
+        isOpen = 0;
+    }
+
+    private void openSwich() {
+        mLayout.setBackgroundResource(R.drawable.dp_k_200);
+        //渐变切换
+        TransitionDrawable td = new TransitionDrawable(new Drawable[]{bg_b, bg_a});
+        mLayout.setBackgroundDrawable(td);
+        td.startTransition(1000);
+        isOpen = 1;
+    }
+
 
     public void replaceFragment(String tag, BaseFragment tempFragment,
                                 boolean isAdd) {
@@ -103,10 +152,9 @@ public class SwichPowerActivity extends BasicActivity implements View.OnClickLis
     }
 
     private void initActivity() {
-        backBtn.setOnClickListener(this);
+        backHome.setOnClickListener(this);
         btnclose.setOnClickListener(this);
         btnopen.setOnClickListener(this);
-        meterAddrs.setOnClickListener(this);
         select_addr.setOnClickListener(this);
     }
 
@@ -215,10 +263,9 @@ public class SwichPowerActivity extends BasicActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.back_btn:
+            case R.id.backHome:
                 finish();
                 break;
-//            case R.id.meterAddrs:
             case R.id.select_addr:
                 if (meterInfoDialog == null) {
                     meterInfoDialog = new MeterInfoDialog(activity);
