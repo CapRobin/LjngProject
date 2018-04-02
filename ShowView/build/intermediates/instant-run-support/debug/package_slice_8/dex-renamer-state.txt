@@ -1,4 +1,0 @@
-#Sun Apr 01 22:19:58 AWST 2018
-base.0=E\:\\MySpace\\DvptSpace\\AsProject\\LjngProject\\ShowView\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\5\\slice_8
-renamed.0=classes.dex
-file.0=E\:\\MySpace\\DvptSpace\\AsProject\\LjngProject\\ShowView\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\5\\slice_8\\classes.dex

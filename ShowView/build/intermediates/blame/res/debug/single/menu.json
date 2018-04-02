@@ -2,13 +2,5 @@
     {
         "merged": "E:\\MySpace\\WorkSpace\\AsProject\\LjngProject\\ShowView\\build\\intermediates\\res\\merged\\debug\\menu\\activity_main.xml",
         "source": "E:\\MySpace\\WorkSpace\\AsProject\\LjngProject\\ShowView\\src\\main\\res\\menu\\activity_main.xml"
-    },
-    {
-        "merged": "E:\\MySpace\\WorkSpace\\LjngProject\\ShowView\\build\\intermediates\\res\\merged\\debug\\menu\\activity_main.xml",
-        "source": "E:\\MySpace\\WorkSpace\\LjngProject\\ShowView\\src\\main\\res\\menu\\activity_main.xml"
-    },
-    {
-        "merged": "E:\\MySpace\\DvptSpace\\AsProject\\LjngProject\\ShowView\\build\\intermediates\\res\\merged\\debug\\menu\\activity_main.xml",
-        "source": "E:\\MySpace\\DvptSpace\\AsProject\\LjngProject\\ShowView\\src\\main\\res\\menu\\activity_main.xml"
     }
 ]

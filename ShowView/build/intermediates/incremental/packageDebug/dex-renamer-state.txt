@@ -1,7 +1,0 @@
-#Sun Apr 01 22:20:00 AWST 2018
-base.0=E\:\\MySpace\\DvptSpace\\AsProject\\LjngProject\\ShowView\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_581f96563222ed1a16f0d02cd4bee734dfaf7423
-renamed.1=classes2.dex
-renamed.0=classes.dex
-file.1=E\:\\MySpace\\DvptSpace\\AsProject\\LjngProject\\ShowView\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_9bb638409e7846e0eab64925c6951147d29d57f5\\classes.dex
-base.1=E\:\\MySpace\\DvptSpace\\AsProject\\LjngProject\\ShowView\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_9bb638409e7846e0eab64925c6951147d29d57f5
-file.0=E\:\\MySpace\\DvptSpace\\AsProject\\LjngProject\\ShowView\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_581f96563222ed1a16f0d02cd4bee734dfaf7423\\classes.dex
