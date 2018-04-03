@@ -229,7 +229,8 @@
 
     <color name="transparent">#00000000</color>
     <!-- 状态栏颜色-->
-    <color name="common_top_color">#50a0fa</color>
+    <!--<color name="common_top_color">#50a0fa</color>-->
+    <color name="common_top_color">#1b96c7</color>
     <color name="bottom_company_bg">#ecf4fd</color>
     <color name="bottom_company_text_color">#858585</color>
     <color name="main_center_text_color">#5e5e5e</color>
@@ -244,4 +245,6 @@
     <color name="selector_bg_pressed">#FF9933</color>
     <color name="selector_bg_normal">#1b96c7</color>
     <color name="gray">#7c7c7c</color>
+    <color name="app_bg">#EEEEEE</color>
+
 </resources>

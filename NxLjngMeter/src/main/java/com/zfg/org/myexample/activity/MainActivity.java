@@ -10,10 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.zfg.org.myexample.HisInfoActivity;
 import com.zfg.org.myexample.LoginActivity;
 import com.zfg.org.myexample.R;
-import com.zfg.org.myexample.ReadingTaskActivity;
 import com.zfg.org.myexample.RechargeActivity;
 import com.zfg.org.myexample.SettingActivity;
 import com.zfg.org.myexample.SwichPowerActivity;
@@ -53,6 +51,7 @@ public class MainActivity extends BasicActivity implements OnClickListener {
     private LinearLayout setManager;
     //    @ViewInject(id = R.id.recharge_pay)
     private LinearLayout rechargepay;
+    public static MainActivity instance = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,9 +60,24 @@ public class MainActivity extends BasicActivity implements OnClickListener {
         ContantsUtil.MAIN_UPDATE = false;
         preference = Preference.instance(context);
         userType = preference.getInt(Preference.USERTYPE);
-
+        instance = this;
         initActivity();
 //        checkUpdate();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        ContantsUtil.MAIN_UPDATE = false;
+        preference = Preference.instance(context);
+        userType = preference.getInt(Preference.USERTYPE);
+
+        initActivity();
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
     }
 
     /**

@@ -3,7 +3,7 @@
     style="@style/ee_content"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#EEEEEE"
+    android:background="@color/app_bg"
     android:orientation="vertical">
 
     <include
@@ -22,12 +22,11 @@
         <RelativeLayout
             android:id="@+id/bhLayout"
             android:layout_width="match_parent"
-            android:layout_height="47dp"
+            android:layout_height="wrap_content"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:gravity="center"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:padding="15dp"
             android:orientation="horizontal" >
 
             <TextView
@@ -51,7 +50,7 @@
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/t_login_layout_editor_bg"
                 android:textSize="13dp"
-                android:hint="输入表或选择地址"
+                android:hint="请输入或选择表号"
                 android:singleLine="true" />
         </RelativeLayout>
 
@@ -65,24 +64,25 @@
         <RelativeLayout
             android:id="@+id/ssss"
             android:layout_width="match_parent"
-            android:layout_height="47dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/lineView"
             android:gravity="center_vertical"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:padding="15dp"
             android:orientation="horizontal" >
 
             <Button
                 android:id="@+id/select_addr"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="31dp"
                 android:text="选择表号"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
                 android:layout_centerVertical="true"
                 android:textColor="@color/black"
-                android:background="@drawable/selector_btn"
-                android:textSize="20sp" />
+                android:background="@drawable/selector_circle"
+                android:textSize="18sp" />
 
             <CheckBox
                 android:id="@+id/openOrCloseBtn"

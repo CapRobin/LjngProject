@@ -1,12 +1,13 @@
-package com.zfg.org.myexample;
+package com.zfg.org.myexample.activity;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.zfg.org.myexample.activity.BasicActivity;
-import com.zfg.org.myexample.activity.DialogLoading;
+import com.zfg.org.myexample.R;
+import com.zfg.org.myexample.SystemAPI;
+import com.zfg.org.myexample.ViewInject;
 import com.zfg.org.myexample.adapter.ReadingTaskAdapter;
 import com.zfg.org.myexample.dialog.AlertDialogZfg;
 import com.zfg.org.myexample.model.ReadingTaskItemModel;
@@ -38,7 +39,7 @@ public class ReadingTaskActivity extends BasicActivity implements View.OnClickLi
     private DialogLoading loading;
     private Preference preference;
     private Map<String, String> maps;
-    private ReadingTaskActivity activity;
+    private ReadingTaskActivity_bak activity;
     private HttpServiceUtil.CallBack dataCallback;
 
     private ReadingTaskAdapter readingTaskAdapter;

@@ -25,10 +25,10 @@ public class MyTestActivity extends BasicActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_test);
         up = (LinearLayout) findViewById(R.id.mLayout);
-        up.setBackgroundResource(R.drawable.dp_g_200);
+        up.setBackgroundResource(R.drawable.dp_k_200);
 
-        bg_a = ContextCompat.getDrawable(MyTestActivity.this, R.drawable.dp_g_200);
-        bg_b = ContextCompat.getDrawable(MyTestActivity.this, R.drawable.dp_k_200);
+        bg_a = ContextCompat.getDrawable(MyTestActivity.this, R.drawable.dp_k_200);
+        bg_b = ContextCompat.getDrawable(MyTestActivity.this, R.drawable.dp_g_200);
 
         up.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,7 +42,7 @@ public class MyTestActivity extends BasicActivity {
     }
 
     private void aTob() {
-        up.setBackgroundResource(R.drawable.dp_g_200);
+        up.setBackgroundResource(R.drawable.dp_k_200);
         //渐变切换
         TransitionDrawable td = new TransitionDrawable(new Drawable[]{bg_a, bg_b});
         up.setBackgroundDrawable(td);
@@ -51,7 +51,7 @@ public class MyTestActivity extends BasicActivity {
     }
 
     private void bToa() {
-        up.setBackgroundResource(R.drawable.dp_k_200);
+        up.setBackgroundResource(R.drawable.dp_g_200);
         //渐变切换
         TransitionDrawable td = new TransitionDrawable(new Drawable[]{bg_b, bg_a});
         up.setBackgroundDrawable(td);

@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -35,12 +37,11 @@ import java.util.logging.Logger;
 
 /**
  * Copyright © 2018 LJNG All rights reserved.
- *
+ * <p>
  * Name：SwichPowerActivity
  * Describe：用来控制水电的开关
  * Date：2018-04-02 18:56:17
  * Author: CapRobin@yeah.net
- *
  */
 public class SwichPowerActivity extends BasicActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
@@ -83,10 +84,13 @@ public class SwichPowerActivity extends BasicActivity implements View.OnClickLis
 
     @ViewInject(id = R.id.mLayout)
     private LinearLayout mLayout;
+    @ViewInject(id = R.id.openOrCloseBtn)
+    private CheckBox openOrCloseBtn;
     private Drawable bg_a;
     private Drawable bg_b;
     //1：表示关；2表示开
-    private int isOpen = 1;
+//    private int isOpen = 1;
+    private boolean isOpen = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -100,16 +104,51 @@ public class SwichPowerActivity extends BasicActivity implements View.OnClickLis
         pageTitle.setText("合闸拉闸");
 
 
-        mLayout.setBackgroundResource(R.drawable.dp_g_200);
-        bg_a = ContextCompat.getDrawable(context, R.drawable.dp_g_200);
-        bg_b = ContextCompat.getDrawable(context, R.drawable.dp_k_200);
+        mLayout.setBackgroundResource(R.drawable.dp_k_200);
+        bg_a = ContextCompat.getDrawable(context, R.drawable.dp_k_200);
+        bg_b = ContextCompat.getDrawable(context, R.drawable.dp_g_200);
         mLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isOpen == 1)
-                    closeSwich();
-                else if (isOpen == 0)
-                    openSwich();
+                //检测表号是否为空
+                if (meterAddr.getText().length() == 0) {
+                    Toast.makeText(context, "请先输入表地址！", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (isOpen) {
+                    swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 0);
+
+//                    closeSwitch();
+//                    openOrCloseBtn.setChecked(false);
+                } else {
+                    swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 1);
+
+//                    openSwitch();
+//                    openOrCloseBtn.setChecked(true);
+                }
+//
+
+            }
+        });
+
+        openOrCloseBtn.setChecked(isOpen);
+        openOrCloseBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                //检测表号是否为空
+                if (meterAddr.getText().length() == 0) {
+                    Toast.makeText(context, "请先输入表地址！", Toast.LENGTH_SHORT).show();
+                    compoundButton.setChecked(!b);
+                    return;
+                }
+                if (b) {
+                    swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 1);
+//                    openSwitch();
+                } else {
+                    swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 0);
+//                    closeSwitch();
+                }
             }
         });
 
@@ -120,22 +159,22 @@ public class SwichPowerActivity extends BasicActivity implements View.OnClickLis
         waveProgress.animateWave();
     }
 
-    private void closeSwich() {
+    private void closeSwitch() {
         mLayout.setBackgroundResource(R.drawable.dp_g_200);
         //渐变切换
         TransitionDrawable td = new TransitionDrawable(new Drawable[]{bg_a, bg_b});
         mLayout.setBackgroundDrawable(td);
         td.startTransition(1000);
-        isOpen = 0;
+        isOpen = false;
     }
 
-    private void openSwich() {
+    private void openSwitch() {
         mLayout.setBackgroundResource(R.drawable.dp_k_200);
         //渐变切换
         TransitionDrawable td = new TransitionDrawable(new Drawable[]{bg_b, bg_a});
         mLayout.setBackgroundDrawable(td);
         td.startTransition(1000);
-        isOpen = 1;
+        isOpen = true;
     }
 
 
@@ -159,7 +198,15 @@ public class SwichPowerActivity extends BasicActivity implements View.OnClickLis
     }
 
     //{"strBackFlag":"0","strMeterAddr":"000000000040","strPassAuthentication":""}
-    private void swichData(String meteraddr,Integer stuts) {
+
+    /**
+     * Describe：开关阀请求控制(0：关阀；1：开阀)
+     * Params:
+     * Date：2018-04-03 11:35:18
+     */
+
+    private void swichData(String meteraddr, Integer stuts) {
+        String titleStr;
         try {
 //            String userId = ContantsUtil.curUser.getId().toString();
             JSONObject jsobj = new JSONObject();
@@ -167,7 +214,7 @@ public class SwichPowerActivity extends BasicActivity implements View.OnClickLis
                 jsobj.put("meterAddr", meteraddr);
 //                jsobj.put("userid", userId);
                 jsobj.put("operationId", String.valueOf(stuts));
-                jsobj.put("userid",preference.getString(Preference.CACHE_USER));
+                jsobj.put("userid", preference.getString(Preference.CACHE_USER));
             } catch (JSONException ex) {
                 Logger.getLogger(activity.getClass().getName()).log(Level.SEVERE, null, ex);
             }
@@ -177,8 +224,13 @@ public class SwichPowerActivity extends BasicActivity implements View.OnClickLis
             //"{\"name\":\"admin\",\"password\":admin\"}"
             map.put("ngMeter", jsobj.toString());
 
+            if (stuts == 0) {
+                titleStr = "正在执行关阀操作";
+            } else {
+                titleStr = "正在执行开阀操作";
+            }
             loading.show();
-            setDialogLabel("开始开关阀请等待");
+            setDialogLabel(titleStr);
             SystemAPI.meter_onwater(map, dataCallback);
 //            SystemAPI.query_readdata_his(map, dataCallback);
         } catch (Exception e) {
@@ -199,23 +251,35 @@ public class SwichPowerActivity extends BasicActivity implements View.OnClickLis
                         JSONObject jsonObject = new JSONObject(json);
                         String jStatus = jsonObject.getString("strBackFlag");
                         String actionFlag = jsonObject.getString("actionFlag");
-                        if (jStatus.equals("1") && actionFlag.equals("open")){
-                            Toast.makeText(context,"打开阀门成功",Toast.LENGTH_SHORT).show();
-                            waveProgress.setProgress(75);
-                        } else if (jStatus.equals("1") && actionFlag.equals("close")){
-                            Toast.makeText(context,"关闭阀门成功",Toast.LENGTH_SHORT).show();
-                            waveProgress.setProgress(0);
-                        } else
-                        if (jStatus.equals("-1")){
-                            Toast.makeText(context,"操作阀门失败",Toast.LENGTH_SHORT).show();
-                            waveProgress.setProgress(0);
-                        } else
-                        if (jStatus.equals("-5")){
-                            Toast.makeText(context,"该表地址不存在",Toast.LENGTH_SHORT).show();
-                            waveProgress.setProgress(0);
+                        if (jStatus.equals("1") && actionFlag.equals("open")) {
+//                            waveProgress.setProgress(75);
+
+                            openSwitch();
+                            openOrCloseBtn.setChecked(true);
+                            setToast("打开阀门成功");
+                            isOpen = true;
+                        } else if (jStatus.equals("1") && actionFlag.equals("close")) {
+//                            waveProgress.setProgress(0);
+
+                            closeSwitch();
+                            openOrCloseBtn.setChecked(false);
+                            setToast("关闭阀门成功");
+                            isOpen = false;
+                        } else if (jStatus.equals("-1")) {
+//                            waveProgress.setProgress(0);
+
+                            openOrCloseBtn.setChecked(isOpen);
+                            setToast("操作阀门失败");
+                        } else if (jStatus.equals("-5")) {
+//                            waveProgress.setProgress(0);
+
+                            openOrCloseBtn.setChecked(isOpen);
+                            setToast("该表地址不存在");
                         } else {
-                            Toast.makeText(context,"操作阀门失败",Toast.LENGTH_SHORT).show();
-                            waveProgress.setProgress(0);
+//                            waveProgress.setProgress(0);
+
+                            openOrCloseBtn.setChecked(isOpen);
+                            setToast("操作阀门失败");
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -283,18 +347,18 @@ public class SwichPowerActivity extends BasicActivity implements View.OnClickLis
                 meterInfoDialog.show();
                 break;
             case R.id.btn_close:
-                if (meterAddr.getText().length() == 0){
-                    Toast.makeText(context,"请先输入表地址！",Toast.LENGTH_SHORT).show();
+                if (meterAddr.getText().length() == 0) {
+                    Toast.makeText(context, "请先输入表地址！", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                swichData(CommonUtil.AddZeros(meterAddr.getText().toString()),0);
+                swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 0);
                 break;
             case R.id.btn_open:
-                if (meterAddr.getText().length() == 0){
-                    Toast.makeText(context,"请先输入表地址！",Toast.LENGTH_SHORT).show();
+                if (meterAddr.getText().length() == 0) {
+                    Toast.makeText(context, "请先输入表地址！", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                swichData(CommonUtil.AddZeros(meterAddr.getText().toString()),1);
+                swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 1);
                 break;
 //            case R.id.switch_main_1:
 //                if (switchButton.isChecked()) {

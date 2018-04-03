@@ -32,7 +32,26 @@
         <item>抄读热表实时状态</item>
     </string-array>
 
+    <!--热表查询项目-->
+    <string-array name="recordType">
+        <item>操作记录</item>
+        <item>抄表记录</item>
+    </string-array>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--~~~~~~~~~~~~~~~~待删除~~~~~~~~~~~~~~~~~~~~~~~-->
     <string-array name="usertype">
         <item>普通会员</item>
         <item>公司商户</item>
@@ -239,7 +258,7 @@
         <item>重庆钢铁基地</item>
         <item>台湾中国钢铁公司</item>
     </string-array>
-
+    <!--~~~~~~~~~~~~~~~~待删除~~~~~~~~~~~~~~~~~~~~~~~-->
 
     <string name="button_login">Login</string>
     <string name="button_signup">Sign Up</string>

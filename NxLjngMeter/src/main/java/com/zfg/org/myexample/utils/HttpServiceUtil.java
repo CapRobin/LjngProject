@@ -277,8 +277,12 @@ public class HttpServiceUtil {
                 String result = "".equals(rs) ? "{status:\"0\",message:\"访问出错，请检查网络连接\"}" : rs;
 
                 //获取本地测试数据使用
-                if (params.get("tempJson") != null){
-                    result = (String) params.get("tempJson");
+                if (params.get("login_test") != null) {
+                    result = (String) params.get("login_test");
+                } else if (params.get("update_test") != null) {
+                    result = (String) params.get("update_test");
+                } else if (params.get("electricity") != null) {
+                    result = (String) params.get("electricity");
                 }
                 final String content = result;
                 ThreadUtil.handler.postDelayed(new Runnable() {

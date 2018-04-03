@@ -221,8 +221,8 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                         break;
                     //水表用户Lora
                     case 1:
-                        //ContantsUtil.setHOst( "http://longi.nxlgg.com:8039/lggmr");
-                        ContantsUtil.setHOst( "http://192.168.0.46:8046/lggmr");
+                        ContantsUtil.setHOst( "http://longi.nxlgg.com:8039/lggmr");
+//                        ContantsUtil.setHOst( "http://192.168.0.46:8046/lggmr");
                         nameEditText.setText("wangtong");
                         pswEditText.setText("123456");
                         userType = 1;
@@ -241,10 +241,10 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
 //                        if(params.get("resultJson").toString().equals("resultJson")){
 //                            result = params.get("resultJson").toString();
 //                        }
-                        ContantsUtil.setHOst("http://192.168.2.136:8088/lggmr");
-
+//                        ContantsUtil.setHOst("http://192.168.2.136:8088/lggmr");
 //                        ContantsUtil.setHOst("http://222.75.144.94:80/lggmr");
                         //ContantsUtil.setHOst("http://192.168.2.157:80/lggmr");
+                        ContantsUtil.setHOst("http://192.168.2.84:8088/lggmr");
                         nameEditText.setText("lgg_nbiot");
                         pswEditText.setText("123456");
                         userType = 2;
@@ -340,8 +340,6 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
             preference.putString(Preference.CACHE_USER, username);
 
             JSONObject jsobj = new JSONObject();
-
-
             try {
 
 //                String filename = "login.txt";
@@ -357,6 +355,11 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
             Map<String, Object> map = new HashMap<String, Object>();
             //"{\"name\":\"admin\",\"password\":admin\"}"
             map.put("ngMeter", jsobj.toString());
+
+            //临时测试
+            if (isTest){
+                map.put("login_test", tempJson("login.txt"));
+            }
             loading.show();
             SystemAPI.login(map, loginCallback);
         } catch (Exception e) {
@@ -607,6 +610,13 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
 
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("ngMeter", jsobj.toString());
+
+
+            //获取本地测试数据(Json文件)使用
+            if (isTest){
+                map.put("update_test", tempJson("login_update.txt"));
+            }
+            //请求服务器更新数据
             String result = HttpServiceUtil.post(ContantsUtil.URL_USERMETERS, map);
             if (!CheckUtil.isNull(result)) {
                 try {

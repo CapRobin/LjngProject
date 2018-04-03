@@ -1,21 +1,16 @@
-package com.zfg.org.myexample;
+package com.zfg.org.myexample.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.zfg.org.myexample.activity.BaseFragment;
-import com.zfg.org.myexample.activity.BasicActivity;
-import com.zfg.org.myexample.activity.DialogLoading;
-import com.zfg.org.myexample.fragment.ReadDataFragment;
+import com.zfg.org.myexample.R;
+import com.zfg.org.myexample.ViewInject;
 import com.zfg.org.myexample.fragment.ReadDataHisFragment;
-import com.zfg.org.myexample.fragment.RechargeFragment;
 import com.zfg.org.myexample.fragment.RechargeHisFragment;
-import com.zfg.org.myexample.fragment.SwichPowerFragment;
 import com.zfg.org.myexample.fragment.SwichPowerHisFragment;
 import com.zfg.org.myexample.utils.ContantsUtil;
 import com.zfg.org.myexample.utils.HttpServiceUtil;
@@ -28,7 +23,7 @@ import org.json.JSONObject;
 /**
  * Created by Administrator on 2016-06-02.
  */
-public class HisInfoActivity extends BasicActivity implements View.OnClickListener,RadioGroup.OnCheckedChangeListener{
+public class HisInfoActivity_bak extends BasicActivity implements View.OnClickListener,RadioGroup.OnCheckedChangeListener{
 
     //tab标签
     @ViewInject(id = R.id.tab_bottom)
@@ -46,7 +41,7 @@ public class HisInfoActivity extends BasicActivity implements View.OnClickListen
 
     private CallBack loginCallback;
 
-    private HisInfoActivity activity;
+    private HisInfoActivity_bak activity;
 
     private final String TAG = "HisInfoActivity";
 
@@ -55,7 +50,7 @@ public class HisInfoActivity extends BasicActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
 //      界面资源
         setContentView(R.layout.activity_hisinfo);
-        activity = (HisInfoActivity) context;
+        activity = (HisInfoActivity_bak) context;
 //        initCallBack();
         loading = new DialogLoading(activity);
         preference = Preference.instance(context);

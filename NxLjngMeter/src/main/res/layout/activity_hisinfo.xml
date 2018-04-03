@@ -1,93 +1,275 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/content"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/bolck_titlebar"
+        layout="@layout/block_header" />
+
+
+
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/mAllView"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical">-->
+
+
+    <!--查询页面隐藏内容-->
     <RelativeLayout
-        style="@style/page_title"
-        android:layout_width="fill_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/back_btn"
-            style="@style/back_button_style"
+        <ListView
+            android:id="@+id/getDataList_db"
             android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:cacheColorHint="#00000000"
+            android:descendantFocusability="blocksDescendants"
+            android:divider="@mipmap/divider"
+            android:dividerHeight="0.8dip"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="false"
+            android:listSelector="@color/transparent"
+            android:scrollingCache="false"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/settingView"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_alignParentLeft="true"
-            android:text="@string/back_btn" />
+            android:layout_marginTop="20dp"
+            android:layout_margin="20dp"
+            android:focusable="true"
+            android:background="@color/white"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/activity_set_title"
-            style="@style/page_title_str"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="@string/hisinfo" />
 
+            <LinearLayout
+                android:id="@+id/typeAllView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/typeUnHideView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/queryTypeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:text="查询类型:"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/queryTypeEdit"
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dip"
+                        android:layout_toRightOf="@+id/queryTypeText"
+                        android:background="@drawable/t_login_layout_editor_bg"
+                        android:editable="false"
+                        android:hint="请选择查询类型"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="5dp"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textSize="15sp">
+
+                    </EditText>
+                </RelativeLayout>
+
+                <!--抄表项目隐藏内容-->
+                <LinearLayout
+                    android:id="@+id/typeHideView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/test_01"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <com.zfg.org.myexample.adapter.NoScrollGridView
+                        android:id="@+id/typeHideInnerView"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dip"
+                        android:horizontalSpacing="7dp"
+                        android:numColumns="3"
+                        android:verticalSpacing="7dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/numberAllView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_below="@+id/typeAllView"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/numberUnHideView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/queryNumText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="查询表号:"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/queryNumEdit"
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dip"
+                        android:layout_toRightOf="@+id/queryNumText"
+                        android:background="@drawable/t_login_layout_editor_bg"
+                        android:hint="请输入查询表号"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="5dp"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textSize="15sp">
+
+                    </EditText>
+
+                    <ImageView
+                        android:id="@+id/searchNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/search_meter" />
+                </RelativeLayout>
+
+
+                <!--抄表表号隐藏内容-->
+                <LinearLayout
+                    android:id="@+id/numberHideView"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:background="@drawable/test_01"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ListView
+                        android:id="@+id/numberHideInnerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:cacheColorHint="#00000000"
+                        android:dividerHeight="0.8dip"
+                        android:fadingEdge="none"
+                        android:listSelector="@color/transparent" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+            <RelativeLayout
+                android:id="@+id/cbxmAllView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_below="@+id/numberAllView"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/startTimeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="起始时间:"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/starTimetEdit"
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dip"
+                    android:layout_toRightOf="@+id/startTimeText"
+                    android:background="@drawable/t_login_layout_editor_bg"
+                    android:editable="false"
+                    android:hint="请选择起始时间"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="15sp">
+
+                </EditText>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_below="@+id/cbxmAllView"
+                android:layout_marginBottom="40dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/endTimeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="结束时间:"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/endTimeEdit"
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dip"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/endTimeText"
+                    android:background="@drawable/t_login_layout_editor_bg"
+                    android:editable="false"
+                    android:hint="请选择结束时间"
+                    android:paddingLeft="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="15sp">
+
+                </EditText>
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/query_submit"
+                android:layout_width="fill_parent"
+                android:layout_height="34dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/selector_btn"
+                android:padding="2dip"
+                android:text="查    询"
+                android:layout_marginBottom="20dp"
+                android:textColor="#2e2e2e"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+        <!--</ScrollView>-->
     </RelativeLayout>
 
-    <LinearLayout
-        style="@style/content"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical">
-
-        <FrameLayout
-            android:id="@+id/content_fragment"
-            android:layout_width="fill_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1">
-
-        </FrameLayout>
-
-        <RadioGroup
-            android:id="@+id/tab_bottom"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/up_check"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content" />
-
-            <RadioButton
-                android:id="@+id/recharge"
-                style="@style/bottom_radio_item"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:checked="true"
-                android:drawableTop="@mipmap/recharge_his"
-                android:text="缴费记录"
-                android:visibility="gone" />
-
-            <RadioButton
-                android:id="@+id/readdata"
-                style="@style/bottom_radio_item"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:checked="true"
-                android:drawableTop="@mipmap/readmeter_his"
-                android:text="抄表记录" />
-
-            <RadioButton
-                android:id="@+id/swichpower"
-                style="@style/bottom_radio_item"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableTop="@mipmap/offon_his"
-                android:text="操作记录" />
-
-
-        </RadioGroup>
-
-
-    </LinearLayout>
-
-
+    <!--</LinearLayout>-->
 </LinearLayout>

@@ -18,11 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zfg.org.myexample.BleActivity;
-import com.zfg.org.myexample.HisInfoActivity;
 import com.zfg.org.myexample.LoginActivity;
 import com.zfg.org.myexample.PlanActivity;
 import com.zfg.org.myexample.R;
-import com.zfg.org.myexample.ReadingTaskActivity;
 import com.zfg.org.myexample.RechargeActivity;
 import com.zfg.org.myexample.RemoteControlWaterActivity;
 import com.zfg.org.myexample.SettingActivity;

@@ -1,6 +1,8 @@
 package com.zfg.org.myexample.activity;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -73,7 +75,7 @@ public class MyBaseActivity extends BasicActivity {
      * Date：2018-03-31 09:36:42
      */
     
-    public void loadData(String meteraddr,String tempJson,boolean isTest) {
+    public void loadData(String meteraddr) {
         searchTime =  df.format(new Date());
         try {
             JSONObject jsobj = new JSONObject();
@@ -86,8 +88,11 @@ public class MyBaseActivity extends BasicActivity {
             jsobj.put("searchTime",searchTime);
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("ngMeter", jsobj.toString());
+
             //获取本地测试数据使用
-            map.put("tempJson", tempJson);
+            if (isTest){
+                map.put("electricity", tempJson("electricity.txt"));
+            }
             loading = new DialogLoading(this);
             loading.show();
             setDialogLabel("开始抄表请等待...");
@@ -151,19 +156,17 @@ public class MyBaseActivity extends BasicActivity {
         loading.setDialogLabel(label);
     }
 
-    public String tempJson(String fileName){
-//		String fileName = "user.java"; // 文件名字
-		String getString = "";
-		try {
-			InputStream in = getResources().getAssets().open(fileName);
-			int length = in.available();
-			byte[] buffer = new byte[length];
-			in.read(buffer);
-			getString = EncodingUtils.getString(buffer, "UTF-8");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return getString;
+    /**
+     * Describe：关闭输入法
+     * Params:
+     * Date：2018-04-03 19:45:01
+     */
+    protected void closeInputMethod() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        boolean isOpen = imm.isActive();
+        // isOpen若返回true，则表示输入法打开
+        if (isOpen) {
+            imm.hideSoftInputFromWindow(context.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
-
 }

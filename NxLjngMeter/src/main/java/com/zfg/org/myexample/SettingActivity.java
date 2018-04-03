@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.zfg.org.myexample.activity.BasicActivity;
+import com.zfg.org.myexample.activity.MainActivity;
 import com.zfg.org.myexample.activity.TranLoading;
 //import com.dian.diabetes.request.LoginRegisterAPI;
 import com.zfg.org.myexample.dialog.AlertDialogZfg;
@@ -102,6 +103,9 @@ public class SettingActivity extends BasicActivity implements OnClickListener {
                 break;
             case R.id.exit_user_login:
                 startActivity(null,LoginActivity.class);
+
+                //关闭MainActivity
+                MainActivity.instance.finish();
                 break;
             case R.id.help:
                 showHelpDialog();

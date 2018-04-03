@@ -174,12 +174,8 @@ public class ElectricityActivity extends MyBaseActivity {
                 //清除刷新List数据
                 //clearData();
 
-                //获取本地测试数据(Json文件)使用
-                String filename = "electricity.txt";
-                String resultJson = tempJson(filename);
-
                 //开始加载数据
-                loadData(CommonUtil.AddZeros(cxbhEdit.getText().toString()), resultJson,true);
+                loadData(CommonUtil.AddZeros(cxbhEdit.getText().toString()));
                 break;
         }
     }
@@ -475,18 +471,5 @@ public class ElectricityActivity extends MyBaseActivity {
         return animator;
     }
 
-    /**
-     * @Describe：关闭输入法
-     * @Throws:
-     * @Date：2014年8月20日 上午11:58:30
-     * @Version v1.0
-     */
-    private void closeInputMethod() {
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        boolean isOpen = imm.isActive();
-        // isOpen若返回true，则表示输入法打开
-        if (isOpen) {
-            imm.hideSoftInputFromWindow(ElectricityActivity.this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        }
-    }
+
 }

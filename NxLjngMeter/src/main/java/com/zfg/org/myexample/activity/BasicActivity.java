@@ -1,5 +1,6 @@
 package com.zfg.org.myexample.activity;
 
+import java.io.InputStream;
 import java.lang.reflect.Field;
 
 import com.zfg.org.myexample.R;
@@ -9,11 +10,13 @@ import com.zfg.org.myexample.utils.ContantsUtil;
 import com.zfg.org.myexample.utils.Preference;
 import com.zfg.org.myexample.utils.SystemBarTintManager;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
 import android.view.GestureDetector;
@@ -23,6 +26,8 @@ import android.view.GestureDetector.OnGestureListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.Toast;
+
+import org.apache.http.util.EncodingUtils;
 
 /**
  *
@@ -40,6 +45,25 @@ public class BasicActivity extends FragmentActivity implements OnGestureListener
 	private GestureDetector detector;
 	private boolean isGesture = false;
 	protected int userType = 0;
+
+	//读取本地测试数据开关
+	public boolean isTest =false;
+	@SuppressLint("HandlerLeak")
+	public Handler handler = new Handler() {
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+				case 0:
+					Toast.makeText(BasicActivity.this, msg.getData().getString("Msg"), Toast.LENGTH_SHORT).show();
+					break;
+				case 1:
+
+					break;
+				case 2:
+
+					break;
+			}
+		};
+	};
 
 
 	@Override
@@ -272,5 +296,42 @@ public class BasicActivity extends FragmentActivity implements OnGestureListener
 	
 	public void setToast(String hintInfo){
 		Toast.makeText(this,hintInfo,Toast.LENGTH_SHORT).show();
+	}
+
+	
+	/**
+	 * Describe：读取本地文件_临时方法
+	 * Params:
+	 * Date：2018-04-03 09:34:05
+	 */
+	
+	public String tempJson(String fileName){
+//		String fileName = "user.java"; // 文件名字
+		String getString = "";
+		try {
+			InputStream in = getResources().getAssets().open(fileName);
+			int length = in.available();
+			byte[] buffer = new byte[length];
+			in.read(buffer);
+			getString = EncodingUtils.getString(buffer, "UTF-8");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return getString;
+	}
+
+
+	/**
+	 * Describe：发送消息刷新UI 第一参数是0
+	 * Params:
+	 * Date：2018-04-03 17:12:37
+	 */
+	
+	public void sendMsgUpdateUI(int what, String titleMsg) {
+		Message msg = handler.obtainMessage(what);
+		Bundle bundle = new Bundle();
+		bundle.putString("Msg", titleMsg);
+		msg.setData(bundle);
+		handler.sendMessage(msg);
 	}
 }
