@@ -1,5 +1,6 @@
 package com.zfg.org.myexample;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
@@ -285,12 +286,12 @@ public class LoginActivity extends BasicActivity implements OnFocusChangeListene
             String username = nameEditText.getText().toString().trim();
             BleDbHelper.userName = username;
             String password = pswEditText.getText().toString().trim();
-            if ((username.equals("lanya"))&&(password.equals("lanya")))
-            {
-                startActivity(null, MainActivity.class);
-                userRight = 1;
-                return;
-            }
+//            if ((username.equals("lanya"))&&(password.equals("lanya")))
+//            {
+//                startActivity(null, MainActivity.class);
+//                userRight = 1;
+//                return;
+//            }
             preference.putString(Preference.CACHE_USER, username);
 
             JSONObject jsobj = new JSONObject();
@@ -421,6 +422,7 @@ public class LoginActivity extends BasicActivity implements OnFocusChangeListene
 
     final int WHAT_SCROLL = 0, WHAT_BTN_VISABEL = WHAT_SCROLL + 1;
 
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {

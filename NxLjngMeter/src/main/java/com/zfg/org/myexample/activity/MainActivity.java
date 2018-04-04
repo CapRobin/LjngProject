@@ -15,7 +15,8 @@ import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.RechargeActivity;
 import com.zfg.org.myexample.SettingActivity;
 import com.zfg.org.myexample.SwichPowerActivity;
-import com.zfg.org.myexample.UploadExceptionActivity;
+//import com.zfg.org.myexample.UploadExceptionActivity;
+import com.zfg.org.myexample.UploadExceptionActivity_bak;
 import com.zfg.org.myexample.ViewInject;
 import com.zfg.org.myexample.utils.ContantsUtil;
 import com.zfg.org.myexample.utils.Preference;
@@ -177,7 +178,7 @@ public class MainActivity extends BasicActivity implements OnClickListener {
                 startActivity(null, ReadingTaskActivity.class);
                 break;
             case R.id.upload_exception:
-                startActivity(null, UploadExceptionActivity.class);
+                startActivity(null, UploadExceptionActivity_bak.class);
                 break;
             case R.id.set_manager:
                 startActivity(null, SettingActivity.class);

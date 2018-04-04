@@ -222,8 +222,8 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                         break;
                     //水表用户Lora
                     case 1:
-//                        ContantsUtil.setHOst( "http://longi.nxlgg.com:8039/lggmr");
-                        ContantsUtil.setHOst( "http://192.168.0.46:8046/lggmr");
+                        ContantsUtil.setHOst( "http://longi.nxlgg.com:8039/lggmr");
+//                        ContantsUtil.setHOst( "http://192.168.0.46:8046/lggmr");
                         nameEditText.setText("wangtong");
                         pswEditText.setText("123456");
                         userType = 1;
