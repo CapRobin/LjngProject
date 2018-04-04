@@ -1,137 +1,122 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/uploadLayout"
-    style="@style/ee_content"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
-
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg"
+    android:orientation="vertical">
     <RelativeLayout
-        style="@style/page_title"
-        android:layout_width="fill_parent">
-
-        <Button
-            android:id="@+id/back_btn"
-            style="@style/back_button_style"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_alignParentLeft="true"
-            android:text="@string/back_btn" />
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/app_bg">
 
         <TextView
-            style="@style/page_title_str"
+            android:id="@+id/tv_titlebar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="异常上报" />
-
-        <Button
-            android:id="@+id/save_btn"
-            style="@style/ok_button_style"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_alignParentRight="true"
-            android:text="@string/submit_btn" />
-    </RelativeLayout>
-
-    <EditText
-        android:id="@+id/meter_addr"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/white"
-        android:hint="请输入需要上报的表号"
-        android:padding="10dp"
-        android:singleLine="true"
-        android:textColor="#373447"
-        android:textSize="16sp" />
-
-
-    <EditText
-        android:id="@+id/raw_value"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/white"
-        android:hint="请输入当前表读数"
-        android:padding="10dp"
-        android:singleLine="true"
-        android:textColor="#373447"
-        android:textSize="16sp" />
-
-    <EditText
-        android:id="@+id/photoname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/white"
-        android:hint="请输入您的手机号方便管理人员联系"
-        android:padding="10dp"
-        android:singleLine="true"
-        android:textColor="#373447"
-        android:textSize="16sp" />
-
-    <EditText
-        android:id="@+id/exceptiontitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/white"
-        android:hint="请输入标题"
-        android:padding="10dp"
-        android:singleLine="true"
-        android:textColor="#373447"
-        android:textSize="16sp" />
-
-    <EditText
-        android:id="@+id/exceptionreason"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="1dp"
-        android:background="@android:color/white"
-        android:gravity="top"
-        android:hint="请输入内容"
-        android:padding="10dp"
-        android:textColor="#373447"
-        android:textSize="16sp" />
-
-    <View android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#EEEEEE"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="添加图片"
-            android:layout_gravity="center_horizontal"
-            android:textColor="#CEC9E7"
+            android:text="帮助与反馈"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/color_af0000"
             android:textSize="16sp" />
 
+        <TextView
+            android:id="@+id/textView29"
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:background="@color/color_bg_e0"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
         <ImageView
-            android:id="@+id/picImg"
+            android:id="@+id/img_back"
             android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/yfr_back" />
+
+        <TextView
+            android:id="@+id/setting_btn_confirm"
+            android:layout_width="53dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="9dp"
+            android:background="@drawable/yfr_shape_layout_setting_helpsurebtn_bg"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="#fff"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/yfr_frame_wenb"
+        android:gravity="center_vertical">
+
+        <EditText
+            android:id="@+id/et_connetion_way"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="9dp"
+            android:layout_marginRight="9dp"
+            android:background="@null"
+            android:ems="18"
+            android:gravity="center_vertical"
+            android:hint="邮箱，QQ或手机等联系方式 (选填)"
+            android:singleLine="true"
+            android:textColor="@color/color_999"
+            android:textSize="14sp">
+
+            <requestFocus />
+        </EditText>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="151dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/yfr_frame_wenb">
+
+        <EditText
+            android:id="@+id/et_question"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:src="@mipmap/ic_add_pic"
-            android:layout_marginBottom="20dp"/>
-    </LinearLayout>
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="9dp"
+            android:layout_marginRight="9dp"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:hint="问题内容 (必填*)"
+            android:textColor="@color/color_999"
+            android:textSize="14sp">
+
+            <requestFocus />
+        </EditText>
+
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/gv_add_picture"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"
+        android:numColumns="4"
+        android:scrollbars="none"
+        android:verticalSpacing="10dp" />
 
 </LinearLayout>

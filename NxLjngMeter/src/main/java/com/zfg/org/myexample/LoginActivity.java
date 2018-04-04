@@ -1,5 +1,6 @@
 package com.zfg.org.myexample;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
@@ -221,8 +222,8 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                         break;
                     //水表用户Lora
                     case 1:
-                        ContantsUtil.setHOst( "http://longi.nxlgg.com:8039/lggmr");
-//                        ContantsUtil.setHOst( "http://192.168.0.46:8046/lggmr");
+//                        ContantsUtil.setHOst( "http://longi.nxlgg.com:8039/lggmr");
+                        ContantsUtil.setHOst( "http://192.168.0.46:8046/lggmr");
                         nameEditText.setText("wangtong");
                         pswEditText.setText("123456");
                         userType = 1;
@@ -238,13 +239,15 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                     //选择电表用户
                     case 3:
 //                        //测试数据
+
 //                        if(params.get("resultJson").toString().equals("resultJson")){
 //                            result = params.get("resultJson").toString();
 //                        }
 //                        ContantsUtil.setHOst("http://192.168.2.136:8088/lggmr");
 //                        ContantsUtil.setHOst("http://222.75.144.94:80/lggmr");
-                        //ContantsUtil.setHOst("http://192.168.2.157:80/lggmr");
-                        ContantsUtil.setHOst("http://192.168.2.84:8088/lggmr");
+//                        ContantsUtil.setHOst("http://192.168.2.157:80/lggmr");
+//                        ContantsUtil.setHOst("http://192.168.2.84:8088/lggmr");
+                        ContantsUtil.setHOst("http://192.168.2.84:8084/lggmr");
                         nameEditText.setText("lgg_nbiot");
                         pswEditText.setText("123456");
                         userType = 2;
@@ -523,6 +526,7 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
 
     final int WHAT_SCROLL = 0, WHAT_BTN_VISABEL = WHAT_SCROLL + 1;
 
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {

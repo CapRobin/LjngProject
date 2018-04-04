@@ -17,27 +17,46 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bigkoo.pickerview.TimePickerView;
 import com.zfg.org.myexample.R;
+import com.zfg.org.myexample.SystemAPI;
 import com.zfg.org.myexample.ViewInject;
-import com.zfg.org.myexample.adapter.*;
+import com.zfg.org.myexample.adapter.MyLocationAdapter2;
+import com.zfg.org.myexample.adapter.NoScrollGridView;
 import com.zfg.org.myexample.db.MeterInfoBo;
 import com.zfg.org.myexample.db.dao.MeterInfo;
 import com.zfg.org.myexample.dto.MeterInfoCheckModel;
+import com.zfg.org.myexample.model.ReadDataHisGasItemModel;
+import com.zfg.org.myexample.model.ReadDataHisWaterItemModel;
+import com.zfg.org.myexample.utils.CheckUtil;
+import com.zfg.org.myexample.utils.CommonUtil;
+import com.zfg.org.myexample.utils.DateUtil;
+import com.zfg.org.myexample.utils.HttpServiceUtil;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
  * Copyright © 2018 LJNG All rights reserved.
- *
+ * <p>
  * Name：HisInfoActivity
  * Describe：仪表记录查询
  * Date：2018-04-03 19:11:36
  * Author: CapRobin@yeah.net
- *
  */
-public class HisInfoActivity extends MyBaseActivity{
+public class HisInfoActivity extends MyBaseActivity {
 //
 //    //tab标签
 //    @ViewInject(id = R.id.tab_bottom)
@@ -60,8 +79,6 @@ public class HisInfoActivity extends MyBaseActivity{
 //    private final String TAG = "HisInfoActivity";
 
 
-
-
     @ViewInject(id = R.id.pageTitle)
     private TextView pageTitle;
     @ViewInject(id = R.id.queryTypeEdit)
@@ -69,7 +86,7 @@ public class HisInfoActivity extends MyBaseActivity{
     @ViewInject(id = R.id.queryNumEdit)
     private EditText queryNumEdit;
     @ViewInject(id = R.id.starTimetEdit)
-    private EditText starTimetEdit;
+    private EditText startTimetEdit;
     @ViewInject(id = R.id.endTimeEdit)
     private EditText endTimeEdit;
     @ViewInject(id = R.id.searchNum)
@@ -95,6 +112,8 @@ public class HisInfoActivity extends MyBaseActivity{
 
 
     private static String recordType[] = null;
+    private TimePickerView pvTime;
+    private int timeFlag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,21 +129,25 @@ public class HisInfoActivity extends MyBaseActivity{
 //        replaceFragment("readrechargehisdata", ReadDataHisFragment.getInstance(), false);
         showListData1 = new ArrayList<String>();
         showListData2 = new ArrayList<MeterInfoCheckModel>();
+        loading = new DialogLoading(this);
 
         backHome.setOnClickListener(this);
         settingBtn.setOnClickListener(this);
         queryTypeEdit.setOnClickListener(this);
         searchNum.setOnClickListener(this);
-        starTimetEdit.setOnClickListener(this);
+        startTimetEdit.setOnClickListener(this);
         endTimeEdit.setOnClickListener(this);
         query_submit.setOnClickListener(this);
 
         setData(1);
+        //初始化时间控件
+        setdate();
+        initCallBack();
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.backHome:
                 finish();
                 break;
@@ -145,14 +168,111 @@ public class HisInfoActivity extends MyBaseActivity{
                 }
                 break;
             case R.id.starTimetEdit:
+                timeFlag = 0;
+                pvTime.show();
                 break;
             case R.id.endTimeEdit:
+                timeFlag = 1;
+                pvTime.show();
                 break;
             case R.id.query_submit:
+
+                if (CheckUtil.isNull(queryNumEdit.getText().toString())) {
+                    setToast("请输入表地址！");
+                    return;
+                }
+                if (CheckUtil.isNull(startTimetEdit.getText().toString())) {
+                    setToast("请选择查询开始日期！");
+                    return;
+                }
+                if (CheckUtil.isNull(endTimeEdit.getText().toString())) {
+                    setToast("请选择查询结束日期！");
+                    return;
+                }
+//                clearData();
+
+//              历史记录查询 DateUtil.parseToString(queryNumEdit.getText(), DateUtil.yyyymmdd)
+                requestHistoryData(CommonUtil.AddZeros(queryNumEdit.getText().toString()));
                 break;
         }
     }
+    private void requestHistoryData(String meteraddr) {
+        try {
+//            String userId = ContantsUtil.curUser.getId().toString();
+            JSONObject jsobj = new JSONObject();
+            try {
+                jsobj.put("meterAddr", meteraddr);
+//                jsobj.put("userid", userId);
+                jsobj.put("bdate", startTimetEdit.getText().toString());
+                jsobj.put("edate", endTimeEdit.getText().toString());
+            } catch (JSONException ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            }
 
+//                    String jsobj="{\"name\":\"admin\",\"password\":\"admin\"}";
+            Map<String, Object> map = new HashMap<String, Object>();
+            //"{\"name\":\"admin\",\"password\":admin\"}"
+            map.put("ngMeter", jsobj.toString());
+
+            loading.show();
+            setDialogLabel("开始抄表请等待");
+//            SystemAPI.query_recharge_his(map, dataCallback);
+            SystemAPI.query_readdata_his(map, dataCallback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initCallBack() {
+        dataCallback = new HttpServiceUtil.CallBack() {
+            @Override
+            public void callback(String json) {
+                setDialogLabel("抄表完成");
+                loading.dismiss();
+//                loading.hide();
+                // 解析json
+                if (json.length() > 3) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(json);
+                        String jStatus = jsonObject.getString("strBackFlag");
+//                        if (jStatus.equals("1")){
+//                            if  (jsonObject.getString("meterType").equals("Gas")) {
+//                                //解析简单数组
+//                                JSONArray pages = jsonObject.getJSONArray("consuList");
+//                                for (int i = 0; i < pages.length(); i++) {
+//                                    ReadDataHisGasItemModel dto = new ReadDataHisGasItemModel();
+//                                    dto.of(pages.getJSONObject(i));
+//                                    Gasdata.add(dto);
+//                                }
+//                                itemlist.setAdapter(gasadaper);
+//                                gasadaper.notifyDataSetChanged();
+//                            } else if  (jsonObject.getString("meterType").equals("Water")){
+//                                JSONArray pages = jsonObject.getJSONArray("consuList");
+//                                for (int i = 0; i < pages.length(); i++) {
+//                                    ReadDataHisWaterItemModel dto = new ReadDataHisWaterItemModel();
+//                                    dto.of(pages.getJSONObject(i));
+//                                    Waterdata.add(dto);
+//                                }
+//                                itemlist.setAdapter(wateradapter);
+//                                wateradapter.notifyDataSetChanged();
+//                            }
+//                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+
+                }
+            }
+
+        };
+    }
+
+
+    public String getTime(Date date) {//可根据需要自行截取数据显示
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        return format.format(date);
+    }
 
 
     /**
@@ -180,7 +300,6 @@ public class HisInfoActivity extends MyBaseActivity{
         showView1(showListData1);
         showView2(showListData2);
     }
-
 
 
     /**
@@ -304,6 +423,7 @@ public class HisInfoActivity extends MyBaseActivity{
                 break;
         }
     }
+
     /**
      * Describe：打开视图
      * Params:
@@ -357,58 +477,49 @@ public class HisInfoActivity extends MyBaseActivity{
         return animator;
     }
 
+    /**
+     * Describe：初始化时间控件
+     * Params:
+     * Date：2018-04-04 12:45:54
+     */
 
+    private void setdate(){
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        pvTime = new TimePickerView.Builder(context, new TimePickerView.OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date2, View v) {//选中事件回调
+                String time = getTime(date2);
+                if (timeFlag == 0){
+                    startTimetEdit.setText(time);
+                }else if (timeFlag == 1){
+                    endTimeEdit.setText(time);
+                };
+            }
+        })
+                .setType(TimePickerView.Type.YEAR_MONTH_DAY)//默认全部显示
+                .setCancelText("取消")//取消按钮文字
+                .setSubmitText("确定")//确认按钮文字
+                .setContentSize(20)//滚轮文字大小
+                .setTitleSize(20)//标题文字大小
+                .setSubCalSize(20)
+                .setTitleText("请选择时间")//标题文字
+                .setOutSideCancelable(true)//点击屏幕，点在控件外部范围时，是否取消显示
+                .isCyclic(true)//是否循环滚动
+                .setTextColorCenter(Color.rgb(27,150,199))//设置选中项的颜色
+                .setTitleColor(Color.rgb(27,150,199))//标题文字颜色
+                .setSubmitColor(Color.rgb(27,150,199))//确定按钮文字颜色
+                .setCancelColor(Color.rgb(27,150,199))//取消按钮文字颜色
+//                        .setTitleBgColor(0xFF666666)//标题背景颜色 Night mode
+                .setBgColor(Color.rgb(238,238,238))//滚轮背景颜色 Night mode
+//                        .setRange(calendar.get(Calendar.YEAR) - 20, calendar.get(Calendar.YEAR) + 20)//默认是1900-2100年
+//                        .setDate(selectedDate)// 如果不设置的话，默认是系统时间*/
+//                        .setRangDate(startDate,endDate)//起始终止年月日设定
+//                        .setLabel("年","月","日","时","分","秒")
+                .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
+                .isDialog(false)//是否显示为对话框样式
+                .build();
+        pvTime.setDate(Calendar.getInstance());//注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
+    }
 
 
 //

@@ -49,7 +49,7 @@ public class HisInfoActivity_bak extends BasicActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //      界面资源
-        setContentView(R.layout.activity_hisinfo);
+        setContentView(R.layout.activity_hisinfo_bak);
         activity = (HisInfoActivity_bak) context;
 //        initCallBack();
         loading = new DialogLoading(activity);

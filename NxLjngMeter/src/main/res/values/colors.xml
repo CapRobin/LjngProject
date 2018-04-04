@@ -244,7 +244,14 @@
     <color name="selector_btn_border">#2e2e2e</color>
     <color name="selector_bg_pressed">#FF9933</color>
     <color name="selector_bg_normal">#1b96c7</color>
+    <color name="theme_color">#1b96c7</color>
     <color name="gray">#7c7c7c</color>
     <color name="app_bg">#EEEEEE</color>
+
+
+
+    <color name="color_af0000">#af0000</color>
+    <color name="color_bg_e0">#e0e0e0</color>
+    <color name="color_999">#999999</color>
 
 </resources>
