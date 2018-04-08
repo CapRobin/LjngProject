@@ -1,10 +1,10 @@
 [
     {
-        "merged": "E:\\MySpace\\WorkSpace\\AsProject\\LjngProject\\ShowView\\build\\intermediates\\res\\merged\\debug\\layout\\view_item.xml",
-        "source": "E:\\MySpace\\WorkSpace\\AsProject\\LjngProject\\ShowView\\src\\main\\res\\layout\\view_item.xml"
+        "merged": "E:\\MySpace\\DvptSpace\\AsProject\\LjngProject\\ShowView\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
+        "source": "E:\\MySpace\\DvptSpace\\AsProject\\LjngProject\\ShowView\\src\\main\\res\\layout\\activity_main.xml"
     },
     {
-        "merged": "E:\\MySpace\\WorkSpace\\AsProject\\LjngProject\\ShowView\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
-        "source": "E:\\MySpace\\WorkSpace\\AsProject\\LjngProject\\ShowView\\src\\main\\res\\layout\\activity_main.xml"
+        "merged": "E:\\MySpace\\DvptSpace\\AsProject\\LjngProject\\ShowView\\build\\intermediates\\res\\merged\\debug\\layout\\view_item.xml",
+        "source": "E:\\MySpace\\DvptSpace\\AsProject\\LjngProject\\ShowView\\src\\main\\res\\layout\\view_item.xml"
     }
 ]
