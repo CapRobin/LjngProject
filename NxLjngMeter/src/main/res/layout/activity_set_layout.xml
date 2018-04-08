@@ -5,25 +5,31 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        style="@style/page_title"
-        android:layout_width="fill_parent" >
 
-        <Button
-            android:id="@+id/back_btn"
-            style="@style/back_button_style"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_alignParentLeft="true"
-            android:text="@string/back_btn" />
 
-        <TextView
-            style="@style/page_title_str"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/sys_set" />
-    </RelativeLayout>
+    <include
+        android:id="@+id/bolck_titlebar"
+        layout="@layout/block_header" />
+
+    <!--<RelativeLayout-->
+        <!--style="@style/page_title"-->
+        <!--android:layout_width="fill_parent" >-->
+
+        <!--<Button-->
+            <!--android:id="@+id/back_btn"-->
+            <!--style="@style/back_button_style"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:text="@string/back_btn" />-->
+
+        <!--<TextView-->
+            <!--style="@style/page_title_str"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:text="@string/sys_set" />-->
+    <!--</RelativeLayout>-->
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -39,7 +45,7 @@
             <RelativeLayout
                 android:id="@+id/user_info"
                 style="@style/user_center_item"
-                android:background="@drawable/corners_bg"
+                android:background="@drawable/selector_setting_bg"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dip"
@@ -107,13 +113,16 @@
                 android:layout_marginBottom="20dip"
                 android:layout_marginLeft="20dip"
                 android:layout_marginRight="20dip"
+                android:background="@drawable/selector_setting_bg"
                 android:orientation="vertical" >
 
                 <RelativeLayout
                     android:id="@+id/about_us"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/setting_selector_up"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:background="@drawable/selector_setting_top"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -145,11 +154,18 @@
                         android:background="@drawable/detail" />
                 </RelativeLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@color/gary" />
+
                 <RelativeLayout
                     android:id="@+id/reportus"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/setting_bg_center_selector_login"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:background="@drawable/selector_setting_middle"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -181,11 +197,18 @@
                         android:background="@drawable/detail" />
                 </RelativeLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@color/gary" />
+
                 <RelativeLayout
                     android:id="@+id/officialnews"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/setting_bg_center_selector_login"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:background="@drawable/selector_setting_middle"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -217,12 +240,19 @@
                         android:background="@drawable/detail" />
                 </RelativeLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@color/gary" />
+
 
                 <RelativeLayout
                     android:id="@+id/check_update"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/setting_bg_center_selector_login"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:background="@drawable/selector_setting_middle"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -254,11 +284,18 @@
                         android:background="@drawable/detail" />
                 </RelativeLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@color/gary" />
+
                 <RelativeLayout
                     android:id="@+id/help"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/setting_selector_down"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:background="@drawable/selector_setting_bottom"
                     android:orientation="horizontal" >
 
                     <TextView

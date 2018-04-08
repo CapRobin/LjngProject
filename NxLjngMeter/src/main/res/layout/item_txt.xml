@@ -12,6 +12,7 @@
         android:layout_height="@dimen/help_item"
         android:background="@color/white"
         android:gravity="center_vertical"
+        android:textColor="@color/textColor"
         android:text="@string/app_name"
         android:textSize="@dimen/text_size_14" />
 

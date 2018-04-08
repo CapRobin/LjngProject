@@ -178,7 +178,7 @@
                 android:text="使用微信支付"
                 tools:ignore="HardcodedText"
                 android:textSize="16sp"
-                android:background="@drawable/corners_bg"
+                android:background="@drawable/selector_setting_bg"
                 android:padding="10dp"/>
 
             <Button
@@ -191,7 +191,7 @@
                 android:text="使用支付宝支付"
                 tools:ignore="HardcodedText"
                 android:textSize="16sp"
-                android:background="@drawable/corners_bg"
+                android:background="@drawable/selector_setting_bg"
                 android:padding="10dp"/>
 
             <Button
@@ -204,7 +204,7 @@
                 android:textSize="16sp"
                 android:text="使用银联支付"
                 tools:ignore="HardcodedText"
-                android:background="@drawable/corners_bg"
+                android:background="@drawable/selector_setting_bg"
                 android:padding="10dp"/>
 
         </LinearLayout>

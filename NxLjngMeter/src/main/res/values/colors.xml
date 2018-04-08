@@ -247,6 +247,7 @@
     <color name="theme_color">#1b96c7</color>
     <color name="gray">#7c7c7c</color>
     <color name="app_bg">#EEEEEE</color>
+    <color name="textColor">#2e2e2e</color>
 
 
 

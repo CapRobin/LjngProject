@@ -25,7 +25,7 @@ import com.zfg.org.myexample.RechargeActivity;
 import com.zfg.org.myexample.RemoteControlWaterActivity;
 import com.zfg.org.myexample.SettingActivity;
 import com.zfg.org.myexample.SwichPowerActivity;
-import com.zfg.org.myexample.UploadExceptionActivity_bak;
+import com.zfg.org.myexample.UploadExceptionActivity;
 import com.zfg.org.myexample.ViewInject;
 //import com.zfg.org.myexample.ble1.PeripheralActivity;
 //import com.zfg.org.myexample.ble1.ScanningActivity;
@@ -422,7 +422,7 @@ public class MainActivity_bak extends BasicActivity implements OnClickListener {
 //                break;
             case R.id.upload_exception:
 //                Toast.makeText(context, "异常上报", Toast.LENGTH_SHORT).show();
-                startActivity(null, UploadExceptionActivity_bak.class);
+                startActivity(null, UploadExceptionActivity.class);
                 break;
 //            case R.id.error_query:
 //                Toast.makeText(context, "点击故障信息模块",Toast.LENGTH_SHORT).show();

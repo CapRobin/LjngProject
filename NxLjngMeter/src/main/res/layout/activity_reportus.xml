@@ -3,62 +3,85 @@
     style="@style/ee_content"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
+    <include
+        android:id="@+id/bolck_titlebar"
+        layout="@layout/block_header" />
+
+    <!--<RelativeLayout-->
+    <!--style="@style/page_title"-->
+    <!--android:layout_width="fill_parent" >-->
+
+    <!--<Button-->
+    <!--android:id="@+id/back_btn"-->
+    <!--style="@style/back_button_style"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="fill_parent"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--android:text="@string/back_btn" />-->
+
+    <!--<TextView-->
+    <!--style="@style/page_title_str"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:text="意见反馈" />-->
+
+    <!--<Button-->
+    <!--android:id="@+id/save_btn"-->
+    <!--style="@style/ok_button_style"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="fill_parent"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:text="@string/submit_btn" />-->
+    <!--</RelativeLayout>-->
     <RelativeLayout
-        style="@style/page_title"
-        android:layout_width="fill_parent" >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/back_btn"
-            style="@style/back_button_style"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_alignParentLeft="true"
-            android:text="@string/back_btn" />
-
-        <TextView
-            style="@style/page_title_str"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/feedbacktitle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="意见反馈" />
+            android:layout_margin="20dp"
+            android:background="@drawable/selector_setting_bg"
+            android:hint="请输入反馈问题标题"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="#373447"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/feedbackreason"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_below="@+id/feedbacktitle"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/selector_setting_bg"
+            android:gravity="top"
+            android:hint="请输入反馈问题内容"
+            android:padding="10dp"
+            android:textColor="#373447"
+            android:textSize="16sp" />
+
 
         <Button
-            android:id="@+id/save_btn"
-            style="@style/ok_button_style"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_alignParentRight="true"
-            android:text="@string/submit_btn" />
+            android:id="@+id/submit"
+            android:layout_width="fill_parent"
+            android:layout_height="34dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/selector_btn"
+            android:padding="2dip"
+            android:text="提    交"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textColor="#2e2e2e"
+            android:textSize="20sp" />
+
     </RelativeLayout>
-
-    <EditText
-        android:id="@+id/feedbacktitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/white"
-        android:hint="请输入要反馈的问题标题"
-        android:padding="10dp"
-        android:singleLine="true"
-        android:textColor="#373447"
-        android:textSize="16sp" />
-
-    <EditText
-        android:id="@+id/feedbackreason"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="1dp"
-        android:background="@android:color/white"
-        android:gravity="top"
-        android:hint="请输入要反馈的问题内容"
-        android:padding="10dp"
-        android:textColor="#373447"
-        android:textSize="16sp" />
 
 </LinearLayout>

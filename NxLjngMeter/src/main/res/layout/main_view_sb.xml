@@ -3,6 +3,7 @@
     style="@style/ee_content"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -457,42 +458,77 @@
 
             </LinearLayout>
 
-            <Spinner
-                android:id="@+id/selectPage"
-                android:layout_width="match_parent"
-                android:layout_marginTop="5dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:entries="@array/test_activity" />
+            <!--<Spinner-->
+                <!--android:id="@+id/selectPage"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:entries="@array/test_activity" />-->
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/recLayout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/bottom_company_bg"
         android:gravity="bottom|center"
+        android:background="@color/white"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical">
 
-        <RelativeLayout
-            style="@style/page_title"
-            android:layout_width="fill_parent"
-            android:background="@color/bottom_company_bg">
+        <TextView
+            android:id="@+id/copyright1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="6dp"
+            android:text="Copyright © 2016"
+            android:textColor="@color/bottom_company_text_color"
+            android:textSize="@dimen/text_size_12" />
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="6dp"
-                android:text="Copyright@2016 宁夏隆基宁光仪表股份有限公司.All Right Reserved"
-                android:textColor="@color/bottom_company_text_color"
-                android:textSize="@dimen/text_size_12" />
-        </RelativeLayout>
-    </LinearLayout>
+        <TextView
+            android:id="@+id/copyright2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="6dp"
+            android:layout_below="@+id/copyright1"
+            android:text="宁夏隆基宁光仪表股份有限公司 . All Right Reserved"
+            android:textColor="@color/bottom_company_text_color"
+            android:textSize="@dimen/text_size_12" />
+    </RelativeLayout>
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/recLayout"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--android:background="@color/bottom_company_bg"-->
+        <!--android:gravity="bottom|center"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<RelativeLayout-->
+            <!--style="@style/page_title"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:background="@color/bottom_company_bg">-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/textView4"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:layout_marginTop="6dp"-->
+                <!--android:text="Copyright@2016 宁夏隆基宁光仪表股份有限公司.All Right Reserved"-->
+                <!--android:textColor="@color/bottom_company_text_color"-->
+                <!--android:textSize="@dimen/text_size_12" />-->
+        <!--</RelativeLayout>-->
+    <!--</LinearLayout>-->
 </LinearLayout>
 

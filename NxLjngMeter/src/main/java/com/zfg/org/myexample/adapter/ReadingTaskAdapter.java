@@ -41,21 +41,21 @@ public class ReadingTaskAdapter  extends MBaseAdapter {
 
         ViewHolder holder =  (ViewHolder) convertView.getTag();
         ReadingTaskItemModel dto = (ReadingTaskItemModel) itemObject;
-        holder.CONSU.setText("台区编号: "+dto.getCONSU());
-        holder.CONSUNAME.setText("台区名称: "+dto.getCONSUNAME());
-        holder.TOTAL.setText("总表数量: "+dto.getTOTAL() +" 个");
-        holder.HADCOUNT.setText("成功表数量: "+dto.getHADCOUNT()+" 个" );
-        holder.FAILED.setText("失败表数量: "+dto.getFAILED() +" 个");
-        holder.RATE.setText("成功比例: "+dto.getRATE() +"%");
+        holder.CONSU.setText(dto.getCONSU());
+        holder.CONSUNAME.setText(dto.getCONSUNAME());
+        holder.TOTAL.setText(dto.getTOTAL() +" 个");
+        holder.HADCOUNT.setText(dto.getHADCOUNT()+" 个" );
+        holder.FAILED.setText(dto.getFAILED() +" 个");
+        holder.RATE.setText(dto.getRATE() +"%");
         switch (Integer.parseInt(dto.getMETER_TYPE())) {
             case 120:
-                holder.METER_TYPE.setText("表类型: 水表");
+                holder.METER_TYPE.setText("水表");
                 break;
             case 301:
-                holder.METER_TYPE.setText("表类型: 气表");
+                holder.METER_TYPE.setText("气表");
                 break;
             default:
-                holder.METER_TYPE.setText("表类型 "+dto.getMETER_TYPE());
+                holder.METER_TYPE.setText(dto.getMETER_TYPE());
         }
 
     }

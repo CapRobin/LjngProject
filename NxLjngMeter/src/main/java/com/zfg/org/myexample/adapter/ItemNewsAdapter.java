@@ -1,6 +1,7 @@
 package com.zfg.org.myexample.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +57,7 @@ public class ItemNewsAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			holder.date = (TextView) view.findViewById(R.id.infor_date);
 			holder.information = (ListView) view.findViewById(R.id.infor_list);
+//			holder.information.  			android:textColor="#2e2e2e"
 			infoAdapter = new NewsAdapter(context, adapterViewData);
 			holder.information.setAdapter(infoAdapter);
 			holder.date.setText(adapterViewData.get(0).parent);

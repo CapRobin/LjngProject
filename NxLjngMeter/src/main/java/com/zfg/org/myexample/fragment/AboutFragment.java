@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -22,13 +23,15 @@ import android.widget.VideoView;
  *
  */
 public class AboutFragment extends BasicFragmentDialog implements OnClickListener{
-	
-	@ViewInject(id = R.id.back_btn)
-	private Button backBtn;
+
 	@ViewInject(id = R.id.web_content)
 	private WebView webview;
-	@ViewInject(id = R.id.title)
-	private TextView titleView;
+	@ViewInject(id = R.id.backHome)
+	private Button backHome;
+	@ViewInject(id = R.id.pageTitle)
+	private TextView pageTitle;
+	@ViewInject(id = R.id.settingBtn)
+	private ImageView settingBtn;
 
 //	@ViewInject(id = R.id.videoView)
 //	private VideoView mVideoView;
@@ -80,14 +83,15 @@ public class AboutFragment extends BasicFragmentDialog implements OnClickListene
 		webview.loadDataWithBaseURL(null, content, "text/html", "utf-8",
 				"about:blank");
 		webview.loadUrl("file:///android_asset/html/help.html");
-		titleView.setText("关于我们");
-		backBtn.setOnClickListener(this);
+		pageTitle.setText("关于我们");
+		settingBtn.setVisibility(View.GONE);
+		backHome.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()){
-		case R.id.back_btn:
+		case R.id.backHome:
 			dismiss();
 			break;
 		}

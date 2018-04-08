@@ -3,7 +3,9 @@ package com.zfg.org.myexample.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.SystemAPI;
@@ -29,8 +31,15 @@ import java.util.Map;
 
 public class ReadingTaskActivity extends BasicActivity implements View.OnClickListener {
 
-    @ViewInject(id = R.id.back_btn)
-    private Button backBtn;
+//    @ViewInject(id = R.id.back_btn)
+//    private Button backBtn;
+
+    @ViewInject(id = R.id.backHome)
+    private Button backHome;
+    @ViewInject(id = R.id.pageTitle)
+    private TextView pageTitle;
+    @ViewInject(id = R.id.settingBtn)
+    private ImageView settingBtn;
 
     @ViewInject(id = R.id.itemlist)
     private ListView itemlist;
@@ -51,6 +60,8 @@ public class ReadingTaskActivity extends BasicActivity implements View.OnClickLi
         setContentView(R.layout.activity_readingtask);
         loading = new DialogLoading(context);
         preference = Preference.instance(context);
+        pageTitle.setText("任务查询");
+        settingBtn.setVisibility(View.GONE);
         initActivity();
         initData();
         initCallBack();
@@ -59,7 +70,7 @@ public class ReadingTaskActivity extends BasicActivity implements View.OnClickLi
     }
 
     private void initActivity() {
-        backBtn.setOnClickListener(this);
+        backHome.setOnClickListener(this);
     }
 
 
@@ -150,7 +161,7 @@ public class ReadingTaskActivity extends BasicActivity implements View.OnClickLi
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.back_btn:
+            case R.id.backHome:
                 finish();
                 break;
         }

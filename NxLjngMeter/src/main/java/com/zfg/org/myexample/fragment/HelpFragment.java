@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -24,15 +25,21 @@ import android.widget.TextView;
  */
 public class HelpFragment extends BasicFragmentDialog implements OnClickListener {
 
-	@ViewInject(id = R.id.back_btn)
-	private Button backBtn;
+//	@ViewInject(id = R.id.back_btn)
+//	private Button backBtn;
 	@ViewInject(id = R.id.web_content)
 	private WebView webview;
-	@ViewInject(id = R.id.title)
-	private TextView titleView;
+//	@ViewInject(id = R.id.title)
+//	private TextView titleView;
 
 	private String content = "";
 	private String index = "";
+	@ViewInject(id = R.id.backHome)
+	private Button backHome;
+	@ViewInject(id = R.id.pageTitle)
+	private TextView pageTitle;
+	@ViewInject(id = R.id.settingBtn)
+	private ImageView settingBtn;
 
 	public static HelpFragment getInstance(String index) {
 		HelpFragment fragment = new HelpFragment();
@@ -73,8 +80,8 @@ public class HelpFragment extends BasicFragmentDialog implements OnClickListener
 		// settings.setJavaScriptEnabled(true);
 		// settings.setBlockNetworkImage(true);
 		settings.setDefaultTextEncodingName("utf-8");
-		webview.setBackgroundColor(0);
-		webview.getBackground().setAlpha(0);
+//		webview.setBackgroundColor(0);
+//		webview.getBackground().setAlpha(0);
 
 		String temp = FileUtil.readTxtFromAsset(context, "help/" + index
 				+ ".html");
@@ -84,14 +91,15 @@ public class HelpFragment extends BasicFragmentDialog implements OnClickListener
 		content += "</body></html>";
 		webview.loadDataWithBaseURL(null, content, "text/html", "utf-8",
 				"about:blank");
-		titleView.setText("帮助中心");
-		backBtn.setOnClickListener(this);
+		settingBtn.setVisibility(View.GONE);
+		pageTitle.setText("帮助中心");
+		backHome.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.back_btn:
+		case R.id.backHome:
 			dismiss();
 			break;
 		}

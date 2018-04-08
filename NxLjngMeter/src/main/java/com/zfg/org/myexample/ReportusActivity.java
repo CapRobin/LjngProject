@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zfg.org.myexample.activity.BasicActivity;
@@ -25,11 +26,11 @@ import java.util.Map;
 
 public class ReportusActivity extends BasicActivity implements View.OnClickListener {
 
-    @ViewInject(id = R.id.back_btn)
-    private Button backBtn;
+//    @ViewInject(id = R.id.back_btn)
+//    private Button backBtn;
 
-    @ViewInject(id = R.id.save_btn)
-    private Button save_btn;
+    @ViewInject(id = R.id.submit)
+    private Button submit;
 
 
     @ViewInject(id = R.id.feedbacktitle)
@@ -45,6 +46,13 @@ public class ReportusActivity extends BasicActivity implements View.OnClickListe
 
     private HttpServiceUtil.CallBack dataCallback;
 
+    @ViewInject(id = R.id.backHome)
+    private Button backHome;
+    @ViewInject(id = R.id.pageTitle)
+    private TextView pageTitle;
+    @ViewInject(id = R.id.settingBtn)
+    private ImageView settingBtn;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,18 +65,20 @@ public class ReportusActivity extends BasicActivity implements View.OnClickListe
     }
 
     private void initActivity() {
-        backBtn.setOnClickListener(this);
-        save_btn.setOnClickListener(this);
+        pageTitle.setText("意见反馈");
+        settingBtn.setVisibility(View.GONE);
+        backHome.setOnClickListener(this);
+        submit.setOnClickListener(this);
     }
 
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.save_btn://
+            case R.id.submit://
                 FeedBack();
                 break;
-            case R.id.back_btn://
+            case R.id.backHome://
                 finish();
                 break;
         }

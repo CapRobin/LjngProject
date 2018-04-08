@@ -19,7 +19,7 @@
         style="@style/info_item_container"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dip"
+        android:layout_margin="5dip"
         android:orientation="vertical" >
 
         <com.zfg.org.myexample.widget.NListView
@@ -27,10 +27,11 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:cacheColorHint="#00000000"
-            android:divider="@mipmap/divider"
             android:fadingEdge="none"
+            android:divider="@color/gary"
+            android:dividerHeight="0.5dp"
             android:fastScrollEnabled="true"
-            android:listSelector="@drawable/listview_selector"
+            android:background="@drawable/selector_setting_bg"
             android:scrollingCache="false" >
         </com.zfg.org.myexample.widget.NListView>
     </LinearLayout>

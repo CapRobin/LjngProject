@@ -26,7 +26,9 @@ import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -35,8 +37,8 @@ import org.json.JSONObject;
 public class SettingActivity extends BasicActivity implements OnClickListener {
 
     //
-    @ViewInject(id = R.id.back_btn)
-    private Button backBtn;
+    @ViewInject(id = R.id.backHome)
+    private Button backHome;
     //关于我们
     @ViewInject(id = R.id.about_us)
     private RelativeLayout aboutUs;
@@ -59,6 +61,10 @@ public class SettingActivity extends BasicActivity implements OnClickListener {
     //  二维码
     @ViewInject(id = R.id.user_info)
     private RelativeLayout user_info;
+    @ViewInject(id = R.id.pageTitle)
+    private TextView pageTitle;
+    @ViewInject(id = R.id.settingBtn)
+    private ImageView settingBtn;
 
 
     private AlertDialogZfg alert;
@@ -78,7 +84,7 @@ public class SettingActivity extends BasicActivity implements OnClickListener {
 
     private void initActivity() {
         checkupdate.setOnClickListener(this);
-        backBtn.setOnClickListener(this);
+        backHome.setOnClickListener(this);
         aboutUs.setOnClickListener(this);
         logout.setOnClickListener(this);
         help.setOnClickListener(this);
@@ -86,13 +92,15 @@ public class SettingActivity extends BasicActivity implements OnClickListener {
         officialnews.setOnClickListener(this);
         user_info.setOnClickListener(this);
         maps = new ReadAreaFile(context).readArea();
+        pageTitle.setText("系统设置");
+        settingBtn.setVisibility(View.GONE);
         Map<String, String> maps = new ReadAreaFile(context).readArea();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.back_btn:
+            case R.id.backHome:
                 finish();
                 break;
             case R.id.about_us:

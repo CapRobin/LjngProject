@@ -5,28 +5,31 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        style="@style/page_title"
-        android:layout_width="fill_parent" >
+    <include
+        android:id="@+id/bolck_titlebar"
+        layout="@layout/block_header" />
+    <!--<RelativeLayout-->
+        <!--style="@style/page_title"-->
+        <!--android:layout_width="fill_parent" >-->
 
-        <Button
-            android:id="@+id/back_btn"
-            style="@style/back_button_style"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_alignParentLeft="true"
-            android:text="@string/back_btn" />
+        <!--<Button-->
+            <!--android:id="@+id/back_btn"-->
+            <!--style="@style/back_button_style"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:text="@string/back_btn" />-->
 
-        <TextView
-            android:id="@+id/activity_set_title"
-            style="@style/page_title_str"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="@string/readingtask" />
+        <!--<TextView-->
+            <!--android:id="@+id/activity_set_title"-->
+            <!--style="@style/page_title_str"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:gravity="center"-->
+            <!--android:text="@string/readingtask" />-->
 
-    </RelativeLayout>
+    <!--</RelativeLayout>-->
 
 
     <ScrollView
@@ -46,8 +49,8 @@
                 android:layout_height="fill_parent"
                 android:cacheColorHint="#00000000"
                 android:descendantFocusability="blocksDescendants"
-                android:divider="@mipmap/divider"
-                android:dividerHeight="0.8dip"
+                android:divider="@color/gary"
+                android:dividerHeight="1dp"
                 android:fadingEdge="none"
                 android:fastScrollEnabled="false"
                 android:listSelector="@color/transparent"

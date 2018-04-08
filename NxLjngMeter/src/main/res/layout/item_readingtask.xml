@@ -3,113 +3,264 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/CONSU"
-        android:layout_width="wrap_content"
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="center_vertical"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="10dp"
-        android:ellipsize="middle"
-        android:singleLine="true"
-        android:textColor="#424242"
-        android:textSize="22sp" />
+        android:layout_marginLeft="10dp">
 
-    <TextView
-        android:id="@+id/CONSUNAME"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/CONSUTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="台区编号:"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/CONSU"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="15dip"
+            android:layout_toRightOf="@+id/CONSUTitle"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:textColor="@color/textColor"
+            android:textSize="15sp">
+        </TextView>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="center_vertical"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="10dp"
-        android:ellipsize="middle"
-        android:singleLine="true"
-        android:textColor="#424242"
-        android:textSize="22sp" />
+        android:layout_marginLeft="10dp">
+
+        <TextView
+            android:id="@+id/CONSUNAMETitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="台区名称:"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/CONSUNAME"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="15dip"
+            android:layout_toRightOf="@+id/CONSUNAMETitle"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:textColor="@color/textColor"
+            android:textSize="15sp">
+        </TextView>
+    </RelativeLayout>
 
 
-    <TextView
-        android:id="@+id/TOTAL"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="center_vertical"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="10dp"
-        android:ellipsize="middle"
-        android:singleLine="true"
-        android:textColor="#424242"
-        android:textSize="22sp" />
+        android:layout_marginLeft="10dp">
+
+        <TextView
+            android:id="@+id/TOTALTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="总表数量:"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/TOTAL"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="15dip"
+            android:layout_toRightOf="@+id/TOTALTitle"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:textColor="@color/textColor"
+            android:textSize="15sp">
+        </TextView>
+    </RelativeLayout>
 
 
-    <TextView
-        android:id="@+id/HADCOUNT"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="center_vertical"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="10dp"
-        android:ellipsize="middle"
-        android:singleLine="true"
-        android:textColor="#424242"
-        android:textSize="22sp" />
+        android:layout_marginLeft="10dp">
+
+        <TextView
+            android:id="@+id/HADCOUNTTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="成功数量:"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/HADCOUNT"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="15dip"
+            android:layout_toRightOf="@+id/HADCOUNTTitle"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:textColor="@color/textColor"
+            android:textSize="15sp">
+        </TextView>
+    </RelativeLayout>
 
 
-    <TextView
-        android:id="@+id/FAILED"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="center_vertical"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="10dp"
-        android:ellipsize="middle"
-        android:singleLine="true"
-        android:textColor="#424242"
-        android:textSize="22sp" />
+        android:layout_marginLeft="10dp">
+
+        <TextView
+            android:id="@+id/FAILEDTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="失败数量:"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/FAILED"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="15dip"
+            android:layout_toRightOf="@+id/FAILEDTitle"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:textColor="@color/textColor"
+            android:textSize="15sp">
+        </TextView>
+    </RelativeLayout>
 
 
-    <TextView
-        android:id="@+id/RATE"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="center_vertical"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="10dp"
-        android:ellipsize="middle"
-        android:singleLine="true"
-        android:textColor="#424242"
-        android:textSize="22sp" />
+        android:layout_marginLeft="10dp">
 
-    <TextView
-        android:id="@+id/METER_TYPE"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/RATETitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="成功比例:"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/RATE"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="15dip"
+            android:layout_toRightOf="@+id/RATETitle"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:textColor="@color/textColor"
+            android:textSize="15sp">
+        </TextView>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="center_vertical"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="10dp"
-        android:ellipsize="middle"
-        android:singleLine="true"
-        android:textColor="#424242"
-        android:textSize="22sp" />
+        android:layout_marginLeft="10dp">
 
-    <TextView
-        android:id="@+id/DATE_TIME"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="10dp"
-        android:ellipsize="middle"
-        android:singleLine="true"
-        android:textColor="@color/secondary_text"
-        android:textSize="18sp" />
+        <TextView
+            android:id="@+id/METER_TYPETitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="抄表项目:"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
 
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:alpha="0.5"
-        android:background="@color/divider" />
+        <TextView
+            android:id="@+id/METER_TYPE"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="15dip"
+            android:layout_toRightOf="@+id/METER_TYPETitle"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:textColor="@color/textColor"
+            android:textSize="15sp">
+        </TextView>
+    </RelativeLayout>
+
+
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="10dp">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/DATE_TIMETitle"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:text="抄表项目:"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:textSize="18sp" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/DATE_TIME"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_marginLeft="5dip"-->
+            <!--android:layout_toRightOf="@+id/DATE_TIMETitle"-->
+            <!--android:text="台区编号"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:textColor="@color/textColor"-->
+            <!--android:textSize="15sp">-->
+        <!--</TextView>-->
+    <!--</RelativeLayout>-->
+
+
+    <!--<View-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:alpha="0.5"-->
+        <!--android:background="@color/gary" />-->
 
 </LinearLayout>

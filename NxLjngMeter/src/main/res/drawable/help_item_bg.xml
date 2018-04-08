@@ -10,11 +10,11 @@
     </gradient>
 
     <corners
-        android:radius="4dip"/>
+        android:radius="5dip"/>
     
     <stroke 
-        android:width="0.8dip"
-        android:color="#cccccc"/>
+        android:width="0.5dp"
+        android:color="@color/gary"/>
 
     <padding
         android:bottom="0dp"
