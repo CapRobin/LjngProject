@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="meters">
+        <item>水表</item>
+        <item>气表</item>
+        <item>电表</item>
+        <!--<item>抄控器</item>-->
+        <!--<item>中继器</item>-->
+    </string-array>
+</resources>

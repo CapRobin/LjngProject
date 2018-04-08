@@ -1,0 +1,155 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/content"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/page_title"
+        android:layout_width="fill_parent" >
+
+        <Button
+            android:id="@+id/back_btn"
+            style="@style/back_button_style"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:text="@string/back_btn" />
+
+        <TextView
+            style="@style/page_title_str"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/data_input" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/page_title_color"
+        android:orientation="horizontal"
+        android:paddingBottom="5dip"
+        android:paddingRight="8dip"
+        android:paddingTop="5dip" >
+
+        <ImageView
+            android:id="@+id/search_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="8dip"
+            android:src="@mipmap/icon_search" />
+
+        <EditText
+            android:id="@+id/content"
+            style="@style/target_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/search_icon"
+            android:background="@drawable/tool_input_bg"
+            android:padding="6dip"
+            android:textColor="@color/label_color" />
+
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="20dip"
+            android:layout_height="20dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dip"
+            android:indeterminateDrawable="@anim/anim_loading"
+            android:indeterminateDuration="3500"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/ee_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <com.zfg.org.myexample.widget.NGridView
+                    android:id="@+id/gridview"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:horizontalSpacing="1dip"
+                    android:listSelector="@drawable/listview_selector"
+                    android:numColumns="4"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="1dp" >
+                </com.zfg.org.myexample.widget.NGridView>
+            </ScrollView>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.8dip"
+                android:background="@mipmap/divider" />
+
+            <LinearLayout
+                style="@style/content"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" >
+
+                <ListView
+                    android:id="@+id/data_list"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:cacheColorHint="#00000000"
+                    android:descendantFocusability="blocksDescendants"
+                    android:divider="@null"
+                    android:fadingEdge="none"
+                    android:fastScrollEnabled="false"
+                    android:headerDividersEnabled="true"
+                    android:listSelector="@drawable/listview_selector"
+                    android:scrollingCache="false" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/search_list"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@mipmap/infor_item_title_mask"
+            android:cacheColorHint="#00000000"
+            android:descendantFocusability="blocksDescendants"
+            android:divider="@null"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="false"
+            android:headerDividersEnabled="true"
+            android:listSelector="@null"
+            android:scrollingCache="false"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/loading_pb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateDrawable="@anim/anim_loading"
+                android:indeterminateDuration="3500"
+                android:maxHeight="48dp"
+                android:maxWidth="48dp"
+                android:minHeight="48dp"
+                android:minWidth="48dp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>
