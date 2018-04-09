@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,8 +67,15 @@ public class MyPayActivity extends BasicActivity implements View.OnClickListener
     @ViewInject(id = R.id.product_price)
     private TextView productprice;
 
-    @ViewInject(id = R.id.back_btn)
-    private Button backbtn;
+//    @ViewInject(id = R.id.back_btn)
+//    private Button backbtn;
+
+    @ViewInject(id = R.id.backHome)
+    private Button backHome;
+    @ViewInject(id = R.id.pageTitle)
+    private TextView pageTitle;
+    @ViewInject(id = R.id.settingBtn)
+    private ImageView settingBtn;
 
     @ViewInject(id = R.id.product_subject_num)
     private TextView productsubjectnum;
@@ -94,6 +102,8 @@ public class MyPayActivity extends BasicActivity implements View.OnClickListener
         activity = (MyPayActivity) context;
         loading = new DialogLoading(activity);
         preference = Preference.instance(context);
+        pageTitle.setText("支付详情");
+        settingBtn.setVisibility(View.GONE);
         initActivity();
         initCallBack();
 //      微信支付的回调
@@ -105,7 +115,7 @@ public class MyPayActivity extends BasicActivity implements View.OnClickListener
 
 
     private void initActivity() {
-        backbtn.setOnClickListener(this);
+        backHome.setOnClickListener(this);
         alipaybtn.setOnClickListener(this);
         wechatpaybtn.setOnClickListener(this);
         unionpaybtn.setOnClickListener(this);
@@ -117,7 +127,7 @@ public class MyPayActivity extends BasicActivity implements View.OnClickListener
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.back_btn:
+            case R.id.backHome:
                 finish();
                 break;
             // 支付宝充值

@@ -12,7 +12,7 @@
         android:gravity="center"
         android:hint="输入金额"
         android:inputType="number"
-        android:background="@drawable/bg_et"
+        android:background="@drawable/selector_btn"
         android:padding="12dp"
         android:textSize="12sp" />
 </LinearLayout>

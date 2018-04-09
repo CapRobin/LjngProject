@@ -88,7 +88,7 @@ public class ReadingTaskActivity extends BasicActivity implements View.OnClickLi
             //"{\"name\":\"admin\",\"password\":admin\"}"
             map.put("ngMeter", jsobj.toString());
             loading.show();
-            setDialogLabel("正在查询任务记录......");
+            setDialogLabel("任务记录查询中...");
 //          发起查询请求
             SystemAPI.readingTask(map, dataCallback);
         } catch (Exception e) {

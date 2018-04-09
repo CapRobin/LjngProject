@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,7 +52,7 @@ public class RechargeActivity  extends BasicActivity implements View.OnClickList
     private EditText rechargemoney;
 
     @ViewInject(id = R.id.select_addr)
-    private EditText select_addr;
+    private ImageView select_addr;
 
     private CallBack callBack;
 
@@ -64,8 +65,15 @@ public class RechargeActivity  extends BasicActivity implements View.OnClickList
 //    @ViewInject(id = R.id.recharge_btn)
 //    private Button rechargeBtn;
 
-    @ViewInject(id = R.id.back_btn)
-    private Button backbtn;
+//    @ViewInject(id = R.id.back_btn)
+//    private Button backbtn;
+
+    @ViewInject(id = R.id.backHome)
+    private Button backHome;
+    @ViewInject(id = R.id.pageTitle)
+    private TextView pageTitle;
+    @ViewInject(id = R.id.settingBtn)
+    private ImageView settingBtn;
 
     private Preference preference;
     private DialogLoading loading;
@@ -85,6 +93,8 @@ public class RechargeActivity  extends BasicActivity implements View.OnClickList
         activity = (RechargeActivity) context;
         loading = new DialogLoading(activity);
         preference = Preference.instance(context);
+        pageTitle.setText("充值缴费");
+        settingBtn.setVisibility(View.GONE);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         recyclerView.setAdapter(adapter = new RechargeAdapter());
@@ -113,16 +123,16 @@ public class RechargeActivity  extends BasicActivity implements View.OnClickList
     }
 
     private void initActivity(){
-        backbtn.setOnClickListener(this);
+        backHome.setOnClickListener(this);
         tvPay.setOnClickListener(this);
-        meterAddrs.setOnClickListener(this);
+//        meterAddrs.setOnClickListener(this);
         select_addr.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch(view.getId()){
-            case R.id.back_btn:
+            case R.id.backHome:
                 finish();
                 break;
 //            case R.id.meter_addrs:

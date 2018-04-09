@@ -247,8 +247,11 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
 //                        ContantsUtil.setHOst("http://222.75.144.94:80/lggmr");
 //                        ContantsUtil.setHOst("http://192.168.2.157:80/lggmr");
 //                        ContantsUtil.setHOst("http://192.168.2.84:8088/lggmr");
-                        ContantsUtil.setHOst("http://192.168.2.84:8084/lggmr");
-                        nameEditText.setText("lgg_nbiot");
+//                        ContantsUtil.setHOst("http://192.168.2.84:8084/lggmr");
+                        ContantsUtil.setHOst("http://longi.nxlgg.com:8084/lggmr");
+//                        nameEditText.setText("lgg_nbiot");
+//                        pswEditText.setText("123456");
+                        nameEditText.setText("luoj");
                         pswEditText.setText("123456");
                         userType = 2;
                         break;
@@ -626,9 +629,27 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                 try {
                     JSONObject jsonesult = new JSONObject(result);
                     int res = jsonesult.getInt("strBackFlag");
+                    userType = preference.getInt(Preference.USERTYPE);
+                    int waterFlag = 0;
+                    int elecFlag = 0;
+                    int gasFlag = 0;
                     if (res == 1) {
+                        switch (userType){
+                            case 1:
+                                waterFlag = jsonesult.getJSONObject("dataFlag").getInt("waterMeterFlag");
+                                break;
+                            case 2:
+                                elecFlag = jsonesult.getJSONObject("dataFlag").getInt("elecMeterFlag");
+                                break;
+                            case 3:
+                                gasFlag = jsonesult.getJSONObject("dataFlag").getInt("gasMeterFlag");
+                                break;
+                        }
+
+
+
                         // 如果有水表记录
-                        if (jsonesult.getJSONObject("dataFlag").getInt("waterMeterFlag") == 1) {
+                        if (waterFlag == 1) {
                             JSONArray pages = jsonesult.getJSONArray("waterMeterList");
                             for (int i = 0; i < pages.length(); i++) {
                                 MeterInfoModel dto = new MeterInfoModel();
@@ -636,17 +657,47 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                                 dto.setMeterType("水表");
                                 data.add(dto);
                             }
-                        }
-                        // 如果有气表记录
-                        if (jsonesult.getJSONObject("dataFlag").getInt("gasMeterFlag") == 1) {
-                            JSONArray pages = jsonesult.getJSONArray("gasMeterList");
+                        }else if(elecFlag == 1){
+                            JSONArray pages = jsonesult.getJSONArray("elecMeterList");
                             for (int i = 0; i < pages.length(); i++) {
                                 MeterInfoModel dto = new MeterInfoModel();
                                 dto.of(pages.getJSONObject(i));
                                 dto.setMeterType("电表");
                                 data.add(dto);
                             }
+
+                        }else if(gasFlag == 1){
+                            JSONArray pages = jsonesult.getJSONArray("gasMeterList");
+                            for (int i = 0; i < pages.length(); i++) {
+                                MeterInfoModel dto = new MeterInfoModel();
+                                dto.of(pages.getJSONObject(i));
+                                dto.setMeterType("气表");
+                                data.add(dto);
+                            }
                         }
+
+//                        // 如果有气表记录
+//                        if (jsonesult.getJSONObject("dataFlag").getInt("elecMeterFlag") == 1) {
+//                            JSONArray pages = jsonesult.getJSONArray("elecMeterList");
+//                            for (int i = 0; i < pages.length(); i++) {
+//                                MeterInfoModel dto = new MeterInfoModel();
+//                                dto.of(pages.getJSONObject(i));
+//                                dto.setMeterType("电表");
+//                                data.add(dto);
+//                            }
+//                        }
+//
+//                        // 如果有气表记录
+//                        if (jsonesult.getJSONObject("dataFlag").getInt("gasMeterFlag") == 1) {
+//                            JSONArray pages = jsonesult.getJSONArray("gasMeterList");
+//                            for (int i = 0; i < pages.length(); i++) {
+//                                MeterInfoModel dto = new MeterInfoModel();
+//                                dto.of(pages.getJSONObject(i));
+//                                dto.setMeterType("气表");
+//                                data.add(dto);
+//                            }
+//                        }
+
                         DefSetService service = new DefSetService();
                         List<MeterInfo> meterinfos = service.convertMeterInfo(data);
                         /**

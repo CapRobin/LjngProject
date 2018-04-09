@@ -278,9 +278,9 @@ public class ElectricityActivity extends MyBaseActivity {
                 } else {
 //                    cxbhEdit.setFocusable(true);
                     cxbhEdit.requestFocus();
-                    //设置数据请求类型
-                    setType(position);
                 }
+                //设置数据请求类型
+                setType(position);
             }
         });
     }
