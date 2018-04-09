@@ -56,17 +56,7 @@ public class RechargeActivity  extends BasicActivity implements View.OnClickList
 
     private CallBack callBack;
 
-
-    //充值表号
-//    @ViewInject(id = R.id.meteraddr_text)
-//    private Button meteraddrText;
-
-    // 充值
-//    @ViewInject(id = R.id.recharge_btn)
-//    private Button rechargeBtn;
-
-//    @ViewInject(id = R.id.back_btn)
-//    private Button backbtn;
+////////////~~~~~~~~~~~~~~~~~~~~~~
 
     @ViewInject(id = R.id.backHome)
     private Button backHome;
