@@ -1,0 +1,137 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/uploadLayout"
+    style="@style/ee_content"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/page_title"
+        android:layout_width="fill_parent">
+
+        <Button
+            android:id="@+id/back_btn"
+            style="@style/back_button_style"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:text="@string/back_btn" />
+
+        <TextView
+            style="@style/page_title_str"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="异常上报" />
+
+        <Button
+            android:id="@+id/save_btn"
+            style="@style/ok_button_style"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:text="@string/submit_btn" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/meter_addr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/white"
+        android:hint="请输入需要上报的表号"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:textColor="#373447"
+        android:textSize="16sp" />
+
+
+    <EditText
+        android:id="@+id/raw_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/white"
+        android:hint="请输入当前表读数"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:textColor="#373447"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/photoname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/white"
+        android:hint="请输入您的手机号方便管理人员联系"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:textColor="#373447"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/exceptiontitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/white"
+        android:hint="请输入标题"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:textColor="#373447"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/exceptionreason"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="1dp"
+        android:background="@android:color/white"
+        android:gravity="top"
+        android:hint="请输入内容"
+        android:padding="10dp"
+        android:textColor="#373447"
+        android:textSize="16sp" />
+
+    <View android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#EEEEEE"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="添加图片"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#CEC9E7"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/picImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/ic_add_pic"
+            android:layout_marginBottom="20dp"/>
+    </LinearLayout>
+
+</LinearLayout>

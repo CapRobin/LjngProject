@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tab_test"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--//id必须是@android:id/tabcontent-->
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1">
+            <!--//在FrameLayout添加要填充的每个界面，就是选项卡中每个选项卡包含的内容-->
+            <!--//这里是表示有两个选项卡，每个选项卡中的界面包含的还是布局文件-->
+            <include
+                android:id="@+id/item1"
+                layout="@layout/activity_ble" />
+
+            <include
+                android:id="@+id/item2"
+                layout="@layout/item_upload" />
+        </FrameLayout>
+        <!--//id必须是@android:id/tabs-->
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:paddingBottom="0dp">
+        </TabWidget>
+
+    </LinearLayout>
+
+</TabHost>

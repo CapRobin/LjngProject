@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:focusable="true"
+            android:layout_marginTop="20dp"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/cbxmAllView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="10dp">
+
+                <RelativeLayout
+                    android:id="@+id/cbxmUnHideView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/cbxmTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="抄表项目:"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/cbxmEdit"
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="5dip"
+                        android:layout_toRightOf="@+id/cbxmTitle"
+                        android:background="@drawable/t_login_layout_editor_bg"
+                        android:editable="false"
+                        android:hint="请选择查询项目"
+                        android:paddingLeft="5dp"
+                        android:singleLine="true"
+                        android:textColor="#7c7c7c"
+                        android:textSize="15sp">
+
+                    </EditText>
+                </RelativeLayout>
+
+                <!--抄表项目隐藏内容-->
+                <LinearLayout
+                    android:id="@+id/cbxmHideView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/test_01"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <com.zfg.org.myexample.adapter.NoScrollGridView
+                        android:id="@+id/cbxmHideInnerView"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dip"
+                        android:horizontalSpacing="7dp"
+                        android:numColumns="3"
+                        android:verticalSpacing="7dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/cxbhAllView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/cxbhUnHideView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/cxbhTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="查询表号:"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/cxbhEdit"
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="5dip"
+                        android:layout_toRightOf="@+id/cxbhTitle"
+                        android:background="@drawable/t_login_layout_editor_bg"
+                        android:hint="请输入查询表号"
+                        android:paddingLeft="5dp"
+                        android:singleLine="true"
+                        android:textColor="#7c7c7c"
+                        android:textSize="15sp">
+                    </EditText>
+
+                    <ImageView
+                        android:id="@+id/searchNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/search_meter" />
+                </RelativeLayout>
+
+
+                <!--抄表表号隐藏内容-->
+                <LinearLayout
+                    android:id="@+id/cxbhHideView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/test_01"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <com.zfg.org.myexample.adapter.NoScrollGridView
+                        android:id="@+id/cxbhInnerView"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dip"
+                        android:horizontalSpacing="7dp"
+                        android:numColumns="3"
+                        android:verticalSpacing="7dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/startSearch"
+                android:layout_width="fill_parent"
+                android:layout_height="34dp"
+                android:layout_margin="10dip"
+                android:background="@drawable/selector_btn"
+                android:padding="2dip"
+                android:text="抄    表"
+                android:textColor="#2e2e2e"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

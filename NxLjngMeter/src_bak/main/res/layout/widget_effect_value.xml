@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="@dimen/value_widget"
+        android:layout_height="@dimen/value_widget"
+        android:layout_centerInParent="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/good_circle" />
+
+    <LinearLayout
+        android:layout_width="@dimen/value_widget"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1.0"
+            android:layout_marginBottom="0dip"
+            android:textColor="@color/white"
+            android:singleLine="true"
+            android:textSize="@dimen/text_size_14" />
+
+        <TextView
+            android:id="@+id/unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/blood_unit"
+            android:layout_marginTop="0dip"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_10" />
+    </LinearLayout>
+
+</RelativeLayout>

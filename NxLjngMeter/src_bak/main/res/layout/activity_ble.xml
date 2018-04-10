@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/content"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        style="@style/page_title"
+        android:layout_width="fill_parent">
+
+        <Button
+            android:id="@+id/back_btn"
+            style="@style/back_button_style"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:text="@string/back_btn" />
+
+        <TextView
+            style="@style/page_title_str"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/test_equip" />
+
+        <Button
+            android:id="@+id/serch_btn"
+            style="@style/search_button_style"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:text="@string/scan_btn" />
+    </RelativeLayout>
+
+    <TextView
+        style="@style/date_show"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/toolbar"
+        android:gravity="center"
+        android:text="点击列表连接设备"
+        android:textColor="#fff" />
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<ToggleButton-->
+            <!--android:id="@+id/tbtnSwitch"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="right"-->
+            <!--android:background="@null"-->
+            <!--android:textOff=""-->
+            <!--android:textOn="" />-->
+    <!--</LinearLayout>-->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ListView
+            android:id="@+id/devicelist"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:cacheColorHint="#00000000"
+            android:descendantFocusability="blocksDescendants"
+            android:divider="@mipmap/divider"
+            android:dividerHeight="0.8dip"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="false"
+            android:listSelector="@color/transparent"
+            android:scrollingCache="false" />
+
+    </LinearLayout>
+
+</LinearLayout>
