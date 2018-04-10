@@ -14,13 +14,11 @@
         android:layout_marginTop="10dp"
         android:ellipsize="middle"
         android:singleLine="true"
-        android:text="@string/test_plan"
         android:textColor="#424242"
         android:textSize="22sp" />
 
     <TextView
         android:id="@+id/CONSU"
-        android:text="@string/test_plan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -37,7 +35,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="16dp"
-        android:text="@string/about_us"
         android:layout_marginRight="16dp"
         android:layout_marginTop="10dp"
         android:ellipsize="middle"

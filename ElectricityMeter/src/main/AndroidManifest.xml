@@ -162,7 +162,7 @@
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
 
-        <activity android:name="com.zfg.org.myexample.activity.HisInfoActivity"
+        <activity android:name="com.zfg.org.myexample.HisInfoActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
@@ -205,7 +205,7 @@
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
 
-        <activity android:name="com.zfg.org.myexample.activity.ReadingTaskActivity"
+        <activity android:name="com.zfg.org.myexample.ReadingTaskActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >

@@ -1,2 +1,1 @@
-include ':NxLjngMeter', ':Electricity', ':demo', ':ShowView'
-project(':Electricity').projectDir = new File('ElectricityMeter')
+include ':NxLjngMeter', ':demo', ':ShowView', ':imagepicker', ':MyImagePicker', ':app', ':ElectricityMeter', ':CustomBanner', ':banner'

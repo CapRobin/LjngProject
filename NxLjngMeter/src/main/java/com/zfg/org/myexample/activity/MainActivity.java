@@ -1,6 +1,10 @@
 package com.zfg.org.myexample.activity;
 
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.donkingliang.banner.CustomBanner;
 import com.zfg.org.myexample.LoginActivity;
 import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.RechargeActivity;
@@ -21,6 +27,9 @@ import com.zfg.org.myexample.ViewInject;
 import com.zfg.org.myexample.utils.ContantsUtil;
 import com.zfg.org.myexample.utils.Preference;
 
+import java.io.File;
+import java.util.ArrayList;
+
 public class MainActivity extends BasicActivity implements OnClickListener {
     public static int controlFlag;// 蓝牙抄表 和 蓝牙参数设置的标志
 
@@ -29,15 +38,14 @@ public class MainActivity extends BasicActivity implements OnClickListener {
     private LinearLayout.LayoutParams mParams;
     private View mView;
     private View showView;
-
+    private CustomBanner mBanner;
 
     @ViewInject(id = R.id.mainLayout)
     private LinearLayout mainLayout;
-    private ImageView logoTitle;
-    //    @ViewInject(id = R.id.logoTitle)
 //    private ImageView logoTitle;
-//    @ViewInject(id = R.id.name)
-    private TextView nameText;
+
+    //    @ViewInject(id = R.id.name)
+//    private TextView nameText;
     //    @ViewInject(id = R.id.evaluate_self)
     private LinearLayout evaluateSelf;
     //    @ViewInject(id = R.id.his_info)
@@ -66,6 +74,51 @@ public class MainActivity extends BasicActivity implements OnClickListener {
 //        checkUpdate();
     }
 
+    private void intiViewBanner() {
+
+        ArrayList<String> images = new ArrayList<>();
+        images.add(getUriFromDrawableRes(this,R.drawable.banner_01).toString());
+        images.add(getUriFromDrawableRes(this,R.drawable.banner_02).toString());
+        images.add(getUriFromDrawableRes(this,R.drawable.banner_03).toString());
+        images.add(getUriFromDrawableRes(this,R.drawable.banner_04).toString());
+        setBean(images);
+
+    }
+
+    /**
+     * Describe：设置普通指示器
+     * Params:
+     * Date：2018-04-10 19:53:51
+     */
+    
+    private void setBean(final ArrayList beans) {
+        mBanner = (CustomBanner) mView.findViewById(R.id.banner);
+        mBanner.setPages(new CustomBanner.ViewCreator<String>() {
+            @Override
+            public View createView(Context context, int position) {
+                ImageView imageView = new ImageView(context);
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                return imageView;
+            }
+
+            @Override
+            public void updateUI(Context context, View view, int position, String entity) {
+                Glide.with(context).load(entity).into((ImageView) view);
+            }
+        }, beans)
+//                //设置指示器为普通指示器
+//                .setIndicatorStyle(CustomBanner.IndicatorStyle.ORDINARY)
+//                //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
+//                .setIndicatorRes(R.drawable.shape_point_select, R.drawable.shape_point_unselect)
+//                //设置指示器的方向
+                .setIndicatorGravity(CustomBanner.IndicatorGravity.RIGHT)
+//                //设置指示器的指示点间隔
+//                .setIndicatorInterval(20)
+                //设置自动翻页
+                .startTurning(5000);
+    }
+
+
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -73,7 +126,7 @@ public class MainActivity extends BasicActivity implements OnClickListener {
         preference = Preference.instance(context);
         userType = preference.getInt(Preference.USERTYPE);
 
-        initActivity();
+//        initActivity();
     }
 
     @Override
@@ -115,8 +168,9 @@ public class MainActivity extends BasicActivity implements OnClickListener {
         showView = showModule(userType);
         //首页判断用户所属权限的功能模块
         if (showView != null) {
-            logoTitle = (ImageView) showView.findViewById(R.id.logoTitle);
-            nameText = (TextView) showView.findViewById(R.id.name);
+            intiViewBanner();
+//            logoTitle = (ImageView) showView.findViewById(R.id.logoTitle);
+//            nameText = (TextView) showView.findViewById(R.id.name);
             evaluateSelf = (LinearLayout) showView.findViewById(R.id.evaluate_self);
             hisinfo = (LinearLayout) showView.findViewById(R.id.his_info);
             onoffinfo = (LinearLayout) showView.findViewById(R.id.onoff_info);
@@ -128,7 +182,7 @@ public class MainActivity extends BasicActivity implements OnClickListener {
             //创建View
 //            mainLayout.setLayoutParams(mParams);
 
-            logoTitle.setOnClickListener(this);
+//            logoTitle.setOnClickListener(this);
             evaluateSelf.setOnClickListener(this);
             hisinfo.setOnClickListener(this);
             onoffinfo.setOnClickListener(this);
@@ -154,9 +208,9 @@ public class MainActivity extends BasicActivity implements OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.logoTitle:
-                setToast("欢迎进入隆基宁光手持式采集系统");
-                break;
+//            case R.id.logoTitle:
+//                setToast("欢迎进入隆基宁光手持式采集系统");
+//                break;
             case R.id.evaluate_self:
 //                startActivity(null, RemoteControlWaterActivity.class);
                 startActivity(null, ElectricityActivity.class);
@@ -195,6 +249,16 @@ public class MainActivity extends BasicActivity implements OnClickListener {
             default:
                 break;
         }
+    }
+
+    //获取Drawable文件的URL
+    public Uri getUriFromDrawableRes(Context context, int id) {
+        Resources resources = context.getResources();
+        String path = ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
+                + resources.getResourcePackageName(id) + "/"
+                + resources.getResourceTypeName(id) + "/"
+                + resources.getResourceEntryName(id);
+        return Uri.parse(path);
     }
 
 }

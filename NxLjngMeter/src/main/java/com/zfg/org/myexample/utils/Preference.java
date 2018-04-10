@@ -22,10 +22,10 @@ public class Preference {
 	public static final String CACHE_NUM = "cache_total_num";//
 	public static final String DEVICE_CODE = "device_code";
 	
+	public static final String INDICATE_CODE = "INDICATE_CODE";
+
 	//默认缓存用户
 	public static final String CACHE_USER = "cache_user";
-	
-	public static final String INDICATE_CODE = "INDICATE_CODE";
 
 	private final String SHARED_PREFERENCE_NAME = "com.dian.diabetes";
 	private static Preference catche;

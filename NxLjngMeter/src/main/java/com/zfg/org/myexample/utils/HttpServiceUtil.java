@@ -357,12 +357,21 @@ public class HttpServiceUtil {
                 }
                 final String statusFinal = builder.toString();
                 Log.e("statusFinal", statusFinal);
-                ThreadUtil.handler.post(new Runnable() {
+//                ThreadUtil.handler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        callback.callback(statusFinal);
+//                    }
+//                });
+                ThreadUtil.handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         callback.callback(statusFinal);
                     }
-                });
+                }, 500);
+
+
+
             }
         });
     }

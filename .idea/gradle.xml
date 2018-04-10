@@ -8,10 +8,15 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/CustomBanner" />
             <option value="$PROJECT_DIR$/ElectricityMeter" />
+            <option value="$PROJECT_DIR$/MyImagePicker" />
             <option value="$PROJECT_DIR$/NxLjngMeter" />
             <option value="$PROJECT_DIR$/ShowView" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/banner" />
             <option value="$PROJECT_DIR$/demo" />
+            <option value="$PROJECT_DIR$/imagepicker" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

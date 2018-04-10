@@ -52,7 +52,7 @@
 //        Res.init(this);
 //        bimap = BitmapFactory.decodeResource(getResources(),R.drawable.btn_jpg_add);
 //        PublicWay.activityList.add(this);
-//        parentView = getLayoutInflater().inflate(R.layout.activity_uploadexception, null);
+//        parentView = getLayoutInflater().inflate(R.layout.activity_uploadexception_jd, null);
 //        setContentView(parentView);
 //
 //        initUI();

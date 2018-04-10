@@ -138,7 +138,7 @@ public class SystemAPI {
      * @param callBack
      */
     public static void meter_onwater(Map<String, Object> map, CallBack callBack) {
-        HttpServiceUtil.request(ContantsUtil.URL_pullswitchwater,
+        HttpServiceUtil.request(ContantsUtil.URL_pullswitchDb,
                 HttpContants.REQUEST_MOTHOD, map, callBack);
     }
 
