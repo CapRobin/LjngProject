@@ -1,41 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     style="@style/ee_content"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/white"
     android:orientation="vertical">
-
-    <RelativeLayout
-        style="@style/page_title"
-        android:layout_width="fill_parent"
-        android:visibility="gone">
-
-        <ImageButton
-            android:id="@+id/member"
-            style="@style/button_style"
-            android:layout_width="@dimen/page_title_height"
-            android:layout_height="fill_parent"
-            android:layout_alignParentLeft="true"
-            android:src="@mipmap/member" />
-
-        <TextView
-            style="@style/page_title_str"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/app_name"
-            android:textSize="25dp" />
-
-        <ImageButton
-            android:id="@+id/scance_zxing"
-            style="@style/button_style"
-            android:layout_width="@dimen/page_title_height"
-            android:layout_height="fill_parent"
-            android:layout_alignParentRight="true"
-            android:src="@mipmap/icon_scancer"
-            android:visibility="gone" />
-    </RelativeLayout>
-
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -44,455 +12,266 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <View
                 android:layout_width="fill_parent"
-                android:layout_height="209dip"
-                android:background="@drawable/main_top_gradient">
-
-                <ImageView
-                    android:id="@+id/logoTitle"
-                    android:layout_width="155dp"
-                    android:layout_height="59dp"
-                    android:layout_centerInParent="true"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/main_top_logo"/>
-
-                <TextView
-                    android:id="@+id/name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="20dp"
-                    android:text="@string/compay_name"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_16" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/page_title_height"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginBottom="30dip"
-                    android:background="@mipmap/alarm_toast_bg"
-                    android:gravity="center_vertical"
-                    android:minWidth="@dimen/page_title_height"
-                    android:orientation="horizontal"
-                    android:padding="8dip"
-                    android:visibility="gone">
-
-                    <ImageView
-                        android:id="@+id/clock_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/icon_clock"
-                        android:visibility="gone" />
-
-                    <LinearLayout
-                        android:id="@+id/toast_container"
-                        android:layout_width="wrap_content"
-                        android:layout_height="fill_parent"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
-
-                        <ImageButton
-                            android:id="@+id/pre"
-                            android:layout_width="@dimen/dimen_date_height"
-                            android:layout_height="fill_parent"
-                            android:background="@null"
-                            android:src="@mipmap/arrow_left" />
-
-                        <TextView
-                            android:id="@+id/toast_text"
-                            style="@style/curent_day"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/alarm_toast" />
-
-                        <ImageButton
-                            android:id="@+id/next"
-                            android:layout_width="@dimen/dimen_date_height"
-                            android:layout_height="fill_parent"
-                            android:background="@null"
-                            android:src="@mipmap/arrow_right" />
-                    </LinearLayout>
-                </LinearLayout>
-            </RelativeLayout>
+                android:layout_height="1dip"
+                android:background="@color/main_center_divider_line"
+                android:visibility="visible" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical">
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dip"
-                    android:background="@color/main_center_divider_line"
-                    android:visibility="visible" />
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
+                    android:id="@+id/diabetes_listener"
+                    style="@style/main_button_item"
+                    android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:id="@+id/diabetes_listener"
-                        style="@style/main_button_item"
-                        android:layout_width="0dip"
+                    <ImageView
+                        style="@style/main_img_style"
+                        android:src="@mipmap/icon_main_sugar" />
+
+                    <TextView
+                        style="@style/main_button_text"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            style="@style/main_img_style"
-                            android:src="@mipmap/icon_main_sugar" />
-
-                        <TextView
-                            style="@style/main_button_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="蓝牙抄表" />
-                    </LinearLayout>
-
-                    <View style="@style/main_divider_line_ver" />
-
-                    <LinearLayout
-                        android:id="@+id/param_setting"
-                        style="@style/main_button_item"
-                        android:layout_width="0dip"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/imageView"
-                            style="@style/main_img_style"
-                            android:src="@mipmap/icon_main_blue" />
-
-                        <TextView
-                            style="@style/main_button_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="参数设置" />
-                    </LinearLayout>
-
-                    <View style="@style/main_divider_line_ver" />
-
-                    <LinearLayout
-                        android:id="@+id/evaluate_self"
-                        style="@style/main_button_item"
-                        android:layout_width="0dip"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            style="@style/main_img_style"
-                            android:src="@mipmap/icon_main_remote" />
-
-                        <TextView
-                            style="@style/main_button_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="实时抄表" />
-                    </LinearLayout>
-
-
+                        android:text="蓝牙抄表" />
                 </LinearLayout>
-                <!--zhdl新增 开始-->
-                <!--<View-->
-                <!--android:layout_width="fill_parent"-->
-                <!--android:layout_height="1dip"-->
-                <!--android:background="@color/main_divider_line" />-->
-                <!--<LinearLayout-->
-                <!--android:layout_width="fill_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:orientation="horizontal" >-->
 
-                <!--<LinearLayout-->
-                <!--android:id="@+id/evaluate_selfTest"-->
-                <!--style="@style/main_button_item"-->
-                <!--android:layout_width="0dip"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:orientation="vertical" >-->
-
-                <!--<ImageView-->
-                <!--android:layout_width="@dimen/main_item_bg"-->
-                <!--android:layout_height="@dimen/main_item_bg"-->
-                <!--android:src="@mipmap/icon_main_remote" />-->
-
-                <!--<TextView-->
-                <!--style="@style/main_button_text"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="磊" />-->
-                <!--</LinearLayout>-->
-
-                <!--<View-->
-                <!--android:layout_width="1dip"-->
-                <!--android:layout_height="fill_parent"-->
-                <!--android:background="@color/main_divider_line" />-->
-                <!--</LinearLayout>-->
-                <!--zhdl 上面新增                -->
-                <View style="@style/main_divider_line_hor" />
+                <View style="@style/main_divider_line_ver" />
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
+                    android:id="@+id/param_setting"
+                    style="@style/main_button_item"
+                    android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:id="@+id/recharge_pay"
-                        style="@style/main_button_item"
-                        android:layout_width="0dip"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/imageView"
+                        style="@style/main_img_style"
+                        android:src="@mipmap/icon_main_blue" />
 
-                        <ImageView
-                            style="@style/main_img_style"
-                            android:src="@mipmap/icon_main_recharge" />
-
-                        <TextView
-                            style="@style/main_button_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="缴费充值" />
-                    </LinearLayout>
-
-                    <View style="@style/main_divider_line_ver" />
-
-
-                    <LinearLayout
-                        android:id="@+id/his_info"
-                        style="@style/main_button_item"
-                        android:layout_width="0dip"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            style="@style/main_img_style"
-                            android:src="@mipmap/icon_main_hisquery" />
-
-                        <TextView
-                            style="@style/main_button_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="记录查询" />
-                    </LinearLayout>
-
-                    <View style="@style/main_divider_line_ver" />
-
-
-                    <LinearLayout
-                        android:id="@+id/onoff_info"
-                        style="@style/main_button_item"
-                        android:layout_width="0dip"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            style="@style/main_img_style"
-                            android:src="@mipmap/icon_main_onoff" />
-
-                        <TextView
-                            style="@style/main_button_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="开阀关阀" />
-                    </LinearLayout>
-
+                    <TextView
+                        style="@style/main_button_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="参数设置" />
                 </LinearLayout>
 
-                <View style="@style/main_divider_line_hor" />
+                <View style="@style/main_divider_line_ver" />
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
+                    android:id="@+id/evaluate_self"
+                    style="@style/main_button_item"
+                    android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:id="@+id/task_query"
-                        style="@style/main_button_item"
-                        android:layout_width="0dip"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                    <ImageView
+                        style="@style/main_img_style"
+                        android:src="@mipmap/icon_main_remote" />
 
-                        <ImageView
-                            style="@style/main_img_style"
-                            android:src="@mipmap/icon_main_readtask" />
-
-                        <TextView
-                            style="@style/main_button_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="任务查询" />
-                    </LinearLayout>
-
-                    <View style="@style/main_divider_line_ver" />
-
-
-                    <LinearLayout
-                        android:id="@+id/upload_exception"
-                        style="@style/main_button_item"
-                        android:layout_width="0dip"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            style="@style/main_img_style"
-                            android:src="@mipmap/icon_exception_up" />
-
-                        <TextView
-                            style="@style/main_button_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="异常上报" />
-                    </LinearLayout>
-
-                    <View style="@style/main_divider_line_ver" />
-
-
-                    <LinearLayout
-                        android:id="@+id/set_manager"
-                        style="@style/main_button_item"
-                        android:layout_width="0dip"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            style="@style/main_img_style"
-                            android:src="@mipmap/icon_main_systemset" />
-
-                        <TextView
-                            style="@style/main_button_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/sys_set" />
-                    </LinearLayout>
-
+                    <TextView
+                        style="@style/main_button_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="实时抄表" />
                 </LinearLayout>
 
-                <View style="@style/main_divider_line_hor" />
 
-                <!--<LinearLayout-->
-                    <!--android:layout_width="fill_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="horizontal">-->
+            </LinearLayout>
+            <View style="@style/main_divider_line_hor" />
 
-                    <!--<LinearLayout-->
-                        <!--android:id="@+id/shuiya"-->
-                        <!--style="@style/main_button_item"-->
-                        <!--android:layout_width="0dip"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:layout_weight="1"-->
-                        <!--android:orientation="vertical">-->
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                        <!--<ImageView-->
-                            <!--style="@style/main_img_style"-->
-                            <!--android:src="@mipmap/shuiya" />-->
+                <LinearLayout
+                    android:id="@+id/recharge_pay"
+                    style="@style/main_button_item"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                        <!--<TextView-->
-                            <!--style="@style/main_button_text"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="水压数据" />-->
-                    <!--</LinearLayout>-->
+                    <ImageView
+                        style="@style/main_img_style"
+                        android:src="@mipmap/icon_main_recharge" />
 
-                    <!--<View style="@style/main_divider_line_ver" />-->
+                    <TextView
+                        style="@style/main_button_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="缴费充值" />
+                </LinearLayout>
 
-
-                    <!--<LinearLayout-->
-                        <!--android:id="@+id/shuizhi"-->
-                        <!--style="@style/main_button_item"-->
-                        <!--android:layout_width="0dip"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:layout_weight="1"-->
-                        <!--android:orientation="vertical">-->
-
-                        <!--<ImageView-->
-                            <!--style="@style/main_img_style"-->
-                            <!--android:src="@mipmap/shuizhi" />-->
-
-                        <!--<TextView-->
-                            <!--style="@style/main_button_text"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="水质数据" />-->
-                    <!--</LinearLayout>-->
-
-                    <!--<View style="@style/main_divider_line_ver" />-->
+                <View style="@style/main_divider_line_ver" />
 
 
-                    <!--<LinearLayout-->
-                        <!--style="@style/main_button_item"-->
-                        <!--android:layout_width="0dip"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:layout_weight="1"-->
-                        <!--android:orientation="vertical">-->
+                <LinearLayout
+                    android:id="@+id/his_info"
+                    style="@style/main_button_item"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                        <!--<ImageView-->
-                            <!--style="@style/main_img_style"/>-->
+                    <ImageView
+                        style="@style/main_img_style"
+                        android:src="@mipmap/icon_main_hisquery" />
 
-                        <!--<TextView-->
-                            <!--style="@style/main_button_text"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="" />-->
-                    <!--</LinearLayout>-->
+                    <TextView
+                        style="@style/main_button_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="记录查询" />
+                </LinearLayout>
 
-                <!--</LinearLayout>-->
+                <View style="@style/main_divider_line_ver" />
 
-                <!--<View style="@style/main_divider_line_hor" />-->
+
+                <LinearLayout
+                    android:id="@+id/onoff_info"
+                    style="@style/main_button_item"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        style="@style/main_img_style"
+                        android:src="@mipmap/icon_main_onoff" />
+
+                    <TextView
+                        style="@style/main_button_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="开阀关阀" />
+                </LinearLayout>
 
             </LinearLayout>
 
-            <Spinner
-                android:id="@+id/selectPage"
-                android:layout_width="match_parent"
-                android:layout_marginTop="5dp"
+            <View style="@style/main_divider_line_hor" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:entries="@array/test_activity" />
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/task_query"
+                    style="@style/main_button_item"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        style="@style/main_img_style"
+                        android:src="@mipmap/icon_main_readtask" />
+
+                    <TextView
+                        style="@style/main_button_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="任务查询" />
+                </LinearLayout>
+
+                <View style="@style/main_divider_line_ver" />
+
+
+                <LinearLayout
+                    android:id="@+id/upload_exception"
+                    style="@style/main_button_item"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        style="@style/main_img_style"
+                        android:src="@mipmap/icon_exception_up" />
+
+                    <TextView
+                        style="@style/main_button_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="异常上报" />
+                </LinearLayout>
+
+                <View style="@style/main_divider_line_ver" />
+
+
+                <LinearLayout
+                    android:id="@+id/set_manager"
+                    style="@style/main_button_item"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        style="@style/main_img_style"
+                        android:src="@mipmap/icon_main_systemset" />
+
+                    <TextView
+                        style="@style/main_button_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sys_set" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View style="@style/main_divider_line_hor" />
+
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/recLayout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/bottom_company_bg"
         android:gravity="bottom|center"
+        android:background="@color/white"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical">
 
-        <RelativeLayout
-            style="@style/page_title"
-            android:layout_width="fill_parent"
-            android:background="@color/bottom_company_bg">
+        <TextView
+            android:id="@+id/copyright1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="6dp"
+            android:text="Copyright © 2016"
+            android:textColor="@color/bottom_company_text_color"
+            android:textSize="@dimen/text_size_12" />
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="6dp"
-                android:text="Copyright@2016 宁夏隆基宁光仪表股份有限公司.All Right Reserved"
-                android:textColor="@color/bottom_company_text_color"
-                android:textSize="@dimen/text_size_12" />
-        </RelativeLayout>
-    </LinearLayout>
+        <TextView
+            android:id="@+id/copyright2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="6dp"
+            android:layout_below="@+id/copyright1"
+            android:text="宁夏隆基宁光仪表股份有限公司 . All Right Reserved"
+            android:textColor="@color/bottom_company_text_color"
+            android:textSize="@dimen/text_size_12" />
+    </RelativeLayout>
 </LinearLayout>
 

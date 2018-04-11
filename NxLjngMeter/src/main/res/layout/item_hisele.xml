@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/trend_up_normal">
+
+        <TextView
+            android:id="@+id/hisDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="5dp"
+            android:text="记录时间：2018.04.11"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:background="@color/black" />-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_toLeftOf="@+id/centerLine"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/zxzgText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="正向总功：12.56"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/zxjzText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="正向尖值：12.56"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/zxfzText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="正向峰值：12.56"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/zxpzText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="正向平值：12.56"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/zxgzText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="正向谷值：12.56"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/centerLine"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/red" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@+id/centerLine"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/fxzgText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="反向总功：12.56"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/fxjzText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="反向尖值：12.56"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/fxfzText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="反向峰值：12.56"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/fxpzText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="反向平值：12.56"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/fxgzText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="反向谷值：12.56"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

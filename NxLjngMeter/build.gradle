@@ -92,4 +92,5 @@ dependencies {
 
     compile project(path: ':imagepicker')
     compile project(path: ':banner')
+    compile 'com.google.code.gson:gson:2.8.2'
 }

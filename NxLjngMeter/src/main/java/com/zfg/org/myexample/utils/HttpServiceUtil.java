@@ -283,6 +283,8 @@ public class HttpServiceUtil {
                     result = (String) params.get("update_test");
                 } else if (params.get("electricity") != null) {
                     result = (String) params.get("electricity");
+                }else if (params.get("hisele") != null) {
+                    result = (String) params.get("hisele");
                 }
                 final String content = result;
                 ThreadUtil.handler.postDelayed(new Runnable() {

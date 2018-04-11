@@ -47,7 +47,7 @@ public class BasicActivity extends FragmentActivity implements OnGestureListener
 	protected int userType = 0;
 
 	//读取本地测试数据开关
-	public boolean isTest =false;
+	public boolean isTest =true;
 	@SuppressLint("HandlerLeak")
 	public Handler handler = new Handler() {
 		public void handleMessage(Message msg) {

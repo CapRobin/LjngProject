@@ -15,25 +15,27 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.TimePickerView;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.SystemAPI;
 import com.zfg.org.myexample.ViewInject;
+import com.zfg.org.myexample.adapter.HisElectricityAdapter;
 import com.zfg.org.myexample.adapter.MyLocationAdapter2;
 import com.zfg.org.myexample.adapter.NoScrollGridView;
 import com.zfg.org.myexample.db.MeterInfoBo;
 import com.zfg.org.myexample.db.dao.MeterInfo;
 import com.zfg.org.myexample.dto.MeterInfoCheckModel;
-import com.zfg.org.myexample.model.ReadDataHisGasItemModel;
-import com.zfg.org.myexample.model.ReadDataHisWaterItemModel;
+import com.zfg.org.myexample.model.HisElectricity;
 import com.zfg.org.myexample.utils.CheckUtil;
 import com.zfg.org.myexample.utils.CommonUtil;
-import com.zfg.org.myexample.utils.DateUtil;
 import com.zfg.org.myexample.utils.HttpServiceUtil;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -104,16 +106,26 @@ public class HisInfoActivity extends MyBaseActivity {
 
     private List<String> showListData1;
     private List<MeterInfoCheckModel> showListData2;
+    private List<HisElectricity> electricityList;
     private List<MeterInfo> meterinfos;
     @ViewInject(id = R.id.typeHideInnerView)
     private NoScrollGridView typeHideInnerView;
+
     @ViewInject(id = R.id.numberHideInnerView)
     private ListView numberHideInnerView;
+    @ViewInject(id = R.id.settingView)
+    private RelativeLayout settingView;
 
 
     private static String recordType[] = null;
     private TimePickerView pvTime;
     private int timeFlag = 0;
+
+
+
+    @ViewInject(id = R.id.getDataList_db)
+    private ListView getDataList_db;
+    private HisElectricityAdapter mHisElectricityAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +141,7 @@ public class HisInfoActivity extends MyBaseActivity {
 //        replaceFragment("readrechargehisdata", ReadDataHisFragment.getInstance(), false);
         showListData1 = new ArrayList<String>();
         showListData2 = new ArrayList<MeterInfoCheckModel>();
+        electricityList = new ArrayList<HisElectricity>();
         loading = new DialogLoading(this);
 
         backHome.setOnClickListener(this);
@@ -143,6 +156,7 @@ public class HisInfoActivity extends MyBaseActivity {
         //初始化时间控件
         setdate();
         initCallBack();
+
     }
 
     @Override
@@ -214,6 +228,11 @@ public class HisInfoActivity extends MyBaseActivity {
             //"{\"name\":\"admin\",\"password\":admin\"}"
             map.put("ngMeter", jsobj.toString());
 
+            //获取本地测试数据使用
+            if (isTest){
+                map.put("hisele", tempJson("hisele.txt"));
+            }
+
             loading.show();
             setDialogLabel("开始抄表请等待");
 //            SystemAPI.query_recharge_his(map, dataCallback);
@@ -235,6 +254,65 @@ public class HisInfoActivity extends MyBaseActivity {
                     try {
                         JSONObject jsonObject = new JSONObject(json);
                         String jStatus = jsonObject.getString("strBackFlag");
+
+                        if(jStatus.equals("1")){
+                            String meterType = jsonObject.getString("meterType");
+                            if(meterType.equals("Elec")){
+                                String consuList = jsonObject.getString("consuList");
+                                GsonBuilder gsonB = new GsonBuilder();
+                                Gson gson = gsonB.create();
+                                electricityList = gson.fromJson(consuList, new TypeToken<ArrayList<HisElectricity>>(){}.getType());
+
+
+
+                                if (electricityList != null || electricityList.size() > 0) {
+                                    settingView.setVisibility(View.GONE);
+//            animateClose(settingView);
+                                    getDataList_db.setVisibility(View.VISIBLE);
+
+                                    mHisElectricityAdapter = new HisElectricityAdapter(context,electricityList);
+                                    getDataList_db.setAdapter(mHisElectricityAdapter);
+                                    listadapter.notifyDataSetChanged();
+                                    getDataList_db.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                            setToast("没有其他数据啦");
+//                }
+                                        }
+                                    });
+                                } else {
+                                    //此处提示用户查询数据失败
+                                    setToast("获取数据失败，请重新尝试！");
+                                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            }
+                        }
+
+
+
+
+
+
+
+
+
+
 //                        if (jStatus.equals("1")){
 //                            if  (jsonObject.getString("meterType").equals("Gas")) {
 //                                //解析简单数组
@@ -270,7 +348,7 @@ public class HisInfoActivity extends MyBaseActivity {
 
 
     public String getTime(Date date) {//可根据需要自行截取数据显示
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         return format.format(date);
     }
 

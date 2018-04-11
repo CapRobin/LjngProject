@@ -106,8 +106,8 @@
     <dimen name="font_32">16sp</dimen>
     <dimen name="font_28">14sp</dimen>
     <dimen name="font_22">11sp</dimen>
-    <dimen name="poi_title_size">20sp</dimen>
     <dimen name="poi_field_size">16sp</dimen>
+    <dimen name="poi_title_size">20sp</dimen>
     <dimen name="margin_left">15dp</dimen>
     <dimen name="margin_right">15dp</dimen>
     <dimen name="margin_middle">2dp</dimen>
