@@ -274,8 +274,8 @@ public class HttpServiceUtil {
                 } else {
                     rs = get(url, params);
                 }
-                String result = "".equals(rs) ? "{status:\"0\",message:\"访问出错，请检查网络连接\"}" : rs;
 
+                String result = "".equals(rs) ? "{status:\"0\",message:\"访问出错，请检查网络连接\"}" : rs;
                 //获取本地测试数据使用
                 if (params.get("login_test") != null) {
                     result = (String) params.get("login_test");
@@ -285,6 +285,8 @@ public class HttpServiceUtil {
                     result = (String) params.get("electricity");
                 }else if (params.get("hisele") != null) {
                     result = (String) params.get("hisele");
+                }else if (params.get("hiseleoptionmeter") != null) {
+                    result = (String) params.get("hiseleoptionmeter");
                 }
                 final String content = result;
                 ThreadUtil.handler.postDelayed(new Runnable() {

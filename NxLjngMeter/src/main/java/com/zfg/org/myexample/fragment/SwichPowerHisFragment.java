@@ -20,6 +20,7 @@ import com.zfg.org.myexample.SystemAPI;
 import com.zfg.org.myexample.ViewInject;
 import com.zfg.org.myexample.activity.BaseFragment;
 import com.zfg.org.myexample.activity.DialogLoading;
+import com.zfg.org.myexample.activity.HisInfoActivity_bak;
 import com.zfg.org.myexample.adapter.SwichPowerHisAdapter;
 import com.zfg.org.myexample.dialog.AlertDialogZfg;
 import com.zfg.org.myexample.dialog.DayDialog;
@@ -86,7 +87,7 @@ public class SwichPowerHisFragment extends BaseFragment implements View.OnClickL
     private Button query;
 
 
-    private HisInfoActivity activity;
+    private HisInfoActivity_bak activity;
 
     /*適配器*/
     private SwichPowerHisAdapter adapter;
@@ -118,7 +119,7 @@ public class SwichPowerHisFragment extends BaseFragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_swichpower_his, container, false);
-        activity = (HisInfoActivity) context;
+        activity = (HisInfoActivity_bak) context;
         loading = new DialogLoading(activity);
         fieldView(view);
         initView(view);

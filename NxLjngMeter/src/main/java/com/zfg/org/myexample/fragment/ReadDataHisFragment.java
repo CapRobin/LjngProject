@@ -21,6 +21,7 @@ import com.zfg.org.myexample.SystemAPI;
 import com.zfg.org.myexample.ViewInject;
 import com.zfg.org.myexample.activity.BaseFragment;
 import com.zfg.org.myexample.activity.DialogLoading;
+import com.zfg.org.myexample.activity.HisInfoActivity_bak;
 import com.zfg.org.myexample.adapter.ReadDataGasHisAdapter;
 import com.zfg.org.myexample.adapter.ReadDataWaterHisAdapter;
 import com.zfg.org.myexample.dialog.AlertDialogZfg;
@@ -89,7 +90,7 @@ public class ReadDataHisFragment extends BaseFragment implements View.OnClickLis
     @ViewInject(id = R.id.itemlist)
     private ListView itemlist;
 
-    private HisInfoActivity activity;
+    private HisInfoActivity_bak activity;
 
     private Date selectDate;
     private Date selectDate1;
@@ -122,7 +123,7 @@ public class ReadDataHisFragment extends BaseFragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_readdata_his, container, false);
-        activity = (HisInfoActivity) context;
+        activity = (HisInfoActivity_bak) context;
         loading = new DialogLoading(activity);
         fieldView(view);
         initView(view);

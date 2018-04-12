@@ -6,18 +6,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import com.zfg.org.myexample.R;
-import com.zfg.org.myexample.model.HisElectricity;
-
+import com.zfg.org.myexample.model.HisEleReadMeter;
 import java.util.List;
 
-public class HisElectricityAdapter extends BaseAdapter {
+/**
+ * Copyright © 2018 LJNG All rights reserved.
+ *
+ * Name：HisEleReadMeterAdapter
+ * Describe：电表抄表记录数据适配
+ * Date：2018-04-12 16:00:13
+ * Author: CapRobin@yeah.net
+ *
+ */
+public class HisEleReadMeterAdapter extends BaseAdapter {
 
-    private List<HisElectricity> dataList;
+    private List<HisEleReadMeter> dataList;
     private LayoutInflater mInflater;
 
-    public HisElectricityAdapter(Context context, List<HisElectricity> list){
+    public HisEleReadMeterAdapter(Context context, List<HisEleReadMeter> list){
         this.dataList = list;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -42,7 +49,7 @@ public class HisElectricityAdapter extends BaseAdapter {
         ViewHolder viewHolder;
         if (convertView == null){
             viewHolder = new ViewHolder();
-            convertView = mInflater.inflate(R.layout.item_hisele,null);
+            convertView = mInflater.inflate(R.layout.item_hisele_readmeter,null);
             viewHolder.hisDate = (TextView) convertView.findViewById(R.id.hisDate);
             viewHolder.zxzgText = (TextView) convertView.findViewById(R.id.zxzgText);
             viewHolder.zxjzText = (TextView) convertView.findViewById(R.id.zxjzText);

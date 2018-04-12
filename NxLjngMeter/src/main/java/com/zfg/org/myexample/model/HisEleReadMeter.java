@@ -1,12 +1,12 @@
 package com.zfg.org.myexample.model;
 
 /**
- * Describe：电表记录查询实体类
+ * Describe：电表抄表记录查询实体类
  * Params:
  * Date：2018-04-11 16:08:00
  */
 
-public class HisElectricity {
+public class HisEleReadMeter {
 	//	时间
 	private String DATE_TIME;
 	//	正向总功

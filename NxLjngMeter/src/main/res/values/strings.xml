@@ -34,8 +34,8 @@
 
     <!--热表查询项目-->
     <string-array name="recordType">
-        <item>操作记录</item>
         <item>抄表记录</item>
+        <item>操作记录</item>
     </string-array>
 
 

@@ -3,6 +3,7 @@ package com.zfg.org.myexample.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -25,13 +26,15 @@ import com.google.gson.reflect.TypeToken;
 import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.SystemAPI;
 import com.zfg.org.myexample.ViewInject;
-import com.zfg.org.myexample.adapter.HisElectricityAdapter;
+import com.zfg.org.myexample.adapter.HisEleOptionAdapter;
+import com.zfg.org.myexample.adapter.HisEleReadMeterAdapter;
 import com.zfg.org.myexample.adapter.MyLocationAdapter2;
 import com.zfg.org.myexample.adapter.NoScrollGridView;
 import com.zfg.org.myexample.db.MeterInfoBo;
 import com.zfg.org.myexample.db.dao.MeterInfo;
 import com.zfg.org.myexample.dto.MeterInfoCheckModel;
-import com.zfg.org.myexample.model.HisElectricity;
+import com.zfg.org.myexample.model.HisEleOption;
+import com.zfg.org.myexample.model.HisEleReadMeter;
 import com.zfg.org.myexample.utils.CheckUtil;
 import com.zfg.org.myexample.utils.CommonUtil;
 import com.zfg.org.myexample.utils.HttpServiceUtil;
@@ -59,27 +62,6 @@ import java.util.logging.Logger;
  * Author: CapRobin@yeah.net
  */
 public class HisInfoActivity extends MyBaseActivity {
-//
-//    //tab标签
-//    @ViewInject(id = R.id.tab_bottom)
-//    private RadioGroup tabBottom;
-//
-//    @ViewInject(id = R.id.back_btn)
-//    private Button backBtn;
-//
-//    //不同功能的fragment页面
-//    private BaseFragment curentFragment;
-//
-//    private Preference preference;
-//
-//    private DialogLoading loading;
-//
-//    private CallBack loginCallback;
-//
-//    private HisInfoActivity activity;
-//
-//    private final String TAG = "HisInfoActivity";
-
 
     @ViewInject(id = R.id.pageTitle)
     private TextView pageTitle;
@@ -106,7 +88,8 @@ public class HisInfoActivity extends MyBaseActivity {
 
     private List<String> showListData1;
     private List<MeterInfoCheckModel> showListData2;
-    private List<HisElectricity> electricityList;
+    private List<HisEleReadMeter> eleHisReadMeterList;
+    private List<HisEleOption> eleHisOptionList;
     private List<MeterInfo> meterinfos;
     @ViewInject(id = R.id.typeHideInnerView)
     private NoScrollGridView typeHideInnerView;
@@ -120,12 +103,15 @@ public class HisInfoActivity extends MyBaseActivity {
     private static String recordType[] = null;
     private TimePickerView pvTime;
     private int timeFlag = 0;
-
+    private int queryType = -1;
 
 
     @ViewInject(id = R.id.getDataList_db)
     private ListView getDataList_db;
-    private HisElectricityAdapter mHisElectricityAdapter;
+    private HisEleReadMeterAdapter mHisEleReadMeterAdapter;
+    private HisEleOptionAdapter HisEleOptionAdapter;
+    private HttpServiceUtil.CallBack optionCallback;
+    private HttpServiceUtil.CallBack readMeterCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,15 +120,21 @@ public class HisInfoActivity extends MyBaseActivity {
         setContentView(R.layout.activity_hisinfo);
         pageTitle.setText("记录查询");
 //        activity = (HisInfoActivity) context;
-////        initCallBack();
+        initOptionCallBack();
+        initReadMeterCallBack();
 //        loading = new DialogLoading(activity);
 //        preference = Preference.instance(context);
 //        initActivity();
 //        replaceFragment("readrechargehisdata", ReadDataHisFragment.getInstance(), false);
         showListData1 = new ArrayList<String>();
         showListData2 = new ArrayList<MeterInfoCheckModel>();
-        electricityList = new ArrayList<HisElectricity>();
+
+        eleHisReadMeterList = new ArrayList<HisEleReadMeter>();
+        eleHisOptionList = new ArrayList<HisEleOption>();
+
         loading = new DialogLoading(this);
+        settingView.setVisibility(View.VISIBLE);
+        getDataList_db.setVisibility(View.GONE);
 
         backHome.setOnClickListener(this);
         settingBtn.setOnClickListener(this);
@@ -155,7 +147,6 @@ public class HisInfoActivity extends MyBaseActivity {
         setData(1);
         //初始化时间控件
         setdate();
-        initCallBack();
 
     }
 
@@ -166,7 +157,18 @@ public class HisInfoActivity extends MyBaseActivity {
                 finish();
                 break;
             case R.id.settingBtn:
-
+//                popViewisShow(3);
+                if (View.GONE == settingView.getVisibility()) {
+                    settingView.setVisibility(View.VISIBLE);
+                    getDataList_db.setVisibility(View.GONE);
+                } else {
+                    if (getDataList_db.getCount() > 0) {
+                        settingView.setVisibility(View.GONE);
+                        getDataList_db.setVisibility(View.VISIBLE);
+                    } else {
+                        setToast("请先设置相关查询条件，再进行查询！");
+                    }
+                }
                 break;
             case R.id.queryTypeEdit:
                 closeInputMethod();
@@ -205,12 +207,27 @@ public class HisInfoActivity extends MyBaseActivity {
                 }
 //                clearData();
 
-//              历史记录查询 DateUtil.parseToString(queryNumEdit.getText(), DateUtil.yyyymmdd)
-                requestHistoryData(CommonUtil.AddZeros(queryNumEdit.getText().toString()));
+                String meterNum = CommonUtil.AddZeros(queryNumEdit.getText().toString());
+                //判断查询类型(抄表记录|操作记录)
+                if (queryType == 0) {
+                    //抄表记录
+                    queryReadMeterRecord(meterNum);
+                } else {
+                    //操作记录
+
+                    queryOptionRecord(meterNum);
+                }
                 break;
         }
     }
-    private void requestHistoryData(String meteraddr) {
+
+
+    /**
+     * Describe：抄表记录查询
+     * Params:
+     * Date：2018-04-12 15:09:25
+     */
+    private void queryReadMeterRecord(String meteraddr) {
         try {
 //            String userId = ContantsUtil.curUser.getId().toString();
             JSONObject jsobj = new JSONObject();
@@ -229,112 +246,67 @@ public class HisInfoActivity extends MyBaseActivity {
             map.put("ngMeter", jsobj.toString());
 
             //获取本地测试数据使用
-            if (isTest){
+            if (isTest) {
                 map.put("hisele", tempJson("hisele.txt"));
             }
-
             loading.show();
-            setDialogLabel("开始抄表请等待");
-//            SystemAPI.query_recharge_his(map, dataCallback);
-            SystemAPI.query_readdata_his(map, dataCallback);
+            setDialogLabel("抄表记录查询中...");
+//            initReadMeterCallBack();
+            SystemAPI.query_readdata_his(map, readMeterCallback);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void initCallBack() {
-        dataCallback = new HttpServiceUtil.CallBack() {
+    /**
+     * Describe：抄表记录查询回调函数
+     * Params:
+     * Date：2018-04-12 15:09:51
+     */
+    private void initReadMeterCallBack() {
+        readMeterCallback = new HttpServiceUtil.CallBack() {
             @Override
             public void callback(String json) {
-                setDialogLabel("抄表完成");
+                setDialogLabel("抄表记录查询完成");
+                //取消等待框
                 loading.dismiss();
-//                loading.hide();
                 // 解析json
                 if (json.length() > 3) {
                     try {
                         JSONObject jsonObject = new JSONObject(json);
                         String jStatus = jsonObject.getString("strBackFlag");
 
-                        if(jStatus.equals("1")){
+                        if (jStatus.equals("1")) {
                             String meterType = jsonObject.getString("meterType");
-                            if(meterType.equals("Elec")){
+                            if (meterType.equals("Elec")) {
+
                                 String consuList = jsonObject.getString("consuList");
                                 GsonBuilder gsonB = new GsonBuilder();
                                 Gson gson = gsonB.create();
-                                electricityList = gson.fromJson(consuList, new TypeToken<ArrayList<HisElectricity>>(){}.getType());
+                                eleHisReadMeterList = gson.fromJson(consuList, new TypeToken<ArrayList<HisEleReadMeter>>() {
+                                }.getType());
 
-
-
-                                if (electricityList != null || electricityList.size() > 0) {
+                                if (eleHisReadMeterList != null || eleHisReadMeterList.size() > 0) {
                                     settingView.setVisibility(View.GONE);
-//            animateClose(settingView);
                                     getDataList_db.setVisibility(View.VISIBLE);
 
-                                    mHisElectricityAdapter = new HisElectricityAdapter(context,electricityList);
-                                    getDataList_db.setAdapter(mHisElectricityAdapter);
-                                    listadapter.notifyDataSetChanged();
+                                    mHisEleReadMeterAdapter = new HisEleReadMeterAdapter(context, eleHisReadMeterList);
+                                    getDataList_db.setAdapter(mHisEleReadMeterAdapter);
+                                    mHisEleReadMeterAdapter.notifyDataSetChanged();
                                     getDataList_db.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                         @Override
                                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                             setToast("没有其他数据啦");
-//                }
                                         }
                                     });
                                 } else {
                                     //此处提示用户查询数据失败
                                     setToast("获取数据失败，请重新尝试！");
                                 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                            }else {
+                                //水表、气表等抄表查询
                             }
                         }
-
-
-
-
-
-
-
-
-
-
-//                        if (jStatus.equals("1")){
-//                            if  (jsonObject.getString("meterType").equals("Gas")) {
-//                                //解析简单数组
-//                                JSONArray pages = jsonObject.getJSONArray("consuList");
-//                                for (int i = 0; i < pages.length(); i++) {
-//                                    ReadDataHisGasItemModel dto = new ReadDataHisGasItemModel();
-//                                    dto.of(pages.getJSONObject(i));
-//                                    Gasdata.add(dto);
-//                                }
-//                                itemlist.setAdapter(gasadaper);
-//                                gasadaper.notifyDataSetChanged();
-//                            } else if  (jsonObject.getString("meterType").equals("Water")){
-//                                JSONArray pages = jsonObject.getJSONArray("consuList");
-//                                for (int i = 0; i < pages.length(); i++) {
-//                                    ReadDataHisWaterItemModel dto = new ReadDataHisWaterItemModel();
-//                                    dto.of(pages.getJSONObject(i));
-//                                    Waterdata.add(dto);
-//                                }
-//                                itemlist.setAdapter(wateradapter);
-//                                wateradapter.notifyDataSetChanged();
-//                            }
-//                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -346,12 +318,97 @@ public class HisInfoActivity extends MyBaseActivity {
         };
     }
 
+    /**
+     * Describe：操作记录查询
+     * Params:
+     * Date：2018-04-12 15:10:40
+     */
 
-    public String getTime(Date date) {//可根据需要自行截取数据显示
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        return format.format(date);
+    private void queryOptionRecord(String meteraNum) {
+        try {
+            JSONObject jsobj = new JSONObject();
+            try {
+                jsobj.put("meterAddr", meteraNum);
+                jsobj.put("bdate", startTimetEdit.getText().toString());
+                jsobj.put("edate", endTimeEdit.getText().toString());
+            } catch (JSONException ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            }
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("ngMeter", jsobj.toString());
+
+            if (isTest) {
+                map.put("hiseleoptionmeter", tempJson("hiseleoptionmeter.txt"));
+            }
+            loading.show();
+            setDialogLabel("操作记录查询中...");
+
+//            initOptionCallBack();
+            SystemAPI.query_swich_his(map, optionCallback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
+    /**
+     * Describe：操作记录查询回调函数
+     * Params:
+     * Date：2018-04-12 15:11:02
+     */
+
+    private void initOptionCallBack() {
+        optionCallback = new HttpServiceUtil.CallBack() {
+            @Override
+            public void callback(String json) {
+                setDialogLabel("操作记录查询完成");
+                loading.hide();
+                // 解析json
+                if (json.length() > 3) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(json);
+                        String jStatus = jsonObject.getString("strBackFlag");
+                        if (jStatus.equals("1")) {
+
+                            String consuList = jsonObject.getString("msgResult");
+                            GsonBuilder gsonB = new GsonBuilder();
+                            Gson gson = gsonB.create();
+                            eleHisOptionList = gson.fromJson(consuList, new TypeToken<ArrayList<HisEleOption>>() {
+                            }.getType());
+
+                            if (eleHisOptionList != null || eleHisOptionList.size() > 0) {
+                                settingView.setVisibility(View.GONE);
+                                getDataList_db.setVisibility(View.VISIBLE);
+
+                                HisEleOptionAdapter = new HisEleOptionAdapter(context, eleHisOptionList,getDataList_db);
+                                getDataList_db.setAdapter(HisEleOptionAdapter);
+                                HisEleOptionAdapter.notifyDataSetChanged();
+                                getDataList_db.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                        setToast("没有其他数据啦");
+                                    }
+                                });
+                            } else {
+                                //此处提示用户查询数据失败
+                                setToast("获取数据失败，请重新尝试！");
+                            }
+                            String toastStr = jsonObject.getString("strBackFlag");
+                            setToast(toastStr);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+
+                }
+            }
+
+//            //刷界面之
+//            private void SetDate(readmeterModel parmedata) {
+//
+//            }
+        };
+    }
 
     /**
      * Describe：构造View的数据
@@ -359,7 +416,7 @@ public class HisInfoActivity extends MyBaseActivity {
      * Date：2018-03-30 12:00:22
      */
     private void setData(int userType) {
-        setToast("登录用户为：" + userType);
+        //setToast("登录用户为：" + userType);
         recordType = getResources().getStringArray(R.array.recordType);
 
         //加载第一个列表数据
@@ -379,7 +436,6 @@ public class HisInfoActivity extends MyBaseActivity {
         showView2(showListData2);
     }
 
-
     /**
      * Describe：装载数据
      * Params:
@@ -394,7 +450,8 @@ public class HisInfoActivity extends MyBaseActivity {
         typeHideInnerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String checkType = showListData1.get(i);
+                queryType = i;
+                checkType =showListData1.get(i);
                 queryTypeEdit.setText(checkType);
                 popViewisShow(1);
                 if (TextUtils.isEmpty(queryTypeEdit.getText())) {
@@ -463,40 +520,6 @@ public class HisInfoActivity extends MyBaseActivity {
                 }
                 break;
             case 3:
-//                if (View.GONE == settingView.getVisibility()) {
-//                    animateClose(getDataList_db);
-//                    //打开View
-//                    animateOpen(settingView);
-//                } else {
-//                    if (getDataList_db.getCount() > 0) {
-//                        animateClose(settingView);
-//                        setViewData();
-//                        animateOpen(getDataList_db);
-//                    } else {
-//                        setToast("请设置相关查询条件，进行抄表！");
-//                    }
-//                }
-
-
-//                //关闭第二个View
-//                if (getDataList_db.getCount() > 0) {
-//                    getDataList_db.setVisibility(View.GONE);
-//                    animateClose(settingView);
-//                } else {
-//                    setToast("请设置相关查询条件，进行抄表！");
-//                }
-//                if (View.GONE == settingView.getVisibility()) {
-//                    settingView.setVisibility(View.VISIBLE);
-//                    getDataList_db.setVisibility(View.GONE);
-//                } else {
-//                    if (getDataList_db.getCount() > 0) {
-//                        settingView.setVisibility(View.GONE);
-//                        getDataList_db.setVisibility(View.VISIBLE);
-//                    } else {
-//                        setToast("请设置相关查询条件，进行抄表！");
-//                    }
-//                }
-
 
                 break;
         }
@@ -561,17 +584,18 @@ public class HisInfoActivity extends MyBaseActivity {
      * Date：2018-04-04 12:45:54
      */
 
-    private void setdate(){
+    private void setdate() {
 
         pvTime = new TimePickerView.Builder(context, new TimePickerView.OnTimeSelectListener() {
             @Override
-            public void onTimeSelect(Date date2, View v) {//选中事件回调
-                String time = getTime(date2);
-                if (timeFlag == 0){
+            public void onTimeSelect(Date date, View v) {//选中事件回调
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                String time = format.format(date);
+                if (timeFlag == 0) {
                     startTimetEdit.setText(time);
-                }else if (timeFlag == 1){
+                } else if (timeFlag == 1) {
                     endTimeEdit.setText(time);
-                };
+                }
             }
         })
                 .setType(TimePickerView.Type.YEAR_MONTH_DAY)//默认全部显示
@@ -583,12 +607,12 @@ public class HisInfoActivity extends MyBaseActivity {
                 .setTitleText("请选择时间")//标题文字
                 .setOutSideCancelable(true)//点击屏幕，点在控件外部范围时，是否取消显示
                 .isCyclic(true)//是否循环滚动
-                .setTextColorCenter(Color.rgb(27,150,199))//设置选中项的颜色
-                .setTitleColor(Color.rgb(27,150,199))//标题文字颜色
-                .setSubmitColor(Color.rgb(27,150,199))//确定按钮文字颜色
-                .setCancelColor(Color.rgb(27,150,199))//取消按钮文字颜色
+                .setTextColorCenter(Color.rgb(27, 150, 199))//设置选中项的颜色
+                .setTitleColor(Color.rgb(27, 150, 199))//标题文字颜色
+                .setSubmitColor(Color.rgb(27, 150, 199))//确定按钮文字颜色
+                .setCancelColor(Color.rgb(27, 150, 199))//取消按钮文字颜色
 //                        .setTitleBgColor(0xFF666666)//标题背景颜色 Night mode
-                .setBgColor(Color.rgb(238,238,238))//滚轮背景颜色 Night mode
+                .setBgColor(Color.rgb(238, 238, 238))//滚轮背景颜色 Night mode
 //                        .setRange(calendar.get(Calendar.YEAR) - 20, calendar.get(Calendar.YEAR) + 20)//默认是1900-2100年
 //                        .setDate(selectedDate)// 如果不设置的话，默认是系统时间*/
 //                        .setRangDate(startDate,endDate)//起始终止年月日设定
@@ -598,157 +622,4 @@ public class HisInfoActivity extends MyBaseActivity {
                 .build();
         pvTime.setDate(Calendar.getInstance());//注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
     }
-
-
-//
-//    private void initActivity() {
-//        tabBottom.setOnCheckedChangeListener(this);
-//        backBtn.setOnClickListener(this);
-////        tabBottom.check(0);
-//    }
-//
-//    @Override
-//    public void onClick(View view) {
-//        switch (view.getId()) {
-//            case R.id.back_btn:
-//                activity.onBackPressed();
-//                break;
-//        }
-//    }
-//
-//    @Override
-//    public void onCheckedChanged(RadioGroup group, int checkedId) {
-//        String tag;
-//        boolean isAdd = true;
-//        BaseFragment tempFragment;
-//        switch (checkedId) {
-//
-//            //抄表记录
-//            case R.id.readdata:
-//                tag = "readdata";
-//                tempFragment = (BaseFragment) getSupportFragmentManager().findFragmentByTag(tag);
-//                if (tempFragment == null) {
-//                    tempFragment = ReadDataHisFragment.getInstance();
-//                    isAdd = false;
-//                }
-//                replaceFragment(tag, tempFragment, isAdd);
-//                break;
-//            //拉合闸记录
-//            case R.id.swichpower:
-//                tag = "swichPower";
-//                tempFragment = (BaseFragment) getSupportFragmentManager()
-//                        .findFragmentByTag(tag);
-//                if (tempFragment == null) {
-//                    tempFragment = SwichPowerHisFragment.getInstance();
-//                    isAdd = false;
-//                }
-//                replaceFragment(tag, tempFragment, isAdd);
-//                break;
-//            //充值记录
-//
-//            case R.id.recharge:
-//                tag = "recharge";
-//                tempFragment = (BaseFragment) getSupportFragmentManager()
-//                        .findFragmentByTag(tag);
-//                if (tempFragment == null) {
-//                    tempFragment = RechargeHisFragment.getInstance();
-//                    isAdd = false;
-//                }
-//                replaceFragment(tag, tempFragment, isAdd);
-//                break;
-//        }
-//    }
-//
-//    public void replaceFragment(String tag, BaseFragment tempFragment,
-//                                boolean isAdd) {
-//        curentFragment = tempFragment;
-//        FragmentTransaction tran = getSupportFragmentManager()
-//                .beginTransaction();
-//        tran.replace(R.id.content_fragment, tempFragment, tag);
-//        if (!isAdd) {
-//            tran.addToBackStack(tag);
-//        }
-//        tran.commitAllowingStateLoss();
-//    }
-//
-//    public void show(){
-//        loading.show();
-//    }
-//
-//    public void hide(){
-//        loading.dismiss();
-//    }
-//
-//    public Preference getPreference(){
-//        return preference;
-//    }
-//
-//    public void checkRadio(int id) {
-//        tabBottom.check(id);
-//    }
-//
-//    public void onBackPressed() {
-//        if (!curentFragment.onBackKeyPressed()) {
-//            finish();
-//        }
-//    }
-//
-//
-//    private void initCallBack() {
-//        loginCallback = new CallBack() {
-//            @Override
-//            public void callback(String json) {
-////				loading.hide();
-//                // 解析json
-//                if (json.length()>3){
-//                    try {
-//                        JSONObject jsonObject = new JSONObject(json);
-//                        String jStatus = jsonObject.toString();
-//                        Toast.makeText(context, jStatus, Toast.LENGTH_SHORT).show();
-////                                            ToastTool.showToast(jStatus, activity);
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                } else {
-//                    String jSessionId = json;
-//
-//                    preference.putString(ContantsUtil.USER_SESSIONID,
-//                            jSessionId);
-//                    HttpServiceUtil.sessionId = jSessionId;
-//                    // 重新同步服務器數據
-////                    MyThread myThread = new MyThread();
-////                    new Thread(myThread).start();
-////                                        loading.show();
-//                }
-//            }
-//        };
-//    }
-//
-//    /**
-//     * 同步服务端数据
-//     */
-//    class MyThread implements Runnable {
-//        public void run() {
-//            // 从服务器获取数据更新
-////			Map<String, Object> map = new HashMap<String, Object>();
-////			map.put("jsparam", HttpServiceUtil.sessionId);
-////			String result = HttpServiceUtil.post(ContantsUtil.URL_Storage_View, map);
-////			if (!CheckUtil.isNull(result)) {
-////					handler.sendEmptyMessage(3);
-////			}
-////			Config.loadUserSet(activity);
-//        }
-//    };
-//
-//    private void setDialogLabel(String label) {
-//        if (loading == null) {
-//            loading = new DialogLoading(context);
-//        }
-//        loading.setDialogLabel(label);
-//    }
-//
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//    }
 }

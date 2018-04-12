@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -49,6 +50,8 @@ public class MainActivity extends BasicActivity implements OnClickListener {
 
     @ViewInject(id = R.id.contentView)
     private LinearLayout contentView;
+    @ViewInject(id = R.id.copyright1)
+    private TextView copyright;
 
 
     @Override
@@ -163,6 +166,7 @@ public class MainActivity extends BasicActivity implements OnClickListener {
             onoffinfo.setOnClickListener(this);
             upload_exception.setOnClickListener(this);
             setManager.setOnClickListener(this);
+            copyright.setOnClickListener(this);
 
             contentView.addView(view);
         } else {
@@ -218,6 +222,9 @@ public class MainActivity extends BasicActivity implements OnClickListener {
                 break;
             case R.id.set_manager:
                 startActivity(null, SettingActivity.class);
+                break;
+            case R.id.copyright1:
+                startActivity(null, HisInfoActivity_bak.class);
                 break;
             default:
                 break;
