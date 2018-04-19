@@ -15,12 +15,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.zfg.org.myexample.activity.HisInfoActivity;
+import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.SystemAPI;
 import com.zfg.org.myexample.ViewInject;
 import com.zfg.org.myexample.activity.BaseFragment;
 import com.zfg.org.myexample.activity.DialogLoading;
-import com.zfg.org.myexample.activity.HisInfoActivity_bak;
+import com.zfg.org.myexample.activity.RecordsQueryActivity_bak;
 import com.zfg.org.myexample.adapter.SwichPowerHisAdapter;
 import com.zfg.org.myexample.dialog.AlertDialogZfg;
 import com.zfg.org.myexample.dialog.DayDialog;
@@ -30,7 +30,6 @@ import com.zfg.org.myexample.model.SwichPowerHisModel;
 import com.zfg.org.myexample.utils.CheckUtil;
 import com.zfg.org.myexample.utils.CommonUtil;
 import com.zfg.org.myexample.utils.DateUtil;
-import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.utils.HttpServiceUtil;
 
 import org.json.JSONArray;
@@ -87,7 +86,7 @@ public class SwichPowerHisFragment extends BaseFragment implements View.OnClickL
     private Button query;
 
 
-    private HisInfoActivity_bak activity;
+    private RecordsQueryActivity_bak activity;
 
     /*適配器*/
     private SwichPowerHisAdapter adapter;
@@ -119,7 +118,7 @@ public class SwichPowerHisFragment extends BaseFragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_swichpower_his, container, false);
-        activity = (HisInfoActivity_bak) context;
+        activity = (RecordsQueryActivity_bak) context;
         loading = new DialogLoading(activity);
         fieldView(view);
         initView(view);

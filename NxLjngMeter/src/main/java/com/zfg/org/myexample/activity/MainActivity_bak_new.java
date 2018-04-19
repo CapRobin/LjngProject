@@ -16,11 +16,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.donkingliang.banner.CustomBanner;
 import com.zfg.org.myexample.BleActivity;
-import com.zfg.org.myexample.LoginActivity;
 import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.RechargeActivity;
 import com.zfg.org.myexample.SettingActivity;
-import com.zfg.org.myexample.SwichPowerActivity;
 import com.zfg.org.myexample.UploadExceptionActivity;
 import com.zfg.org.myexample.ViewInject;
 import com.zfg.org.myexample.utils.ContantsUtil;
@@ -79,10 +77,10 @@ public class MainActivity_bak_new extends BasicActivity implements OnClickListen
     private void intiViewBanner() {
 
         ArrayList<String> images = new ArrayList<>();
-        images.add(getUriFromDrawableRes(this,R.drawable.banner_01).toString());
-        images.add(getUriFromDrawableRes(this,R.drawable.banner_02).toString());
-        images.add(getUriFromDrawableRes(this,R.drawable.banner_03).toString());
-        images.add(getUriFromDrawableRes(this,R.drawable.banner_04).toString());
+        images.add(getUriFromDrawableRes(this, R.drawable.banner_01).toString());
+        images.add(getUriFromDrawableRes(this, R.drawable.banner_02).toString());
+        images.add(getUriFromDrawableRes(this, R.drawable.banner_03).toString());
+        images.add(getUriFromDrawableRes(this, R.drawable.banner_04).toString());
         setBean(images);
 
     }
@@ -221,10 +219,10 @@ public class MainActivity_bak_new extends BasicActivity implements OnClickListen
 //                break;
             case R.id.evaluate_self:
 //                startActivity(null, RemoteControlWaterActivity.class);
-                startActivity(null, ElectricityActivity.class);
+                startActivity(null, MeterReadingActivity.class);
                 break;
             case R.id.his_info:
-                startActivity(null, HisInfoActivity.class);
+                startActivity(null, RecordsQueryActivity.class);
                 break;
             case R.id.onoff_info:
                 if (LoginActivity.userRight >= 2)//中等权限 不允许开关阀

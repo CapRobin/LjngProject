@@ -11,16 +11,13 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.donkingliang.banner.CustomBanner;
 import com.zfg.org.myexample.BleActivity;
-import com.zfg.org.myexample.LoginActivity;
 import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.RechargeActivity;
 import com.zfg.org.myexample.SettingActivity;
-import com.zfg.org.myexample.SwichPowerActivity;
 import com.zfg.org.myexample.UploadExceptionActivity;
 import com.zfg.org.myexample.ViewInject;
 import com.zfg.org.myexample.utils.ContantsUtil;
@@ -76,7 +73,7 @@ public class MainActivity extends BasicActivity implements OnClickListener {
     private void intiViewBanner() {
         mBanner = (CustomBanner) findViewById(R.id.banner);
         ArrayList<String> images = new ArrayList<>();
-        images.add(getUriFromDrawableRes(this, R.drawable.banner_01).toString());
+//        images.add(getUriFromDrawableRes(this, R.drawable.banner_01).toString());
         images.add(getUriFromDrawableRes(this, R.drawable.banner_02).toString());
         images.add(getUriFromDrawableRes(this, R.drawable.banner_03).toString());
         images.add(getUriFromDrawableRes(this, R.drawable.banner_04).toString());
@@ -179,40 +176,44 @@ public class MainActivity extends BasicActivity implements OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.diabetes_listener:
-//                Toast.makeText(context, "点击了蓝牙通信模块", Toast.LENGTH_SHORT).show();
-//			if (checkLogin()) {
+//                Toast.makeText(context, "是否登录"+isLogin, Toast.LENGTH_SHORT).show();
+//			if (isLogin) {
                 controlFlag = 0;
                 startActivity(null, BleActivity.class);
 //			}
+
+//                startActivity(null, BlueReadMeterActivity.class);
                 break;
             case R.id.param_setting:
                 controlFlag = 1;
                 startActivity(null, BleActivity.class);
+//                startActivity(null, ParamSettingActivity.class);
                 break;
             case R.id.evaluate_self:
 //                startActivity(null, RemoteControlWaterActivity.class);
-                startActivity(null, ElectricityActivity.class);
+                startActivity(null, MeterReadingActivity.class);
                 break;
             case R.id.recharge_pay:
-                if (LoginActivity.userRight >= 2)//中等权限 不允许开关阀
-                {
-                    Toast.makeText(context, "您无此权限操作此项命令!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+//                if (LoginActivity.userRight >= 2)//中等权限 不允许开关阀
+//                {
+//                    Toast.makeText(context, "您无此权限操作此项命令!", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
 //                Toast.makeText(context, "缴费充值", Toast.LENGTH_SHORT).show();
                 startActivity(null, RechargeActivity.class);
                 break;
             case R.id.his_info:
-                startActivity(null, HisInfoActivity.class);
+                startActivity(null, RecordsQueryActivity.class);
                 break;
             case R.id.onoff_info:
-                if (LoginActivity.userRight >= 2)//中等权限 不允许开关阀
-                {
-                    Toast.makeText(context, "您无此权限操作此项命令!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+//                if (LoginActivity.userRight >= 2)//中等权限 不允许开关阀
+//                {
+//                    Toast.makeText(context, "您无此权限操作此项命令!", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
                 startActivity(null, SwichPowerActivity.class);
 //                startActivity(null, MyTestActivity.class);
+//                startActivity(null, SwichPowerActivity_bak.class);
                 break;
             case R.id.task_query:
                 startActivity(null, ReadingTaskActivity.class);
@@ -224,7 +225,7 @@ public class MainActivity extends BasicActivity implements OnClickListener {
                 startActivity(null, SettingActivity.class);
                 break;
             case R.id.copyright1:
-                startActivity(null, HisInfoActivity_bak.class);
+                startActivity(null, RecordsQueryActivity_bak.class);
                 break;
             default:
                 break;

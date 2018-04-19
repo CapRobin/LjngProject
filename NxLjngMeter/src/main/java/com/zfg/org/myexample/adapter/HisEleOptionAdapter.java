@@ -4,19 +4,14 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.zfg.org.myexample.R;
-import com.zfg.org.myexample.activity.HisInfoActivity;
 import com.zfg.org.myexample.activity.MBaseAdapter;
+import com.zfg.org.myexample.activity.RecordsQueryActivity;
 import com.zfg.org.myexample.model.HisEleOption;
-import com.zfg.org.myexample.model.ReadDataItemModel;
 
 import java.util.List;
 
@@ -30,11 +25,11 @@ import java.util.List;
  */
 
 public class HisEleOptionAdapter extends MBaseAdapter {
-    private HisInfoActivity mHisInfoActivity;
+    private RecordsQueryActivity mHisInfoActivity;
 
     public HisEleOptionAdapter(Context context, List<?> data, ListView view) {
         super(context, data, R.layout.item_hisele_option);
-        this.mHisInfoActivity = (HisInfoActivity) context;
+        this.mHisInfoActivity = (RecordsQueryActivity) context;
 
         //设置ListView线条的颜色
         view.setDivider(new ColorDrawable(Color.GRAY));
@@ -60,14 +55,17 @@ public class HisEleOptionAdapter extends MBaseAdapter {
         HisEleOption dto = (HisEleOption) itemObject;
 
         String meterNum = dto.getPARAMS();
-        if(meterNum == null){
+        int meterType = Integer.parseInt(dto.getCATEGORY());
+        if(meterNum == null || meterNum.equals("null")){
             viewHolder.optionMeterText.setText("操作表号：" + dto.getPARAMS());
         }else {
             viewHolder.optionMeterText.setText("操作" + dto.getPARAMS());
         }
         viewHolder.optionUserText.setText("操作员：" + dto.getUSER_ID());
         viewHolder.optionContentText.setText(dto.getACTION_KEY());
-        viewHolder.optionTypeText.setText("操作种类：" + dto.getCATEGORY());
+        if(meterType == 4){
+            viewHolder.optionTypeText.setText("仪表类型：电表");
+        }
         viewHolder.optionDateText.setText(dto.getOPERATE_TIME());
     }
 

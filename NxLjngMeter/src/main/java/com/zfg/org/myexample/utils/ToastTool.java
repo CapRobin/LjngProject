@@ -2,7 +2,7 @@ package com.zfg.org.myexample.utils;
 
 import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.activity.BasicActivity;
-import com.zfg.org.myexample.LoginActivity;
+import com.zfg.org.myexample.activity.LoginActivity;
 
 import android.content.Context;
 import android.content.Intent;

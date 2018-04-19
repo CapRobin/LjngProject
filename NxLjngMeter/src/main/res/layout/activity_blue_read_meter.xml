@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/bolck_titlebar"
+        layout="@layout/block_header" />
+
+
+
+    <ListView
+        android:id="@+id/devicelist"
+        android:layout_below="@+id/bolck_titlebar"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:cacheColorHint="#00000000"
+        android:descendantFocusability="blocksDescendants"
+        android:divider="@color/gary"
+        android:dividerHeight="0.8dip"
+        android:fadingEdge="none"
+        android:fastScrollEnabled="false"
+        android:listSelector="@color/transparent"
+        android:layout_marginBottom="100dp"
+        android:scrollingCache="false" />
+
+    <Button
+        android:id="@+id/scanBowBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="34dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/selector_btn"
+        android:padding="2dip"
+        android:text="立即扫描"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="30dp"
+        android:textColor="#2e2e2e"
+        android:textSize="20sp" />
+</RelativeLayout>

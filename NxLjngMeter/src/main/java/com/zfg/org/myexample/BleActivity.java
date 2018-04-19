@@ -15,6 +15,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,7 +27,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -40,6 +43,7 @@ import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.zfg.org.myexample.activity.BasicActivity;
 import com.zfg.org.myexample.activity.DialogLoading;
+import com.zfg.org.myexample.activity.LoginActivity;
 import com.zfg.org.myexample.activity.MainActivity;
 import com.zfg.org.myexample.adapter.DeviceAdapter;
 import com.zfg.org.myexample.application.DbApplication;
@@ -154,19 +158,26 @@ public class BleActivity extends BasicActivity implements View.OnClickListener {
 //开始设置tabHost
             tabHost.setup();
 //新建一个newTabSpec,设置标签（选项卡名称）和图标(setIndicator),设置内容(setContent)
+//            tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("蓝牙抄表", getResources().getDrawable(android.R.drawable.stat_sys_data_bluetooth)).setContent(R.id.item1));
+//            tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("数据上传", getResources().getDrawable(android.R.drawable.ic_menu_upload)).setContent(R.id.item2));
             tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("蓝牙抄表", getResources().getDrawable(android.R.drawable.stat_sys_data_bluetooth)).setContent(R.id.item1));
             tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("数据上传", getResources().getDrawable(android.R.drawable.ic_menu_upload)).setContent(R.id.item2));
 //设置TabHost的背景颜色
-//tabHost.setBackgroundColor(Color.argb(150,22,70,150));
+tabHost.setBackgroundColor(Color.argb(150,22,70,150));
 //设置TabHost的背景图片资源
 //tabHost.setBackgroundResource(R.drawable.blue_button);
 
+
+            RelativeLayout.LayoutParams mParms;
             TabWidget tabWidget = tabHost.getTabWidget();
             for (int i = 0; i < 2; i++) {
                 View view = tabWidget.getChildTabViewAt(i);
-//            view.setBackgroundColor(R.color.white);
-                //设置tab背景颜色,对应配置文件的tab_bg.xml,可变化的背景,选中时为白色,未选中为黑色
-                view.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue_button));
+//                final TextView tv = (TextView) view.findViewById(android.R.id.title);
+//                tv.setTextSize(28);
+//                mParms = new RelativeLayout.LayoutParams(tv.getLayoutParams());
+//                mParms.setMargins(0,10,0,10);
+//                tv.setLayoutParams(mParms);
+                view.setBackgroundColor(getResources().getColor(R.color.theme_color));
             }
             tabHost.setOnTabChangedListener(new tabHostOnTabChangedListener());
             grid1 = (GridView) findViewById(R.id.grid1);

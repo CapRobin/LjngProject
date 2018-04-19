@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.zfg.org.myexample.activity.BasicActivity;
+import com.zfg.org.myexample.activity.LoginActivity;
 import com.zfg.org.myexample.activity.MainActivity;
 import com.zfg.org.myexample.activity.TranLoading;
 //import com.dian.diabetes.request.LoginRegisterAPI;

@@ -18,22 +18,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zfg.org.myexample.BleActivity;
-import com.zfg.org.myexample.LoginActivity;
 import com.zfg.org.myexample.PlanActivity;
 import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.RechargeActivity;
 import com.zfg.org.myexample.RemoteControlWaterActivity;
 import com.zfg.org.myexample.SettingActivity;
-import com.zfg.org.myexample.SwichPowerActivity;
 import com.zfg.org.myexample.UploadExceptionActivity;
 import com.zfg.org.myexample.ViewInject;
-//import com.zfg.org.myexample.ble1.PeripheralActivity;
-//import com.zfg.org.myexample.ble1.ScanningActivity;
-//import com.zfg.org.myexample.db.dao.UserInfo;
 import com.zfg.org.myexample.db.dao.UserInfo;
 import com.zfg.org.myexample.dialog.AlertDialogZfg;
-//import com.zfg.org.myexample.pay.weipay.PayActivity;
-//import com.zfg.org.myexample.pay.weipay.wxapi.WXEntryActivity;
 import com.zfg.org.myexample.utils.CheckUtil;
 import com.zfg.org.myexample.utils.ContantsUtil;
 import com.zfg.org.myexample.utils.HttpServiceUtil;
@@ -49,6 +42,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+//import com.zfg.org.myexample.ble1.PeripheralActivity;
+//import com.zfg.org.myexample.ble1.ScanningActivity;
+//import com.zfg.org.myexample.db.dao.UserInfo;
+//import com.zfg.org.myexample.pay.weipay.PayActivity;
+//import com.zfg.org.myexample.pay.weipay.wxapi.WXEntryActivity;
 
 
 public class MainActivity_bak extends BasicActivity implements OnClickListener {
@@ -194,7 +193,7 @@ public class MainActivity_bak extends BasicActivity implements OnClickListener {
                         break;
                     case 2:
 //                        Toast.makeText(context,"电表页面",Toast.LENGTH_SHORT).show();
-                        startActivity(null, ElectricityActivity.class);
+                        startActivity(null, MeterReadingActivity.class);
                         break;
                     case 3:
 //                        Toast.makeText(context,"气表页面",Toast.LENGTH_SHORT).show();
@@ -299,7 +298,7 @@ public class MainActivity_bak extends BasicActivity implements OnClickListener {
                         startActivity(null, WaterMeterActivity.class);
                         break;
                     case 3:
-                        startActivity(null, ElectricityActivity.class);
+                        startActivity(null, MeterReadingActivity.class);
                         break;
                     case 4:
                         startActivity(null, GasMeterActivity.class);
@@ -405,7 +404,7 @@ public class MainActivity_bak extends BasicActivity implements OnClickListener {
                 break;
             case R.id.his_info:
 //                Toast.makeText(context, "历史记录查询", Toast.LENGTH_SHORT).show();
-                startActivity(null, HisInfoActivity.class);
+                startActivity(null, RecordsQueryActivity.class);
                 break;
             case R.id.onoff_info:
                 if (LoginActivity.userRight >=2)//中等权限 不允许开关阀

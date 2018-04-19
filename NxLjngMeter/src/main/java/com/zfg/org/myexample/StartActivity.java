@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 
 //import com.zfg.org.myexample.service.LoadingService;
+import com.zfg.org.myexample.activity.LoginActivity;
 import com.zfg.org.myexample.utils.Preference;
 import com.zfg.org.myexample.utils.NetworkUtil;
 //import com.zdp.aseo.content.AseoZdpAseo;

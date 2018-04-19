@@ -15,12 +15,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.zfg.org.myexample.activity.HisInfoActivity;
 import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.SystemAPI;
 import com.zfg.org.myexample.ViewInject;
 import com.zfg.org.myexample.activity.BaseFragment;
 import com.zfg.org.myexample.activity.DialogLoading;
+import com.zfg.org.myexample.activity.RecordsQueryActivity;
 import com.zfg.org.myexample.adapter.RechargeHisAdapter;
 import com.zfg.org.myexample.dialog.AlertDialogZfg;
 import com.zfg.org.myexample.dialog.DayDialog;
@@ -84,7 +84,7 @@ public class RechargeHisFragment extends BaseFragment implements View.OnClickLis
     private Button query;
 
 
-    private HisInfoActivity activity;
+    private RecordsQueryActivity activity;
     /*起始日期*/
     private Date bdate;
     /*結束日期*/
@@ -115,7 +115,7 @@ public class RechargeHisFragment extends BaseFragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recharge_his, container, false);
-        activity = (HisInfoActivity) context;
+        activity = (RecordsQueryActivity) context;
         loading = new DialogLoading(activity);
         fieldView(view);
         initView(view);

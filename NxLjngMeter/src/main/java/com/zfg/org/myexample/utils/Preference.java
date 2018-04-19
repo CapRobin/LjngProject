@@ -27,6 +27,9 @@ public class Preference {
 	//默认缓存用户
 	public static final String CACHE_USER = "cache_user";
 
+	public static final String USERNAME = "user_name";
+	public static final String USERPWD = "user_pwd";
+
 	private final String SHARED_PREFERENCE_NAME = "com.dian.diabetes";
 	private static Preference catche;
 	private SharedPreferences spf;

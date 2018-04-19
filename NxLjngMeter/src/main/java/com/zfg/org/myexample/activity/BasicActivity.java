@@ -45,6 +45,7 @@ public class BasicActivity extends FragmentActivity implements OnGestureListener
 	private GestureDetector detector;
 	private boolean isGesture = false;
 	protected int userType = 0;
+	protected Preference preference;
 
 	//读取本地测试数据开关
 	public boolean isTest =false;
@@ -322,7 +323,7 @@ public class BasicActivity extends FragmentActivity implements OnGestureListener
 
 
 	/**
-	 * Describe：发送消息刷新UI 第一参数是0
+	 * Describe：发送消息刷新UI
 	 * Params:
 	 * Date：2018-04-03 17:12:37
 	 */

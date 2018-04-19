@@ -151,7 +151,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:entries="@array/user_type" />
+            android:entries="@array/user_type"
+            android:visibility="gone" />
     </RelativeLayout>
         <Button
             android:id="@+id/adminster_login"

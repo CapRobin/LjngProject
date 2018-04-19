@@ -5,8 +5,15 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/white" />
+
     <RelativeLayout
         style="@style/page_title"
+        android:background="@color/selector_bg_normal"
+        android:layout_height="48dp"
         android:layout_width="fill_parent">
 
         <Button

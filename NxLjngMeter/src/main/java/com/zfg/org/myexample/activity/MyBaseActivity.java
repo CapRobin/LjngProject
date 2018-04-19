@@ -12,12 +12,10 @@ import com.zfg.org.myexample.adapter.ReadDataAdapter;
 import com.zfg.org.myexample.model.ReadDataItemModel;
 import com.zfg.org.myexample.utils.HttpServiceUtil;
 
-import org.apache.http.util.EncodingUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,7 +34,7 @@ public class MyBaseActivity extends BasicActivity {
     protected List<ReadDataItemModel> listdata;
     protected ReadDataAdapter listadapter;
     private ListView itemlist;
-    protected ElectricityActivity mElectricityContent;
+    protected MeterReadingActivity mElectricityContent;
 
     public SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
     @Override
@@ -74,7 +72,7 @@ public class MyBaseActivity extends BasicActivity {
      * Params:
      * Date：2018-03-31 09:36:42
      */
-    
+
     public void loadData(String meteraddr) {
         searchTime =  df.format(new Date());
         try {
@@ -142,13 +140,13 @@ public class MyBaseActivity extends BasicActivity {
             }
         };
     }
-    
+
     /**
      * Describe：设置Dialog提示信息
      * Params:
      * Date：2018-03-31 11:01:28
      */
-    
+
     protected void setDialogLabel(String label) {
         if (loading == null) {
             loading = new DialogLoading(context);
@@ -168,5 +166,15 @@ public class MyBaseActivity extends BasicActivity {
         if (isOpen) {
             imm.hideSoftInputFromWindow(context.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
+    }
+
+    /**
+     * Describe：dp转px
+     * Params:
+     * Date：2018-04-13 17:13:39
+     */
+    public  int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 }

@@ -74,12 +74,12 @@
             android:name=".WelcomeActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.LoginActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".LoginActivity1"
+            android:name=".activity.LoginActivity1"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
@@ -141,6 +141,12 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
+        <activity
+            android:name=".ComBleActivity_bak"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
         <!-- <activity android:name="com.zfg.org.myexample.MapLocationActivity" -->
         <!-- android:configChanges="orientation|keyboardHidden" -->
         <!-- android:screenOrientation="portrait" -->
@@ -173,7 +179,12 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".SwichPowerActivity"
+            android:name=".activity.SwichPowerActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".activity.SwichPowerActivity_bak"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
@@ -524,11 +535,23 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".activity.ElectricityActivity1" />
         <activity android:name=".activity.WaterMeterActivity" />
         <activity android:name=".activity.GasMeterActivity" />
         <activity android:name=".activity.HeatMeterActivity" />
-        <activity android:name=".activity.ElectricityActivity" />
+
+
+        <activity android:name=".activity.BlueReadMeterActivity" />
+        <activity android:name=".activity.ParamSettingActivity" />
+        <activity android:name=".activity.MeterReadingActivity" />
+        <activity android:name=".activity.MeterReadingActivity_bak" />
+        <activity android:name=".activity.RecordsQueryActivity" />
+        <activity android:name=".activity.RecordsQueryActivity_bak" />
+
+
+
+
+
+
         <activity android:name=".activity.MyTestActivity" />
         <activity android:name=".activity.DemoActivity" />
         <activity android:name=".activity.MyBaseActivity"></activity>

@@ -66,7 +66,7 @@ import static java.lang.Thread.sleep;
 /**
  * Created by Administrator on 2016-05-27. zhdl，蓝牙通讯界面
  */
-public class ComBleActivity extends BasicActivity implements View.OnClickListener {
+public class ComBleActivity_bak extends BasicActivity implements View.OnClickListener {
 
 //    static {
 //        System.loadLibrary("mycode");
@@ -995,7 +995,7 @@ public class ComBleActivity extends BasicActivity implements View.OnClickListene
     //编气表时间
     public void ProgServeDate() {
         try {
-            ComBleActivity.GetServeDateThread t = new ComBleActivity.GetServeDateThread();
+            ComBleActivity_bak.GetServeDateThread t = new ComBleActivity_bak.GetServeDateThread();
             new Thread(t).start();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1051,7 +1051,7 @@ public class ComBleActivity extends BasicActivity implements View.OnClickListene
 //                new Thread(t).start();
 //            }
 
-            ComBleActivity.MybluetoothauthThread t = new ComBleActivity.MybluetoothauthThread();
+            ComBleActivity_bak.MybluetoothauthThread t = new ComBleActivity_bak.MybluetoothauthThread();
             new Thread(t).start();
             // 创建一个子线程, 子线程发起 身份认证webservice
 
@@ -1075,7 +1075,7 @@ public class ComBleActivity extends BasicActivity implements View.OnClickListene
             String keyStr = "";
             //水表和气表(1:水表；3:气表)身份验证
             if (userType == 1) {
-                keyStr = "ngMeterGas";
+                keyStr = "ngMeterWater";
                 urlStr = ContantsUtil.URL_WaterAuto;
             } else if (userType == 3) {
                 urlStr = ContantsUtil.URL_GasAuto;
@@ -1191,7 +1191,7 @@ public class ComBleActivity extends BasicActivity implements View.OnClickListene
             String keyStr = "";
             //水表和气表(1:水表；3:气表)身份验证
             if (userType == 1) {
-                keyStr = "ngMeterGas";
+                keyStr = "ngMeterWater";
                 urlStr = ContantsUtil.URL_WaterPull;
             } else if (userType == 3) {
                 urlStr = ContantsUtil.URL_GasPull;
@@ -3001,7 +3001,7 @@ public class ComBleActivity extends BasicActivity implements View.OnClickListene
                             setDialogLabel("正在充值...");
 
 
-                            ComBleActivity.MyChargeWebThread chargeWebThread = new ComBleActivity.MyChargeWebThread();
+                            ComBleActivity_bak.MyChargeWebThread chargeWebThread = new ComBleActivity_bak.MyChargeWebThread();
                             new Thread(chargeWebThread).start();
 
 
