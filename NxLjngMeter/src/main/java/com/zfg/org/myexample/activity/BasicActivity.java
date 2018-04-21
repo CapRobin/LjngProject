@@ -329,7 +329,6 @@ public class BasicActivity extends FragmentActivity implements OnGestureListener
 	 * Params:
 	 * Date：2018-04-03 17:12:37
 	 */
-	
 	public void sendMsgUpdateUI(int what, String titleMsg) {
 		Message msg = handler.obtainMessage(what);
 		Bundle bundle = new Bundle();
