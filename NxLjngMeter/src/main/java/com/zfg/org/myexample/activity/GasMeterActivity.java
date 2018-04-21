@@ -266,7 +266,7 @@ public class GasMeterActivity extends BasicActivity {
      * @Date：2014年8月20日 上午11:58:30
      * @Version v1.0
      */
-    private void closeInputMethod() {
+    protected void closeInputMethod() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         boolean isOpen = imm.isActive();
 

@@ -29,6 +29,7 @@ import com.zfg.org.myexample.db.dao.MeterInfo;
 import com.zfg.org.myexample.dto.MeterInfoCheckModel;
 import com.zfg.org.myexample.utils.CheckUtil;
 import com.zfg.org.myexample.utils.CommonUtil;
+import com.zfg.org.myexample.utils.MethodUtil;
 import com.zfg.org.myexample.utils.Preference;
 
 import java.util.ArrayList;
@@ -113,6 +114,15 @@ public class MeterReadingActivity extends MyBaseActivity {
         settingBtn.setOnClickListener(this);
         cbxmEdit.setOnClickListener(this);
         cxbhEdit.setOnClickListener(this);
+        cxbhEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(b){
+                    MethodUtil.animateClose(cxbhHideView);
+                    MethodUtil.animateClose(cbxmHideView);
+                }
+            }
+        });
         searchNum.setOnClickListener(this);
         startSearch.setOnClickListener(this);
 
@@ -146,7 +156,7 @@ public class MeterReadingActivity extends MyBaseActivity {
                 break;
             case R.id.cxbhEdit:
                 if (View.GONE != cxbhAllView.findViewById(R.id.cxbhHideView).getVisibility()) {
-                    animateClose(cxbhAllView.findViewById(R.id.cxbhHideView));
+                    MethodUtil.animateClose(cxbhAllView.findViewById(R.id.cxbhHideView));
                 }
                 break;
             case R.id.searchNum:
@@ -209,7 +219,6 @@ public class MeterReadingActivity extends MyBaseActivity {
      * Date：2018-03-30 12:00:22
      */
     private void setData(int userType) {
-        setToast("登录用户为：" + userType);
         switch (userType) {
             case 1:
                 pageType.setText("水表实时数据");
@@ -362,38 +371,39 @@ public class MeterReadingActivity extends MyBaseActivity {
             case 1:
                 if (View.GONE == cbxmHideView.getVisibility()) {
                     //关闭第二个View
-                    animateClose(cxbhHideView);
+                    MethodUtil.animateClose(cxbhHideView);
                     //打开第一个View
-                    animateOpen(cbxmHideView, 0);
+                    MethodUtil.animateOpen(cbxmHideView, 0,0);
                 } else {
                     //关闭第一个View
-                    animateClose(cbxmHideView);
+                    MethodUtil.animateClose(cbxmHideView);
                 }
                 break;
             case 2:
                 if (View.GONE == cxbhHideView.getVisibility()) {
                     //关闭第一个View
-                    animateClose(cbxmHideView);
+                    MethodUtil.animateClose(cbxmHideView);
                     //打开第二个View
 
                     locationAdapter.notifyDataSetChanged();
-                    int getHeight = dip2px(this, meterinfos.size() * 60);
-                    animateOpen(cxbhHideView, getHeight);
+                    int getHeight = MethodUtil.dip2px(this, meterinfos.size() * 60);
+                    MethodUtil.animateOpen(cxbhHideView, getHeight,900);
+                    cxbhEdit.clearFocus();
                 } else {
                     //关闭第二个View
-                    animateClose(cxbhHideView);
+                    MethodUtil.animateClose(cxbhHideView);
                 }
                 break;
             case 3:
                 if (View.GONE == settingView.getVisibility()) {
-                    animateClose(getDataList_db);
+                    MethodUtil.animateClose(getDataList_db);
                     //打开View
-                    animateOpen(settingView, 0);
+                    MethodUtil.animateOpen(settingView, 0,0);
                 } else {
                     if (getDataList_db.getCount() > 0) {
-                        animateClose(settingView);
+                        MethodUtil.animateClose(settingView);
                         setViewData();
-                        animateOpen(getDataList_db, 0);
+                        MethodUtil.animateOpen(getDataList_db, 0,0);
                     } else {
                         setToast("请设置相关查询条件，进行抄表！");
                     }
@@ -423,63 +433,63 @@ public class MeterReadingActivity extends MyBaseActivity {
                 break;
         }
     }
-
-    /**
-     * Describe：打开视图
-     * Params:
-     * Date：2018-03-30 13:26:31
-     */
-    public static void animateOpen(final View view, int height) {
-        view.setVisibility(View.VISIBLE);
-
-        final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        final int heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        view.measure(widthSpec, heightSpec);
-        ValueAnimator animator = null;
-        if (height == 0) {
-            animator = createHeightAnimator(view, 0, view.getMeasuredHeight());
-        } else if (height > 0 && height < 700) {
-            animator = createHeightAnimator(view, 0, height);
-        } else if (height > 700) {
-            animator = createHeightAnimator(view, 0, 700);
-        }
-        animator.start();
-    }
-
-    /**
-     * Describe：隐藏视图
-     * Params:
-     * Date：2018-03-30 13:28:12
-     */
-
-    public static void animateClose(final View view) {
-        int origHeight = view.getHeight();
-
-        ValueAnimator animator = createHeightAnimator(view, origHeight, 0);
-        animator.addListener(new AnimatorListenerAdapter() {
-            public void onAnimationEnd(Animator animation) {
-                view.setVisibility(View.GONE);
-            }
-        });
-        animator.start();
-    }
-
-    public static ValueAnimator createHeightAnimator(final View view, int start, int end) {
-        ValueAnimator animator = ValueAnimator.ofInt(start, end);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                int value = (Integer) valueAnimator.getAnimatedValue();
-
-                ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-                layoutParams.height = value;
-                view.setLayoutParams(layoutParams);
-            }
-        });
-        // animator.setDuration(DURATION);
-        return animator;
-    }
+//
+//    /**
+//     * Describe：打开视图
+//     * Params:
+//     * Date：2018-03-30 13:26:31
+//     */
+//    public static void animateOpen(final View view, int height) {
+//        view.setVisibility(View.VISIBLE);
+//
+//        final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+//        final int heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+//        view.measure(widthSpec, heightSpec);
+//        ValueAnimator animator = null;
+//        if (height == 0) {
+//            animator = createHeightAnimator(view, 0, view.getMeasuredHeight());
+//        } else if (height > 0 && height < 700) {
+//            animator = createHeightAnimator(view, 0, height);
+//        } else if (height > 700) {
+//            animator = createHeightAnimator(view, 0, 700);
+//        }
+//        animator.start();
+//    }
+//
+//    /**
+//     * Describe：隐藏视图
+//     * Params:
+//     * Date：2018-03-30 13:28:12
+//     */
+//
+//    public static void animateClose(final View view) {
+//        int origHeight = view.getHeight();
+//
+//        ValueAnimator animator = createHeightAnimator(view, origHeight, 0);
+//        animator.addListener(new AnimatorListenerAdapter() {
+//            public void onAnimationEnd(Animator animation) {
+//                view.setVisibility(View.GONE);
+//            }
+//        });
+//        animator.start();
+//    }
+//
+//    public static ValueAnimator createHeightAnimator(final View view, int start, int end) {
+//        ValueAnimator animator = ValueAnimator.ofInt(start, end);
+//        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+//                int value = (Integer) valueAnimator.getAnimatedValue();
+//
+//                ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+//                layoutParams.height = value;
+//                view.setLayoutParams(layoutParams);
+//            }
+//        });
+//        // animator.setDuration(DURATION);
+//        return animator;
+//    }
 
 
 }

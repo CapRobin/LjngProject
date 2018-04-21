@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24  //23表示使用Android7.0系统的SDK编译；
+    compileSdkVersion 26  //23表示使用Android7.0系统的SDK编译；
     buildToolsVersion '25.0.0'  //指定项目构建工具的版本；
 //    compileSdkVersion 25
 //    buildToolsVersion "25.0.3"
@@ -16,7 +16,7 @@ android {
     defaultConfig {
         applicationId "com.zfg.org.myexample"   //用于指定报名；
         minSdkVersion 19   //19表示最低兼容到Android
-        targetSdkVersion 23
+        targetSdkVersion 26
 //        minSdkVersion 15
 //        targetSdkVersion 25
         versionCode 1
@@ -92,5 +92,6 @@ dependencies {
 
     compile project(path: ':imagepicker')
     compile project(path: ':banner')
+    compile project(path: ':app')
     compile 'com.google.code.gson:gson:2.8.2'
 }

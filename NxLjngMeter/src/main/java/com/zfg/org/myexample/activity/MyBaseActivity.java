@@ -153,28 +153,4 @@ public class MyBaseActivity extends BasicActivity {
         }
         loading.setDialogLabel(label);
     }
-
-    /**
-     * Describe：关闭输入法
-     * Params:
-     * Date：2018-04-03 19:45:01
-     */
-    protected void closeInputMethod() {
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        boolean isOpen = imm.isActive();
-        // isOpen若返回true，则表示输入法打开
-        if (isOpen) {
-            imm.hideSoftInputFromWindow(context.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        }
-    }
-
-    /**
-     * Describe：dp转px
-     * Params:
-     * Date：2018-04-13 17:13:39
-     */
-    public  int dip2px(Context context, float dpValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
-    }
 }

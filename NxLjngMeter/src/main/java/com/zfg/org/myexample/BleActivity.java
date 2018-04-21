@@ -1,5 +1,6 @@
 package com.zfg.org.myexample;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -15,7 +16,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,17 +25,15 @@ import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
-
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -49,7 +47,6 @@ import com.zfg.org.myexample.adapter.DeviceAdapter;
 import com.zfg.org.myexample.application.DbApplication;
 import com.zfg.org.myexample.ble.Utils.GattAttributes;
 import com.zfg.org.myexample.ble.Utils.Utils;
-
 import com.zfg.org.myexample.ble.bean.MDevice;
 import com.zfg.org.myexample.ble.bean.MService;
 import com.zfg.org.myexample.ble.service.BluetoothLeService;
@@ -69,22 +66,36 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import android.widget.TabWidget;
 
+import static com.zfg.org.myexample.R.color;
+import static com.zfg.org.myexample.R.drawable;
+import static com.zfg.org.myexample.R.id;
+import static com.zfg.org.myexample.R.layout;
+import static com.zfg.org.myexample.R.string;
+
+/**
+ * Copyright © 2018 LJNG All rights reserved.
+ *
+ * Name：BleActivity
+ * Describe：蓝牙抄表和参数设置
+ * Date：2018-04-20 13:39:09
+ * Author: CapRobin@yeah.net
+ *
+ */
 public class BleActivity extends BasicActivity implements View.OnClickListener {
 
-    @ViewInject(id = R.id.devicelist)
+    @ViewInject(id = id.devicelist)
     private ListView bluthList;
 
     //  回退按钮
-    @ViewInject(id = R.id.back_btn)
+    @ViewInject(id = id.back_btn)
     private Button backBtn;
     //蓝牙数据上传的回退按钮
-    @ViewInject(id = R.id.back_btn_upload)
+    @ViewInject(id = id.back_btn_upload)
     private Button backBtnUpload;
 
     //  搜索按钮
-    @ViewInject(id = R.id.serch_btn)
+    @ViewInject(id = id.serch_btn)
     private Button serchButton;
 
     private Button BtnBledataShowClose;
@@ -120,16 +131,25 @@ public class BleActivity extends BasicActivity implements View.OnClickListener {
 
     private boolean stopFlag;
     public static boolean ComBleActivityIsExsit;//页面是否创建
+    private View blueView;
+    private View uploadView;
+    private RelativeLayout blueLayout;
+    private RelativeLayout uploadLayout;
+    //    private ImageView blueImage;
+//    private TextView blueText;
+//    private ImageView uploadImage;
+//    private TextView uploadText;
+    private TabHost tabHost;
 
     //消息循环shit
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
                 loading.dismiss();
                 Toast.makeText(context, msg.getData().getString("title"), Toast.LENGTH_SHORT).show();
                 new tabHostOnTabChangedListener().onTabChanged("tab2");
-            }
-            else if (msg.what ==2) {
+            } else if (msg.what == 2) {
                 if (loading.isShowing()) {
                     Toast.makeText(context, msg.getData().getString("title"), Toast.LENGTH_SHORT).show();
                     loading.dismiss();
@@ -151,46 +171,17 @@ public class BleActivity extends BasicActivity implements View.OnClickListener {
         if (MainActivity.controlFlag == 0)//蓝牙抄表flag
         {
 //        zhdl 蓝牙扫描界面
-            setContentView(R.layout.tab_test);
-
-            //获取TabHost对象
-            TabHost tabHost = (TabHost) findViewById(R.id.tab_test);
-//开始设置tabHost
-            tabHost.setup();
-//新建一个newTabSpec,设置标签（选项卡名称）和图标(setIndicator),设置内容(setContent)
-//            tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("蓝牙抄表", getResources().getDrawable(android.R.drawable.stat_sys_data_bluetooth)).setContent(R.id.item1));
-//            tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("数据上传", getResources().getDrawable(android.R.drawable.ic_menu_upload)).setContent(R.id.item2));
-            tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("蓝牙抄表", getResources().getDrawable(android.R.drawable.stat_sys_data_bluetooth)).setContent(R.id.item1));
-            tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("数据上传", getResources().getDrawable(android.R.drawable.ic_menu_upload)).setContent(R.id.item2));
-//设置TabHost的背景颜色
-tabHost.setBackgroundColor(Color.argb(150,22,70,150));
-//设置TabHost的背景图片资源
-//tabHost.setBackgroundResource(R.drawable.blue_button);
-
-
-            RelativeLayout.LayoutParams mParms;
-            TabWidget tabWidget = tabHost.getTabWidget();
-            for (int i = 0; i < 2; i++) {
-                View view = tabWidget.getChildTabViewAt(i);
-//                final TextView tv = (TextView) view.findViewById(android.R.id.title);
-//                tv.setTextSize(28);
-//                mParms = new RelativeLayout.LayoutParams(tv.getLayoutParams());
-//                mParms.setMargins(0,10,0,10);
-//                tv.setLayoutParams(mParms);
-                view.setBackgroundColor(getResources().getColor(R.color.theme_color));
-            }
+            setContentView(layout.tab_test);
+            setTabHost();
             tabHost.setOnTabChangedListener(new tabHostOnTabChangedListener());
-            grid1 = (GridView) findViewById(R.id.grid1);
-            textTip = (TextView) findViewById(R.id.texttip);
-            uploadAllBtn = (Button) findViewById(R.id.btn_upload_all);//全部上传按钮
-            btn_delete_all = (Button) findViewById(R.id.btn_delete_all); //全部删除
-            BtnBledataShowClose = (Button) findViewById(R.id.BtnBledataShowClose); //关闭按钮
-
-//        bledata = new ArrayList<BleDataModel>();
-        }
-        else if (MainActivity.controlFlag == 1)//蓝牙编程flag
+            grid1 = (GridView) findViewById(id.grid1);
+            textTip = (TextView) findViewById(id.texttip);
+            uploadAllBtn = (Button) findViewById(id.btn_upload_all);//全部上传按钮
+            btn_delete_all = (Button) findViewById(id.btn_delete_all); //全部删除
+            BtnBledataShowClose = (Button) findViewById(id.BtnBledataShowClose); //关闭按钮
+        } else if (MainActivity.controlFlag == 1)//蓝牙编程flag
         {
-            setContentView(R.layout.activity_ble);
+            setContentView(layout.activity_ble);
         }
         hander = new Handler();
 
@@ -211,7 +202,7 @@ tabHost.setBackgroundColor(Color.argb(150,22,70,150));
                 if (!scaning) {
                     stopFlag = false;
                     loading.show();
-                    doTimeOut(15,"连接超时,请重试!");//5.24修改
+                    doTimeOut(15, "连接超时,请重试!");//5.24修改
 //                    hander.postDelayed(dismssDialogRunnable, 10000);//5.24修改
                     connectDevice(data.get(position).getDevice());
                 }
@@ -230,12 +221,30 @@ tabHost.setBackgroundColor(Color.argb(150,22,70,150));
     private void initActivity(int flag) {//是否需要上传按钮的事件监听
         serchButton.setOnClickListener(this);
         backBtn.setOnClickListener(this);
-        if (flag ==0) {
+        if (flag == 0) {
             backBtnUpload.setOnClickListener(this);
             uploadAllBtn.setOnClickListener(this);//上传全部抄表数据
             btn_delete_all.setOnClickListener(this);
             grid1.setOnItemClickListener(new ItemClickListener());
         }
+    }
+    /**
+     * Describe：设置TabHost
+     * Params:
+     * Date：2018-04-20 13:30:32
+     */
+    
+    private void setTabHost(){
+        tabHost = (TabHost) findViewById(id.tab_test);
+        tabHost.setup();
+
+        //设置TabHost的每个Tab的View
+        LayoutInflater inflater = LayoutInflater.from(context);
+        blueView = inflater.inflate(layout.thost_item_blue, null);
+        uploadView = inflater.inflate(layout.thost_item_upload, null);
+        tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator(blueView).setContent(id.item1));
+        tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator(uploadView).setContent(id.item2));
+
     }
 
     /**
@@ -279,12 +288,14 @@ tabHost.setBackgroundColor(Color.argb(150,22,70,150));
         @Override
         public void onTabChanged(String tabId) {
             if (tabId.equals("tab1")) {
-                Toast.makeText(context, "蓝牙抄表", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "蓝牙抄表", Toast.LENGTH_SHORT).show();
+                setTabItem(1);
             }
             if (tabId.equals("tab2")) {
-                Toast.makeText(context, "数据上传", Toast.LENGTH_SHORT).show();
+                setTabItem(2);
+//                Toast.makeText(context, "数据上传", Toast.LENGTH_SHORT).show();
                 String[] from = {"meterNo", "cmdName", "createDate", "createName"};
-                int[] to = {R.id.text_item0, R.id.text_item1, R.id.text_item2, R.id.text_item3};
+                int[] to = {id.text_item0, id.text_item1, id.text_item2, id.text_item3};
                 BleDbHelper helper = new BleDbHelper();
                 String[] refStr = new String[1];
                 refStr[0] = "";
@@ -292,10 +303,40 @@ tabHost.setBackgroundColor(Color.argb(150,22,70,150));
                 List<Map<String, Object>> data_list;
                 data_list = helper.QuerybleOperateData(refStr);
                 textTip.setText(refStr[0]);
-                sim_adapter_grid1 = new SimpleAdapter(BleActivity.this, data_list, R.layout.ble_upload_item, from, to);
+                sim_adapter_grid1 = new SimpleAdapter(BleActivity.this, data_list, layout.ble_upload_item, from, to);
                 //配置适配器
                 grid1.setAdapter(sim_adapter_grid1);
             }
+        }
+    }
+
+    /**
+     * Describe：TabHost切换设置
+     * Params:
+     * Date：2018-04-20 13:09:30
+     */
+    private void setTabItem(int selectItem) {
+        View view1 = tabHost.getTabWidget().getChildTabViewAt(0);
+        View view2 = tabHost.getTabWidget().getChildTabViewAt(1);
+        TextView blueText = (TextView) view1.findViewById(id.blueText);
+        TextView uploadText = (TextView) view2.findViewById(id.uploadText);
+        switch (selectItem) {
+            case 1:
+                //view1.findViewById(R.id.blueLayout).setBackgroundColor(getResources().getColor(color.theme_color));
+                view1.findViewById(R.id.blueImage).setBackground(getResources().getDrawable(R.drawable.blue_checked));
+                blueText.setTextColor(getResources().getColor(R.color.white));
+                //view2.findViewById(R.id.uploadLayout).setBackgroundColor(getResources().getColor(color.blue_400));
+                view2.findViewById(R.id.uploadImage).setBackground(getResources().getDrawable(drawable.upload_unchecked));
+                uploadText.setTextColor(getResources().getColor(color.text_color4));
+                break;
+            case 2:
+                //view2.findViewById(R.id.uploadLayout).setBackgroundColor(getResources().getColor(color.theme_color));
+                view2.findViewById(R.id.uploadImage).setBackground(getResources().getDrawable(drawable.upload_checked));
+                uploadText.setTextColor(getResources().getColor(R.color.white));
+                //view1.findViewById(R.id.blueLayout).setBackgroundColor(getResources().getColor(color.blue_400));
+                view1.findViewById(R.id.blueImage).setBackground(getResources().getDrawable(drawable.blue_unchecked));
+                blueText.setTextColor(getResources().getColor(color.text_color4));
+                break;
         }
     }
 
@@ -306,15 +347,14 @@ tabHost.setBackgroundColor(Color.argb(150,22,70,150));
         private AlertDialog.Builder builder;
         private View view;
         private Dialog DiaBledataShow;
-        public ItemClickListener()
-        {
+
+        public ItemClickListener() {
 
         }
-        class CloseClickListener implements View.OnClickListener
-        {
+
+        class CloseClickListener implements View.OnClickListener {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 DiaBledataShow.dismiss();
             }
 
@@ -326,10 +366,10 @@ tabHost.setBackgroundColor(Color.argb(150,22,70,150));
                                 long arg3//The row id of the item that was clicked
         ) {
             builder = new AlertDialog.Builder(BleActivity.this);
-            view = LayoutInflater.from(BleActivity.this).inflate(R.layout.activity_bledata_show,null);
+            view = LayoutInflater.from(BleActivity.this).inflate(layout.activity_bledata_show, null);
             builder.setView(view);
-            BtnBledataShowClose = (Button) view.findViewById(R.id.BtnBledataShowClose);
-            BledataShowTitle = (TextView)view.findViewById(R.id.title);
+            BtnBledataShowClose = (Button) view.findViewById(id.BtnBledataShowClose);
+            BledataShowTitle = (TextView) view.findViewById(id.title);
             BtnBledataShowClose.setOnClickListener(new CloseClickListener());
             //在本例中arg2=arg3
             HashMap<String, Object> item = (HashMap<String, Object>) arg0.getItemAtPosition(arg2);
@@ -337,16 +377,16 @@ tabHost.setBackgroundColor(Color.argb(150,22,70,150));
             //setTitle((String)item.get("operateId"));
 
 //            builder.setTitle((String)item.get("cmdName"));
-            BledataShowTitle.setText((String)item.get("cmdName"));
-            String strOperateId = (String)item.get("OperateId");
+            BledataShowTitle.setText((String) item.get("cmdName"));
+            String strOperateId = (String) item.get("OperateId");
             int operateId = Integer.parseInt(strOperateId);
             List<Map<String, Object>> list = new BleDbHelper().QueryBleData(operateId);
-            String[] from = {"item","data","unit"};
-            int[] to = {R.id.data_name, R.id.data_data, R.id.data_unit};
-            sim_adapter_bleDataList = new SimpleAdapter(BleActivity.this, list, R.layout.item_bledata, from, to);
-            bleDataList = (ListView)view.findViewById(R.id.bleDataList);
+            String[] from = {"item", "data", "unit"};
+            int[] to = {id.data_name, id.data_data, id.data_unit};
+            sim_adapter_bleDataList = new SimpleAdapter(BleActivity.this, list, layout.item_bledata, from, to);
+            bleDataList = (ListView) view.findViewById(id.bleDataList);
             bleDataList.setAdapter(sim_adapter_bleDataList);
-            DiaBledataShow =builder.show();
+            DiaBledataShow = builder.show();
 
 
 //            bledataadapter.notifyDataSetChanged();
@@ -364,32 +404,32 @@ tabHost.setBackgroundColor(Color.argb(150,22,70,150));
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.back_btn:
+            case id.back_btn:
                 stopFlag = true;
                 finish();
                 break;
-            case R.id.back_btn_upload:
+            case id.back_btn_upload:
                 finish();
                 break;
-            case R.id.serch_btn:
+            case id.serch_btn:
                 data.clear();
                 adapter.notifyDataSetChanged();
                 stopFlag = false;
-                doTimeOut(15,"没有扫描到(更多)蓝牙设备!");
+                doTimeOut(15, "没有扫描到(更多)蓝牙设备!");
                 loading.show();
                 startScan();//5.24修改
 //                onRefresh();//5.24修改
                 break;
-            case R.id.btn_upload_all:
+            case id.btn_upload_all:
                 if (textTip.getText().toString().equals("共有0条抄表数据需要上传")) {
                     Toast.makeText(this, "无可上传的数据", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 uploadAll();
                 break;
-            case R.id.btn_delete_all:
+            case id.btn_delete_all:
                 BleDbHelper helper = new BleDbHelper();
-                if (helper.delete()==true)
+                if (helper.delete() == true)
                     Toast.makeText(this, "删除成功", Toast.LENGTH_SHORT).show();
                 break;
 //            case R.id.BtnBledataShowClose:
@@ -409,17 +449,19 @@ tabHost.setBackgroundColor(Color.argb(150,22,70,150));
     private Runnable dismssDialogRunnable = new Runnable() {
         @Override
         public void run() {
-            if ( loading!= null)
+            if (loading != null)
                 loading.dismiss();
             disconnectDevice();
 //            Snackbar.make(clContent, R.string.connect_fail, Snackbar.LENGTH_LONG).show();
         }
-    };    /**
+    };
+
+    /**
      * 获得蓝牙适配器
      */
     private void checkBleSupportAndInitialize() {
         if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
-            Toast.makeText(this, R.string.device_ble_not_supported, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, string.device_ble_not_supported, Toast.LENGTH_SHORT).show();
             return;
         }
         final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
@@ -427,7 +469,7 @@ tabHost.setBackgroundColor(Color.argb(150,22,70,150));
         mBluetoothAdapter = bluetoothManager.getAdapter();
 //      如果蓝牙适配器为空
         if (mBluetoothAdapter == null) {
-            Toast.makeText(this, R.string.device_ble_not_supported, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, string.device_ble_not_supported, Toast.LENGTH_SHORT).show();
             return;
         }
 //      如果蓝牙适配器启用
@@ -590,31 +632,31 @@ tabHost.setBackgroundColor(Color.argb(150,22,70,150));
      * @param gattServices
      */
     private void prepareGattServices(List<BluetoothGattService> gattServices) {
-        if (ComBleActivityIsExsit==false) {
-        loading.dismiss();
+        if (ComBleActivityIsExsit == false) {
+            loading.dismiss();
 //        loading.hide();
-        prepareData(gattServices);
+            prepareData(gattServices);
 //
-        MService mService = ((DbApplication) getApplication()).getServices().get(0);
+            MService mService = ((DbApplication) getApplication()).getServices().get(0);
 //      获取服务
-        BluetoothGattService service = mService.getService();
+            BluetoothGattService service = mService.getService();
 //      设置服务 转到蓝牙命令收发界面
 //        Intent addAccountIntent = new Intent(Settings.ACTION_ADD_ACCOUNT);
 //        addAccountIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TA‌​SK_RESET);
 //        addAccountIntent.putExtra(Settings.EXTRA_AUTHORITIES, new String[]{"com.app.yourapp"});
 //zhdl 载入蓝牙通讯界面
-        Intent intent = new Intent(this, ComBleActivity.class);
-        intent.putExtra("dev_name", currentDevName);
-        intent.putExtra("dev_mac", currentDevAddress);
+            Intent intent = new Intent(this, ComBleActivity.class);
+            intent.putExtra("dev_name", currentDevName);
+            intent.putExtra("dev_mac", currentDevAddress);
 //      启动ServicesActivity界面
 //        System.out.println("shitao 001");
 
             startActivity(intent);
-            ComBleActivityIsExsit= true;
+            ComBleActivityIsExsit = true;
 
 //        System.out.println("shitao 002");
 //      界面切换动画
-        overridePendingTransition(0, 0);
+            overridePendingTransition(0, 0);
         }
     }
 
@@ -705,12 +747,10 @@ tabHost.setBackgroundColor(Color.argb(150,22,70,150));
             for (int i = 0; i < dataList.size(); i++) {
                 Map<String, Object> map = dataList.get(i);
                 id = (String) map.get("OperateId");
-                if (((id.equals(nextId) == false) && (nextId.equals("") == false)) ||(i==dataList.size()-1))
-                {
-                    if (i==dataList.size()-1)
-                    {
-                        data =(String) map.get("data");
-                        data =data.replaceAll("[^(0-9.)]", "");
+                if (((id.equals(nextId) == false) && (nextId.equals("") == false)) || (i == dataList.size() - 1)) {
+                    if (i == dataList.size() - 1) {
+                        data = (String) map.get("data");
+                        data = data.replaceAll("[^(0-9.)]", "");
                         meterDataList.add(data);
                     }
                     Map<String, Object> uploadMap = packUploaData(meterAddr, cmd, meterDataList);
@@ -722,14 +762,14 @@ tabHost.setBackgroundColor(Color.argb(150,22,70,150));
                         helper.updateOperateId(Integer.parseInt(nextId));//更新上传标志
                     }
                     meterDataList.clear();
-                    data =(String) map.get("data");
-                    data =data.replaceAll("[^(0-9.)]", "");
+                    data = (String) map.get("data");
+                    data = data.replaceAll("[^(0-9.)]", "");
                     meterDataList.add(data);
                 } else {
                     meterAddr = (String) map.get("meterNo");
                     cmd = (String) map.get("cmd");
-                    data =(String) map.get("data");
-                    data =data.replaceAll("[^(0-9.)]", "");
+                    data = (String) map.get("data");
+                    data = data.replaceAll("[^(0-9.)]", "");
                     meterDataList.add(data);
                 }
                 if (id.equals(nextId) == false) {
@@ -763,7 +803,7 @@ tabHost.setBackgroundColor(Color.argb(150,22,70,150));
             try {
                 jsobj.put("meterAddr", meterAddr);//CommonUtil.AddZeros(addr.getText().toString())
                 jsobj.put("CMD", cmd);//CMD
-                jsobj.put("strUser",BleDbHelper.userName);
+                jsobj.put("strUser", BleDbHelper.userName);
                 String data = "";
                 for (int i = 0; i < list.size(); i++) {
                     String dataStr = list.get(i);
@@ -781,10 +821,10 @@ tabHost.setBackgroundColor(Color.argb(150,22,70,150));
         }
     }
 
-    private void doTimeOut(int second,String tip)//超时计算
+    private void doTimeOut(int second, String tip)//超时计算
     {
         try {
-            TimeOutThread t = new TimeOutThread(second,tip);
+            TimeOutThread t = new TimeOutThread(second, tip);
             new Thread(t).start();
         } catch (Exception e
                 ) {
@@ -797,7 +837,7 @@ tabHost.setBackgroundColor(Color.argb(150,22,70,150));
         private int second;
         private String tip;
 
-        public TimeOutThread(int second,String tip) {
+        public TimeOutThread(int second, String tip) {
             this.second = second;
             this.tip = tip;
         }
@@ -805,14 +845,13 @@ tabHost.setBackgroundColor(Color.argb(150,22,70,150));
         public void run() {
             try {
                 int i = 0;
-                while (i < second*10)
-                {
-                    if (stopFlag ==true)
+                while (i < second * 10) {
+                    if (stopFlag == true)
                         return;
                     Thread.sleep(100);
                     i++;
                 }
-                if (stopFlag==false) {
+                if (stopFlag == false) {
                     stopFlag = true;
                     android.os.Message m = handler.obtainMessage();
                     m.arg1 = 1;

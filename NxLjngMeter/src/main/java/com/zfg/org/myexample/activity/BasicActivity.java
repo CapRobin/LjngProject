@@ -11,6 +11,7 @@ import com.zfg.org.myexample.utils.Preference;
 import com.zfg.org.myexample.utils.SystemBarTintManager;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -25,6 +26,7 @@ import android.view.View;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import org.apache.http.util.EncodingUtils;
@@ -334,5 +336,19 @@ public class BasicActivity extends FragmentActivity implements OnGestureListener
 		bundle.putString("Msg", titleMsg);
 		msg.setData(bundle);
 		handler.sendMessage(msg);
+	}
+
+	/**
+	 * Describe：关闭输入法
+	 * Params:
+	 * Date：2018-04-03 19:45:01
+	 */
+	protected void closeInputMethod() {
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		boolean isOpen = imm.isActive();
+		// isOpen若返回true，则表示输入法打开
+		if (isOpen) {
+			imm.hideSoftInputFromWindow(context.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+		}
 	}
 }

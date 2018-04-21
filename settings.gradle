@@ -1,1 +1,1 @@
-include ':NxLjngMeter', ':imagepicker', ':banner'
+include ':NxLjngMeter', ':imagepicker', ':banner', ':app'

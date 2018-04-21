@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.zfg.org.myexample.R;
+import com.zfg.org.myexample.RechargeActivity;
 import com.zfg.org.myexample.SystemAPI;
 import com.zfg.org.myexample.ViewInject;
 import com.zfg.org.myexample.adapter.HisEleOptionAdapter;
@@ -41,6 +42,7 @@ import com.zfg.org.myexample.model.HisWaterReadMeter;
 import com.zfg.org.myexample.utils.CheckUtil;
 import com.zfg.org.myexample.utils.CommonUtil;
 import com.zfg.org.myexample.utils.HttpServiceUtil;
+import com.zfg.org.myexample.utils.MethodUtil;
 import com.zfg.org.myexample.utils.Preference;
 
 import org.json.JSONException;
@@ -171,6 +173,15 @@ public class RecordsQueryActivity extends MyBaseActivity {
         startTimetEdit.setOnClickListener(this);
         endTimeEdit.setOnClickListener(this);
         query_submit.setOnClickListener(this);
+        queryNumEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(b){
+                    MethodUtil.animateClose(typeHideView);
+                    MethodUtil.animateClose(numberHideView);
+                }
+            }
+        });
 
         setData(1);
         //初始化时间控件
@@ -219,10 +230,14 @@ public class RecordsQueryActivity extends MyBaseActivity {
                 }
                 break;
             case R.id.starTimetEdit:
+                MethodUtil.animateClose(typeHideView);
+                MethodUtil.animateClose(numberHideView);
                 timeFlag = 0;
                 pvTime.show();
                 break;
             case R.id.endTimeEdit:
+                MethodUtil.animateClose(typeHideView);
+                MethodUtil.animateClose(numberHideView);
                 timeFlag = 1;
                 pvTime.show();
                 break;
@@ -573,25 +588,25 @@ public class RecordsQueryActivity extends MyBaseActivity {
             case 1:
                 if (View.GONE == typeHideView.getVisibility()) {
                     //关闭第二个View
-                    animateClose(numberHideView);
+                    MethodUtil.animateClose(numberHideView);
                     //打开第一个View
-                    animateOpen(typeHideView, 0);
+                    MethodUtil.animateOpen(typeHideView, 0,0);
                 } else {
                     //关闭第一个View
-                    animateClose(typeHideView);
+                    MethodUtil.animateClose(typeHideView);
                 }
                 break;
             case 2:
                 if (View.GONE == numberHideView.getVisibility()) {
+                    queryNumEdit.clearFocus();
                     //关闭第一个View
-                    animateClose(typeHideView);
+                    MethodUtil.animateClose(typeHideView);
                     //打开第二个View
-                    int getHeight = dip2px(this, meterinfos.size() * 60);
-                    animateOpen(numberHideView, getHeight);
-                    setToast("高度：" + getHeight);
+                    int getHeight = MethodUtil.dip2px(this, meterinfos.size() * 60);
+                    MethodUtil.animateOpen(numberHideView, getHeight,700);
                 } else {
                     //关闭第二个View
-                    animateClose(numberHideView);
+                    MethodUtil.animateClose(numberHideView);
                 }
                 break;
             case 3:
@@ -600,65 +615,65 @@ public class RecordsQueryActivity extends MyBaseActivity {
         }
     }
 
-    /**
-     * Describe：打开视图
-     * Params:
-     * Date：2018-03-30 13:26:31
-     */
-    public static void animateOpen(final View view, int height) {
-        view.setVisibility(View.VISIBLE);
-
-        final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        final int heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        view.measure(widthSpec, heightSpec);
-        ValueAnimator animator = null;
-        if (height == 0) {
-            animator = createHeightAnimator(view, 0, view.getMeasuredHeight());
-        } else if (height > 0 && height < 700) {
-            animator = createHeightAnimator(view, 0, height);
-        } else if (height > 700) {
-            animator = createHeightAnimator(view, 0, 700);
-        }
-        animator.start();
-    }
-
-    /**
-     * Describe：隐藏视图
-     * Params:
-     * Date：2018-03-30 13:28:12
-     */
-
-    public static void animateClose(final View view) {
-        int origHeight = view.getHeight();
-
-        ValueAnimator animator = createHeightAnimator(view, origHeight, 0);
-        animator.addListener(new AnimatorListenerAdapter() {
-            public void onAnimationEnd(Animator animation) {
-                view.setVisibility(View.GONE);
-            }
-
-            ;
-        });
-        animator.start();
-    }
-
-    public static ValueAnimator createHeightAnimator(final View view, int start, int end) {
-        ValueAnimator animator = ValueAnimator.ofInt(start, end);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                int value = (Integer) valueAnimator.getAnimatedValue();
-
-                ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-                layoutParams.height = value;
-                view.setLayoutParams(layoutParams);
-            }
-        });
-        //设置动画过度时间
-//         animator.setDuration(1000);
-        return animator;
-    }
+//    /**
+//     * Describe：打开视图
+//     * Params:
+//     * Date：2018-03-30 13:26:31
+//     */
+//    public static void animateOpen(final View view, int height) {
+//        view.setVisibility(View.VISIBLE);
+//
+//        final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+//        final int heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+//        view.measure(widthSpec, heightSpec);
+//        ValueAnimator animator = null;
+//        if (height == 0) {
+//            animator = createHeightAnimator(view, 0, view.getMeasuredHeight());
+//        } else if (height > 0 && height < 700) {
+//            animator = createHeightAnimator(view, 0, height);
+//        } else if (height > 700) {
+//            animator = createHeightAnimator(view, 0, 700);
+//        }
+//        animator.start();
+//    }
+//
+//    /**
+//     * Describe：隐藏视图
+//     * Params:
+//     * Date：2018-03-30 13:28:12
+//     */
+//
+//    public static void animateClose(final View view) {
+//        int origHeight = view.getHeight();
+//
+//        ValueAnimator animator = createHeightAnimator(view, origHeight, 0);
+//        animator.addListener(new AnimatorListenerAdapter() {
+//            public void onAnimationEnd(Animator animation) {
+//                view.setVisibility(View.GONE);
+//            }
+//
+//            ;
+//        });
+//        animator.start();
+//    }
+//
+//    public static ValueAnimator createHeightAnimator(final View view, int start, int end) {
+//        ValueAnimator animator = ValueAnimator.ofInt(start, end);
+//        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+//                int value = (Integer) valueAnimator.getAnimatedValue();
+//
+//                ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+//                layoutParams.height = value;
+//                view.setLayoutParams(layoutParams);
+//            }
+//        });
+//        //设置动画过度时间
+////         animator.setDuration(1000);
+//        return animator;
+//    }
 
     /**
      * Describe：初始化时间控件

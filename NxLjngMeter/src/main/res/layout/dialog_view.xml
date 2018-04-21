@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_myview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true"
+    android:background="@color/transparent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/selector_setting_bg">
+
+        <RelativeLayout
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/dialog_top_bg"
+            android:padding="8dip">
+
+            <TextView
+                android:id="@+id/label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="请选择用户类型"
+                android:textColor="@color/white"
+                android:textSize="20dip" />
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/formcustomspinner_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:cacheColorHint="@null"
+            android:divider="@android:drawable/divider_horizontal_bright"
+            android:scrollbars="none" /> <!-- listview 的线为灰色 -->
+    </RelativeLayout>
+
+
+</RelativeLayout>

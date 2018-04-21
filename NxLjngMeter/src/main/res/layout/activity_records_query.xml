@@ -271,13 +271,13 @@
             <Button
                 android:id="@+id/query_submit"
                 android:layout_width="fill_parent"
-                android:layout_height="34dp"
+                android:layout_height="42dp"
                 android:layout_alignParentBottom="true"
-                android:background="@drawable/selector_btn"
+                android:background="@drawable/selector_bg"
                 android:padding="2dip"
                 android:text="查    询"
-                android:layout_marginBottom="20dp"
-                android:textColor="#2e2e2e"
+                android:layout_marginBottom="40dp"
+                android:textColor="@color/white"
                 android:textSize="20sp" />
 
         </RelativeLayout>

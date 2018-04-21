@@ -2,6 +2,8 @@ package com.zfg.org.myexample.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +13,7 @@ import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -19,6 +22,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -33,6 +37,7 @@ import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.SoftKeyBoardSatusView.SoftkeyBoardListener;
 import com.zfg.org.myexample.SystemAPI;
 import com.zfg.org.myexample.ViewInject;
+import com.zfg.org.myexample.adapter.DialogAdapt;
 import com.zfg.org.myexample.db.MeterInfoBo;
 import com.zfg.org.myexample.db.UserBo;
 import com.zfg.org.myexample.db.UserInfoBo;
@@ -77,14 +82,13 @@ import static com.zfg.org.myexample.utils.HttpContants.REQUEST_ERROR;
 
 /**
  * Copyright © 2018 LJNG All rights reserved.
- *
+ * <p>
  * Name：LoginActivity
  * Describe：用户登录页面
  * Date：2018-03-26 07:00:42
  * Author: CapRobin@yeah.net
- *
  */
-public class LoginActivity extends BasicActivity implements CompoundButton.OnCheckedChangeListener,OnFocusChangeListener, OnClickListener, SoftkeyBoardListener {
+public class LoginActivity extends BasicActivity implements CompoundButton.OnCheckedChangeListener, OnFocusChangeListener, OnClickListener, SoftkeyBoardListener {
 
     //设置相关标记
     public static int userRight;//用户权限
@@ -117,16 +121,20 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
     private Button backBtn;
     @ViewInject(id = R.id.user_regist)
     private Button userRegist;
-    @ViewInject(id = R.id.selectUserType)
+    @ViewInject(id = R.id.userTypeEdit)
+    private EditText userTypeEdit;
     private Spinner mSpinner;
     @ViewInject(id = R.id.login_switchBtn)
     private CheckBox login_switchBtn;
+    private AlertDialog.Builder builder;
+    private AlertDialog alertDialog;
+    private ArrayList<String> userTypeList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.fragment_login_layout);
+        setContentView(R.layout.activity_login);
         activity = (LoginActivity) context;
         loading = new DialogLoading(activity);
         userBo = new UserBo(activity);
@@ -154,9 +162,7 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                             try {
                                 int strControl = jsonObject.getInt("strControl");//权限
                                 userRight = strControl;
-                            }
-                            catch (JSONException ex)
-                            {
+                            } catch (JSONException ex) {
                                 userRight = 1;
                             }
                             ToastTool.showUserStatus(LONGIN_SUCCESS, activity);
@@ -196,9 +202,9 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
     private void init() {
 
         //临时设置只允许水表用户登录
-        userType = 1;
-        ContantsUtil.setHOst( "http://longi.nxlgg.com:8039/lggmr");
-        preference.putInt(Preference.USERTYPE, userType);
+//        userType = 1;
+//        ContantsUtil.setHOst("http://longi.nxlgg.com:8039/lggmr");
+//        preference.putInt(Preference.USERTYPE, userType);
 
         //获取本地用户名和密码
         String userName = preference.getString(Preference.USERNAME);
@@ -216,48 +222,72 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
 //        psw_right_img.setOnClickListener(this);
 
         userRegist.setOnClickListener(this);
+        userTypeEdit.setOnClickListener(this);
 
         pswEditText.setOnFocusChangeListener(this);
         // 每次oncreateView的时候设置为空
 //        nameEditText.setText(preference.getString(Preference.CACHE_USER));
         nameEditText.requestFocus();
-//        testBtn.setOnClickListener(this);
+//        userTypeEdit.setOnClickListener(this);
 
         //密码显示与否切换
         login_switchBtn.setOnCheckedChangeListener(this);
+        inituserTypeList();
+    }
 
-        //选择用户角色事件监听
-        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+    /**
+     * Describe：加载用户类型列表数据
+     * Params:
+     * Date：2018-04-21 09:18:18
+     */
+    private void inituserTypeList() {
+        String[] userTypeArray = {"水表( LORA )","水表(NBIOT)","电    表","气    表","热    表"};
+        userTypeList = new ArrayList<String>();
+        for(int i = 0;i < userTypeArray.length;i++){
+            userTypeList.add(userTypeArray[i]);
+        }
+    }
 
+    /**
+     * Describe：显示用户类型列表对话框
+     * Params:
+     * Date：2018-04-21 09:19:57
+     */
+    
+    public void showDialogList() {
+        final Context context = LoginActivity.this;
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+        View layout = inflater.inflate(R.layout.dialog_view, null);
+        ListView myListView = (ListView) layout.findViewById(R.id.formcustomspinner_list);
+        DialogAdapt adapter = new DialogAdapt(context, userTypeList);
+        myListView.setAdapter(adapter);
+        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                switch (i){
-                    //提示信息
-                    case 0:
-                        userType = 0;
-                        break;
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
                     //水表用户Lora
-                    case 1:
-                        ContantsUtil.setHOst( "http://longi.nxlgg.com:8039/lggmr");
+                    case 0:
+                        ContantsUtil.setHOst("http://longi.nxlgg.com:8039/lggmr");
 //                        ContantsUtil.setHOst( "http://192.168.0.46:8046/lggmr");
 //                        ContantsUtil.setHOst("http://longi.nxlgg.com:8084/lggmr");
 //                        ContantsUtil.setHOst("http://longi.nxlgg.com:8046/lggmr");
 //                        ContantsUtil.setHOst("http://longi.nxlgg.com:8084/lggmr");
-                        nameEditText.setText("luoj");
+                        nameEditText.setText("jel");
                         pswEditText.setText("123456");
+                        userTypeEdit.setText("水表(LORA)");
                         userType = 1;
                         break;
                     //水表用户Nbiot
-                    case 2:
+                    case 1:
                         ContantsUtil.setHOst("http://222.75.144.94:8808/lggmr");
                         //暂无内网地址
                         nameEditText.setText("lgg_nbiot");
                         pswEditText.setText("123456");
+                        userTypeEdit.setText("水表(NBIOT)");
                         userType = 1;
                         break;
                     //选择电表用户
-                    case 3:
+                    case 2:
 //                        //测试数据
 
 //                        if(params.get("resultJson").toString().equals("resultJson")){
@@ -273,38 +303,45 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
 //                        pswEditText.setText("123456");
                         nameEditText.setText("luoj");
                         pswEditText.setText("123456");
+                        userTypeEdit.setText("电表");
                         userType = 2;
                         break;
                     //选择气表用户(暂时跟Lora水表地址一样)
-                    case 4:
+                    case 3:
 //                        ContantsUtil.setHOst( "http://longi.nxlgg.com:8039/lggmr");
 //                        ContantsUtil.setHOst( "http://longi.nxlgg.com:8046/lggmr");
 //                        ContantsUtil.setHOst( "http://192.168.2.136:8008/lggmr");
                         ContantsUtil.setHOst("http://longi.nxlgg.com:8084/lggmr");
                         nameEditText.setText("luoj");
                         pswEditText.setText("123456");
+                        userTypeEdit.setText("气表");
                         userType = 3;
                         break;
                     //选择热表用户
-                    case 5:
-                        Toast.makeText(context,"该用户角色暂无数据",Toast.LENGTH_SHORT).show();
+                    case 4:
+                        Toast.makeText(context, "该用户角色暂无数据", Toast.LENGTH_SHORT).show();
+                        userTypeEdit.setText("");
                         userType = 4;
                         break;
                     default:
-                        userType = 0;
+                        userType = -1;
                         break;
                 }
                 //本地存储用户类型
                 preference.putInt(Preference.USERTYPE, userType);
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
+                if (alertDialog != null) {
+                    alertDialog.dismiss();
+                }
             }
         });
-
+        builder = new AlertDialog.Builder(context,R.style.newPassword);
+        builder.setView(layout);
+        alertDialog = builder.create();
+        alertDialog.show();
     }
+
+
 
     /**
      * Describe：载入数据
@@ -330,20 +367,25 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                     goLogin();
                 } else {
 //                    ToastTool.showUserStatus(HttpContants.WRONG_FORMAT, activity);
-                    Toast.makeText(context,checkInfo,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, checkInfo, Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.psw_right_img:
-                if (flag == 0){
+                if (flag == 0) {
                     pswEditText.setInputType(0x00000001);
                     flag = 1;
-                }else{
+                } else {
                     pswEditText.setInputType(0x00000081);
                     flag = 0;
                 }
                 break;
             case R.id.user_regist:
                 startActivity(null, NewUserRegistrationActivity.class);
+                break;
+            case R.id.userTypeEdit:
+                //选择用户角色
+                closeInputMethod();
+                showDialogList();
                 break;
         }
     }
@@ -359,8 +401,7 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
             String username = nameEditText.getText().toString().trim();
             BleDbHelper.userName = username;
             String password = pswEditText.getText().toString().trim();
-            if ((username.equals("lanya"))&&(password.equals("lanya")))
-            {
+            if ((username.equals("lanya")) && (password.equals("lanya"))) {
                 startActivity(null, MainActivity.class);
                 userRight = 1;
                 return;
@@ -385,7 +426,7 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
             map.put("ngMeter", jsobj.toString());
 
             //临时测试
-            if (isTest){
+            if (isTest) {
                 map.put("login_test", tempJson("login.txt"));
             }
             loading.show();
@@ -402,7 +443,7 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
      */
 
     private boolean loginCheck() {
-        userStr =nameEditText.getText().toString();
+        userStr = nameEditText.getText().toString();
         pwdStr = pswEditText.getText().toString();
 
         //判读输入是否为空
@@ -411,16 +452,16 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
             nameEditText.requestFocus();
             checkInfo = "账号输入有误，请重新输入";
             return false;
-        }else if (pwdStr.length() == 0) {
+        } else if (pwdStr.length() == 0) {
             pswEditText.setError(getResources().getString(R.string.pwd_warn1));
             pswEditText.requestFocus();
             checkInfo = "密码输入有误，请重新输入";
             return false;
-        }else if (userType == 0) {
+        } else if (userType == -1) {
             checkInfo = "请选择用户类型";
             return false;
-        }else if (userType == 5) {
-            Toast.makeText(context,"该用户角色暂无数据",Toast.LENGTH_SHORT).show();
+        } else if (userType == 4) {
+            Toast.makeText(context, "该类型暂无数据", Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -445,10 +486,10 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
      */
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        if(b){
+        if (b) {
             //如果选中，显示密码
             pswEditText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-        }else{
+        } else {
             //否则隐藏密码
             pswEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
         }
@@ -562,7 +603,7 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                     break;
                 case 3:
                     setDialogLabel("数据同步完成");
-                    ToastTool.showUserStatus(LONGIN_SUCCESS, activity);
+//                    ToastTool.showUserStatus(LONGIN_SUCCESS, activity);
 //                    Bundle bundle = new Bundle();
 //                    bundle.putString("data", data.toString());
                     startActivity(null, MainActivity.class);
@@ -643,7 +684,7 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
 
 
             //获取本地测试数据(Json文件)使用
-            if (isTest){
+            if (isTest) {
                 map.put("dbgxsj", tempJson("dbgxsj.txt"));
             }
             //请求服务器更新数据
@@ -657,7 +698,7 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                     int elecFlag = 0;
                     int gasFlag = 0;
                     if (res == 1) {
-                        switch (userType){
+                        switch (userType) {
                             case 1:
                                 waterFlag = jsonesult.getJSONObject("dataFlag").getInt("waterMeterFlag");
                                 break;
@@ -670,7 +711,6 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                         }
 
 
-
                         // 如果有水表记录
                         if (waterFlag == 1) {
                             JSONArray pages = jsonesult.getJSONArray("waterMeterList");
@@ -680,7 +720,7 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                                 dto.setMeterType("水表");
                                 data.add(dto);
                             }
-                        }else if(elecFlag == 1){
+                        } else if (elecFlag == 1) {
                             JSONArray pages = jsonesult.getJSONArray("elecMeterList");
                             for (int i = 0; i < pages.length(); i++) {
                                 MeterInfoModel dto = new MeterInfoModel();
@@ -689,7 +729,7 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                                 data.add(dto);
                             }
 
-                        }else if(gasFlag == 1){
+                        } else if (gasFlag == 1) {
                             JSONArray pages = jsonesult.getJSONArray("gasMeterList");
                             for (int i = 0; i < pages.length(); i++) {
                                 MeterInfoModel dto = new MeterInfoModel();
