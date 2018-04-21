@@ -219,8 +219,6 @@ public class MeterReadingActivity extends MyBaseActivity {
      * Date：2018-03-30 12:00:22
      */
     private void setData(int userType) {
-
-
         switch (userType) {
             case 1:
                 pageType.setText("水表实时数据");
