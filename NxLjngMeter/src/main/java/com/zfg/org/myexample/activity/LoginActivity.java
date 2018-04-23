@@ -316,8 +316,8 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
 
                         //气表外网测试地址
                         ContantsUtil.setHOst("http://:222.75.144.94:6608/lggmr");
-                        nameEditText.setText("luoj");
-                        pswEditText.setText("123456");
+                        nameEditText.setText("ng1");
+                        pswEditText.setText("1");
                         userTypeEdit.setText("气表");
                         userType = 3;
                         break;
