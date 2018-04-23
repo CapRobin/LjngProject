@@ -312,7 +312,10 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
 //                        ContantsUtil.setHOst( "http://longi.nxlgg.com:8039/lggmr");
 //                        ContantsUtil.setHOst( "http://longi.nxlgg.com:8046/lggmr");
 //                        ContantsUtil.setHOst( "http://192.168.2.136:8008/lggmr");
-                        ContantsUtil.setHOst("http://longi.nxlgg.com:8084/lggmr");
+//                        ContantsUtil.setHOst("http://longi.nxlgg.com:8084/lggmr");
+
+                        //气表外网测试地址
+                        ContantsUtil.setHOst("http://:222.75.144.94:6608/lggmr");
                         nameEditText.setText("luoj");
                         pswEditText.setText("123456");
                         userTypeEdit.setText("气表");
