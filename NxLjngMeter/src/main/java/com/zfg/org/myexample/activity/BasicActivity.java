@@ -11,8 +11,10 @@ import com.zfg.org.myexample.utils.Preference;
 import com.zfg.org.myexample.utils.SystemBarTintManager;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -48,6 +50,8 @@ public class BasicActivity extends FragmentActivity implements OnGestureListener
 	private boolean isGesture = false;
 	protected int userType = 0;
 	protected Preference preference;
+	protected MyBroadcast myBroadcast;
+	private long lastTiem = 0;
 
 	//读取本地测试数据开关
 	public boolean isTest =false;
@@ -80,6 +84,11 @@ public class BasicActivity extends FragmentActivity implements OnGestureListener
 		screenHeight = dm.heightPixels;
 		// 手势
 		detector = new GestureDetector(this);
+
+		//动态注册广播
+		myBroadcast = new MyBroadcast();
+		IntentFilter intentFilter = new IntentFilter("exitApp");
+		registerReceiver(myBroadcast,intentFilter);
 	}
 
 	protected void onStart(){
@@ -324,6 +333,34 @@ public class BasicActivity extends FragmentActivity implements OnGestureListener
 	}
 
 
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		unregisterReceiver(myBroadcast);
+	}
+
+	/**
+	 * Copyright © 2018 LJNG All rights reserved.
+	 *
+	 * Name：BasicActivity
+	 * Describe：定义一个广播用于程序退出使用
+	 * Date：2018-04-23 16:54:07
+	 * Author: CapRobin@yeah.net
+	 *
+	 */
+	public class MyBroadcast extends BroadcastReceiver{
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			int closeId = intent.getIntExtra("closeFlag",0);
+			if(closeId == 1){
+				finish();
+			}
+		}
+	}
+
+
 	/**
 	 * Describe：发送消息刷新UI
 	 * Params:
@@ -348,6 +385,35 @@ public class BasicActivity extends FragmentActivity implements OnGestureListener
 		// isOpen若返回true，则表示输入法打开
 		if (isOpen) {
 			imm.hideSoftInputFromWindow(context.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+		}
+	}
+
+	/**
+	 * Describe：退出程序方法
+	 * Params:
+	 * Date：2018-04-23 16:58:29
+	 */
+	protected void exitApp(int flag){
+		switch (flag){
+			//系统首页退出
+		    case 0:
+				if(System.currentTimeMillis() - lastTiem > 2000){
+					lastTiem = System.currentTimeMillis();
+					setToast("再点击一次退出程序");
+				}else {
+					Intent intent = new Intent("exitApp");
+					intent.putExtra("closeFlag",1);
+					sendBroadcast(intent);
+					setToast("退出程序成功");
+				}
+		        break;
+			//设置页面退出
+		    case 1:
+				Intent intent = new Intent("exitApp");
+				intent.putExtra("closeFlag",1);
+				sendBroadcast(intent);
+				setToast("退出程序成功");
+		        break;
 		}
 	}
 }

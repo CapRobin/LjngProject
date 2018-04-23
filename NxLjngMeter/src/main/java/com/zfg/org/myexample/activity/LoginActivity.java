@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -257,7 +258,7 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
     public void showDialogList() {
         final Context context = LoginActivity.this;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
-        View layout = inflater.inflate(R.layout.dialog_view, null);
+        View layout = inflater.inflate(R.layout.dialogview_select_type, null);
         ListView myListView = (ListView) layout.findViewById(R.id.formcustomspinner_list);
         DialogAdapt adapter = new DialogAdapt(context, userTypeList);
         myListView.setAdapter(adapter);
@@ -847,6 +848,21 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
             android.os.Process.killProcess(id);
         }
     }
+
+    /**
+     * Describe：退出系统监听
+     * Params:
+     * Date：2018-04-23 17:50:11
+     */
+    
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == event.KEYCODE_BACK){
+            exitApp(0);
+        }
+        return true;
+    }
+
 }
 
 

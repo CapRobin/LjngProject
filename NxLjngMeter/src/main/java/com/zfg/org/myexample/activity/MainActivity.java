@@ -2,9 +2,11 @@ package com.zfg.org.myexample.activity;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,6 +34,7 @@ public class MainActivity extends BasicActivity implements OnClickListener {
     public static int controlFlag;// 蓝牙抄表 和 蓝牙参数设置的标志
     private Preference preference;
     public static MainActivity instance = null;
+//    private long lastTiem = 0;
 
     private LinearLayout.LayoutParams mParams;
     private CustomBanner mBanner;
@@ -171,6 +174,14 @@ public class MainActivity extends BasicActivity implements OnClickListener {
             finish();
             setToast("请求参数错误，请稍后再试！");
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == event.KEYCODE_BACK){
+            exitApp(0);
+        }
+        return true;
     }
 
     @Override

@@ -7,8 +7,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.zfg.org.myexample.activity.BasicActivity;
-import com.zfg.org.myexample.activity.LoginActivity;
-import com.zfg.org.myexample.activity.MainActivity;
 import com.zfg.org.myexample.activity.TranLoading;
 //import com.dian.diabetes.request.LoginRegisterAPI;
 import com.zfg.org.myexample.dialog.AlertDialogZfg;
@@ -20,10 +18,13 @@ import com.zfg.org.myexample.fragment.AboutFragment;
 //import com.nostra13.universalimageloader.core.DisplayImageOptions;
 //import com.nostra13.universalimageloader.core.ImageLoader;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -66,6 +67,8 @@ public class SettingActivity extends BasicActivity implements OnClickListener {
     private TextView pageTitle;
     @ViewInject(id = R.id.settingBtn)
     private ImageView settingBtn;
+    private RelativeLayout cancelLayout;
+    private RelativeLayout exitLayout;
 
 
     private AlertDialogZfg alert;
@@ -73,6 +76,8 @@ public class SettingActivity extends BasicActivity implements OnClickListener {
     private Preference preference;
     private Map<String, String> maps;
     private SettingActivity activity;
+    private AlertDialog.Builder builder;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,10 +116,10 @@ public class SettingActivity extends BasicActivity implements OnClickListener {
                 checkUpdate();
                 break;
             case R.id.exit_user_login:
-                startActivity(null,LoginActivity.class);
-
+                dialogShow();
+                //startActivity(null,LoginActivity.class);
                 //关闭MainActivity
-                MainActivity.instance.finish();
+                //MainActivity.instance.finish();
                 break;
             case R.id.help:
                 showHelpDialog();
@@ -123,11 +128,20 @@ public class SettingActivity extends BasicActivity implements OnClickListener {
                 showReportusDialog();
                 break;
             case R.id.officialnews:
-                Toast.makeText(context,"暂时没有数据",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "暂时没有数据", Toast.LENGTH_SHORT).show();
                 //showOfficialNewsDialog();
                 break;
             case R.id.user_info:
 //                showQRCodeDialog();
+                break;
+            case R.id.cancelLayout:
+                if (alertDialog != null) {
+                    alertDialog.dismiss();
+                }
+                break;
+            case R.id.exitLayout:
+                //退出程序
+                exitApp(1);
                 break;
 
         }
@@ -258,6 +272,26 @@ public class SettingActivity extends BasicActivity implements OnClickListener {
 //				finish();
 //			}
 //		});
+    }
+
+    /**
+     * Describe：自定义DialogView视图
+     * Params:
+     * Date：2018-04-23 17:43:43
+     */
+
+    public void dialogShow() {
+        final Context context = SettingActivity.this;
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+        View layout = inflater.inflate(R.layout.dialogview_exit_app, null);
+        cancelLayout = (RelativeLayout) layout.findViewById(R.id.cancelLayout);
+        exitLayout = (RelativeLayout) layout.findViewById(R.id.exitLayout);
+        cancelLayout.setOnClickListener(this);
+        exitLayout.setOnClickListener(this);
+        builder = new AlertDialog.Builder(context, R.style.newPassword);
+        builder.setView(layout);
+        alertDialog = builder.create();
+        alertDialog.show();
     }
 
 }
