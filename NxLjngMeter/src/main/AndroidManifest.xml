@@ -540,6 +540,10 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".TestActivity3"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".activity.WaterMeterActivity" />
         <activity android:name=".activity.GasMeterActivity" />
         <activity android:name=".activity.HeatMeterActivity" />

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_list_item"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/userNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="姓名："
+            android:textColor="@color/text_color5"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/userNameText"
+            android:text="张翠平"
+            android:textColor="@color/text_color5"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/meterNumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/meterNum"
+            android:text="表号："
+            android:textColor="@color/text_color5"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/meterNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="170800016873"
+            android:textColor="@color/text_color5"
+            android:textSize="13sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/phoneNumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/phoneNum"
+            android:text="电话："
+            android:textColor="@color/text_color5"
+
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/phoneNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="8dp"
+            android:text="13800000001"
+            android:textColor="@color/text_color5"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/meterTypeNumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="类型："
+            android:textColor="@color/text_color5"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/meterType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/meterTypeNumText"
+            android:text="电表"
+            android:textColor="@color/text_color5"
+            android:textSize="13sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="3dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/userAddressText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="地址："
+            android:textColor="@color/text_color5"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/userAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/userAddressText"
+            android:text="隆兴昌镇先锋村一社"
+            android:textColor="@color/text_color5"
+            android:textSize="13sp" />
+    </RelativeLayout>
+</LinearLayout>

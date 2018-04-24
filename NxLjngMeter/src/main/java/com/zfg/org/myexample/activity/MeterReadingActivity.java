@@ -1,14 +1,15 @@
 package com.zfg.org.myexample.activity;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ValueAnimator;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -21,12 +22,14 @@ import android.widget.Toast;
 
 import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.ViewInject;
+import com.zfg.org.myexample.adapter.MeterAllInfoAdapter;
 import com.zfg.org.myexample.adapter.MyLocationAdapter;
 import com.zfg.org.myexample.adapter.MyLocationAdapter2;
 import com.zfg.org.myexample.adapter.NoScrollGridView;
+import com.zfg.org.myexample.adapter.RcAdapterWholeChange;
 import com.zfg.org.myexample.db.MeterInfoBo;
 import com.zfg.org.myexample.db.dao.MeterInfo;
-import com.zfg.org.myexample.dto.MeterInfoCheckModel;
+import com.zfg.org.myexample.model.MeterAllInfo;
 import com.zfg.org.myexample.utils.CheckUtil;
 import com.zfg.org.myexample.utils.CommonUtil;
 import com.zfg.org.myexample.utils.MethodUtil;
@@ -57,6 +60,8 @@ public class MeterReadingActivity extends MyBaseActivity {
     private NoScrollGridView cbxmHideInnerView;
     @ViewInject(id = R.id.cxbhInnerView)
     private ListView cxbhInnerView;
+    @ViewInject(id = R.id.meterInfoList)
+    private RecyclerView meterInfoList;
     @ViewInject(id = R.id.startSearch)
     private Button startSearch;
     @ViewInject(id = R.id.backHome)
@@ -77,11 +82,16 @@ public class MeterReadingActivity extends MyBaseActivity {
     private LinearLayout cbxmHideView;
 
     private List<String> showListData1;
-    private List<MeterInfoCheckModel> showListData2;
+//    private List<MeterInfoCheckModel> getListData;
+    private List<MeterAllInfo> getListData;
+    private List<MeterAllInfo> newList;
     private static String dbCheckItemType[] = null;
     private List<MeterInfo> meterinfos;
     private int userType = 0;
     private MyLocationAdapter locationAdapter;
+
+
+    private RcAdapterWholeChange recycleAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +114,8 @@ public class MeterReadingActivity extends MyBaseActivity {
         preference = Preference.instance(this);
         userType = preference.getInt(Preference.USERTYPE);
         showListData1 = new ArrayList<String>();
-        showListData2 = new ArrayList<MeterInfoCheckModel>();
+        getListData = new ArrayList<MeterAllInfo>();
+        newList = new ArrayList<MeterAllInfo>();
         //设置ListView线条的颜色
         getDataList_db.setDivider(new ColorDrawable(Color.GRAY));
         getDataList_db.setDividerHeight(1);
@@ -118,16 +129,29 @@ public class MeterReadingActivity extends MyBaseActivity {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if(b){
+//                    int getHeight = MethodUtil.dip2px(MeterReadingActivity.this, getListData.size() * 60);
+//                    MethodUtil.animateOpen(cxbhHideView, getHeight,900);
                     MethodUtil.animateClose(cxbhHideView);
                     MethodUtil.animateClose(cbxmHideView);
+
+                    meterInfoList.setVisibility(View.VISIBLE);
+                }else {
+//                    MethodUtil.animateClose(cxbhHideView);
                 }
             }
         });
         searchNum.setOnClickListener(this);
         startSearch.setOnClickListener(this);
 
+        meterInfoList.setLayoutManager(new LinearLayoutManager(this));
+        DividerItemDecoration divider = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
+        divider.setDrawable(ContextCompat.getDrawable(this,R.drawable.line_bg));
+        meterInfoList.addItemDecoration(divider);
+
         //初始化加载数据
         setData(userType);
+        refreshUI();
+        setListener();
     }
 
     @Override
@@ -155,12 +179,13 @@ public class MeterReadingActivity extends MyBaseActivity {
                 popViewisShow(1);
                 break;
             case R.id.cxbhEdit:
-                if (View.GONE != cxbhAllView.findViewById(R.id.cxbhHideView).getVisibility()) {
-                    MethodUtil.animateClose(cxbhAllView.findViewById(R.id.cxbhHideView));
-                }
+//                if (View.GONE != cxbhHideView.getVisibility()) {
+//                    MethodUtil.animateClose(cxbhHideView);
+//                }
                 break;
             case R.id.searchNum:
                 if (!cbxmEdit.getText().equals("")) {
+                    meterInfoList.setVisibility(View.GONE);
                     cxbhEdit.setText("");
                     closeInputMethod();
                     popViewisShow(2);
@@ -248,14 +273,32 @@ public class MeterReadingActivity extends MyBaseActivity {
         //统一(登录默认更新数据)加载第二个列表数据(从数据库获取数据并组装成List)
         MeterInfoBo meterbo = new MeterInfoBo(context);
         meterinfos = meterbo.listAllData();
+
         for (int i = 0; i < meterinfos.size(); i++) {
             if (meterinfos.get(i).getComm_address().toString().length() > 6) {
-                MeterInfoCheckModel model = new MeterInfoCheckModel(String.valueOf(i), meterinfos.get(i).getComm_address(), meterinfos.get(i).getMetertype(), false);
-                showListData2.add(model);
+                MeterAllInfo allInfo = new MeterAllInfo();
+                allInfo.setCUSTOMER_NAME(meterinfos.get(i).getCustomer_name());
+                allInfo.setCOMM_ADDRESS(meterinfos.get(i).getComm_address());
+                allInfo.setMETER_TYPE(meterinfos.get(i).getMetertype());
+                allInfo.setPHONE1(meterinfos.get(i).getTerminal_address());
+                allInfo.setTERMINAL_ADDRESS(meterinfos.get(i).getAreaname());
+                getListData.add(allInfo);
             }
         }
+
+////        newList.clear();
+////        //不需要匹配 把所有数据都传进来 不需要变色
+//        newList.addAll(getListData);
+////        //防止匹配过文字之后点击删除按钮 字体仍然变色的问题
+////        recycleAdapter.setText(null);
+//        recycleAdapter = new RcAdapterWholeChange(MeterReadingActivity.this, newList);
+//        cxbhInnerView.setAdapter(recycleAdapter);
+////        refreshUI();
+
+
+
         showView1(showListData1);
-        showView2(showListData2);
+        showView2(getListData);
     }
 
     /**
@@ -283,14 +326,15 @@ public class MeterReadingActivity extends MyBaseActivity {
                 String checkType = showListData1.get(0);
                 cbxmEdit.setText(checkType);
                 popViewisShow(1);
-                if (TextUtils.isEmpty(cxbhEdit.getText())) {
-                    popViewisShow(2);
-                    //模拟点击事件
-//                    searchNum.performClick();
-                } else {
-//                    cxbhEdit.setFocusable(true);
-                    cxbhEdit.requestFocus();
-                }
+                //判断是否打开第二个视图
+//                if (TextUtils.isEmpty(cxbhEdit.getText())) {
+//                    popViewisShow(2);
+//                    //模拟点击事件
+////                    searchNum.performClick();
+//                } else {
+////                    cxbhEdit.setFocusable(true);
+//                    cxbhEdit.requestFocus();
+//                }
                 //设置数据请求类型
 //                setType(position);
                 setType(0);
@@ -303,23 +347,109 @@ public class MeterReadingActivity extends MyBaseActivity {
      * Params:
      * Date：2018-03-30 12:00:40
      */
-    public void showView2(List<MeterInfoCheckModel> list) {
-        MyLocationAdapter2 locationAdapter = new MyLocationAdapter2(this, list);
+    public void showView2(List<MeterAllInfo> list) {
+        MeterAllInfoAdapter locationAdapter = new MeterAllInfoAdapter(this, list);
         //设置ListView线条的颜色
         cxbhInnerView.setDivider(new ColorDrawable(Color.GRAY));
         cxbhInnerView.setDividerHeight(1);
         cxbhInnerView.setAdapter(locationAdapter);
-        cxbhInnerView.setOnItemClickListener(new OnItemClickListener() {
-
+        cxbhInnerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String temStr = showListData2.get(position).value;
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String temStr = getListData.get(i).getCOMM_ADDRESS();
                 cxbhEdit.setText(temStr);
                 popViewisShow(2);
             }
         });
     }
 
+    /**
+     * 刷新UI
+     */
+    private void refreshUI() {
+        if (recycleAdapter == null) {
+//            recycleAdapter = new RcAdapterWholeChange(this, list);
+            recycleAdapter = new RcAdapterWholeChange(MeterReadingActivity.this, newList);
+            meterInfoList.setAdapter(recycleAdapter);
+        } else {
+            recycleAdapter.notifyDataSetChanged();
+        }
+    }
+
+
+    /**
+     * 设置监听
+     */
+    private void setListener() {
+        //edittext的监听
+        cxbhEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            //每次edittext内容改变时执行 控制删除按钮的显示隐藏
+            @Override
+            public void afterTextChanged(Editable editable) {
+//                MethodUtil.animateOpen(cxbhHideView, getHeight,900);
+                //匹配文字 变色
+                doChangeColor(editable.toString().trim());
+            }
+        });
+//        recyclerview的点击监听
+        recycleAdapter.setOnItemClickListener(new RcAdapterWholeChange.onItemClickListener() {
+            @Override
+            public void onClick(View view, int pos) {
+                Toast.makeText(MeterReadingActivity.this, "妹子 pos== " + pos, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    
+    /**
+     * Describe：文字及颜色匹配
+     * Params:
+     * Date：2018-04-24 16:24:00
+     */
+    
+    private void doChangeColor(String text) {
+        //clear是必须的 不然只要改变edittext数据，list会一直add数据进来
+        newList.clear();
+        //不需要匹配 把所有数据都传进来 不需要变色
+        if (text.equals("")) {
+            newList.addAll(getListData);
+            //防止匹配过文字之后点击删除按钮 字体仍然变色的问题
+            recycleAdapter.setText(null);
+            refreshUI();
+        } else {
+            //如果edittext里面有数据 则根据edittext里面的数据进行匹配 用contains判断是否包含该条数据 包含的话则加入到list中
+            for (MeterAllInfo i : getListData) {
+                if (i.getCUSTOMER_NAME().contains(text) || i.getCOMM_ADDRESS().contains(text) || i.getPHONE1().contains(text) || i.getTERMINAL_ADDRESS().contains(text)) {
+                    newList.add(i);
+                }
+            }
+            //设置要变色的关键字
+            recycleAdapter.setText(text);
+            refreshUI();
+//            if (newList.size() == 0){
+//                MethodUtil.animateClose(cxbhHideView);
+//            }
+        }
+    }
+    
+
+    /**
+     * Describe：设置仪表请求标签
+     * Params:
+     * Date：2018-04-24 16:22:42
+     */
+    
     private void setType(int position) {
         if (userType == 1 && position == 0) {
             dataType = 5;
@@ -385,8 +515,8 @@ public class MeterReadingActivity extends MyBaseActivity {
                     MethodUtil.animateClose(cbxmHideView);
                     //打开第二个View
 
-                    locationAdapter.notifyDataSetChanged();
-                    int getHeight = MethodUtil.dip2px(this, meterinfos.size() * 60);
+//                    locationAdapter.notifyDataSetChanged();
+                    int getHeight = MethodUtil.dip2px(this, getListData.size() * 60);
                     MethodUtil.animateOpen(cxbhHideView, getHeight,900);
                     cxbhEdit.clearFocus();
                 } else {
@@ -408,88 +538,7 @@ public class MeterReadingActivity extends MyBaseActivity {
                         setToast("请设置相关查询条件，进行抄表！");
                     }
                 }
-
-
-//                //关闭第二个View
-//                if (getDataList_db.getCount() > 0) {
-//                    getDataList_db.setVisibility(View.GONE);
-//                    animateClose(settingView);
-//                } else {
-//                    setToast("请设置相关查询条件，进行抄表！");
-//                }
-//                if (View.GONE == settingView.getVisibility()) {
-//                    settingView.setVisibility(View.VISIBLE);
-//                    getDataList_db.setVisibility(View.GONE);
-//                } else {
-//                    if (getDataList_db.getCount() > 0) {
-//                        settingView.setVisibility(View.GONE);
-//                        getDataList_db.setVisibility(View.VISIBLE);
-//                    } else {
-//                        setToast("请设置相关查询条件，进行抄表！");
-//                    }
-//                }
-
-
                 break;
         }
     }
-//
-//    /**
-//     * Describe：打开视图
-//     * Params:
-//     * Date：2018-03-30 13:26:31
-//     */
-//    public static void animateOpen(final View view, int height) {
-//        view.setVisibility(View.VISIBLE);
-//
-//        final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-//        final int heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-//        view.measure(widthSpec, heightSpec);
-//        ValueAnimator animator = null;
-//        if (height == 0) {
-//            animator = createHeightAnimator(view, 0, view.getMeasuredHeight());
-//        } else if (height > 0 && height < 700) {
-//            animator = createHeightAnimator(view, 0, height);
-//        } else if (height > 700) {
-//            animator = createHeightAnimator(view, 0, 700);
-//        }
-//        animator.start();
-//    }
-//
-//    /**
-//     * Describe：隐藏视图
-//     * Params:
-//     * Date：2018-03-30 13:28:12
-//     */
-//
-//    public static void animateClose(final View view) {
-//        int origHeight = view.getHeight();
-//
-//        ValueAnimator animator = createHeightAnimator(view, origHeight, 0);
-//        animator.addListener(new AnimatorListenerAdapter() {
-//            public void onAnimationEnd(Animator animation) {
-//                view.setVisibility(View.GONE);
-//            }
-//        });
-//        animator.start();
-//    }
-//
-//    public static ValueAnimator createHeightAnimator(final View view, int start, int end) {
-//        ValueAnimator animator = ValueAnimator.ofInt(start, end);
-//        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//
-//            @Override
-//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-//                int value = (Integer) valueAnimator.getAnimatedValue();
-//
-//                ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-//                layoutParams.height = value;
-//                view.setLayoutParams(layoutParams);
-//            }
-//        });
-//        // animator.setDuration(DURATION);
-//        return animator;
-//    }
-
-
 }
