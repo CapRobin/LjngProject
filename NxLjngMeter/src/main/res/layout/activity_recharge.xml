@@ -1,5 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     style="@style/ee_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -112,6 +111,24 @@
             </LinearLayout>
         </LinearLayout>
 
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/meterInfoList"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/test_01"
+            android:cacheColorHint="#00000000"
+            android:dividerHeight="0.8dip"
+            android:fadingEdge="none"
+            android:listSelector="@color/transparent"
+            android:paddingBottom="3dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:paddingTop="15dp"
+            android:visibility="gone" />
+
         <RelativeLayout
             android:id="@+id/cbxmUnHideView"
             android:layout_width="match_parent"
@@ -155,8 +172,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/meterNumlayout"
-        android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/selector_setting_bg"
         android:orientation="vertical">
 
@@ -195,41 +212,4 @@
         android:text="立即充值"
         android:textColor="@color/white"
         android:textSize="20sp" />
-
-
-    <!--<RelativeLayout-->
-    <!--android:id="@+id/recLayout"-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="60dp"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:layout_marginBottom="10dp"-->
-    <!--android:gravity="bottom|center"-->
-    <!--android:orientation="vertical">-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/copyright1"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_centerInParent="true"-->
-    <!--android:layout_marginLeft="10dp"-->
-    <!--android:layout_marginRight="10dp"-->
-    <!--android:layout_marginTop="6dp"-->
-    <!--android:text="Copyright © 2016"-->
-    <!--android:textColor="@color/bottom_company_text_color"-->
-    <!--android:textSize="@dimen/text_size_12" />-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/copyright2"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_below="@+id/copyright1"-->
-    <!--android:layout_centerInParent="true"-->
-    <!--android:layout_marginLeft="10dp"-->
-    <!--android:layout_marginRight="10dp"-->
-    <!--android:layout_marginTop="6dp"-->
-    <!--android:text="宁夏隆基宁光仪表股份有限公司 . All Right Reserved"-->
-    <!--android:textColor="@color/bottom_company_text_color"-->
-    <!--android:textSize="@dimen/text_size_12" />-->
-    <!--</RelativeLayout>-->
-
 </RelativeLayout>

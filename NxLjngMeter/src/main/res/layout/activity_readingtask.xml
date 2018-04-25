@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/content"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -10,8 +10,10 @@
         layout="@layout/block_header" />
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:id="@+id/queryTaskListLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/bolck_titlebar"
         android:orientation="vertical">
 
         <ListView
@@ -26,7 +28,31 @@
             android:fastScrollEnabled="false"
             android:listSelector="@color/transparent"
             android:scrollingCache="false" />
-
     </LinearLayout>
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/failLaout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/bolck_titlebar"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/fail_img"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/load_failed" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fail_img"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="7dp"
+            android:text="数据加载失败!"
+            android:textColor="@color/black" />
+    </RelativeLayout>
+
+</RelativeLayout>

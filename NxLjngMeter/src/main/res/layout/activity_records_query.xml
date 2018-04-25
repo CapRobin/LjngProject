@@ -194,14 +194,28 @@
                 </LinearLayout>
             </LinearLayout>
 
-
+            <android.support.v7.widget.RecyclerView
+                android:layout_below="@+id/numberAllView"
+                android:id="@+id/meterInfoList"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:visibility="gone"
+                android:background="@drawable/test_01"
+                android:cacheColorHint="#00000000"
+                android:dividerHeight="0.8dip"
+                android:fadingEdge="none"
+                android:listSelector="@color/transparent"
+                android:paddingTop="15dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:paddingBottom="3dp"/>
 
             <RelativeLayout
                 android:id="@+id/cbxmAllView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:layout_below="@+id/numberAllView"
+                android:layout_below="@+id/meterInfoList"
                 android:orientation="vertical">
 
                 <TextView

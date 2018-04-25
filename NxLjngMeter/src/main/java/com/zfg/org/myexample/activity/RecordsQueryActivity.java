@@ -1,15 +1,19 @@
 package com.zfg.org.myexample.activity;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,21 +28,20 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.zfg.org.myexample.R;
-import com.zfg.org.myexample.RechargeActivity;
 import com.zfg.org.myexample.SystemAPI;
 import com.zfg.org.myexample.ViewInject;
 import com.zfg.org.myexample.adapter.HisEleOptionAdapter;
 import com.zfg.org.myexample.adapter.HisEleReadMeterAdapter;
 import com.zfg.org.myexample.adapter.HisWaterReadMeterAdapter;
-import com.zfg.org.myexample.adapter.MyLocationAdapter2;
+import com.zfg.org.myexample.adapter.MeterAllInfoAdapter;
 import com.zfg.org.myexample.adapter.NoScrollGridView;
-import com.zfg.org.myexample.adapter.ReadDataGasHisAdapter;
+import com.zfg.org.myexample.adapter.RcAdapterWholeChange;
 import com.zfg.org.myexample.db.MeterInfoBo;
 import com.zfg.org.myexample.db.dao.MeterInfo;
-import com.zfg.org.myexample.dto.MeterInfoCheckModel;
 import com.zfg.org.myexample.model.HisEleOption;
 import com.zfg.org.myexample.model.HisEleReadMeter;
 import com.zfg.org.myexample.model.HisWaterReadMeter;
+import com.zfg.org.myexample.model.MeterAllInfo;
 import com.zfg.org.myexample.utils.CheckUtil;
 import com.zfg.org.myexample.utils.CommonUtil;
 import com.zfg.org.myexample.utils.HttpServiceUtil;
@@ -61,13 +64,12 @@ import java.util.logging.Logger;
 
 /**
  * Copyright © 2018 LJNG All rights reserved.
- * <p>
  * Name：RecordsQueryActivity
  * Describe：仪表记录查询
  * Date：2018-04-03 19:11:36
  * Author: CapRobin@yeah.net
  */
-public class RecordsQueryActivity extends MyBaseActivity {
+public class RecordsQueryActivity extends MyBaseActivity implements OnTouchListener {
 
     @ViewInject(id = R.id.pageTitle)
     private TextView pageTitle;
@@ -91,46 +93,63 @@ public class RecordsQueryActivity extends MyBaseActivity {
     private LinearLayout typeHideView;
     @ViewInject(id = R.id.numberHideView)
     private LinearLayout numberHideView;
-
-    private List<String> showListData1;
-    private List<MeterInfoCheckModel> showListData2;
-    private List<HisEleReadMeter> eleHisReadMeterList;
-    private List<HisWaterReadMeter> waterHisReadMeterList;
-    private List<HisEleOption> eleHisOptionList;
-    private List<MeterInfo> meterinfos;
     @ViewInject(id = R.id.typeHideInnerView)
     private NoScrollGridView typeHideInnerView;
-
     @ViewInject(id = R.id.numberHideInnerView)
     private ListView numberHideInnerView;
+    @ViewInject(id = R.id.meterInfoList)
+    private RecyclerView meterInfoList;
     @ViewInject(id = R.id.settingView)
     private RelativeLayout settingView;
-
-
-    private static String recordType[] = null;
-    private TimePickerView pvTime;
-    private int timeFlag = 0;
-    private int queryType = -1;
-
-
     @ViewInject(id = R.id.recordsQueryList_ele)
     private ListView eleRecordsQueryList;
     @ViewInject(id = R.id.recordsQueryList_water)
     private ListView waterRecordsQueryList;
+
+    private List<String> showListData1;
+    private List<MeterAllInfo> getListData;
+    private List<MeterAllInfo> newList;
+    private List<HisEleReadMeter> eleHisReadMeterList;
+    private List<HisWaterReadMeter> waterHisReadMeterList;
+    private List<HisEleOption> eleHisOptionList;
     private HisEleReadMeterAdapter mHisEleReadMeterAdapter;
     private HisWaterReadMeterAdapter mHisWaterReadMeterAdapter;
     private com.zfg.org.myexample.adapter.HisEleOptionAdapter HisEleOptionAdapter;
     private HttpServiceUtil.CallBack optionCallback;
     private HttpServiceUtil.CallBack readMeterCallback;
+    private RcAdapterWholeChange recycleAdapter;
+    private List<MeterInfo> meterinfos;
+    private TimePickerView pvTime;
+    private int timeFlag = 0;
+    private int queryType = -1;
+    private static String recordType[] = null;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//      界面资源
         setContentView(R.layout.activity_records_query);
+
+        viewInit();
+        setData(userType);
+        //刷新RecyclerView数据
+        refreshUI();
+        //设置表号输入监听
+        setListener();
+        //初始化时间控件
+        setdate();
+    }
+
+    /**
+     * Describe：初始化相关配置
+     * Params: []
+     * Return: void
+     * Date：2018-04-25 13:07:54
+     */
+    private void viewInit(){
         preference = Preference.instance(context);
         userType = preference.getInt(Preference.USERTYPE);
-        switch (userType){
+        switch (userType) {
             case 1:
                 pageTitle.setText("水表记录查询");
                 break;
@@ -147,16 +166,11 @@ public class RecordsQueryActivity extends MyBaseActivity {
                 pageTitle.setText("记录查询");
                 break;
         }
-//        activity = (HisInfoActivity) context;
         initOptionCallBack();
         initReadMeterCallBack();
-//        loading = new DialogLoading(activity);
-//        preference = Preference.instance(context);
-//        initActivity();
-//        replaceFragment("readrechargehisdata", ReadDataHisFragment.getInstance(), false);
         showListData1 = new ArrayList<String>();
-        showListData2 = new ArrayList<MeterInfoCheckModel>();
-
+        getListData = new ArrayList<MeterAllInfo>();
+        newList = new ArrayList<MeterAllInfo>();
         eleHisReadMeterList = new ArrayList<HisEleReadMeter>();
         waterHisReadMeterList = new ArrayList<HisWaterReadMeter>();
         eleHisOptionList = new ArrayList<HisEleOption>();
@@ -168,25 +182,230 @@ public class RecordsQueryActivity extends MyBaseActivity {
 
         backHome.setOnClickListener(this);
         settingBtn.setOnClickListener(this);
-        queryTypeEdit.setOnClickListener(this);
         searchNum.setOnClickListener(this);
-        startTimetEdit.setOnClickListener(this);
-        endTimeEdit.setOnClickListener(this);
         query_submit.setOnClickListener(this);
+        queryTypeEdit.setOnTouchListener(this);
+        startTimetEdit.setOnTouchListener(this);
+        endTimeEdit.setOnTouchListener(this);
         queryNumEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if(b){
+                if (b) {
                     MethodUtil.animateClose(typeHideView);
                     MethodUtil.animateClose(numberHideView);
                 }
             }
         });
 
-        setData(1);
-        //初始化时间控件
-        setdate();
+        //RecyclerView相关设置
+        meterInfoList.setLayoutManager(new LinearLayoutManager(this));
+        //线条设置
+        DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        divider.setDrawable(ContextCompat.getDrawable(this, R.drawable.line_bg));
+        meterInfoList.addItemDecoration(divider);
+    }
 
+    /**
+     * Describe：构造View的数据
+     * Params: [userType]
+     * Return: void
+     * Date：2018-04-25 13:11:15
+     */
+    private void setData(int userType) {
+        recordType = getResources().getStringArray(R.array.recordType);
+
+        //加载第一个列表数据
+        for (int i = 0; i < recordType.length; i++) {
+            showListData1.add(recordType[i].toString());
+        }
+        //
+        // 开始加载第二个列表数据(从数据库获取数据并组装成List)
+        MeterInfoBo meterbo = new MeterInfoBo(context);
+        meterinfos = meterbo.listAllData();
+        for (int i = 0; i < meterinfos.size(); i++) {
+            if (meterinfos.get(i).getComm_address().toString().length() > 6) {
+                MeterAllInfo allInfo = new MeterAllInfo();
+                allInfo.setCUSTOMER_NAME(meterinfos.get(i).getCustomer_name());
+                allInfo.setCOMM_ADDRESS(meterinfos.get(i).getComm_address());
+                allInfo.setMETER_TYPE(meterinfos.get(i).getMetertype());
+                allInfo.setPHONE1(meterinfos.get(i).getTerminal_address());
+                allInfo.setTERMINAL_ADDRESS(meterinfos.get(i).getAreaname());
+                getListData.add(allInfo);
+            }
+        }
+        showView1(showListData1);
+        showView2(getListData);
+    }
+
+    /**
+     * Describe：装载数据列表1
+     * Params: [list]
+     * Return: void
+     * Date：2018-04-25 13:14:42
+     */
+    public void showView1(List<String> list) {
+        com.zfg.org.myexample.adapter.MyLocationAdapter locationAdapter = new com.zfg.org.myexample.adapter.MyLocationAdapter(this, list);
+        //设置ListView线条的颜色
+        typeHideInnerView.setDivider(new ColorDrawable(Color.GRAY));
+        typeHideInnerView.setDividerHeight(1);
+        typeHideInnerView.setAdapter(locationAdapter);
+        typeHideInnerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                queryType = i;
+                checkType = showListData1.get(i);
+                queryTypeEdit.setText(checkType);
+                popViewisShow(1);
+                if (TextUtils.isEmpty(queryTypeEdit.getText())) {
+                    popViewisShow(2);
+                } else {
+                    queryTypeEdit.requestFocus();
+                }
+            }
+        });
+    }
+
+    /**
+     * Describe：装载数据列表2
+     * Params: [list]
+     * Return: void
+     * Date：2018-04-25 13:14:42
+     */
+    public void showView2(List<MeterAllInfo> list) {
+        /**
+         * Describe：装载数据列表2
+         * Params: [list]
+         * Return: void
+         * Date：2018-04-25 13:14:42
+         */
+        MeterAllInfoAdapter locationAdapter = new MeterAllInfoAdapter(this, list);
+        //设置ListView线条的颜色
+        numberHideInnerView.setDivider(new ColorDrawable(Color.GRAY));
+        numberHideInnerView.setDividerHeight(1);
+        numberHideInnerView.setAdapter(locationAdapter);
+        numberHideInnerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String temStr = getListData.get(i).getCOMM_ADDRESS();
+                queryNumEdit.setText(temStr);
+                popViewisShow(2);
+                meterInfoList.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    /**
+     * Describe：刷新RecyclerView列表
+     * Params: []
+     * Return: void
+     * Date：2018-04-25 13:15:37
+     */
+    private void refreshUI() {
+        if (recycleAdapter == null) {
+            recycleAdapter = new RcAdapterWholeChange(RecordsQueryActivity.this, newList);
+            meterInfoList.setAdapter(recycleAdapter);
+        } else {
+            recycleAdapter.notifyDataSetChanged();
+        }
+    }
+
+    /**
+     * Describe：询表号输入框监听事件方法
+     * Params: []
+     * Return: void
+     * Date：2018-04-25 10:15:11
+     */
+    private void setListener() {
+        //edittext的监听
+        queryNumEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            //EditText内容改变时执行
+            @Override
+            public void afterTextChanged(Editable editable) {
+                //匹配文字 变色
+                doChangeColor(editable.toString().trim());
+            }
+        });
+        //Recyclerview的点击监听
+        recycleAdapter.setOnItemClickListener(new RcAdapterWholeChange.onItemClickListener() {
+            @Override
+            public void onClick(View view, int pos) {
+                queryNumEdit.setText(newList.get(pos).getCOMM_ADDRESS());
+                meterInfoList.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    /**
+     * Describe：文字及颜色匹配
+     * Params: [text]
+     * Return: void
+     * Date：2018-04-25 10:15:30
+     */
+    private void doChangeColor(String text) {
+        //clear是必须的 不然只要改变edittext数据，list会一直add数据进来
+        newList.clear();
+        //不需要匹配 把所有数据都传进来 不需要变色
+        if (text.equals("")) {
+            newList.addAll(getListData);
+            //防止匹配过文字之后点击删除按钮 字体仍然变色的问题
+            recycleAdapter.setText(null);
+            refreshUI();
+        } else {
+            //如果edittext里面有数据 则根据edittext里面的数据进行匹配 用contains判断是否包含该条数据 包含的话则加入到list中
+            for (MeterAllInfo i : getListData) {
+                if (i.getCUSTOMER_NAME().contains(text) || i.getCOMM_ADDRESS().contains(text) || i.getPHONE1().contains(text) || i.getTERMINAL_ADDRESS().contains(text)) {
+                    newList.add(i);
+                }
+            }
+            //设置要变色的关键字
+            recycleAdapter.setText(text);
+            refreshUI();
+            if (newList.size() > 0) {
+//                MethodUtil.animateClose(cxbhHideView);
+                meterInfoList.setVisibility(View.VISIBLE);
+            } else {
+                meterInfoList.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+            switch (view.getId()) {
+                case R.id.queryTypeEdit:
+                    meterInfoList.setVisibility(View.GONE);
+                    closeInputMethod();
+                    popViewisShow(1);
+                    break;
+                case R.id.starTimetEdit:
+                    MethodUtil.animateClose(typeHideView);
+                    MethodUtil.animateClose(numberHideView);
+                    meterInfoList.setVisibility(View.GONE);
+                    timeFlag = 0;
+                    pvTime.show();
+                    break;
+                case R.id.endTimeEdit:
+                    MethodUtil.animateClose(typeHideView);
+                    MethodUtil.animateClose(numberHideView);
+                    meterInfoList.setVisibility(View.GONE);
+                    timeFlag = 1;
+                    pvTime.show();
+                    break;
+                default:
+                    break;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -206,9 +425,9 @@ public class RecordsQueryActivity extends MyBaseActivity {
                     int waterCount = waterRecordsQueryList.getCount();
                     if (eleCount > 0 || waterCount > 0) {
                         settingView.setVisibility(View.GONE);
-                        if(eleCount > 0){
+                        if (eleCount > 0) {
                             eleRecordsQueryList.setVisibility(View.VISIBLE);
-                        }else {
+                        } else {
                             waterRecordsQueryList.setVisibility(View.VISIBLE);
                         }
                     } else {
@@ -216,11 +435,8 @@ public class RecordsQueryActivity extends MyBaseActivity {
                     }
                 }
                 break;
-            case R.id.queryTypeEdit:
-                closeInputMethod();
-                popViewisShow(1);
-                break;
             case R.id.searchNum:
+                meterInfoList.setVisibility(View.GONE);
                 if (!queryNumEdit.getText().equals("")) {
                     queryNumEdit.setText("");
                     closeInputMethod();
@@ -229,22 +445,17 @@ public class RecordsQueryActivity extends MyBaseActivity {
                     setToast("请先选择抄表项目！");
                 }
                 break;
-            case R.id.starTimetEdit:
-                MethodUtil.animateClose(typeHideView);
-                MethodUtil.animateClose(numberHideView);
-                timeFlag = 0;
-                pvTime.show();
-                break;
-            case R.id.endTimeEdit:
-                MethodUtil.animateClose(typeHideView);
-                MethodUtil.animateClose(numberHideView);
-                timeFlag = 1;
-                pvTime.show();
-                break;
             case R.id.query_submit:
-
+                if (CheckUtil.isNull(queryTypeEdit.getText().toString())) {
+                    setToast("请输入查询类型！");
+                    return;
+                }
                 if (CheckUtil.isNull(queryNumEdit.getText().toString())) {
                     setToast("请输入表地址！");
+                    return;
+                }
+                if (queryNumEdit.getText().toString().trim().length() < 12) {
+                    setToast("表地址输入有误请重新输入！");
                     return;
                 }
                 if (CheckUtil.isNull(startTimetEdit.getText().toString())) {
@@ -255,8 +466,6 @@ public class RecordsQueryActivity extends MyBaseActivity {
                     setToast("请选择查询结束日期！");
                     return;
                 }
-//                clearData();
-
                 String meterNum = CommonUtil.AddZeros(queryNumEdit.getText().toString());
                 //判断查询类型(抄表记录|操作记录)
                 if (queryType == 0) {
@@ -271,11 +480,11 @@ public class RecordsQueryActivity extends MyBaseActivity {
         }
     }
 
-
     /**
      * Describe：抄表记录查询
-     * Params:
-     * Date：2018-04-12 15:09:25
+     * Params: [meteraddr]
+     * Return: void
+     * Date：2018-04-25 13:24:21
      */
     private void queryReadMeterRecord(String meteraddr) {
         try {
@@ -310,8 +519,9 @@ public class RecordsQueryActivity extends MyBaseActivity {
 
     /**
      * Describe：抄表记录查询回调函数
-     * Params:
-     * Date：2018-04-12 15:09:51
+     * Params: []
+     * Return: void
+     * Date：2018-04-25 13:24:48
      */
     private void initReadMeterCallBack() {
         readMeterCallback = new HttpServiceUtil.CallBack() {
@@ -352,7 +562,7 @@ public class RecordsQueryActivity extends MyBaseActivity {
                                     //此处提示用户查询数据失败
                                     setToast("获取数据失败，请重新尝试！");
                                 }
-                            } else if(meterType.equals("Water")) {
+                            } else if (meterType.equals("Water")) {
                                 //水表抄表查询~~~~~~~~~~~~~
                                 String consuList = jsonObject.getString("consuList");
                                 GsonBuilder gsonB = new GsonBuilder();
@@ -365,7 +575,7 @@ public class RecordsQueryActivity extends MyBaseActivity {
                                     eleRecordsQueryList.setVisibility(View.GONE);
                                     waterRecordsQueryList.setVisibility(View.VISIBLE);
 
-                                    mHisWaterReadMeterAdapter = new HisWaterReadMeterAdapter(context, waterHisReadMeterList,waterRecordsQueryList);
+                                    mHisWaterReadMeterAdapter = new HisWaterReadMeterAdapter(context, waterHisReadMeterList, waterRecordsQueryList);
                                     waterRecordsQueryList.setAdapter(mHisWaterReadMeterAdapter);
                                     mHisWaterReadMeterAdapter.notifyDataSetChanged();
                                     waterRecordsQueryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -380,18 +590,7 @@ public class RecordsQueryActivity extends MyBaseActivity {
                                 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-                            }else if(meterType.equals("Gas")) {
+                            } else if (meterType.equals("Gas")) {
                                 //气表抄表查询~~~~~~~~~~~~~
                             }
                         }
@@ -408,10 +607,10 @@ public class RecordsQueryActivity extends MyBaseActivity {
 
     /**
      * Describe：操作记录查询
-     * Params:
-     * Date：2018-04-12 15:10:40
+     * Params: [meteraNum]
+     * Return: void
+     * Date：2018-04-25 13:22:17
      */
-
     private void queryOptionRecord(String meteraNum) {
         try {
             JSONObject jsobj = new JSONObject();
@@ -440,10 +639,10 @@ public class RecordsQueryActivity extends MyBaseActivity {
 
     /**
      * Describe：操作记录查询回调函数
-     * Params:
-     * Date：2018-04-12 15:11:02
+     * Params: []
+     * Return: void
+     * Date：2018-04-25 13:22:37
      */
-
     private void initOptionCallBack() {
         optionCallback = new HttpServiceUtil.CallBack() {
             @Override
@@ -499,85 +698,6 @@ public class RecordsQueryActivity extends MyBaseActivity {
     }
 
     /**
-     * Describe：构造View的数据
-     * Params:
-     * Date：2018-03-30 12:00:22
-     */
-    private void setData(int userType) {
-        //setToast("登录用户为：" + userType);
-        recordType = getResources().getStringArray(R.array.recordType);
-
-        //加载第一个列表数据
-        for (int i = 0; i < recordType.length; i++) {
-            showListData1.add(recordType[i].toString());
-        }
-        //统一(登录默认更新数据)加载第二个列表数据(从数据库获取数据并组装成List)
-        MeterInfoBo meterbo = new MeterInfoBo(context);
-        meterinfos = meterbo.listAllData();
-        for (int i = 0; i < meterinfos.size(); i++) {
-            if (meterinfos.get(i).getComm_address().toString().length() > 6) {
-                MeterInfoCheckModel model = new MeterInfoCheckModel(String.valueOf(i), meterinfos.get(i).getComm_address(), meterinfos.get(i).getMetertype(), false);
-                showListData2.add(model);
-            }
-        }
-        showView1(showListData1);
-        showView2(showListData2);
-    }
-
-    /**
-     * Describe：装载数据
-     * Params:
-     * Date：2018-03-30 12:00:40
-     */
-    public void showView1(List<String> list) {
-        com.zfg.org.myexample.adapter.MyLocationAdapter locationAdapter = new com.zfg.org.myexample.adapter.MyLocationAdapter(this, list);
-        //设置ListView线条的颜色
-        typeHideInnerView.setDivider(new ColorDrawable(Color.GRAY));
-        typeHideInnerView.setDividerHeight(1);
-        typeHideInnerView.setAdapter(locationAdapter);
-        typeHideInnerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                queryType = i;
-                checkType = showListData1.get(i);
-                queryTypeEdit.setText(checkType);
-                popViewisShow(1);
-                if (TextUtils.isEmpty(queryTypeEdit.getText())) {
-                    popViewisShow(2);
-                    //模拟点击事件
-//                    searchNum.performClick();
-                } else {
-//                    cxbhEdit.setFocusable(true);
-                    queryTypeEdit.requestFocus();
-                    //设置数据请求类型
-//                    setType(i);
-                }
-            }
-        });
-    }
-
-    /**
-     * Describe：装载数据
-     * Params:
-     * Date：2018-03-30 12:00:40
-     */
-    public void showView2(List<MeterInfoCheckModel> list) {
-        MyLocationAdapter2 locationAdapter = new MyLocationAdapter2(this, list);
-        //设置ListView线条的颜色
-        numberHideInnerView.setDivider(new ColorDrawable(Color.GRAY));
-        numberHideInnerView.setDividerHeight(1);
-        numberHideInnerView.setAdapter(locationAdapter);
-        numberHideInnerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String temStr = showListData2.get(i).value;
-                queryNumEdit.setText(temStr);
-                popViewisShow(2);
-            }
-        });
-    }
-
-    /**
      * Describe：控制视图是否显示
      * Params:
      * Date：2018-03-30 13:31:39
@@ -590,7 +710,7 @@ public class RecordsQueryActivity extends MyBaseActivity {
                     //关闭第二个View
                     MethodUtil.animateClose(numberHideView);
                     //打开第一个View
-                    MethodUtil.animateOpen(typeHideView, 0,0);
+                    MethodUtil.animateOpen(typeHideView, 0, 0);
                 } else {
                     //关闭第一个View
                     MethodUtil.animateClose(typeHideView);
@@ -603,7 +723,7 @@ public class RecordsQueryActivity extends MyBaseActivity {
                     MethodUtil.animateClose(typeHideView);
                     //打开第二个View
                     int getHeight = MethodUtil.dip2px(this, meterinfos.size() * 60);
-                    MethodUtil.animateOpen(numberHideView, getHeight,700);
+                    MethodUtil.animateOpen(numberHideView, getHeight, 700);
                 } else {
                     //关闭第二个View
                     MethodUtil.animateClose(numberHideView);
@@ -615,72 +735,11 @@ public class RecordsQueryActivity extends MyBaseActivity {
         }
     }
 
-//    /**
-//     * Describe：打开视图
-//     * Params:
-//     * Date：2018-03-30 13:26:31
-//     */
-//    public static void animateOpen(final View view, int height) {
-//        view.setVisibility(View.VISIBLE);
-//
-//        final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-//        final int heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-//        view.measure(widthSpec, heightSpec);
-//        ValueAnimator animator = null;
-//        if (height == 0) {
-//            animator = createHeightAnimator(view, 0, view.getMeasuredHeight());
-//        } else if (height > 0 && height < 700) {
-//            animator = createHeightAnimator(view, 0, height);
-//        } else if (height > 700) {
-//            animator = createHeightAnimator(view, 0, 700);
-//        }
-//        animator.start();
-//    }
-//
-//    /**
-//     * Describe：隐藏视图
-//     * Params:
-//     * Date：2018-03-30 13:28:12
-//     */
-//
-//    public static void animateClose(final View view) {
-//        int origHeight = view.getHeight();
-//
-//        ValueAnimator animator = createHeightAnimator(view, origHeight, 0);
-//        animator.addListener(new AnimatorListenerAdapter() {
-//            public void onAnimationEnd(Animator animation) {
-//                view.setVisibility(View.GONE);
-//            }
-//
-//            ;
-//        });
-//        animator.start();
-//    }
-//
-//    public static ValueAnimator createHeightAnimator(final View view, int start, int end) {
-//        ValueAnimator animator = ValueAnimator.ofInt(start, end);
-//        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//
-//            @Override
-//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-//                int value = (Integer) valueAnimator.getAnimatedValue();
-//
-//                ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-//                layoutParams.height = value;
-//                view.setLayoutParams(layoutParams);
-//            }
-//        });
-//        //设置动画过度时间
-////         animator.setDuration(1000);
-//        return animator;
-//    }
-
     /**
      * Describe：初始化时间控件
      * Params:
      * Date：2018-04-04 12:45:54
      */
-
     private void setdate() {
 
         pvTime = new TimePickerView.Builder(context, new TimePickerView.OnTimeSelectListener() {

@@ -24,7 +24,6 @@ import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.ViewInject;
 import com.zfg.org.myexample.adapter.MeterAllInfoAdapter;
 import com.zfg.org.myexample.adapter.MyLocationAdapter;
-import com.zfg.org.myexample.adapter.MyLocationAdapter2;
 import com.zfg.org.myexample.adapter.NoScrollGridView;
 import com.zfg.org.myexample.adapter.RcAdapterWholeChange;
 import com.zfg.org.myexample.db.MeterInfoBo;
@@ -82,7 +81,6 @@ public class MeterReadingActivity extends MyBaseActivity {
     private LinearLayout cbxmHideView;
 
     private List<String> showListData1;
-//    private List<MeterInfoCheckModel> getListData;
     private List<MeterAllInfo> getListData;
     private List<MeterAllInfo> newList;
     private static String dbCheckItemType[] = null;
@@ -96,7 +94,6 @@ public class MeterReadingActivity extends MyBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 //        Window window = this.getWindow();
 //        //取消状态栏透明
 //        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -116,6 +113,7 @@ public class MeterReadingActivity extends MyBaseActivity {
         showListData1 = new ArrayList<String>();
         getListData = new ArrayList<MeterAllInfo>();
         newList = new ArrayList<MeterAllInfo>();
+
         //设置ListView线条的颜色
         getDataList_db.setDivider(new ColorDrawable(Color.GRAY));
         getDataList_db.setDividerHeight(1);
@@ -128,29 +126,26 @@ public class MeterReadingActivity extends MyBaseActivity {
         cxbhEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if(b){
-//                    int getHeight = MethodUtil.dip2px(MeterReadingActivity.this, getListData.size() * 60);
-//                    MethodUtil.animateOpen(cxbhHideView, getHeight,900);
+                if (b) {
                     MethodUtil.animateClose(cxbhHideView);
                     MethodUtil.animateClose(cbxmHideView);
-
-                    meterInfoList.setVisibility(View.VISIBLE);
-                }else {
-//                    MethodUtil.animateClose(cxbhHideView);
                 }
             }
         });
         searchNum.setOnClickListener(this);
         startSearch.setOnClickListener(this);
-
+        //RecyclerView相关设置
         meterInfoList.setLayoutManager(new LinearLayoutManager(this));
-        DividerItemDecoration divider = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
-        divider.setDrawable(ContextCompat.getDrawable(this,R.drawable.line_bg));
+        //线条设置
+        DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        divider.setDrawable(ContextCompat.getDrawable(this, R.drawable.line_bg));
         meterInfoList.addItemDecoration(divider);
 
         //初始化加载数据
         setData(userType);
+        //刷新RecyclerView数据
         refreshUI();
+        //设置输入监听
         setListener();
     }
 
@@ -175,6 +170,7 @@ public class MeterReadingActivity extends MyBaseActivity {
                 }
                 break;
             case R.id.cbxmEdit:
+                meterInfoList.setVisibility(View.GONE);
                 closeInputMethod();
                 popViewisShow(1);
                 break;
@@ -202,9 +198,12 @@ public class MeterReadingActivity extends MyBaseActivity {
                     Toast.makeText(context, "请输入查询表号！", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (cxbhEdit.getText().toString().trim().length() < 12) {
+                    setToast("表地址输入有误请重新输入！");
+                    return;
+                }
                 //清除刷新List数据
                 //clearData();
-
                 //开始加载数据
                 loadData(CommonUtil.AddZeros(cxbhEdit.getText().toString()));
                 break;
@@ -212,9 +211,10 @@ public class MeterReadingActivity extends MyBaseActivity {
     }
 
     /**
-     * Describe：网络返回数据后回调
-     * Params:
-     * Date：2018-04-01 20:29:17
+     * Describe：络返回数据后回调
+     * Params: []
+     * Return: void
+     * Date：2018-04-25 10:13:11
      */
     protected void setViewData() {
 //        listadapter.notifyDataSetChanged();
@@ -240,8 +240,9 @@ public class MeterReadingActivity extends MyBaseActivity {
 
     /**
      * Describe：构造View的数据
-     * Params:
-     * Date：2018-03-30 12:00:22
+     * Params: [userType]
+     * Return: void
+     * Date：2018-04-25 10:13:40
      */
     private void setData(int userType) {
         switch (userType) {
@@ -285,26 +286,15 @@ public class MeterReadingActivity extends MyBaseActivity {
                 getListData.add(allInfo);
             }
         }
-
-////        newList.clear();
-////        //不需要匹配 把所有数据都传进来 不需要变色
-//        newList.addAll(getListData);
-////        //防止匹配过文字之后点击删除按钮 字体仍然变色的问题
-////        recycleAdapter.setText(null);
-//        recycleAdapter = new RcAdapterWholeChange(MeterReadingActivity.this, newList);
-//        cxbhInnerView.setAdapter(recycleAdapter);
-////        refreshUI();
-
-
-
         showView1(showListData1);
         showView2(getListData);
     }
 
     /**
-     * Describe：装载数据
-     * Params:
-     * Date：2018-03-30 12:00:40
+     * Describe：装载数据1
+     * Params: [list]
+     * Return: void
+     * Date：2018-04-25 10:14:04
      */
     public void showView1(List<String> list) {
         locationAdapter = new MyLocationAdapter(this, list);
@@ -322,30 +312,19 @@ public class MeterReadingActivity extends MyBaseActivity {
                 if (position == 2) {
                     setToast("实时状态暂无法查询");
                 }
-//                String checkType = showListData1.get(position);
                 String checkType = showListData1.get(0);
                 cbxmEdit.setText(checkType);
                 popViewisShow(1);
-                //判断是否打开第二个视图
-//                if (TextUtils.isEmpty(cxbhEdit.getText())) {
-//                    popViewisShow(2);
-//                    //模拟点击事件
-////                    searchNum.performClick();
-//                } else {
-////                    cxbhEdit.setFocusable(true);
-//                    cxbhEdit.requestFocus();
-//                }
-                //设置数据请求类型
-//                setType(position);
                 setType(0);
             }
         });
     }
 
     /**
-     * Describe：装载数据
-     * Params:
-     * Date：2018-03-30 12:00:40
+     * Describe：装载数据1
+     * Params: [list]
+     * Return: void
+     * Date：2018-04-25 10:14:36
      */
     public void showView2(List<MeterAllInfo> list) {
         MeterAllInfoAdapter locationAdapter = new MeterAllInfoAdapter(this, list);
@@ -359,16 +338,18 @@ public class MeterReadingActivity extends MyBaseActivity {
                 String temStr = getListData.get(i).getCOMM_ADDRESS();
                 cxbhEdit.setText(temStr);
                 popViewisShow(2);
+                meterInfoList.setVisibility(View.GONE);
             }
         });
     }
 
     /**
-     * 刷新UI
+     * Describe：刷新RecyclerView列表
+     * Params:
+     * Date：2018-04-25 09:57:58
      */
     private void refreshUI() {
         if (recycleAdapter == null) {
-//            recycleAdapter = new RcAdapterWholeChange(this, list);
             recycleAdapter = new RcAdapterWholeChange(MeterReadingActivity.this, newList);
             meterInfoList.setAdapter(recycleAdapter);
         } else {
@@ -378,46 +359,46 @@ public class MeterReadingActivity extends MyBaseActivity {
 
 
     /**
-     * 设置监听
+     * Describe：询表号输入框监听事件方法
+     * Params: []
+     * Return: void
+     * Date：2018-04-25 10:15:11
      */
     private void setListener() {
         //edittext的监听
         cxbhEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
-            //每次edittext内容改变时执行 控制删除按钮的显示隐藏
+            //EditText内容改变时执行
             @Override
             public void afterTextChanged(Editable editable) {
-//                MethodUtil.animateOpen(cxbhHideView, getHeight,900);
                 //匹配文字 变色
                 doChangeColor(editable.toString().trim());
             }
         });
-//        recyclerview的点击监听
+        //Recyclerview的点击监听
         recycleAdapter.setOnItemClickListener(new RcAdapterWholeChange.onItemClickListener() {
             @Override
             public void onClick(View view, int pos) {
-                Toast.makeText(MeterReadingActivity.this, "妹子 pos== " + pos, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MeterReadingActivity.this, "您点击了：" + pos, Toast.LENGTH_SHORT).show();
+                cxbhEdit.setText(newList.get(pos).getCOMM_ADDRESS());
+                meterInfoList.setVisibility(View.GONE);
             }
         });
     }
 
-
-    
     /**
      * Describe：文字及颜色匹配
-     * Params:
-     * Date：2018-04-24 16:24:00
+     * Params: [text]
+     * Return: void
+     * Date：2018-04-25 10:15:30
      */
-    
     private void doChangeColor(String text) {
         //clear是必须的 不然只要改变edittext数据，list会一直add数据进来
         newList.clear();
@@ -437,19 +418,21 @@ public class MeterReadingActivity extends MyBaseActivity {
             //设置要变色的关键字
             recycleAdapter.setText(text);
             refreshUI();
-//            if (newList.size() == 0){
+            if (newList.size() > 0) {
 //                MethodUtil.animateClose(cxbhHideView);
-//            }
+                meterInfoList.setVisibility(View.VISIBLE);
+            } else {
+                meterInfoList.setVisibility(View.GONE);
+            }
         }
     }
-    
 
     /**
      * Describe：设置仪表请求标签
-     * Params:
-     * Date：2018-04-24 16:22:42
+     * Params: [position]
+     * Return: void
+     * Date：2018-04-25 10:15:49
      */
-    
     private void setType(int position) {
         if (userType == 1 && position == 0) {
             dataType = 5;
@@ -492,18 +475,18 @@ public class MeterReadingActivity extends MyBaseActivity {
 
     /**
      * Describe：控制视图是否显示
-     * Params:
-     * Date：2018-03-30 13:31:39
+     * Params: [id]
+     * Return: void
+     * Date：2018-04-25 10:16:10
      */
     private void popViewisShow(int id) {
-
         switch (id) {
             case 1:
                 if (View.GONE == cbxmHideView.getVisibility()) {
                     //关闭第二个View
                     MethodUtil.animateClose(cxbhHideView);
                     //打开第一个View
-                    MethodUtil.animateOpen(cbxmHideView, 0,0);
+                    MethodUtil.animateOpen(cbxmHideView, 0, 0);
                 } else {
                     //关闭第一个View
                     MethodUtil.animateClose(cbxmHideView);
@@ -517,7 +500,7 @@ public class MeterReadingActivity extends MyBaseActivity {
 
 //                    locationAdapter.notifyDataSetChanged();
                     int getHeight = MethodUtil.dip2px(this, getListData.size() * 60);
-                    MethodUtil.animateOpen(cxbhHideView, getHeight,900);
+                    MethodUtil.animateOpen(cxbhHideView, getHeight, 900);
                     cxbhEdit.clearFocus();
                 } else {
                     //关闭第二个View
@@ -528,12 +511,12 @@ public class MeterReadingActivity extends MyBaseActivity {
                 if (View.GONE == settingView.getVisibility()) {
                     MethodUtil.animateClose(getDataList_db);
                     //打开View
-                    MethodUtil.animateOpen(settingView, 0,0);
+                    MethodUtil.animateOpen(settingView, 0, 0);
                 } else {
                     if (getDataList_db.getCount() > 0) {
                         MethodUtil.animateClose(settingView);
                         setViewData();
-                        MethodUtil.animateOpen(getDataList_db, 0,0);
+                        MethodUtil.animateOpen(getDataList_db, 0, 0);
                     } else {
                         setToast("请设置相关查询条件，进行抄表！");
                     }

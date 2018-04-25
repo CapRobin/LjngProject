@@ -1,7 +1,6 @@
 package com.zfg.org.myexample.adapter;
 
 import android.animation.Animator;
-import android.animation.AnimatorInflater;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
@@ -87,13 +86,13 @@ public class RcAdapterWholeChange extends RecyclerView.Adapter<RcAdapterWholeCha
 //        animator = AnimatorInflater.loadAnimator(context, R.animator.anim_set);
 //        animator.setTarget(holder.mLlItem);
 //        animator.start();
-//        //点击监听
-//        holder.mLlItem.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                onItemClickListener.onClick(view, position);
-//            }
-//        });
+        //点击监听
+        holder.itemLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onItemClickListener.onClick(view, position);
+            }
+        });
     }
 
     @Override
@@ -117,6 +116,7 @@ public class RcAdapterWholeChange extends RecyclerView.Adapter<RcAdapterWholeCha
     class MyViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout mLlItem;
 //        private SimpleDraweeView mImgvSimple;
+        private LinearLayout itemLayout;
         private TextView userName;
         private TextView meterNum;
         private TextView meterType;
@@ -125,6 +125,7 @@ public class RcAdapterWholeChange extends RecyclerView.Adapter<RcAdapterWholeCha
 
         public MyViewHolder(View itemView) {
             super(itemView);
+            itemLayout =(LinearLayout) itemView.findViewById(R.id. layout);
             userName=(TextView) itemView.findViewById(R.id. userName);
             meterNum=(TextView) itemView.findViewById(R.id. meterNum);
             phoneNum=(TextView) itemView.findViewById(R.id. phoneNum);

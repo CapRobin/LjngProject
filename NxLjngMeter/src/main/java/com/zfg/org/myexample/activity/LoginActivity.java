@@ -289,11 +289,6 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                         break;
                     //选择电表用户
                     case 2:
-//                        //测试数据
-
-//                        if(params.get("resultJson").toString().equals("resultJson")){
-//                            result = params.get("resultJson").toString();
-//                        }
 //                        ContantsUtil.setHOst("http://192.168.2.136:8088/lggmr");
 //                        ContantsUtil.setHOst("http://222.75.144.94:80/lggmr");
 //                        ContantsUtil.setHOst("http://192.168.2.157:80/lggmr");
@@ -312,12 +307,14 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
 //                        ContantsUtil.setHOst( "http://longi.nxlgg.com:8039/lggmr");
 //                        ContantsUtil.setHOst( "http://longi.nxlgg.com:8046/lggmr");
 //                        ContantsUtil.setHOst( "http://192.168.2.136:8008/lggmr");
-//                        ContantsUtil.setHOst("http://longi.nxlgg.com:8084/lggmr");
+                        ContantsUtil.setHOst("http://longi.nxlgg.com:8084/lggmr");
 
                         //气表外网测试地址
-                        ContantsUtil.setHOst("http://:222.75.144.94:6608/lggmr");
+//                        ContantsUtil.setHOst("http://:222.75.144.94:6608/lggmr");
                         nameEditText.setText("ng1");
                         pswEditText.setText("1");
+//                        nameEditText.setText("wangtong");
+//                        pswEditText.setText("123456");
                         userTypeEdit.setText("气表");
                         userType = 3;
                         break;
@@ -742,28 +739,6 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                                 data.add(dto);
                             }
                         }
-
-//                        // 如果有气表记录
-//                        if (jsonesult.getJSONObject("dataFlag").getInt("elecMeterFlag") == 1) {
-//                            JSONArray pages = jsonesult.getJSONArray("elecMeterList");
-//                            for (int i = 0; i < pages.length(); i++) {
-//                                MeterInfoModel dto = new MeterInfoModel();
-//                                dto.of(pages.getJSONObject(i));
-//                                dto.setMeterType("电表");
-//                                data.add(dto);
-//                            }
-//                        }
-//
-//                        // 如果有气表记录
-//                        if (jsonesult.getJSONObject("dataFlag").getInt("gasMeterFlag") == 1) {
-//                            JSONArray pages = jsonesult.getJSONArray("gasMeterList");
-//                            for (int i = 0; i < pages.length(); i++) {
-//                                MeterInfoModel dto = new MeterInfoModel();
-//                                dto.of(pages.getJSONObject(i));
-//                                dto.setMeterType("气表");
-//                                data.add(dto);
-//                            }
-//                        }
 
                         DefSetService service = new DefSetService();
                         List<MeterInfo> meterinfos = service.convertMeterInfo(data);

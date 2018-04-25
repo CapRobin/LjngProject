@@ -18,47 +18,98 @@
         android:layout_marginRight="15dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/t_login_layout_editor_bg"
-        android:orientation="vertical" >
+        android:orientation="vertical">
+
         <RelativeLayout
-            android:id="@+id/bhLayout"
+            android:id="@+id/meterNumlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:gravity="center"
-            android:padding="15dp"
-            android:orientation="horizontal" >
+            android:padding="15dp">
 
-            <TextView
-                android:id="@+id/bhText"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/meterLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:text="表           号:"
-                android:layout_centerVertical="true"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/meter_addr"
-                android:layout_width="fill_parent"
-                android:layout_height="30dp"
-                android:layout_weight="1"
-                android:paddingLeft="5dp"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/bhText"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/t_login_layout_editor_bg"
-                android:textSize="13dp"
-                android:hint="请输入或选择表号"
-                android:singleLine="true" />
+                <RelativeLayout
+                    android:id="@+id/bhLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/bhText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="表           号:"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/meter_addr"
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/bhText"
+                        android:layout_weight="1"
+                        android:background="@drawable/t_login_layout_editor_bg"
+                        android:hint="请输入或选择表号"
+                        android:paddingLeft="5dp"
+                        android:singleLine="true"
+                        android:textSize="13dp" />
+                </RelativeLayout>
+
+                <!--抄表表号隐藏内容-->
+                <LinearLayout
+                    android:id="@+id/numberHideView"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_below="@+id/bhLayout"
+                    android:background="@drawable/test_01"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ListView
+                        android:id="@+id/numberHideInnerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:cacheColorHint="#00000000"
+                        android:dividerHeight="0.8dip"
+                        android:fadingEdge="none"
+                        android:listSelector="@color/transparent" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/meterInfoList"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_below="@+id/meterLayout"
+                android:background="@drawable/test_01"
+                android:cacheColorHint="#00000000"
+                android:dividerHeight="0.8dip"
+                android:fadingEdge="none"
+                android:listSelector="@color/transparent"
+                android:paddingBottom="3dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:paddingTop="15dp"
+                android:visibility="gone" />
+
         </RelativeLayout>
 
         <View
             android:id="@+id/lineView"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/bhLayout"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/meterNumlayout"
             android:background="#ffc8c8c8" />
 
         <RelativeLayout
@@ -67,28 +118,28 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/lineView"
             android:gravity="center_vertical"
-            android:padding="15dp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:padding="15dp">
 
             <Button
                 android:id="@+id/select_addr"
                 android:layout_width="wrap_content"
                 android:layout_height="31dp"
-                android:text="选择表号"
+                android:layout_centerVertical="true"
+                android:background="@drawable/selector_circle"
+                android:paddingBottom="3dp"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:paddingTop="3dp"
-                android:paddingBottom="3dp"
-                android:layout_centerVertical="true"
+                android:text="选择表号"
                 android:textColor="@color/black"
-                android:background="@drawable/selector_circle"
                 android:textSize="18sp" />
 
             <CheckBox
                 android:id="@+id/openOrCloseBtn"
                 android:layout_width="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:button="@drawable/selector_switch"
                 android:clickable="true"
@@ -100,26 +151,26 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#EEEEEE"
+        android:layout_centerInParent="true"
         android:layout_marginTop="5dp"
-        android:layout_centerInParent="true">
+        android:background="#EEEEEE"
+        android:orientation="vertical">
+
         <LinearLayout
             android:id="@+id/eleLayout"
             android:layout_width="200dp"
-            android:orientation="vertical"
+            android:layout_height="200dp"
             android:layout_centerInParent="true"
-            android:visibility="gone"
-            android:layout_height="200dp">
-        </LinearLayout>
-
+            android:orientation="vertical"
+            android:visibility="gone"></LinearLayout>
 
 
         <LinearLayout
             android:id="@+id/waterLayout"
             android:layout_width="250dp"
-            android:layout_centerInParent="true"
-            android:layout_height="250dp">
+            android:layout_height="250dp"
+            android:layout_centerInParent="true">
+
             <com.zfg.org.myexample.compent.WaterWaveProgress
                 android:id="@+id/waterWaveProgress"
                 android:layout_width="wrap_content"
@@ -132,149 +183,109 @@
     </RelativeLayout>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <!--<ScrollView-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:scrollbars="none"-->
-        <!--android:visibility="gone">-->
-        <!--<LinearLayout-->
-            <!--android:layout_width="fill_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="vertical">-->
-            <!--<View-->
-                <!--android:layout_width="fill_parent"-->
-                <!--android:layout_height="1dip"-->
-                <!--android:background="@color/main_divider_line" />-->
-            <!--&lt;!&ndash;表号输入框&ndash;&gt;-->
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="90dp"-->
-                <!--android:background="@color/white"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:orientation="horizontal"-->
-                <!--android:paddingLeft="20dp"-->
-                <!--android:paddingRight="20dp"-->
-                <!--android:layout_marginBottom="12dp"-->
-                <!--android:weightSum="1">-->
-                <!--<LinearLayout-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="90dp"-->
-                    <!--android:layout_weight="0.5"-->
-                    <!--android:background="@color/white"-->
-                    <!--android:gravity="left"-->
-                    <!--android:layout_marginRight="8dp"-->
-                    <!--android:orientation="vertical"-->
-                    <!--android:padding="8dp"-->
-                    <!--android:weightSum="1">-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:scrollbars="none"-->
+    <!--android:visibility="gone">-->
+    <!--<LinearLayout-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="vertical">-->
+    <!--<View-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="1dip"-->
+    <!--android:background="@color/main_divider_line" />-->
+    <!--&lt;!&ndash;表号输入框&ndash;&gt;-->
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="90dp"-->
+    <!--android:background="@color/white"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:paddingLeft="20dp"-->
+    <!--android:paddingRight="20dp"-->
+    <!--android:layout_marginBottom="12dp"-->
+    <!--android:weightSum="1">-->
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="90dp"-->
+    <!--android:layout_weight="0.5"-->
+    <!--android:background="@color/white"-->
+    <!--android:gravity="left"-->
+    <!--android:layout_marginRight="8dp"-->
+    <!--android:orientation="vertical"-->
+    <!--android:padding="8dp"-->
+    <!--android:weightSum="1">-->
 
-                    <!--<Button-->
-                        <!--android:id="@+id/btn_open"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:layout_gravity="right"-->
-                        <!--android:layout_margin="10dp"-->
-                        <!--android:background="@null"-->
-                        <!--android:drawableLeft="@mipmap/swichon"-->
-                        <!--android:text="开阀" />-->
+    <!--<Button-->
+    <!--android:id="@+id/btn_open"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_gravity="right"-->
+    <!--android:layout_margin="10dp"-->
+    <!--android:background="@null"-->
+    <!--android:drawableLeft="@mipmap/swichon"-->
+    <!--android:text="开阀" />-->
 
-                <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
 
-                <!--<LinearLayout-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="90dp"-->
-                    <!--android:layout_weight="0.5"-->
-                    <!--android:background="@color/white"-->
-                    <!--android:gravity="right"-->
-                    <!--android:layout_marginLeft="8dp"-->
-                    <!--android:orientation="vertical"-->
-                    <!--android:padding="8dp"-->
-                    <!--android:weightSum="1">-->
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="90dp"-->
+    <!--android:layout_weight="0.5"-->
+    <!--android:background="@color/white"-->
+    <!--android:gravity="right"-->
+    <!--android:layout_marginLeft="8dp"-->
+    <!--android:orientation="vertical"-->
+    <!--android:padding="8dp"-->
+    <!--android:weightSum="1">-->
 
-                    <!--<Button-->
-                        <!--android:id="@+id/btn_close"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:layout_gravity="left"-->
-                        <!--android:layout_margin="10dp"-->
-                        <!--android:background="@null"-->
-                        <!--android:drawableLeft="@mipmap/swichoff"-->
-                        <!--android:text="关阀"/>-->
-                <!--</LinearLayout>-->
+    <!--<Button-->
+    <!--android:id="@+id/btn_close"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_gravity="left"-->
+    <!--android:layout_margin="10dp"-->
+    <!--android:background="@null"-->
+    <!--android:drawableLeft="@mipmap/swichoff"-->
+    <!--android:text="关阀"/>-->
+    <!--</LinearLayout>-->
 
-            <!--</LinearLayout>-->
-        <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
     <!--</ScrollView>-->
 
     <!--<com.zfg.org.myexample.compent.WaterWaveProgress-->
-        <!--android:id="@+id/waterWaveProgress1"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="336dp"-->
-        <!--android:layout_gravity="center_vertical"-->
-        <!--android:layout_marginLeft="30dp"-->
-        <!--android:layout_marginRight="30dp"-->
-        <!--app:maxProgress="100"-->
-        <!--app:progress="15"-->
-        <!--android:visibility="gone"/>-->
+    <!--android:id="@+id/waterWaveProgress1"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="336dp"-->
+    <!--android:layout_gravity="center_vertical"-->
+    <!--android:layout_marginLeft="30dp"-->
+    <!--android:layout_marginRight="30dp"-->
+    <!--app:maxProgress="100"-->
+    <!--app:progress="15"-->
+    <!--android:visibility="gone"/>-->
 
     <!--<LinearLayout-->
-        <!--android:id="@+id/recLayout"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="fill_parent"-->
-        <!--android:gravity="bottom"-->
-        <!--android:orientation="vertical"-->
-        <!--android:visibility="gone">-->
+    <!--android:id="@+id/recLayout"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="fill_parent"-->
+    <!--android:gravity="bottom"-->
+    <!--android:orientation="vertical"-->
+    <!--android:visibility="gone">-->
 
-        <!--<RelativeLayout-->
-            <!--style="@style/page_title"-->
-            <!--android:layout_width="fill_parent">-->
+    <!--<RelativeLayout-->
+    <!--style="@style/page_title"-->
+    <!--android:layout_width="fill_parent">-->
 
-            <!--<TextView-->
-                <!--android:id="@+id/textView4"-->
-                <!--style="@style/page_bottom_str"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_centerInParent="true"-->
-                <!--android:text="Copyright@2016 宁夏隆基宁光仪表股份有限公司.All Right Reserved" />-->
-        <!--</RelativeLayout>-->
+    <!--<TextView-->
+    <!--android:id="@+id/textView4"-->
+    <!--style="@style/page_bottom_str"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:text="Copyright@2016 宁夏隆基宁光仪表股份有限公司.All Right Reserved" />-->
+    <!--</RelativeLayout>-->
     <!--</LinearLayout>-->
 </LinearLayout>

@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zfg.org.myexample.R;
@@ -24,11 +26,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 /**
- * Created by Administrator on 2016-11-21.
+ * Copyright © 2018 LJNG All rights reserved.
+ *
+ * Name：ReadingTaskActivity
+ * Describe：任务查询
+ * Date：2018-04-25 17:33:13
+ * Author: CapRobin@yeah.net
+ *
  */
-
 public class ReadingTaskActivity extends BasicActivity implements View.OnClickListener {
 
 //    @ViewInject(id = R.id.back_btn)
@@ -40,6 +46,10 @@ public class ReadingTaskActivity extends BasicActivity implements View.OnClickLi
     private TextView pageTitle;
     @ViewInject(id = R.id.settingBtn)
     private ImageView settingBtn;
+    @ViewInject(id = R.id.failLaout)
+    private RelativeLayout failLaout;
+    @ViewInject(id = R.id.queryTaskListLayout)
+    private LinearLayout queryTaskListLayout;
 
     @ViewInject(id = R.id.itemlist)
     private ListView itemlist;
@@ -126,6 +136,14 @@ public class ReadingTaskActivity extends BasicActivity implements View.OnClickLi
 //                                    ReadingTaskdata.add(dto);
 //                                }
                             }
+                            if (ReadingTaskdata.size() > 0){
+                                failLaout.setVisibility(View.GONE);
+                                queryTaskListLayout.setVisibility(View.VISIBLE);
+                            }else {
+                                failLaout.setVisibility(View.VISIBLE);
+                                queryTaskListLayout.setVisibility(View.GONE);
+                            }
+                            //设置加载失败提示
                             itemlist.setAdapter(readingTaskAdapter);
                             readingTaskAdapter.notifyDataSetChanged();
                         }
