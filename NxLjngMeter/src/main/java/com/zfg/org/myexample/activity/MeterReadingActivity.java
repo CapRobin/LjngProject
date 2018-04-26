@@ -188,6 +188,7 @@ public class MeterReadingActivity extends MyBaseActivity {
                 } else {
                     setToast("请先选择抄表项目！");
                 }
+
                 break;
             case R.id.startSearch:
                 if (CheckUtil.isNull(cbxmEdit.getText())) {
