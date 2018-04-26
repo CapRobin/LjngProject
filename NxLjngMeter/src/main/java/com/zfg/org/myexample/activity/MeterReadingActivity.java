@@ -499,7 +499,7 @@ public class MeterReadingActivity extends MyBaseActivity {
                     //打开第二个View
 
 //                    locationAdapter.notifyDataSetChanged();
-                    int getHeight = MethodUtil.dip2px(this, getListData.size() * 60);
+                    int getHeight = MethodUtil.dip2px(this, getListData.size() * 100);
                     MethodUtil.animateOpen(cxbhHideView, getHeight, 900);
                     cxbhEdit.clearFocus();
                 } else {

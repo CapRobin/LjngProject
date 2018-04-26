@@ -10,16 +10,14 @@
         layout="@layout/block_header" />
 
 
-
-
     <!--<LinearLayout-->
-        <!--android:id="@+id/mAllView"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:orientation="vertical">-->
+    <!--android:id="@+id/mAllView"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical">-->
 
 
-        <!--查询页面隐藏内容-->
+    <!--查询页面隐藏内容-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -35,6 +33,10 @@
             android:fadingEdge="none"
             android:fastScrollEnabled="false"
             android:listSelector="@color/transparent"
+            android:overScrollFooter="@android:color/transparent"
+            android:overScrollHeader="@android:color/transparent"
+            android:overScrollMode="never"
+            android:scrollbars="none"
             android:scrollingCache="false"
             android:visibility="gone" />
 
@@ -49,8 +51,8 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_marginTop="20dp"
-            android:focusable="true"
             android:background="@color/white"
+            android:focusable="true"
             android:focusableInTouchMode="true"
             android:orientation="vertical">
 
@@ -89,8 +91,7 @@
                         android:paddingLeft="5dp"
                         android:singleLine="true"
                         android:textColor="@color/black"
-                        android:textSize="15sp">
-                    </EditText>
+                        android:textSize="15sp"></EditText>
                 </RelativeLayout>
 
                 <!--抄表项目隐藏内容-->
@@ -181,7 +182,11 @@
                         android:cacheColorHint="#00000000"
                         android:dividerHeight="0.8dip"
                         android:fadingEdge="none"
-                        android:listSelector="@color/transparent" />
+                        android:listSelector="@color/transparent"
+                        android:overScrollFooter="@android:color/transparent"
+                        android:overScrollHeader="@android:color/transparent"
+                        android:overScrollMode="never"
+                        android:scrollbars="none" />
 
                     <!--<com.zfg.org.myexample.adapter.NoScrollGridView-->
                     <!--android:id="@+id/cxbhInnerView"-->

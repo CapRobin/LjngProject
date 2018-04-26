@@ -261,6 +261,10 @@
                         android:fadingEdge="none"
                         android:fastScrollEnabled="false"
                         android:listSelector="@color/transparent"
+                        android:overScrollFooter="@android:color/transparent"
+                        android:overScrollHeader="@android:color/transparent"
+                        android:overScrollMode="never"
+                        android:scrollbars="none"
                         android:scrollingCache="false" />
                 </LinearLayout>
             </ScrollView>

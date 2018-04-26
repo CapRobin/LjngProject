@@ -57,6 +57,8 @@ import android.util.Log;
 
 //import com.zfg.org.myexample.utils.okhttp.OkHttpUtils;
 
+import com.zfg.org.myexample.application.AppApplication;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
@@ -78,6 +80,7 @@ public class HttpServiceUtil {
 
     private static int REQUEST_MAX_TIME = 60000;
     private static int RESPONSE_MAX_TIME = 60000;
+    private AppApplication mApplication;
 
     // 网络图片下载
     private static final int IO_BUFFER_SIZE = 8 * 1024;
@@ -210,6 +213,7 @@ public class HttpServiceUtil {
             int status = response.getStatusLine().getStatusCode();
             if (status == HttpStatus.SC_OK) {
                 String strResult = EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
+                Log.v("接口数据：", "---->>\r\n用户类型：" + String.valueOf(AppApplication.userType) + "\r\n" + "请求地址：" + url + "\r\n" + "请求参数：" + value + "\r\n" + "返回数据：" + strResult + "\r\n-------------------------------------------------------->>");
                 builder.append(strResult);
             } else {
                 builder.append("");
@@ -283,9 +287,9 @@ public class HttpServiceUtil {
                     result = (String) params.get("update_test");
                 } else if (params.get("electricity") != null) {
                     result = (String) params.get("electricity");
-                }else if (params.get("hisele") != null) {
+                } else if (params.get("hisele") != null) {
                     result = (String) params.get("hisele");
-                }else if (params.get("hiseleoptionmeter") != null) {
+                } else if (params.get("hiseleoptionmeter") != null) {
                     result = (String) params.get("hiseleoptionmeter");
                 }
                 final String content = result;
@@ -373,7 +377,6 @@ public class HttpServiceUtil {
                         callback.callback(statusFinal);
                     }
                 }, 500);
-
 
 
             }

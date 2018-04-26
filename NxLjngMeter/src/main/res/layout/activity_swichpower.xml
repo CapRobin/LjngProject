@@ -83,6 +83,10 @@
                         android:cacheColorHint="#00000000"
                         android:dividerHeight="0.8dip"
                         android:fadingEdge="none"
+                        android:overScrollFooter="@android:color/transparent"
+                        android:overScrollHeader="@android:color/transparent"
+                        android:overScrollMode="never"
+                        android:scrollbars="none"
                         android:listSelector="@color/transparent" />
                 </LinearLayout>
             </LinearLayout>

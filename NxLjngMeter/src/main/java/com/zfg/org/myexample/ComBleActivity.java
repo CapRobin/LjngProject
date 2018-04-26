@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -143,14 +144,14 @@ public class ComBleActivity extends BasicActivity implements View.OnClickListene
     @ViewInject(id = R.id.read_btn)
     private Button readBtn;
 
-    @ViewInject(id = R.id.fraq_values)
-    private RelativeLayout fraq_value;
+    @ViewInject(id = R.id.txplLaout)
+    private LinearLayout fraq_value;
 
-    @ViewInject(id = R.id.command_select)
-    private RelativeLayout command_select;
+    @ViewInject(id = R.id.czxmLaout)
+    private LinearLayout command_select;
 
-    @ViewInject(id = R.id.meter_groupcharge)//编程数据的输入界面
-    private RelativeLayout meter_groupcharge;
+    @ViewInject(id = R.id.bcsjLaout)//编程数据的输入界面
+    private LinearLayout meter_groupcharge;
 
     @ViewInject(id = R.id.meter_charge)
     private EditText meter_charge;
@@ -227,7 +228,6 @@ public class ComBleActivity extends BasicActivity implements View.OnClickListene
     private List<BleDataModel> bledata;
 
     private EditText set_fraq_value;//频率输入框
-
     private boolean stopFlag;//停止标志
     public static String setfraqvalueValue = "";
 
@@ -283,8 +283,6 @@ public class ComBleActivity extends BasicActivity implements View.OnClickListene
         registerReceiver(mGattUpdateReceiver, Utils.makeGattUpdateIntentFilter());
         prepareBroadcastDataNotify(notifyCharacteristic);
         this.stopFlag = true;//停止标志置为ture 禁止接收数据
-
-
     }
 
 
@@ -496,7 +494,7 @@ public class ComBleActivity extends BasicActivity implements View.OnClickListene
                 break;
             /*频率设置*/
             case R.id.set_fraq_value:
-            case R.id.fraq_values:
+            case R.id.txplLaout:
                 //   if (listDialog == null) {
                 setfraqvalueValue = "";
                 optionflag = "setParameters";
@@ -520,7 +518,7 @@ public class ComBleActivity extends BasicActivity implements View.OnClickListene
                 listDialog.show();
                 //  setfraqvalue.setText(setfraqvalueValue);
                 break;
-            case R.id.meter_groupcharge:
+            case R.id.bcsjLaout:
             case R.id.meter_charge:
                 if (listDialog == null)
                     listDialog = new CheckListDialog(activity);
@@ -539,8 +537,7 @@ public class ComBleActivity extends BasicActivity implements View.OnClickListene
                 listDialog.show();
                 //    meter_charge.setText(setfraqvalueValue);
                 break;
-            case R.id.set_command_select:
-            case R.id.command_select:
+            case R.id.czxmLaout:
                 if (checkListCommandDialog == null) {
                     checkListCommandDialog = new CheckListCommandDialog(activity);
                     checkListCommandDialog.setCall(new CheckListCommandDialog.CallBack() {

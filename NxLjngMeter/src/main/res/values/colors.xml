@@ -257,5 +257,6 @@
     <color name="color_af0000">#af0000</color>
     <color name="color_bg_e0">#e0e0e0</color>
     <color name="color_999">#999999</color>
+    <color name="dialog_select_bg">#FFD4D3D3</color>
 
 </resources>

@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 
 import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.ViewInject;
+import com.zfg.org.myexample.application.AppApplication;
 import com.zfg.org.myexample.utils.Config;
 import com.zfg.org.myexample.utils.ContantsUtil;
 import com.zfg.org.myexample.utils.Preference;
@@ -51,6 +52,7 @@ public class BasicActivity extends FragmentActivity implements OnGestureListener
 	protected int userType = 0;
 	protected Preference preference;
 	protected MyBroadcast myBroadcast;
+	private AppApplication mApplication;
 	private long lastTiem = 0;
 
 	//读取本地测试数据开关
@@ -76,6 +78,9 @@ public class BasicActivity extends FragmentActivity implements OnGestureListener
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		mApplication = (AppApplication)getApplication();
+		preference = Preference.instance(context);
+		userType = preference.getInt(Preference.USERTYPE);
 		initStatusBarStyle();
 		context = this;
 		DisplayMetrics dm = new DisplayMetrics();
@@ -94,7 +99,6 @@ public class BasicActivity extends FragmentActivity implements OnGestureListener
 	protected void onStart(){
 		super.onStart();
 		if(Config.canUpdate()){
-			Preference preference = Preference.instance(context);
 			if (preference.getBoolean(Preference.HAS_UPDATE)) {
 				Intent playAlarm = new Intent(ContantsUtil.SYCN_DATA);
 				playAlarm.putExtra("state", true);

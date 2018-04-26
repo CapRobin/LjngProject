@@ -618,6 +618,7 @@ public class RecordsQueryActivity extends MyBaseActivity implements OnTouchListe
                 jsobj.put("meterAddr", meteraNum);
                 jsobj.put("bdate", startTimetEdit.getText().toString());
                 jsobj.put("edate", endTimeEdit.getText().toString());
+                jsobj.put("userName", preference.getString(Preference.CACHE_USER));
             } catch (JSONException ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             }
@@ -722,7 +723,7 @@ public class RecordsQueryActivity extends MyBaseActivity implements OnTouchListe
                     //关闭第一个View
                     MethodUtil.animateClose(typeHideView);
                     //打开第二个View
-                    int getHeight = MethodUtil.dip2px(this, meterinfos.size() * 60);
+                    int getHeight = MethodUtil.dip2px(this, meterinfos.size() * 100);
                     MethodUtil.animateOpen(numberHideView, getHeight, 700);
                 } else {
                     //关闭第二个View

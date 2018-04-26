@@ -323,7 +323,7 @@ public class RechargeActivity extends BasicActivity implements View.OnClickListe
         if (View.GONE == cxbhHideView.getVisibility()) {
             meterAddr.clearFocus();
             rechargemoney.clearFocus();
-            int getHeight = MethodUtil.dip2px(this, meterinfos.size() * 60);
+            int getHeight = MethodUtil.dip2px(this, meterinfos.size() * 100);
             MethodUtil.animateOpen(cxbhHideView, getHeight, 900);
             selectSumLayout.setVisibility(View.GONE);
         } else {

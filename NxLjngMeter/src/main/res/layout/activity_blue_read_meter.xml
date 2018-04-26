@@ -10,12 +10,12 @@
         layout="@layout/block_header" />
 
 
-
     <ListView
         android:id="@+id/devicelist"
-        android:layout_below="@+id/bolck_titlebar"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_below="@+id/bolck_titlebar"
+        android:layout_marginBottom="100dp"
         android:cacheColorHint="#00000000"
         android:descendantFocusability="blocksDescendants"
         android:divider="@color/gary"
@@ -23,7 +23,10 @@
         android:fadingEdge="none"
         android:fastScrollEnabled="false"
         android:listSelector="@color/transparent"
-        android:layout_marginBottom="100dp"
+        android:overScrollFooter="@android:color/transparent"
+        android:overScrollHeader="@android:color/transparent"
+        android:overScrollMode="never"
+        android:scrollbars="none"
         android:scrollingCache="false" />
 
     <Button
@@ -31,12 +34,12 @@
         android:layout_width="fill_parent"
         android:layout_height="34dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/selector_btn"
         android:padding="2dip"
         android:text="立即扫描"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="30dp"
         android:textColor="#2e2e2e"
         android:textSize="20sp" />
 </RelativeLayout>

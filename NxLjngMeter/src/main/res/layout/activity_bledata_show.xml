@@ -2,18 +2,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/container"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
     <LinearLayout
         style="@style/content"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <RelativeLayout
             style="@style/page_title"
-            android:layout_width="fill_parent" >
+            android:layout_width="fill_parent">
 
             <TextView
                 android:id="@+id/title"
@@ -25,19 +24,24 @@
             <!--android:text="@string/choose"-->
         </RelativeLayout>
 
-            <ListView
-                android:id="@+id/bleDataList"
-                android:layout_width="fill_parent"
-                android:layout_height="0dip"
-                android:layout_weight="1"
-                android:cacheColorHint="#00000000"
-                android:descendantFocusability="blocksDescendants"
-                android:divider="@mipmap/divider"
-                android:dividerHeight="0.8dip"
-                android:fadingEdge="none"
-                android:fastScrollEnabled="false"
-                android:listSelector="@drawable/listview_selector"
-                android:scrollingCache="false" />
+        <ListView
+            android:id="@+id/bleDataList"
+            android:layout_width="fill_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:cacheColorHint="#00000000"
+            android:descendantFocusability="blocksDescendants"
+            android:divider="@mipmap/divider"
+            android:dividerHeight="0.8dip"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="false"
+            android:listSelector="@drawable/listview_selector"
+            android:overScrollFooter="@android:color/transparent"
+            android:overScrollHeader="@android:color/transparent"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            android:scrollingCache="false" />
+
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dip"

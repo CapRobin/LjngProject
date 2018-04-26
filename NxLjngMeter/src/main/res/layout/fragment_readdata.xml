@@ -38,8 +38,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                android:background="@null"
                 android:layout_weight="1"
+                android:background="@null"
                 android:entries="@array/meters"></Spinner>
 
             <TextView
@@ -215,6 +215,10 @@
                 android:fadingEdge="none"
                 android:fastScrollEnabled="false"
                 android:listSelector="@color/transparent"
+                android:overScrollFooter="@android:color/transparent"
+                android:overScrollHeader="@android:color/transparent"
+                android:overScrollMode="never"
+                android:scrollbars="none"
                 android:scrollingCache="false" />
 
         </LinearLayout>

@@ -22,6 +22,7 @@ import com.zfg.org.myexample.utils.HttpServiceUtil;
 public class AppApplication extends DbApplication {
 
 	private Preference preference;
+	public static int userType;
 
 	public void onCreate() {
 		super.onCreate();

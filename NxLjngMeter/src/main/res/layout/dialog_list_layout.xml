@@ -3,17 +3,17 @@
     android:id="@+id/container"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:padding="13dip" >
+    android:padding="13dip">
 
     <LinearLayout
         style="@style/content"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <RelativeLayout
             style="@style/page_title"
-            android:layout_width="fill_parent" >
+            android:layout_width="fill_parent">
 
             <TextView
                 android:id="@+id/title"
@@ -21,8 +21,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="选择"/>
-                <!--android:text="@string/choose" -->
+                android:text="选择" />
+            <!--android:text="@string/choose" -->
         </RelativeLayout>
 
         <ListView
@@ -36,6 +36,10 @@
             android:fadingEdge="none"
             android:fastScrollEnabled="false"
             android:listSelector="@drawable/listview_selector"
+            android:overScrollFooter="@android:color/transparent"
+            android:overScrollHeader="@android:color/transparent"
+            android:overScrollMode="never"
+            android:scrollbars="none"
             android:scrollingCache="false" />
     </LinearLayout>
 

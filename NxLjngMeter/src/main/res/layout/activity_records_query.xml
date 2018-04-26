@@ -10,8 +10,6 @@
         layout="@layout/block_header" />
 
 
-
-
     <!--<LinearLayout-->
     <!--android:id="@+id/mAllView"-->
     <!--android:layout_width="match_parent"-->
@@ -35,6 +33,10 @@
             android:fadingEdge="none"
             android:fastScrollEnabled="false"
             android:listSelector="@color/transparent"
+            android:overScrollFooter="@android:color/transparent"
+            android:overScrollHeader="@android:color/transparent"
+            android:overScrollMode="never"
+            android:scrollbars="none"
             android:scrollingCache="false"
             android:visibility="gone" />
 
@@ -50,19 +52,24 @@
             android:fadingEdge="none"
             android:fastScrollEnabled="false"
             android:listSelector="@color/transparent"
-            android:visibility="gone"
-            android:scrollingCache="false" />
+            android:overScrollFooter="@android:color/transparent"
+            android:overScrollHeader="@android:color/transparent"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            android:scrollingCache="false"
+            android:visibility="gone" />
 
         <RelativeLayout
             android:id="@+id/settingView"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_marginTop="20dp"
             android:layout_margin="20dp"
-            android:focusable="true"
+            android:layout_marginTop="20dp"
             android:background="@color/white"
+            android:focusable="true"
             android:focusableInTouchMode="true"
             android:orientation="vertical">
+
             <LinearLayout
                 android:id="@+id/typeAllView"
                 android:layout_width="fill_parent"
@@ -89,12 +96,12 @@
                         android:id="@+id/queryTypeEdit"
                         android:layout_width="fill_parent"
                         android:layout_height="30dp"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="10dip"
                         android:layout_toRightOf="@+id/queryTypeText"
                         android:background="@drawable/t_login_layout_editor_bg"
                         android:editable="false"
                         android:hint="请选择查询类型"
-                        android:layout_centerVertical="true"
                         android:paddingLeft="5dp"
                         android:singleLine="true"
                         android:textColor="@color/black"
@@ -128,8 +135,8 @@
                 android:id="@+id/numberAllView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:layout_below="@+id/typeAllView"
+                android:layout_marginTop="15dp"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -150,11 +157,11 @@
                         android:id="@+id/queryNumEdit"
                         android:layout_width="fill_parent"
                         android:layout_height="30dp"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="10dip"
                         android:layout_toRightOf="@+id/queryNumText"
                         android:background="@drawable/t_login_layout_editor_bg"
                         android:hint="请输入查询表号"
-                        android:layout_centerVertical="true"
                         android:paddingLeft="5dp"
                         android:singleLine="true"
                         android:textColor="@color/black"
@@ -190,32 +197,36 @@
                         android:cacheColorHint="#00000000"
                         android:dividerHeight="0.8dip"
                         android:fadingEdge="none"
-                        android:listSelector="@color/transparent" />
+                        android:listSelector="@color/transparent"
+                        android:overScrollFooter="@android:color/transparent"
+                        android:overScrollHeader="@android:color/transparent"
+                        android:overScrollMode="never"
+                        android:scrollbars="none" />
                 </LinearLayout>
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
-                android:layout_below="@+id/numberAllView"
                 android:id="@+id/meterInfoList"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:visibility="gone"
+                android:layout_below="@+id/numberAllView"
                 android:background="@drawable/test_01"
                 android:cacheColorHint="#00000000"
                 android:dividerHeight="0.8dip"
                 android:fadingEdge="none"
                 android:listSelector="@color/transparent"
-                android:paddingTop="15dp"
+                android:paddingBottom="3dp"
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
-                android:paddingBottom="3dp"/>
+                android:paddingTop="15dp"
+                android:visibility="gone" />
 
             <RelativeLayout
                 android:id="@+id/cbxmAllView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:layout_below="@+id/meterInfoList"
+                android:layout_marginTop="15dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -232,12 +243,12 @@
                     android:id="@+id/starTimetEdit"
                     android:layout_width="fill_parent"
                     android:layout_height="30dp"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="10dip"
                     android:layout_toRightOf="@+id/startTimeText"
                     android:background="@drawable/t_login_layout_editor_bg"
                     android:editable="false"
                     android:hint="请选择起始时间"
-                    android:layout_centerVertical="true"
                     android:paddingLeft="5dp"
                     android:singleLine="true"
                     android:textColor="@color/black"
@@ -249,9 +260,9 @@
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:layout_below="@+id/cbxmAllView"
                 android:layout_marginBottom="40dp"
+                android:layout_marginTop="15dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -268,8 +279,8 @@
                     android:id="@+id/endTimeEdit"
                     android:layout_width="fill_parent"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="10dip"
                     android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dip"
                     android:layout_toRightOf="@+id/endTimeText"
                     android:background="@drawable/t_login_layout_editor_bg"
                     android:editable="false"
@@ -287,10 +298,10 @@
                 android:layout_width="fill_parent"
                 android:layout_height="42dp"
                 android:layout_alignParentBottom="true"
+                android:layout_marginBottom="40dp"
                 android:background="@drawable/selector_bg"
                 android:padding="2dip"
                 android:text="查    询"
-                android:layout_marginBottom="40dp"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 

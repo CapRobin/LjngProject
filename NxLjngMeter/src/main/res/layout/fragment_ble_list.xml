@@ -3,12 +3,12 @@
     style="@style/content"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <RelativeLayout
         style="@style/page_title"
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/page_title_height" >
+        android:layout_height="@dimen/page_title_height">
 
         <Button
             android:id="@+id/back_btn"
@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:background="@null"
-            android:text="@string/back_btn"/>
+            android:text="@string/back_btn" />
 
         <TextView
             android:id="@+id/activity_set_title"
@@ -26,12 +26,13 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:text="@string/test_equip" />
-        
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
+
             <Button
                 android:id="@+id/serch_btn"
                 style="@style/button_style"
@@ -64,7 +65,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <ToggleButton
             android:id="@+id/tbtnSwitch"
@@ -87,19 +88,23 @@
         android:fadingEdge="none"
         android:fastScrollEnabled="false"
         android:listSelector="@drawable/listview_selector"
+        android:overScrollFooter="@android:color/transparent"
+        android:overScrollHeader="@android:color/transparent"
+        android:overScrollMode="never"
+        android:scrollbars="none"
         android:scrollingCache="false" />
-       
+
     <ProgressBar
-            android:id="@+id/loading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:indeterminateDrawable="@anim/anim_loading"
-            android:indeterminateDuration="3500"
-            android:maxHeight="48dp"
-            android:maxWidth="48dp"
-            android:minHeight="48dp"
-            android:minWidth="48dp" />
-    
-    
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminateDrawable="@anim/anim_loading"
+        android:indeterminateDuration="3500"
+        android:maxHeight="48dp"
+        android:maxWidth="48dp"
+        android:minHeight="48dp"
+        android:minWidth="48dp" />
+
+
 </LinearLayout>

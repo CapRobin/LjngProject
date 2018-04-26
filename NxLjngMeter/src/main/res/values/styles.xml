@@ -177,7 +177,7 @@
 
     <style name="page_title">
         <item name="android:layout_height">@dimen/page_title_height</item>
-        <!--<item name="android:background">@color/page_title_color</item>-->
+        <item name="android:background">@color/page_title_color</item>
     </style>
 
     <style name="item_content_munu">

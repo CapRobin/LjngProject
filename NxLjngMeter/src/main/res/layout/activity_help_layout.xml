@@ -3,7 +3,7 @@
     style="@style/ee_content"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <include
         android:id="@+id/bolck_titlebar"
@@ -20,6 +20,10 @@
         android:fadingEdge="none"
         android:fastScrollEnabled="false"
         android:listSelector="@color/transparent"
-        android:scrollingCache="false"/>
+        android:overScrollFooter="@android:color/transparent"
+        android:overScrollHeader="@android:color/transparent"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:scrollingCache="false" />
 
 </LinearLayout>

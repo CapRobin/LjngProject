@@ -39,6 +39,7 @@ import com.zfg.org.myexample.SoftKeyBoardSatusView.SoftkeyBoardListener;
 import com.zfg.org.myexample.SystemAPI;
 import com.zfg.org.myexample.ViewInject;
 import com.zfg.org.myexample.adapter.DialogAdapt;
+import com.zfg.org.myexample.application.AppApplication;
 import com.zfg.org.myexample.db.MeterInfoBo;
 import com.zfg.org.myexample.db.UserBo;
 import com.zfg.org.myexample.db.UserInfoBo;
@@ -311,10 +312,12 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
 
                         //气表外网测试地址
 //                        ContantsUtil.setHOst("http://:222.75.144.94:6608/lggmr");
-                        nameEditText.setText("ng1");
-                        pswEditText.setText("1");
+//                        nameEditText.setText("ng1");
+//                        pswEditText.setText("1");
 //                        nameEditText.setText("wangtong");
 //                        pswEditText.setText("123456");
+                        nameEditText.setText("loragas");
+                        pswEditText.setText("123456");
                         userTypeEdit.setText("气表");
                         userType = 3;
                         break;
@@ -330,6 +333,7 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                 }
                 //本地存储用户类型
                 preference.putInt(Preference.USERTYPE, userType);
+                AppApplication.userType = userType;
 
                 if (alertDialog != null) {
                     alertDialog.dismiss();

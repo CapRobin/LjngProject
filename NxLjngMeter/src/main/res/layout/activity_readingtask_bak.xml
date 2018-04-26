@@ -3,11 +3,11 @@
     style="@style/content"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <RelativeLayout
         style="@style/page_title"
-        android:layout_width="fill_parent" >
+        android:layout_width="fill_parent">
 
         <Button
             android:id="@+id/back_btn"
@@ -51,6 +51,10 @@
                 android:fadingEdge="none"
                 android:fastScrollEnabled="false"
                 android:listSelector="@color/transparent"
+                android:overScrollFooter="@android:color/transparent"
+                android:overScrollHeader="@android:color/transparent"
+                android:overScrollMode="never"
+                android:scrollbars="none"
                 android:scrollingCache="false" />
 
         </LinearLayout>

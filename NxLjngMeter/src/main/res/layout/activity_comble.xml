@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/ee_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
 
 
     <include
@@ -16,262 +16,600 @@
         android:layout_height="fill_parent"
         android:orientation="vertical">
 
-        <!--<RelativeLayout-->
-            <!--style="@style/page_title"-->
-            <!--android:layout_width="fill_parent">-->
-
-            <!--<Button-->
-                <!--android:id="@+id/back_btn"-->
-                <!--style="@style/back_button_style"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="fill_parent"-->
-                <!--android:layout_alignParentLeft="true"-->
-                <!--android:text="@string/back_btn" />-->
-
-            <!--<TextView-->
-                <!--style="@style/page_title_str"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_centerInParent="true"-->
-                <!--android:text="@string/name_comble" />-->
-
-            <!--<LinearLayout-->
-                <!--android:layout_width="70dp"-->
-                <!--android:layout_height="fill_parent"-->
-                <!--android:layout_alignParentRight="true">-->
-
-                <!--<Spinner-->
-                    <!--android:id="@+id/meter_type_select"-->
-                    <!--android:layout_width="50dp"-->
-                    <!--android:layout_height="50dp"-->
-                    <!--android:layout_alignParentLeft="true"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:background="@null"-->
-                    <!--android:entries="@array/meters">-->
-                <!--</Spinner>-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/text"-->
-                    <!--android:layout_width="fill_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_alignParentRight="true"-->
-                    <!--android:layout_gravity="center_vertical"-->
-                    <!--android:layout_marginRight="10dp"-->
-                    <!--android:layout_weight="6"-->
-                    <!--android:gravity="right"-->
-                    <!--android:text="▼"-->
-                    <!--android:textColor="@color/white" />-->
-            <!--</LinearLayout>-->
-        <!--</RelativeLayout>-->
-
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:id="@+id/login_edit_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/t_login_layout_editor_bg"
             android:orientation="vertical">
 
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dip"
-                android:background="@color/main_divider_line" />
 
-            <RelativeLayout
-                android:id="@+id/fraq_values"
-                style="@style/medicine_item"
-                android:layout_width="fill_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal">
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView2"
-                    style="@style/medicine_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="22dip"
-                    android:text="@string/device_ble_fraq" />
+                <LinearLayout
+                    android:id="@+id/txplLaout"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:text="通信频率："
+                        android:textColor="@android:color/black"
+                        android:textSize="17sp" />
 
-                <EditText
-                    android:id="@+id/set_fraq_value"
-                    style="@style/medicine_edittext"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="22dip"
-                    android:clickable="true"
-                    android:focusable="false"
-                    android:hint="@string/slect_hint"
-                    android:textColorHint="@color/hint_color" />
-
-                <!--<TextView-->
-                <!--android:id="@+id/day_nion"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_alignRight="@id/set_fraq"-->
-                <!--android:text="@string/mhz"-->
-                <!--android:textColor="@color/label_color"-->
-                <!--android:textSize="@dimen/text_size_13" />-->
-
-                <!--<Button-->
-                <!--android:id="@+id/set_fraq"-->
-                <!--style="@style/button_style"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="40dip"-->
-                <!--android:layout_gravity="center_horizontal"-->
-                <!--android:layout_marginTop="30dip"-->
-                <!--android:background="@drawable/target_btn_bg"-->
-                <!--android:text="@string/set_fraq" />-->
-
-            </RelativeLayout>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dip"
-                android:background="@color/main_divider_line" />
-
-            <RelativeLayout
-                android:id="@+id/command_select"
-                style="@style/medicine_item"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal">
+                    <EditText
+                        android:id="@+id/set_fraq_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:focusable="false"
+                        android:gravity="center_vertical"
+                        android:hint="@string/slect_hint"
+                        android:singleLine="true"
+                        android:textAlignment="textEnd"
+                        android:textSize="13dp"
+                        tools:ignore="RtlCompat" />
+                </LinearLayout>
 
 
-                <TextView
-                    android:id="@+id/textView3"
-                    style="@style/medicine_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="22dip"
-                    android:text="操作项" />
+                <!--通信频率隐藏内容-->
+                <LinearLayout
+                    android:id="@+id/txplInnerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/test_01"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
-                <EditText
-                    android:id="@+id/set_command_select"
-                    style="@style/medicine_edittext"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="22dip"
-                    android:clickable="true"
-                    android:focusable="false"
-                    android:hint="@string/slect_hint"
-                    android:textColorHint="@color/hint_color" />
+                    <ListView
+                        android:id="@+id/txplInnerList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:cacheColorHint="#00000000"
+                        android:dividerHeight="0.8dip"
+                        android:fadingEdge="none"
+                        android:listSelector="@color/transparent"
+                        android:overScrollFooter="@android:color/transparent"
+                        android:overScrollHeader="@android:color/transparent"
+                        android:overScrollMode="never"
+                        android:scrollbars="none" />
+                </LinearLayout>
 
 
-            </RelativeLayout>
-
+            </LinearLayout>
 
             <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dip"
-                android:background="@color/main_divider_line" />
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gary" />
 
-            <RelativeLayout
-                android:id="@+id/meter_addrs"
-                style="@style/medicine_item"
-                android:layout_width="fill_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal">
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/czxmLaout"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:text="操作项目："
+                        android:textColor="@android:color/black"
+                        android:textSize="17sp" />
+
+                    <EditText
+                        android:id="@+id/set_command_select"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:focusable="false"
+                        android:gravity="center_vertical"
+                        android:hint="@string/slect_hint"
+                        android:singleLine="true"
+                        android:textAlignment="textEnd"
+                        android:textSize="13dp"
+                        tools:ignore="RtlCompat" />
+                </LinearLayout>
+
+
+                <!--操作项目隐藏内容-->
+                <LinearLayout
+                    android:id="@+id/czxmInnerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/test_01"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ListView
+                        android:id="@+id/czxmInnerList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:cacheColorHint="#00000000"
+                        android:dividerHeight="0.8dip"
+                        android:fadingEdge="none"
+                        android:overScrollFooter="@android:color/transparent"
+                        android:overScrollHeader="@android:color/transparent"
+                        android:overScrollMode="never"
+                        android:scrollbars="none"
+                        android:listSelector="@color/transparent" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gary" />
+
+            <LinearLayout
+                android:id="@+id/ybdzLaout"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <TextView
-                    style="@style/medicine_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="22dip"
-                    android:text="@string/meter_addr" />
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:text="仪表地址："
+                    android:textColor="@android:color/black"
+                    android:textSize="17sp" />
 
                 <EditText
                     android:id="@+id/meter_addr"
-                    style="@style/medicine_edittext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="22dip"
-                    android:hint="@string/input_hint"
-                    android:inputType="numberSigned"
-                    android:textColorHint="@color/hint_color" />
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:hint="输入表号"
+                    android:singleLine="true"
+                    android:textAlignment="textEnd"
+                    android:textSize="13dp"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
 
-            </RelativeLayout>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dip"
-                android:background="@color/main_divider_line" />
-
-            <RelativeLayout
-                android:id="@+id/meter_groupcharge"
-                style="@style/medicine_item"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:visibility="gone">
-
-                <TextView
-                    style="@style/medicine_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="22dip"
-                    android:text="编程数据" />
-
-                <EditText
-                    android:id="@+id/meter_charge"
-                    style="@style/medicine_edittext"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="22dip"
-                    android:clickable="true"
-                    android:focusable="false"
-                    android:hint="点击选择"
-                    android:textColorHint="@color/hint_color" />
-
-            </RelativeLayout>
-
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dip"
-                android:background="@color/main_divider_line" />
-
-            <RelativeLayout
-                android:id="@+id/read_meters"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal">
-
-                <Button
-                    android:id="@+id/read_btn"
-                    style="@style/button_style"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dip"
-                    android:layout_gravity="center_horizontal"
-                    android:background="@drawable/target_btn_bg"
-                    android:text="@string/command_meter" />
-            </RelativeLayout>
-
-            <ScrollView
-                android:id="@+id/scroll"
+            <LinearLayout
+                android:id="@+id/bcsjLaout"
                 android:layout_width="match_parent"
-                android:layout_height="fill_parent"
-                android:fillViewport="true">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/gary" />
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="vertical">
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:text="编程数据："
+                        android:textColor="@android:color/black"
+                        android:textSize="17sp" />
+
+                    <EditText
+                        android:id="@+id/meter_charge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:focusable="false"
+                        android:gravity="center_vertical"
+                        android:hint="@string/slect_hint"
+                        android:singleLine="true"
+                        android:textAlignment="textEnd"
+                        android:textSize="13dp"
+                        tools:ignore="RtlCompat" />
+                </LinearLayout>
+
+
+                <!--编程数据隐藏内容-->
+                <LinearLayout
+                    android:id="@+id/bcsjInnerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/test_01"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <ListView
-                        android:id="@+id/itemlist"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
+                        android:id="@+id/bcsjInnerList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:cacheColorHint="#00000000"
-                        android:descendantFocusability="blocksDescendants"
-                        android:divider="@mipmap/divider"
                         android:dividerHeight="0.8dip"
                         android:fadingEdge="none"
-                        android:fastScrollEnabled="false"
-                        android:listSelector="@color/transparent"
-                        android:scrollingCache="false" />
+                        android:overScrollFooter="@android:color/transparent"
+                        android:overScrollHeader="@android:color/transparent"
+                        android:overScrollMode="never"
+                        android:scrollbars="none"
+                        android:listSelector="@color/transparent" />
                 </LinearLayout>
-            </ScrollView>
+            </LinearLayout>
         </LinearLayout>
+
+
+        <!--<LinearLayout-->
+        <!--android:id="@+id/cxbhAllView"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:layout_marginTop="25dp"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<RelativeLayout-->
+        <!--android:id="@+id/cxbhUnHideView"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content">-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/cxbhTitle"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:text="查询表号:"-->
+        <!--android:textColor="@color/black"-->
+        <!--android:textSize="20sp" />-->
+
+        <!--<EditText-->
+        <!--android:id="@+id/cxbhEdit"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:layout_marginLeft="5dip"-->
+        <!--android:layout_toRightOf="@+id/cxbhTitle"-->
+        <!--android:background="@drawable/t_login_layout_editor_bg"-->
+        <!--android:hint="请输入查询表号"-->
+        <!--android:paddingLeft="5dp"-->
+        <!--android:singleLine="true"-->
+        <!--android:textColor="@color/black"-->
+        <!--android:textSize="15sp">-->
+
+        <!--</EditText>-->
+
+        <!--<ImageView-->
+        <!--android:id="@+id/searchNum"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_marginRight="5dp"-->
+        <!--android:background="@drawable/search_meter" />-->
+        <!--</RelativeLayout>-->
+
+
+        <!--&lt;!&ndash;抄表表号隐藏内容&ndash;&gt;-->
+        <!--<LinearLayout-->
+        <!--android:id="@+id/cxbhHideView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="300dp"-->
+        <!--android:background="@drawable/test_01"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:orientation="vertical"-->
+        <!--android:visibility="gone">-->
+
+        <!--<ListView-->
+        <!--android:id="@+id/cxbhInnerView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:cacheColorHint="#00000000"-->
+        <!--android:dividerHeight="0.8dip"-->
+        <!--android:fadingEdge="none"-->
+        <!--android:listSelector="@color/transparent" />-->
+
+        <!--&lt;!&ndash;<android.support.v7.widget.RecyclerView&ndash;&gt;-->
+        <!--&lt;!&ndash;android:id="@+id/cxbhInnerView"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_marginTop="20dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="match_parent">&ndash;&gt;-->
+        <!--&lt;!&ndash;</android.support.v7.widget.RecyclerView>&ndash;&gt;-->
+        <!--</LinearLayout>-->
+        <!--</LinearLayout>-->
+
+
+        <!--<View-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="1dip"-->
+        <!--android:background="@color/main_divider_line" />-->
+
+        <!--<RelativeLayout-->
+        <!--android:id="@+id/fraq_values"-->
+        <!--style="@style/medicine_item"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center_horizontal">-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/textView2"-->
+        <!--style="@style/medicine_label"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_marginLeft="22dip"-->
+        <!--android:text="@string/device_ble_fraq" />-->
+
+
+        <!--<EditText-->
+        <!--android:id="@+id/set_fraq_value"-->
+        <!--style="@style/medicine_edittext"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginRight="22dip"-->
+        <!--android:clickable="true"-->
+        <!--android:focusable="false"-->
+        <!--android:hint="@string/slect_hint"-->
+        <!--android:textColorHint="@color/hint_color" />-->
+
+        <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+        <!--&lt;!&ndash;android:id="@+id/day_nion"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_alignRight="@id/set_fraq"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:text="@string/mhz"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:textColor="@color/label_color"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:textSize="@dimen/text_size_13" />&ndash;&gt;-->
+
+        <!--&lt;!&ndash;<Button&ndash;&gt;-->
+        <!--&lt;!&ndash;android:id="@+id/set_fraq"&ndash;&gt;-->
+        <!--&lt;!&ndash;style="@style/button_style"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="40dip"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_gravity="center_horizontal"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_marginTop="30dip"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:background="@drawable/target_btn_bg"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:text="@string/set_fraq" />&ndash;&gt;-->
+
+        <!--</RelativeLayout>-->
+
+        <!--<View-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="1dip"-->
+        <!--android:background="@color/main_divider_line" />-->
+
+        <!--<RelativeLayout-->
+        <!--android:id="@+id/command_select"-->
+        <!--style="@style/medicine_item"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center_horizontal">-->
+
+
+        <!--<TextView-->
+        <!--android:id="@+id/textView3"-->
+        <!--style="@style/medicine_label"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_marginLeft="22dip"-->
+        <!--android:text="操作项" />-->
+
+        <!--<EditText-->
+        <!--android:id="@+id/set_command_select"-->
+        <!--style="@style/medicine_edittext"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginRight="22dip"-->
+        <!--android:clickable="true"-->
+        <!--android:focusable="false"-->
+        <!--android:hint="@string/slect_hint"-->
+        <!--android:textColorHint="@color/hint_color" />-->
+
+
+        <!--</RelativeLayout>-->
+
+
+        <!--<View-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="1dip"-->
+        <!--android:background="@color/main_divider_line" />-->
+
+        <!--<RelativeLayout-->
+        <!--android:id="@+id/meter_addrs"-->
+        <!--style="@style/medicine_item"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center_horizontal">-->
+
+        <!--<TextView-->
+        <!--style="@style/medicine_label"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="22dip"-->
+        <!--android:text="@string/meter_addr" />-->
+
+        <!--<EditText-->
+        <!--android:id="@+id/meter_addr"-->
+        <!--style="@style/medicine_edittext"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginRight="22dip"-->
+        <!--android:hint="@string/input_hint"-->
+        <!--android:inputType="numberSigned"-->
+        <!--android:textColorHint="@color/hint_color" />-->
+
+        <!--</RelativeLayout>-->
+
+        <!--<View-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="1dip"-->
+        <!--android:background="@color/main_divider_line" />-->
+
+        <!--<RelativeLayout-->
+        <!--android:id="@+id/meter_groupcharge"-->
+        <!--style="@style/medicine_item"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:visibility="visible">-->
+
+        <!--<TextView-->
+        <!--style="@style/medicine_label"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="22dip"-->
+        <!--android:text="编程数据" />-->
+
+        <!--<EditText-->
+        <!--android:id="@+id/meter_charge"-->
+        <!--style="@style/medicine_edittext"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginRight="22dip"-->
+        <!--android:clickable="true"-->
+        <!--android:focusable="false"-->
+        <!--android:hint="点击选择"-->
+        <!--android:textColorHint="@color/hint_color" />-->
+
+        <!--</RelativeLayout>-->
+
+
+        <!--<View-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="1dip"-->
+        <!--android:background="@color/main_divider_line" />-->
+
+        <!--<RelativeLayout-->
+        <!--android:id="@+id/read_meters"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:gravity="center_horizontal">-->
+
+        <!--<Button-->
+        <!--android:id="@+id/read_btn"-->
+        <!--style="@style/button_style"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="40dip"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:background="@drawable/target_btn_bg"-->
+        <!--android:text="@string/command_meter" />-->
+        <!--</RelativeLayout>-->
+
+
+        <!--<ScrollView-->
+        <!--android:id="@+id/scroll"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--android:fillViewport="true">-->
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<ListView-->
+        <!--android:id="@+id/itemlist"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--android:cacheColorHint="#00000000"-->
+        <!--android:descendantFocusability="blocksDescendants"-->
+        <!--android:divider="@mipmap/divider"-->
+        <!--android:dividerHeight="0.8dip"-->
+        <!--android:fadingEdge="none"-->
+        <!--android:fastScrollEnabled="false"-->
+        <!--android:listSelector="@color/transparent"-->
+        <!--android:scrollingCache="false" />-->
+        <!--</LinearLayout>-->
+        <!--</ScrollView>-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/itemlist"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="80dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:cacheColorHint="#00000000"
+                android:descendantFocusability="blocksDescendants"
+                android:divider="@color/gray"
+                android:dividerHeight="0.1dip"
+                android:fadingEdge="none"
+                android:fastScrollEnabled="false"
+                android:listSelector="@color/transparent"
+                android:overScrollFooter="@android:color/transparent"
+                android:overScrollHeader="@android:color/transparent"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                android:scrollingCache="false" />
+
+            <Button
+                android:id="@+id/read_btn"
+                style="@style/button_style"
+                android:layout_width="match_parent"
+                android:layout_height="40dip"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/target_btn_bg"
+                android:text="@string/command_meter" />
+        </RelativeLayout>
+
+
     </LinearLayout>
 
 
