@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.activity.MBaseAdapter;
 import com.zfg.org.myexample.activity.RecordsQueryActivity;
+import com.zfg.org.myexample.application.AppApplication;
 import com.zfg.org.myexample.model.HisEleOption;
 
 import java.util.List;
@@ -63,8 +64,23 @@ public class HisEleOptionAdapter extends MBaseAdapter {
         }
         viewHolder.optionUserText.setText("操作员：" + dto.getUSER_ID());
         viewHolder.optionContentText.setText(dto.getACTION_KEY());
-        if(meterType == 4){
-            viewHolder.optionTypeText.setText("仪表类型：电表");
+//        if(meterType == 4){
+//            viewHolder.optionTypeText.setText("仪表类型：电表");
+//        }
+
+        switch (AppApplication.userType){
+            case 1:
+                viewHolder.optionTypeText.setText("仪表类型：水表");
+                break;
+            case 2:
+                viewHolder.optionTypeText.setText("仪表类型：电表");
+                break;
+            case 3:
+                viewHolder.optionTypeText.setText("仪表类型：气表");
+                break;
+            case 4:
+                viewHolder.optionTypeText.setText("仪表类型：热表");
+                break;
         }
         viewHolder.optionDateText.setText(dto.getOPERATE_TIME());
     }
