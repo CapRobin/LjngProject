@@ -1039,15 +1039,6 @@ public class ComBleActivity extends BasicActivity implements View.OnClickListene
     //蓝牙气表身份认证
     public void bluetoothauth() {
         try {
-            //水表和气表(1:水表；3:气表)身份验证
-//            if(userType == 3){
-//                ComBleActivity.MybluetoothauthThread t = new ComBleActivity.MybluetoothauthThread();
-//                new Thread(t).start();
-//            }else if(userType == 1){
-//                ComBleActivity.MyAutoWebThread t = new ComBleActivity.MyAutoWebThread();
-//                new Thread(t).start();
-//            }
-
             ComBleActivity.MybluetoothauthThread t = new ComBleActivity.MybluetoothauthThread();
             new Thread(t).start();
             // 创建一个子线程, 子线程发起 身份认证webservice
@@ -1091,8 +1082,8 @@ public class ComBleActivity extends BasicActivity implements View.OnClickListene
                         writeOption(str645Data);//发送命令
                         sendMsg(3, "身份认证成功！");
                     } else {
+                        sendMsg(4, "身份认证失败！");
                         return;
-                        ///此处需要通知界面身份认证失败 Toast.makeText(context, "身份认证失败!", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -202,7 +202,7 @@ public class MethodUtil {
             animator = createHeightAnimator(view, 0, view.getMeasuredHeight());
         } else if (height > 0 && height < maxHeight) {
             animator = createHeightAnimator(view, 0, height);
-        } else if (height > maxHeight) {
+        } else if (height >= maxHeight) {
             animator = createHeightAnimator(view, 0, maxHeight);
         }
         animator.start();

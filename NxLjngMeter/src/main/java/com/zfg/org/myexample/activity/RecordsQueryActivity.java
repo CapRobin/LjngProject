@@ -32,6 +32,7 @@ import com.zfg.org.myexample.SystemAPI;
 import com.zfg.org.myexample.ViewInject;
 import com.zfg.org.myexample.adapter.HisEleOptionAdapter;
 import com.zfg.org.myexample.adapter.HisEleReadMeterAdapter;
+import com.zfg.org.myexample.adapter.HisGasReadMeterAdapter;
 import com.zfg.org.myexample.adapter.HisWaterReadMeterAdapter;
 import com.zfg.org.myexample.adapter.MeterAllInfoAdapter;
 import com.zfg.org.myexample.adapter.NoScrollGridView;
@@ -40,14 +41,17 @@ import com.zfg.org.myexample.db.MeterInfoBo;
 import com.zfg.org.myexample.db.dao.MeterInfo;
 import com.zfg.org.myexample.model.HisEleOption;
 import com.zfg.org.myexample.model.HisEleReadMeter;
+import com.zfg.org.myexample.model.HisGasReadMeter;
 import com.zfg.org.myexample.model.HisWaterReadMeter;
 import com.zfg.org.myexample.model.MeterAllInfo;
+import com.zfg.org.myexample.model.ReadDataHisGasItemModel;
 import com.zfg.org.myexample.utils.CheckUtil;
 import com.zfg.org.myexample.utils.CommonUtil;
 import com.zfg.org.myexample.utils.HttpServiceUtil;
 import com.zfg.org.myexample.utils.MethodUtil;
 import com.zfg.org.myexample.utils.Preference;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -105,15 +109,19 @@ public class RecordsQueryActivity extends MyBaseActivity implements OnTouchListe
     private ListView eleRecordsQueryList;
     @ViewInject(id = R.id.recordsQueryList_water)
     private ListView waterRecordsQueryList;
+    @ViewInject(id = R.id.recordsQueryList_gas)
+    private ListView gasRecordsQueryList;
 
     private List<String> showListData1;
     private List<MeterAllInfo> getListData;
     private List<MeterAllInfo> newList;
     private List<HisEleReadMeter> eleHisReadMeterList;
     private List<HisWaterReadMeter> waterHisReadMeterList;
+    private List<HisGasReadMeter> gasHisReadMeterList;
     private List<HisEleOption> eleHisOptionList;
     private HisEleReadMeterAdapter mHisEleReadMeterAdapter;
     private HisWaterReadMeterAdapter mHisWaterReadMeterAdapter;
+    private HisGasReadMeterAdapter mHisGasReadMeterAdapter;
     private com.zfg.org.myexample.adapter.HisEleOptionAdapter HisEleOptionAdapter;
     private HttpServiceUtil.CallBack optionCallback;
     private HttpServiceUtil.CallBack readMeterCallback;
@@ -146,7 +154,7 @@ public class RecordsQueryActivity extends MyBaseActivity implements OnTouchListe
      * Return: void
      * Date：2018-04-25 13:07:54
      */
-    private void viewInit(){
+    private void viewInit() {
         preference = Preference.instance(context);
         userType = preference.getInt(Preference.USERTYPE);
         switch (userType) {
@@ -179,6 +187,7 @@ public class RecordsQueryActivity extends MyBaseActivity implements OnTouchListe
         settingView.setVisibility(View.VISIBLE);
         eleRecordsQueryList.setVisibility(View.GONE);
         waterRecordsQueryList.setVisibility(View.GONE);
+        gasRecordsQueryList.setVisibility(View.GONE);
 
         backHome.setOnClickListener(this);
         settingBtn.setOnClickListener(this);
@@ -420,15 +429,19 @@ public class RecordsQueryActivity extends MyBaseActivity implements OnTouchListe
                     settingView.setVisibility(View.VISIBLE);
                     eleRecordsQueryList.setVisibility(View.GONE);
                     waterRecordsQueryList.setVisibility(View.GONE);
+                    gasRecordsQueryList.setVisibility(View.GONE);
                 } else {
                     int eleCount = eleRecordsQueryList.getCount();
                     int waterCount = waterRecordsQueryList.getCount();
-                    if (eleCount > 0 || waterCount > 0) {
+                    int gasCount = gasRecordsQueryList.getCount();
+                    if (eleCount > 0 || waterCount > 0 || gasCount > 0) {
                         settingView.setVisibility(View.GONE);
                         if (eleCount > 0) {
                             eleRecordsQueryList.setVisibility(View.VISIBLE);
-                        } else {
+                        } else if (waterCount > 0) {
                             waterRecordsQueryList.setVisibility(View.VISIBLE);
+                        } else if (gasCount > 0) {
+                            gasRecordsQueryList.setVisibility(View.VISIBLE);
                         }
                     } else {
                         setToast("请先设置相关查询条件，再进行查询！");
@@ -592,7 +605,39 @@ public class RecordsQueryActivity extends MyBaseActivity implements OnTouchListe
 
                             } else if (meterType.equals("Gas")) {
                                 //气表抄表查询~~~~~~~~~~~~~
+                                String consuList = jsonObject.getString("consuList");
+                                GsonBuilder gsonB = new GsonBuilder();
+                                Gson gson = gsonB.create();
+                                gasHisReadMeterList = gson.fromJson(consuList, new TypeToken<ArrayList<HisGasReadMeter>>() {
+                                }.getType());
+
+                                if (gasHisReadMeterList != null || gasHisReadMeterList.size() > 0) {
+                                    settingView.setVisibility(View.GONE);
+                                    eleRecordsQueryList.setVisibility(View.GONE);
+                                    waterRecordsQueryList.setVisibility(View.GONE);
+                                    gasRecordsQueryList.setVisibility(View.VISIBLE);
+
+                                    mHisGasReadMeterAdapter = new HisGasReadMeterAdapter(context, gasHisReadMeterList, gasRecordsQueryList);
+                                    gasRecordsQueryList.setAdapter(mHisGasReadMeterAdapter);
+                                    mHisGasReadMeterAdapter.notifyDataSetChanged();
+                                    gasRecordsQueryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                            setToast("没有其他数据啦");
+                                        }
+                                    });
+                                } else {
+                                    //此处提示用户查询数据失败
+                                    setToast("获取数据失败，请重新尝试！");
+                                }
+
+
+                            } else {
+                                //热表抄表查询~~~~~~~~~~~~~
+
                             }
+                        }else if (jStatus.equals("-6")){
+                            setToast("该时间段内没有该表的抄表记录");
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

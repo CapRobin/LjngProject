@@ -59,6 +59,25 @@
             android:scrollingCache="false"
             android:visibility="gone" />
 
+
+        <ListView
+            android:id="@+id/recordsQueryList_gas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="#00000000"
+            android:descendantFocusability="blocksDescendants"
+            android:divider="@color/login_input_hint_color"
+            android:dividerHeight="0.8dip"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="false"
+            android:listSelector="@color/transparent"
+            android:overScrollFooter="@android:color/transparent"
+            android:overScrollHeader="@android:color/transparent"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            android:scrollingCache="false"
+            android:visibility="gone" />
+
         <RelativeLayout
             android:id="@+id/settingView"
             android:layout_width="fill_parent"

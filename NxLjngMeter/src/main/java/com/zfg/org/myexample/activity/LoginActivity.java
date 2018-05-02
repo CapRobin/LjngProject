@@ -269,7 +269,8 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                 switch (position) {
                     //水表用户Lora
                     case 0:
-                        ContantsUtil.setHOst("http://longi.nxlgg.com:8039/lggmr");
+//                        ContantsUtil.setHOst("http://longi.nxlgg.com:8039/lggmr");
+                        ContantsUtil.setHOst("http://longi.nxlgg.com:8084/lggmr");
 //                        ContantsUtil.setHOst( "http://192.168.0.46:8046/lggmr");
 //                        ContantsUtil.setHOst("http://longi.nxlgg.com:8084/lggmr");
 //                        ContantsUtil.setHOst("http://longi.nxlgg.com:8046/lggmr");
