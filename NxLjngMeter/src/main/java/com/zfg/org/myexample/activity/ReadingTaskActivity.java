@@ -114,6 +114,7 @@ public class ReadingTaskActivity extends BasicActivity implements View.OnClickLi
                 setDialogLabel("查询完成");
                 loading.dismiss();
 //                loading.hide();
+
                 // 解析json
                 if (json.length() > 3) {
                     try {
