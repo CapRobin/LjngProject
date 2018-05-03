@@ -514,6 +514,7 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
                 jsobj.put("userid", preference.getString(Preference.CACHE_USER));
             } catch (JSONException ex) {
                 Logger.getLogger(activity.getClass().getName()).log(Level.SEVERE, null, ex);
+
             }
 
 //          String jsobj="{\"name\":\"admin\",\"password\":\"admin\"}";
