@@ -12,7 +12,6 @@ public class TestActivity extends BasicActivity implements DashSpinner.OnDownloa
 
     float mnProgress = 0.0f;
     DashSpinner mDashSpinner = null;
-
     Handler mHandler = new Handler();
 
     //Run to 100% and then show Success
@@ -22,7 +21,7 @@ public class TestActivity extends BasicActivity implements DashSpinner.OnDownloa
             setProgress();
 
             //SUCCESS
-            if (mnProgress <= 1.0) mHandler.postDelayed(this, 500);
+            if (mnProgress <= 1.0) mHandler.postDelayed(this, 30);
             else mDashSpinner.showSuccess();
         }
     };

@@ -128,7 +128,9 @@ public class MyBaseActivity extends BasicActivity {
                             }
                             listadapter.notifyDataSetChanged();
                             mElectricityContent.setViewData();
-                        } else {
+                        } else if(jStatus.equals("-6")){
+                            setToast("该表号暂时没有实时数据！");
+                        } else{
                             Toast.makeText(context,"数据返回错误，请重新操作",Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {

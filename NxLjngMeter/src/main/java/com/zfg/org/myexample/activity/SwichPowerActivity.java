@@ -5,6 +5,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
@@ -25,6 +26,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.abysmel.dashspinner.DashSpinner;
 import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.SystemAPI;
 import com.zfg.org.myexample.ViewInject;
@@ -59,7 +61,7 @@ import java.util.logging.Logger;
  * Date：2018-04-02 18:56:17
  * Author: CapRobin@yeah.net
  */
-public class SwichPowerActivity extends BasicActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnDownloadIntimationListener, View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
     @ViewInject(id = R.id.backHome)
     private Button backHome;
@@ -103,8 +105,8 @@ public class SwichPowerActivity extends BasicActivity implements View.OnClickLis
     private LinearLayout eleLayout;
     private LinearLayout waterLayout;
 
-    @ViewInject(id = R.id.waterWaveProgress)
-    private WaterWaveProgress waveProgress;
+//    @ViewInject(id = R.id.waterWaveProgress)
+//    private WaterWaveProgress waveProgress;
     @ViewInject(id = R.id.openOrCloseBtn)
     private CheckBox openOrCloseBtn;
     private Drawable bg_a;
@@ -122,6 +124,48 @@ public class SwichPowerActivity extends BasicActivity implements View.OnClickLis
     @ViewInject(id = R.id.numberHideView)
     private LinearLayout numberHideView;
     private RcAdapterWholeChange recycleAdapter;
+
+
+
+
+
+    float mnProgress = 0.0f;
+    DashSpinner mDashSpinner = null;
+    Handler mHandler = new Handler();
+
+    //Run to 100% and then show Success
+    Runnable runnableSuccess = new Runnable() {
+        @Override
+        public void run() {
+            setProgress();
+
+            //SUCCESS
+            if (mnProgress <= 1.0) mHandler.postDelayed(this, 30);
+            else mDashSpinner.showSuccess();
+        }
+    };
+
+    //Run to 50% and show failure
+    Runnable runnableFailure = new Runnable() {
+        @Override
+        public void run() {
+            setProgress();
+            //FAILURE
+            if (mnProgress <= 0.5) mHandler.postDelayed(this, 30);
+            else mDashSpinner.showFailure();
+        }
+    };
+
+    //Show Unknown Error
+    Runnable runnableUnknown = new Runnable() {
+        @Override
+        public void run() {
+            //UNKNOWN
+            mDashSpinner.showUnknown();
+        }
+    };
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -141,10 +185,13 @@ public class SwichPowerActivity extends BasicActivity implements View.OnClickLis
 
         if(userType == 1|| userType == 3){
             eleLayout.setVisibility(View.GONE);
-            waterLayout.setVisibility(View.VISIBLE);
+//            waterLayout.setVisibility(View.VISIBLE);
             initCallBackWater();
-            waveProgress.setShowProgress(false);
-            waveProgress.animateWave();
+//            waveProgress.setShowProgress(false);
+//            waveProgress.animateWave();
+
+            mDashSpinner = (DashSpinner) findViewById(R.id.progress_spinner);
+            mDashSpinner.setOnDownloadIntimationListener(this);
         }else if(userType == 2){
             waterLayout.setVisibility(View.GONE);
             eleLayout.setVisibility(View.VISIBLE);
@@ -192,6 +239,9 @@ public class SwichPowerActivity extends BasicActivity implements View.OnClickLis
                     compoundButton.setChecked(!b);
                     return;
                 }
+
+
+                waterLayout.setVisibility(View.GONE);
                 if (b) {
                     swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 1);
 //                    openSwitch();
@@ -214,6 +264,17 @@ public class SwichPowerActivity extends BasicActivity implements View.OnClickLis
         setListener();
         //初始化时间控件
     }
+
+    private void setProgress() {
+        mnProgress += 0.01;
+        mDashSpinner.setProgress(mnProgress);
+    }
+
+
+
+
+
+
 
 
     /**
@@ -370,7 +431,7 @@ public class SwichPowerActivity extends BasicActivity implements View.OnClickLis
     private void popViewisShow() {
         if (View.GONE == numberHideView.getVisibility()) {
             meterAddr.clearFocus();
-            int getHeight = MethodUtil.dip2px(this, meterinfos.size() * 60);
+            int getHeight = MethodUtil.dip2px(this, meterinfos.size() * 100);
             MethodUtil.animateOpen(numberHideView, getHeight, 700);
         } else {
             //关闭第二个View
@@ -489,24 +550,42 @@ public class SwichPowerActivity extends BasicActivity implements View.OnClickLis
                         JSONObject jsonObject = new JSONObject(json);
                         String jStatus = jsonObject.getString("strBackFlag");
                         String actionFlag = jsonObject.getString("actionFlag");
+                        waterLayout.setVisibility(View.VISIBLE);
                         if (jStatus.equals("1") && actionFlag.equals("open")){
-                            Toast.makeText(context,"打开阀门成功",Toast.LENGTH_SHORT).show();
-                            waveProgress.setProgress(75);
+                            mDashSpinner.resetValues();
+                            mnProgress = 0.0f;
+                            mHandler.post(runnableSuccess);
+                            isOpen = true;
                         } else if (jStatus.equals("1") && actionFlag.equals("close")){
-                            Toast.makeText(context,"关闭阀门成功",Toast.LENGTH_SHORT).show();
-                            waveProgress.setProgress(0);
-                        } else
-                        if (jStatus.equals("-1")){
-                            Toast.makeText(context,"操作阀门失败",Toast.LENGTH_SHORT).show();
-                            waveProgress.setProgress(0);
-                        } else
-                        if (jStatus.equals("-5")){
-                            Toast.makeText(context,"该表地址不存在",Toast.LENGTH_SHORT).show();
-                            waveProgress.setProgress(0);
+                            mDashSpinner.resetValues();
+                            mnProgress = 0.0f;
+                            mHandler.post(runnableFailure);
+                            isOpen = false;
                         } else {
-                            Toast.makeText(context,"操作阀门失败",Toast.LENGTH_SHORT).show();
-                            waveProgress.setProgress(0);
+                            mDashSpinner.resetValues();
+                            mnProgress = 0.0f;
+                            mHandler.post(runnableUnknown);
+                            openOrCloseBtn.setChecked(isOpen);
                         }
+
+//                        if (jStatus.equals("1") && actionFlag.equals("open")){
+//                            Toast.makeText(context,"打开阀门成功",Toast.LENGTH_SHORT).show();
+//                            waveProgress.setProgress(75);
+//                        } else if (jStatus.equals("1") && actionFlag.equals("close")){
+//                            Toast.makeText(context,"关闭阀门成功",Toast.LENGTH_SHORT).show();
+//                            waveProgress.setProgress(0);
+//                        } else
+//                        if (jStatus.equals("-1")){
+//                            Toast.makeText(context,"操作阀门失败",Toast.LENGTH_SHORT).show();
+//                            waveProgress.setProgress(0);
+//                        } else
+//                        if (jStatus.equals("-5")){
+//                            Toast.makeText(context,"该表地址不存在",Toast.LENGTH_SHORT).show();
+//                            waveProgress.setProgress(0);
+//                        } else {
+//                            Toast.makeText(context,"操作阀门失败",Toast.LENGTH_SHORT).show();
+//                            waveProgress.setProgress(0);
+//                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -570,6 +649,21 @@ public class SwichPowerActivity extends BasicActivity implements View.OnClickLis
             }
 
         };
+    }
+
+    @Override
+    public void onDownloadIntimationDone(DashSpinner.DASH_MODE dashMode) {
+        switch (dashMode) {
+            case SUCCESS:
+                Toast.makeText(this, "打开阀门成功!", Toast.LENGTH_SHORT).show();
+                break;
+            case FAILURE:
+                Toast.makeText(this, "关闭阀门成功!", Toast.LENGTH_SHORT).show();
+                break;
+            case UNKNOWN:
+                Toast.makeText(this, "系统异常，请重试!", Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 
     /**

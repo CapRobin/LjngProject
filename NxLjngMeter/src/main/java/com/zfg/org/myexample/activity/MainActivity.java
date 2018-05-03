@@ -21,6 +21,7 @@ import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.RechargeActivity;
 import com.zfg.org.myexample.SettingActivity;
 import com.zfg.org.myexample.TestActivity;
+import com.zfg.org.myexample.TestActivity2;
 import com.zfg.org.myexample.TestActivity3;
 import com.zfg.org.myexample.UploadExceptionActivity;
 import com.zfg.org.myexample.ViewInject;
@@ -238,7 +239,7 @@ public class MainActivity extends BasicActivity implements OnClickListener {
                 startActivity(null, SettingActivity.class);
                 break;
             case R.id.copyright1:
-                startActivity(null, TestActivity3.class);
+                startActivity(null, TestActivity.class);
                 break;
             default:
                 break;
