@@ -542,6 +542,8 @@ public class MyPayActivity extends BasicActivity implements View.OnClickListener
                             req.extData = "app"; // optional
                             Toast.makeText(context, "正常调起支付", Toast.LENGTH_SHORT).show();
                             // 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
+                            final IWXAPI msgApi = WXAPIFactory.createWXAPI(context, null);// 将该app注册到微信
+                            msgApi.registerApp(Constants.WX_APP_ID);
                             api.sendReq(req);
 
                         }

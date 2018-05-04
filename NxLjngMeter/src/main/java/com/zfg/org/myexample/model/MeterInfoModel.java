@@ -10,16 +10,15 @@ import org.json.JSONObject;
 public class MeterInfoModel {
 
 
-
     //  表类型
     private String MeterType;
-//表地址
+    //表地址
     private String COMM_ADDRESS;
-//  户名
+    //  户名
     private String CUSTOMER_NAME;
-//手机号
+    //手机号
     private String PHONE1;
-//终端地址
+    //终端地址
     private String TERMINAL_ADDRESS;
 
     private String AREANAME;
@@ -37,7 +36,7 @@ public class MeterInfoModel {
     }
 
 
-    public  void of(JSONObject data) throws JSONException {
+    public void of(JSONObject data) throws JSONException {
         this.setCOMM_ADDRESS(data.getString("COMM_ADDRESS"));
 //        this.setMeterType(data.getString("MeterType"));
         this.setCUSTOMER_NAME(data.getString("CUSTOMER_NAME"));

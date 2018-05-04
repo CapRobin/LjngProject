@@ -243,7 +243,7 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
      * Date：2018-04-21 09:18:18
      */
     private void inituserTypeList() {
-        String[] userTypeArray = {"水表( LORA )","水表(NBIOT)","电    表","气    表","热    表"};
+        String[] userTypeArray = {"水表( LORA )","水表(NBIOT)","电    表","气    表","气表(NBIOT)","热    表"};
         userTypeList = new ArrayList<String>();
         for(int i = 0;i < userTypeArray.length;i++){
             userTypeList.add(userTypeArray[i]);
@@ -309,24 +309,35 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
 //                        ContantsUtil.setHOst( "http://longi.nxlgg.com:8039/lggmr");
 //                        ContantsUtil.setHOst( "http://longi.nxlgg.com:8046/lggmr");
 //                        ContantsUtil.setHOst( "http://192.168.2.136:8008/lggmr");
-                        ContantsUtil.setHOst("http://longi.nxlgg.com:8084/lggmr");
+//                        ContantsUtil.setHOst("http://longi.nxlgg.com:8084/lggmr");
 
                         //气表外网测试地址
 //                        ContantsUtil.setHOst("http://:222.75.144.94:6608/lggmr");
+                        ContantsUtil.setHOst("http://longi.nxlgg.com:6608/lggmr");
 //                        nameEditText.setText("ng1");
 //                        pswEditText.setText("1");
 //                        nameEditText.setText("wangtong");
 //                        pswEditText.setText("123456");
-                        nameEditText.setText("loragas");
-                        pswEditText.setText("123456");
+//                        nameEditText.setText("loragas");
+//                        pswEditText.setText("123456");
+                        nameEditText.setText("xts");
+                        pswEditText.setText("1");
                         userTypeEdit.setText("气表");
                         userType = 3;
                         break;
                     //选择热表用户
                     case 4:
+//                        Toast.makeText(context, "该用户角色暂无数据", Toast.LENGTH_SHORT).show();
+                        ContantsUtil.setHOst("http://222.75.144.94:9157/lggmr");
+                        nameEditText.setText("wangtong");
+                        pswEditText.setText("123456");
+                        userTypeEdit.setText("气表(NBIOT)");
+                        userType = 4;
+                        break;
+                    case 5:
                         Toast.makeText(context, "该用户角色暂无数据", Toast.LENGTH_SHORT).show();
                         userTypeEdit.setText("");
-                        userType = 4;
+                        userType = 5;
                         break;
                     default:
                         userType = -1;
@@ -466,7 +477,7 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
         } else if (userType == -1) {
             checkInfo = "请选择用户类型";
             return false;
-        } else if (userType == 4) {
+        } else if (userType == 5) {
             Toast.makeText(context, "该类型暂无数据", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -712,6 +723,9 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                                 elecFlag = jsonesult.getJSONObject("dataFlag").getInt("elecMeterFlag");
                                 break;
                             case 3:
+                                gasFlag = jsonesult.getJSONObject("dataFlag").getInt("gasMeterFlag");
+                                break;
+                            case 4:
                                 gasFlag = jsonesult.getJSONObject("dataFlag").getInt("gasMeterFlag");
                                 break;
                         }

@@ -83,11 +83,11 @@
                         android:cacheColorHint="#00000000"
                         android:dividerHeight="0.8dip"
                         android:fadingEdge="none"
+                        android:listSelector="@color/transparent"
                         android:overScrollFooter="@android:color/transparent"
                         android:overScrollHeader="@android:color/transparent"
                         android:overScrollMode="never"
-                        android:scrollbars="none"
-                        android:listSelector="@color/transparent" />
+                        android:scrollbars="none" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -166,24 +166,25 @@
             android:layout_height="200dp"
             android:layout_centerInParent="true"
             android:orientation="vertical"
-            android:visibility="gone"></LinearLayout>
+            android:visibility="gone">
+
+        </LinearLayout>
 
 
         <LinearLayout
             android:id="@+id/waterLayout"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:visibility="gone"
-            android:layout_centerInParent="true">
+            android:layout_centerInParent="true"
+            android:visibility="gone">
 
             <!--<com.zfg.org.myexample.compent.WaterWaveProgress-->
-                <!--android:id="@+id/waterWaveProgress"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="250dp"-->
-                <!--android:layout_gravity="center_vertical"-->
-                <!--app:maxProgress="100"-->
-                <!--app:progress="15" />-->
-
+            <!--android:id="@+id/waterWaveProgress"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="250dp"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--app:maxProgress="100"-->
+            <!--app:progress="15" />-->
 
 
             <com.abysmel.dashspinner.DashSpinner
@@ -207,8 +208,25 @@
                 app:showProgressText="true"
                 app:textColorFrom="#FF0000"
                 app:textColorTo="#FFFFFF" />
-
         </LinearLayout>
+
+        <ListView
+            android:id="@+id/taskList"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/t_login_layout_editor_bg"
+            android:cacheColorHint="#00000000"
+            android:dividerHeight="0.8dip"
+            android:fadingEdge="none"
+            android:listSelector="@color/transparent"
+            android:overScrollFooter="@android:color/transparent"
+            android:overScrollHeader="@android:color/transparent"
+            android:overScrollMode="never"
+            android:visibility="gone"
+            android:scrollbars="none" />
+
     </RelativeLayout>
 
 

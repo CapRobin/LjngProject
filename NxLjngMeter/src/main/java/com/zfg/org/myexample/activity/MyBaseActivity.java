@@ -37,6 +37,7 @@ public class MyBaseActivity extends BasicActivity {
     protected MeterReadingActivity mElectricityContent;
 
     public SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +45,7 @@ public class MyBaseActivity extends BasicActivity {
 
 
         listdata = new ArrayList<ReadDataItemModel>();
-        listadapter = new ReadDataAdapter(context,listdata);
+        listadapter = new ReadDataAdapter(context, listdata);
 //        getDataList_db.setAdapter(listadapter);
 
         initCallBack();
@@ -74,7 +75,7 @@ public class MyBaseActivity extends BasicActivity {
      */
 
     public void loadData(String meteraddr) {
-        searchTime =  df.format(new Date());
+        searchTime = df.format(new Date());
         try {
             JSONObject jsobj = new JSONObject();
             //获取本地测试数据使用
@@ -83,12 +84,12 @@ public class MyBaseActivity extends BasicActivity {
             jsobj.put("meterAddr", meteraddr);
             jsobj.put("dataType", dataType);
             jsobj.put("varType", varType);
-            jsobj.put("searchTime",searchTime);
+            jsobj.put("searchTime", searchTime);
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("ngMeter", jsobj.toString());
 
             //获取本地测试数据使用
-            if (isTest){
+            if (isTest) {
                 map.put("electricity", tempJson("electricity.txt"));
             }
             loading = new DialogLoading(this);
@@ -128,10 +129,10 @@ public class MyBaseActivity extends BasicActivity {
                             }
                             listadapter.notifyDataSetChanged();
                             mElectricityContent.setViewData();
-                        } else if(jStatus.equals("-6")){
+                        } else if (jStatus.equals("-6")) {
                             setToast("该表号暂时没有实时数据！");
-                        } else{
-                            Toast.makeText(context,"数据返回错误，请重新操作",Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "数据返回错误，请重新操作", Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

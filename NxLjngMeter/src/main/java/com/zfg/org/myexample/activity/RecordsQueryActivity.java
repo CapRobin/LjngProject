@@ -168,6 +168,9 @@ public class RecordsQueryActivity extends MyBaseActivity implements OnTouchListe
                 pageTitle.setText("气表记录查询");
                 break;
             case 4:
+                pageTitle.setText("气表记录查询");
+                break;
+            case 5:
                 pageTitle.setText("热表记录查询");
                 break;
             default:

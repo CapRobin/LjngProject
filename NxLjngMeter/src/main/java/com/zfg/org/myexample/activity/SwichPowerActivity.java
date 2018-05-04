@@ -83,6 +83,8 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
 
     @ViewInject(id = R.id.select_addr)
     private Button select_addr;
+    @ViewInject(id = R.id.taskList)
+    private ListView taskList;
 
     private Preference preference;
 
@@ -100,12 +102,12 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
     private MeterInfoDialog meterInfoDialog;
 
 
-//    @ViewInject(id = R.id.eleLayout)
+    //    @ViewInject(id = R.id.eleLayout)
 //    private LinearLayout eleLayout;
     private LinearLayout eleLayout;
     private LinearLayout waterLayout;
 
-//    @ViewInject(id = R.id.waterWaveProgress)
+    //    @ViewInject(id = R.id.waterWaveProgress)
 //    private WaterWaveProgress waveProgress;
     @ViewInject(id = R.id.openOrCloseBtn)
     private CheckBox openOrCloseBtn;
@@ -114,9 +116,12 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
     //1：表示关；2表示开
 //    private int isOpen = 1;
     private boolean isOpen = true;
-    private List<MeterInfo> meterinfos;;
+    private String meterStr = "";
+    private List<MeterInfo> meterinfos;
+    ;
     private List<MeterAllInfo> getListData;
-    private List<MeterAllInfo> newList;;
+    private List<MeterAllInfo> newList;
+    ;
     @ViewInject(id = R.id.numberHideInnerView)
     private ListView numberHideInnerView;
     @ViewInject(id = R.id.meterInfoList)
@@ -124,9 +129,7 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
     @ViewInject(id = R.id.numberHideView)
     private LinearLayout numberHideView;
     private RcAdapterWholeChange recycleAdapter;
-
-
-
+    private boolean requestFlag = false;
 
 
     float mnProgress = 0.0f;
@@ -166,7 +169,6 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
     };
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -183,7 +185,7 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
         waterLayout = (LinearLayout) findViewById(R.id.waterLayout);
         eleLayout = (LinearLayout) findViewById(R.id.eleLayout);
 
-        if(userType == 1|| userType == 3){
+        if (userType == 1 || userType == 3 || userType == 4) {
             eleLayout.setVisibility(View.GONE);
 //            waterLayout.setVisibility(View.VISIBLE);
             initCallBackWater();
@@ -192,13 +194,31 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
 
             mDashSpinner = (DashSpinner) findViewById(R.id.progress_spinner);
             mDashSpinner.setOnDownloadIntimationListener(this);
-        }else if(userType == 2){
+        } else if (userType == 2) {
             waterLayout.setVisibility(View.GONE);
             eleLayout.setVisibility(View.VISIBLE);
             initCallBackEle();
 
         }
-        pageTitle.setText("合闸拉闸");
+        switch (userType) {
+            case 1:
+                pageTitle.setText("水表开关阀");
+                break;
+            case 2:
+                pageTitle.setText("电表合闸拉闸");
+                break;
+            case 3:
+                pageTitle.setText("气表开关阀");
+                break;
+            case 4:
+                pageTitle.setText("气表开关阀");
+                break;
+            case 5:
+                pageTitle.setText("热表开关阀");
+                break;
+            default:
+                break;
+        }
 
 
         eleLayout.setBackgroundResource(R.drawable.dp_k_200);
@@ -240,15 +260,24 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
                     return;
                 }
 
-
                 waterLayout.setVisibility(View.GONE);
-                if (b) {
-                    swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 1);
+
+                if(!requestFlag){
+                    if (b) {
+                        swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 1);
 //                    openSwitch();
-                } else {
-                    swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 0);
+                    } else {
+                        swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 0);
 //                    closeSwitch();
+                    }
                 }
+//                    if (b) {
+//                        swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 1);
+////                    openSwitch();
+//                    } else {
+//                        swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 0);
+////                    closeSwitch();
+//                    }
             }
         });
 
@@ -269,12 +298,6 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
         mnProgress += 0.01;
         mDashSpinner.setProgress(mnProgress);
     }
-
-
-
-
-
-
 
 
     /**
@@ -431,7 +454,7 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
     private void popViewisShow() {
         if (View.GONE == numberHideView.getVisibility()) {
             meterAddr.clearFocus();
-            int getHeight = MethodUtil.dip2px(this, meterinfos.size() * 100);
+            int getHeight = MethodUtil.dip2px(this, meterinfos.size() * 120);
             MethodUtil.animateOpen(numberHideView, getHeight, 700);
         } else {
             //关闭第二个View
@@ -517,10 +540,12 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
 
             }
 
-//          String jsobj="{\"name\":\"admin\",\"password\":\"admin\"}";
             Map<String, Object> map = new HashMap<String, Object>();
-            //"{\"name\":\"admin\",\"password\":admin\"}"
-            map.put("ngMeter", jsobj.toString());
+            if (userType == 4) {
+                map.put("ngNbMeter", jsobj.toString());
+            } else {
+                map.put("ngMeter", jsobj.toString());
+            }
 
             if (stuts == 0) {
                 titleStr = "正在执行关阀操作";
@@ -536,6 +561,35 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
         }
     }
 
+//    private void swichDataTest(String meteraddr, Integer stuts) {
+//        String titleStr;
+//        try {
+//            JSONObject jsobj = new JSONObject();
+//            try {
+//                jsobj.put("meterAddr", meteraddr);
+//                jsobj.put("operationId", String.valueOf(stuts));
+//                jsobj.put("userid", preference.getString(Preference.CACHE_USER));
+//            } catch (JSONException ex) {
+//                Logger.getLogger(activity.getClass().getName()).log(Level.SEVERE, null, ex);
+//
+//            }
+//
+//            Map<String, Object> map = new HashMap<String, Object>();
+//            map.put("ngNbMeter", jsobj.toString());
+//
+//            if (stuts == 0) {
+//                titleStr = "正在执行关阀操作";
+//            } else {
+//                titleStr = "正在执行开阀操作";
+//            }
+//            loading.show();
+//            setDialogLabel(titleStr);
+//            SystemAPI.meter_onwater(map, dataCallback);
+////            SystemAPI.query_readdata_his(map, dataCallback);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
     private void initCallBackWater() {
@@ -552,21 +606,25 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
                         String jStatus = jsonObject.getString("strBackFlag");
                         String actionFlag = jsonObject.getString("actionFlag");
                         waterLayout.setVisibility(View.VISIBLE);
-                        if (jStatus.equals("1") && actionFlag.equals("open")){
+                        if (jStatus.equals("1") && actionFlag.equals("open")) {
                             mDashSpinner.resetValues();
                             mnProgress = 0.0f;
                             mHandler.post(runnableSuccess);
                             isOpen = true;
-                        } else if (jStatus.equals("1") && actionFlag.equals("close")){
+                        } else if (jStatus.equals("1") && actionFlag.equals("close")) {
                             mDashSpinner.resetValues();
                             mnProgress = 0.0f;
                             mHandler.post(runnableFailure);
                             isOpen = false;
                         } else {
+                            requestFlag = isOpen;
+                            openOrCloseBtn.setChecked(isOpen);
+                            requestFlag = false;
+
                             mDashSpinner.resetValues();
                             mnProgress = 0.0f;
                             mHandler.post(runnableUnknown);
-                            openOrCloseBtn.setChecked(isOpen);
+
                         }
 
 //                        if (jStatus.equals("1") && actionFlag.equals("open")){

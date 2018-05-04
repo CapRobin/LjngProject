@@ -101,12 +101,12 @@ public class ContantsUtil {
     public static boolean ADD_MEMBER = false;
 
     //外网使用
-    public static String HOST = "http://192.168.2.136:8088/lggmr";
+//    public static String HOST = "http://192.168.2.136:8088/lggmr";
 //    public static String HOST = "http://longi.nxlgg.com:8039/lggmr";
 //    public static String HOST = "http://longi.nxlgg.com:8046/lggmr";
 //    public static String HOST = "http://192.168.0.39:80/lggmr";
 //    public static String HOST = "http://192.168.0.111:6608/lggmr";
-//    public static String HOST = "http://192.168.0.46:8046/lggmr";
+    public static String HOST = "http://222.75.144.94:9157/lggmr";
 
 //    public static String HOST = "http://222.75.144.94:80/lggmr";
 
@@ -139,6 +139,7 @@ public class ContantsUtil {
     public static String URL_pullswitchgas = HOST + "/pullswitchgas";
 
     public static String URL_pullswitchwater = HOST + "/pullSwitchMeter";
+    public static String URL_pullswitchwater2 = HOST + "/NbAppRenconner";
 
     //  抄读记录历史数据
     public static String URL_QueryReadDataHisWater = HOST + "/appQueryMeter";

@@ -49,7 +49,7 @@ public class BasicActivity extends FragmentActivity implements OnGestureListener
 	public int screenHeight = 0;
 	private GestureDetector detector;
 	private boolean isGesture = false;
-	protected int userType = 0;
+	protected int userType = -1;
 	protected Preference preference;
 	protected MyBroadcast myBroadcast;
 	private AppApplication mApplication;

@@ -134,6 +134,9 @@ public class MainActivity extends BasicActivity implements OnClickListener {
                 mView = inflater.inflate(R.layout.main_view_qb, null);
                 break;
             case 4:
+                mView = inflater.inflate(R.layout.main_view_qb_nb, null);
+                break;
+            case 5:
                 mView = inflater.inflate(R.layout.main_view_rb, null);
                 break;
         }
@@ -148,39 +151,126 @@ public class MainActivity extends BasicActivity implements OnClickListener {
      */
     public void setMainContentView(int userType, View view) {
         if (view != null) {
-            if (userType != 2) {
-                diabetes_listener = (LinearLayout) mView.findViewById(R.id.diabetes_listener);
-                param_setting = (LinearLayout) mView.findViewById(R.id.param_setting);
-                task_query = (LinearLayout) mView.findViewById(R.id.task_query);
-                diabetes_listener.setOnClickListener(this);
-                param_setting.setOnClickListener(this);
-                task_query.setOnClickListener(this);
+
+            switch (userType) {
+                case 1:
+                    diabetes_listener = (LinearLayout) mView.findViewById(R.id.diabetes_listener);
+                    param_setting = (LinearLayout) mView.findViewById(R.id.param_setting);
+                    task_query = (LinearLayout) mView.findViewById(R.id.task_query);
+                    diabetes_listener.setOnClickListener(this);
+                    param_setting.setOnClickListener(this);
+                    task_query.setOnClickListener(this);
+                    evaluateSelf = (LinearLayout) mView.findViewById(R.id.evaluate_self);
+                    rechargepay = (LinearLayout) mView.findViewById(R.id.recharge_pay);
+                    hisinfo = (LinearLayout) mView.findViewById(R.id.his_info);
+                    onoffinfo = (LinearLayout) mView.findViewById(R.id.onoff_info);
+                    upload_exception = (LinearLayout) mView.findViewById(R.id.upload_exception);
+                    setManager = (LinearLayout) mView.findViewById(R.id.set_manager);
+
+                    evaluateSelf.setOnClickListener(this);
+                    rechargepay.setOnClickListener(this);
+                    hisinfo.setOnClickListener(this);
+                    onoffinfo.setOnClickListener(this);
+                    upload_exception.setOnClickListener(this);
+                    setManager.setOnClickListener(this);
+                    copyright.setOnClickListener(this);
+                    break;
+                case 2:
+                    evaluateSelf = (LinearLayout) mView.findViewById(R.id.evaluate_self);
+                    rechargepay = (LinearLayout) mView.findViewById(R.id.recharge_pay);
+                    hisinfo = (LinearLayout) mView.findViewById(R.id.his_info);
+                    onoffinfo = (LinearLayout) mView.findViewById(R.id.onoff_info);
+                    upload_exception = (LinearLayout) mView.findViewById(R.id.upload_exception);
+                    setManager = (LinearLayout) mView.findViewById(R.id.set_manager);
+
+                    evaluateSelf.setOnClickListener(this);
+                    rechargepay.setOnClickListener(this);
+                    hisinfo.setOnClickListener(this);
+                    onoffinfo.setOnClickListener(this);
+                    upload_exception.setOnClickListener(this);
+                    setManager.setOnClickListener(this);
+                    copyright.setOnClickListener(this);
+                    break;
+                case 3:
+                    diabetes_listener = (LinearLayout) mView.findViewById(R.id.diabetes_listener);
+                    param_setting = (LinearLayout) mView.findViewById(R.id.param_setting);
+                    task_query = (LinearLayout) mView.findViewById(R.id.task_query);
+                    diabetes_listener.setOnClickListener(this);
+                    param_setting.setOnClickListener(this);
+                    task_query.setOnClickListener(this);
+                    evaluateSelf = (LinearLayout) mView.findViewById(R.id.evaluate_self);
+                    rechargepay = (LinearLayout) mView.findViewById(R.id.recharge_pay);
+                    hisinfo = (LinearLayout) mView.findViewById(R.id.his_info);
+                    onoffinfo = (LinearLayout) mView.findViewById(R.id.onoff_info);
+                    upload_exception = (LinearLayout) mView.findViewById(R.id.upload_exception);
+                    setManager = (LinearLayout) mView.findViewById(R.id.set_manager);
+
+                    evaluateSelf.setOnClickListener(this);
+                    rechargepay.setOnClickListener(this);
+                    hisinfo.setOnClickListener(this);
+                    onoffinfo.setOnClickListener(this);
+                    upload_exception.setOnClickListener(this);
+                    setManager.setOnClickListener(this);
+                    copyright.setOnClickListener(this);
+                    break;
+                case 4:
+                    onoffinfo = (LinearLayout) mView.findViewById(R.id.onoff_info);
+                    hisinfo = (LinearLayout) mView.findViewById(R.id.his_info);
+                    evaluateSelf = (LinearLayout) mView.findViewById(R.id.evaluate_self);
+                    rechargepay = (LinearLayout) mView.findViewById(R.id.recharge_pay);
+                    upload_exception = (LinearLayout) mView.findViewById(R.id.upload_exception);
+                    setManager = (LinearLayout) mView.findViewById(R.id.set_manager);
+                    onoffinfo.setOnClickListener(this);
+                    hisinfo.setOnClickListener(this);
+                    evaluateSelf.setOnClickListener(this);
+                    rechargepay.setOnClickListener(this);
+                    upload_exception.setOnClickListener(this);
+                    setManager.setOnClickListener(this);
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
             }
-            evaluateSelf = (LinearLayout) mView.findViewById(R.id.evaluate_self);
-            rechargepay = (LinearLayout) mView.findViewById(R.id.recharge_pay);
-            hisinfo = (LinearLayout) mView.findViewById(R.id.his_info);
-            onoffinfo = (LinearLayout) mView.findViewById(R.id.onoff_info);
-            upload_exception = (LinearLayout) mView.findViewById(R.id.upload_exception);
-            setManager = (LinearLayout) mView.findViewById(R.id.set_manager);
-
-            evaluateSelf.setOnClickListener(this);
-            rechargepay.setOnClickListener(this);
-            hisinfo.setOnClickListener(this);
-            onoffinfo.setOnClickListener(this);
-            upload_exception.setOnClickListener(this);
-            setManager.setOnClickListener(this);
-            copyright.setOnClickListener(this);
-
             contentView.addView(view);
         } else {
             finish();
             setToast("请求参数错误，请稍后再试！");
         }
+//        if (view != null) {
+//            if (userType != 2) {
+//                diabetes_listener = (LinearLayout) mView.findViewById(R.id.diabetes_listener);
+//                param_setting = (LinearLayout) mView.findViewById(R.id.param_setting);
+//                task_query = (LinearLayout) mView.findViewById(R.id.task_query);
+//                diabetes_listener.setOnClickListener(this);
+//                param_setting.setOnClickListener(this);
+//                task_query.setOnClickListener(this);
+//            }
+//            evaluateSelf = (LinearLayout) mView.findViewById(R.id.evaluate_self);
+//            rechargepay = (LinearLayout) mView.findViewById(R.id.recharge_pay);
+//            hisinfo = (LinearLayout) mView.findViewById(R.id.his_info);
+//            onoffinfo = (LinearLayout) mView.findViewById(R.id.onoff_info);
+//            upload_exception = (LinearLayout) mView.findViewById(R.id.upload_exception);
+//            setManager = (LinearLayout) mView.findViewById(R.id.set_manager);
+//
+//            evaluateSelf.setOnClickListener(this);
+//            rechargepay.setOnClickListener(this);
+//            hisinfo.setOnClickListener(this);
+//            onoffinfo.setOnClickListener(this);
+//            upload_exception.setOnClickListener(this);
+//            setManager.setOnClickListener(this);
+//            copyright.setOnClickListener(this);
+//
+//            contentView.addView(view);
+//        } else {
+//            finish();
+//            setToast("请求参数错误，请稍后再试！");
+//        }
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == event.KEYCODE_BACK){
+        if (keyCode == event.KEYCODE_BACK) {
             exitApp(0);
         }
         return true;
