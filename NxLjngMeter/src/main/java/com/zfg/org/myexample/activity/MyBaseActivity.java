@@ -11,6 +11,7 @@ import com.zfg.org.myexample.SystemAPI;
 import com.zfg.org.myexample.adapter.ReadDataAdapter;
 import com.zfg.org.myexample.model.ReadDataItemModel;
 import com.zfg.org.myexample.utils.HttpServiceUtil;
+import com.zfg.org.myexample.utils.Preference;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,6 +23,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MyBaseActivity extends BasicActivity {
 
@@ -105,6 +108,7 @@ public class MyBaseActivity extends BasicActivity {
             e.printStackTrace();
         }
     }
+
 
     private void initCallBack() {
         listdata.clear();

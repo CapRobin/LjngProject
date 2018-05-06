@@ -16,28 +16,30 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.abysmel.dashspinner.DashSpinner;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.SystemAPI;
 import com.zfg.org.myexample.ViewInject;
 import com.zfg.org.myexample.adapter.MeterAllInfoAdapter;
 import com.zfg.org.myexample.adapter.RcAdapterWholeChange;
-import com.zfg.org.myexample.compent.WaterWaveProgress;
+import com.zfg.org.myexample.adapter.ValveStatusInfoAdapter;
 import com.zfg.org.myexample.db.MeterInfoBo;
 import com.zfg.org.myexample.db.dao.MeterInfo;
 import com.zfg.org.myexample.dialog.MeterInfoDialog;
-import com.zfg.org.myexample.dto.MeterInfoCheckModel;
 import com.zfg.org.myexample.model.MeterAllInfo;
+import com.zfg.org.myexample.model.ValveStatusInfo;
 import com.zfg.org.myexample.utils.CommonUtil;
 import com.zfg.org.myexample.utils.HttpServiceUtil;
 import com.zfg.org.myexample.utils.MethodUtil;
@@ -46,6 +48,9 @@ import com.zfg.org.myexample.utils.Preference;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -81,10 +86,10 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
     @ViewInject(id = R.id.meter_addr)
     private EditText meterAddr;
 
-    @ViewInject(id = R.id.select_addr)
-    private Button select_addr;
-    @ViewInject(id = R.id.taskList)
-    private ListView taskList;
+    //    @ViewInject(id = R.id.select_addr)
+//    private Button select_addr;
+    @ViewInject(id = R.id.searchNum)
+    private ImageView searchNum;
 
     private Preference preference;
 
@@ -101,6 +106,25 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
 
     private MeterInfoDialog meterInfoDialog;
 
+    //    @ViewInject(id = R.id.taskList)
+//    private ListView taskList;
+    @ViewInject(id = R.id.statusLayout)
+    private LinearLayout statusLayout;
+    @ViewInject(id = R.id.hisDate)
+    private TextView hisDate;
+    @ViewInject(id = R.id.rwmcText)
+    private TextView rwmcText;
+    @ViewInject(id = R.id.rwztText)
+    private TextView rwztText;
+    @ViewInject(id = R.id.khxmText)
+    private TextView khxmText;
+    @ViewInject(id = R.id.bhdzText)
+    private TextView bhdzText;
+    @ViewInject(id = R.id.rwbhText)
+    private TextView rwbhText;
+//    @ViewInject(id = R.id.rwcsText)
+//    private TextView rwcsText;
+
 
     //    @ViewInject(id = R.id.eleLayout)
 //    private LinearLayout eleLayout;
@@ -109,8 +133,8 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
 
     //    @ViewInject(id = R.id.waterWaveProgress)
 //    private WaterWaveProgress waveProgress;
-    @ViewInject(id = R.id.openOrCloseBtn)
-    private CheckBox openOrCloseBtn;
+//    @ViewInject(id = R.id.openOrCloseBtn)
+//    private CheckBox openOrCloseBtn;
     private Drawable bg_a;
     private Drawable bg_b;
     //1：表示关；2表示开
@@ -118,16 +142,36 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
     private boolean isOpen = true;
     private String meterStr = "";
     private List<MeterInfo> meterinfos;
-    ;
     private List<MeterAllInfo> getListData;
     private List<MeterAllInfo> newList;
-    ;
     @ViewInject(id = R.id.numberHideInnerView)
     private ListView numberHideInnerView;
     @ViewInject(id = R.id.meterInfoList)
     private RecyclerView meterInfoList;
     @ViewInject(id = R.id.numberHideView)
     private LinearLayout numberHideView;
+    @ViewInject(id = R.id.openBtn)
+    private Button openBtn;
+    @ViewInject(id = R.id.closeBtn)
+    private Button closeBtn;
+    @ViewInject(id = R.id.openBtn1)
+    private Button openBtn1;
+    @ViewInject(id = R.id.closeBtn1)
+    private Button closeBtn1;
+    @ViewInject(id = R.id.ggdqBtn)
+    private Button ggdqBtn;
+    @ViewInject(id = R.id.ggbyBtn)
+    private Button ggbyBtn;
+    @ViewInject(id = R.id.flashImage)
+    private ImageView flashImage;
+    @ViewInject(id = R.id.view1)
+    private RelativeLayout view1;
+    @ViewInject(id = R.id.view2)
+    private RelativeLayout view2;
+    private List<ValveStatusInfo> valveStatusInfoList;
+    private ValveStatusInfoAdapter mValveStatusInfoAdapter;
+
+
     private RcAdapterWholeChange recycleAdapter;
     private boolean requestFlag = false;
 
@@ -185,33 +229,75 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
         waterLayout = (LinearLayout) findViewById(R.id.waterLayout);
         eleLayout = (LinearLayout) findViewById(R.id.eleLayout);
 
-        if (userType == 1 || userType == 3 || userType == 4) {
-            eleLayout.setVisibility(View.GONE);
+//        if (userType == 1 || userType == 3) {
+//            eleLayout.setVisibility(View.GONE);
+//            taskList.setVisibility(View.GONE);
 //            waterLayout.setVisibility(View.VISIBLE);
-            initCallBackWater();
-//            waveProgress.setShowProgress(false);
-//            waveProgress.animateWave();
-
-            mDashSpinner = (DashSpinner) findViewById(R.id.progress_spinner);
-            mDashSpinner.setOnDownloadIntimationListener(this);
-        } else if (userType == 2) {
-            waterLayout.setVisibility(View.GONE);
-            eleLayout.setVisibility(View.VISIBLE);
-            initCallBackEle();
-
-        }
+////            waterLayout.setVisibility(View.VISIBLE);
+//            initCallBackWater();
+////            waveProgress.setShowProgress(false);
+////            waveProgress.animateWave();
+//
+//            mDashSpinner = (DashSpinner) findViewById(R.id.progress_spinner);
+//            mDashSpinner.setOnDownloadIntimationListener(this);
+//        } else if (userType == 4) {
+//            eleLayout.setVisibility(View.GONE);
+//            taskList.setVisibility(View.VISIBLE);
+//            waterLayout.setVisibility(View.GONE);
+//            initCallBackGasNb();
+//
+//        }else if (userType == 2) {
+//            waterLayout.setVisibility(View.GONE);
+//            taskList.setVisibility(View.GONE);
+//            eleLayout.setVisibility(View.VISIBLE);
+//            initCallBackEle();
+//
+//        }
         switch (userType) {
             case 1:
                 pageTitle.setText("水表开关阀");
+                eleLayout.setVisibility(View.GONE);
+                statusLayout.setVisibility(View.GONE);
+                waterLayout.setVisibility(View.VISIBLE);
+
+                view1.setVisibility(View.VISIBLE);
+                view2.setVisibility(View.GONE);
+
+                initCallBackWater();
+
+                mDashSpinner = (DashSpinner) findViewById(R.id.progress_spinner);
+                mDashSpinner.setOnDownloadIntimationListener(this);
                 break;
             case 2:
                 pageTitle.setText("电表合闸拉闸");
+                waterLayout.setVisibility(View.GONE);
+                statusLayout.setVisibility(View.GONE);
+                eleLayout.setVisibility(View.VISIBLE);
+                view1.setVisibility(View.VISIBLE);
+                view2.setVisibility(View.GONE);
+                initCallBackEle();
                 break;
             case 3:
                 pageTitle.setText("气表开关阀");
+                eleLayout.setVisibility(View.GONE);
+                statusLayout.setVisibility(View.GONE);
+                view1.setVisibility(View.VISIBLE);
+                view2.setVisibility(View.GONE);
+//                waterLayout.setVisibility(View.VISIBLE);
+                initCallBackWater();
+
+                mDashSpinner = (DashSpinner) findViewById(R.id.progress_spinner);
+                mDashSpinner.setOnDownloadIntimationListener(this);
                 break;
             case 4:
+                valveStatusInfoList = new ArrayList<ValveStatusInfo>();
+                view2.setVisibility(View.VISIBLE);
+                view1.setVisibility(View.GONE);
                 pageTitle.setText("气表开关阀");
+//                eleLayout.setVisibility(View.GONE);
+////                taskList.setVisibility(View.VISIBLE);
+//                waterLayout.setVisibility(View.GONE);
+                initCallBackGasNb();
                 break;
             case 5:
                 pageTitle.setText("热表开关阀");
@@ -224,6 +310,12 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
         eleLayout.setBackgroundResource(R.drawable.dp_k_200);
         bg_a = ContextCompat.getDrawable(context, R.drawable.dp_k_200);
         bg_b = ContextCompat.getDrawable(context, R.drawable.dp_g_200);
+        flashImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         eleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -244,42 +336,48 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
 //                    openSwitch();
 //                    openOrCloseBtn.setChecked(true);
                 }
-//
-
             }
         });
 
-        openOrCloseBtn.setChecked(isOpen);
-        openOrCloseBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                //检测表号是否为空
-                if (meterAddr.getText().length() == 0) {
-                    Toast.makeText(context, "请先输入表地址！", Toast.LENGTH_SHORT).show();
-                    compoundButton.setChecked(!b);
-                    return;
-                }
-
-                waterLayout.setVisibility(View.GONE);
-
-                if(!requestFlag){
-                    if (b) {
-                        swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 1);
-//                    openSwitch();
-                    } else {
-                        swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 0);
-//                    closeSwitch();
-                    }
-                }
+//        openOrCloseBtn.setChecked(isOpen);
+//        openOrCloseBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                //检测表号是否为空
+//                if (meterAddr.getText().length() == 0) {
+//                    Toast.makeText(context, "请先输入表地址！", Toast.LENGTH_SHORT).show();
+//                    compoundButton.setChecked(!b);
+//                    return;
+//                }
+//
+//                waterLayout.setVisibility(View.GONE);
+//
+//                if (!requestFlag) {
 //                    if (b) {
-//                        swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 1);
+//                        if(userType == 4){
+//                            getGasNbData(CommonUtil.AddZeros(meterAddr.getText().toString()), 1);
+//                        }else {
+//                            swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 1);
+//                        }
 ////                    openSwitch();
 //                    } else {
-//                        swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 0);
+//                        if(userType == 4){
+//                            getGasNbData(CommonUtil.AddZeros(meterAddr.getText().toString()), 0);
+//                        }else {
+//                            swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 0);
+//                        }
 ////                    closeSwitch();
 //                    }
-            }
-        });
+//                }
+////                    if (b) {
+////                        swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 1);
+//////                    openSwitch();
+////                    } else {
+////                        swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 0);
+//////                    closeSwitch();
+////                    }
+//            }
+//        });
 
         initActivity();
 //        initCallBack();
@@ -497,7 +595,14 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
         backHome.setOnClickListener(this);
 //        btnclose.setOnClickListener(this);
 //        btnopen.setOnClickListener(this);
-        select_addr.setOnClickListener(this);
+        searchNum.setOnClickListener(this);
+        openBtn.setOnClickListener(this);
+        closeBtn.setOnClickListener(this);
+        openBtn1.setOnClickListener(this);
+        closeBtn1.setOnClickListener(this);
+        ggdqBtn.setOnClickListener(this);
+        ggbyBtn.setOnClickListener(this);
+        flashImage.setOnClickListener(this);
 
         //RecyclerView相关设置
         meterInfoList.setLayoutManager(new LinearLayoutManager(this));
@@ -516,8 +621,6 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
             }
         });
     }
-
-    //{"strBackFlag":"0","strMeterAddr":"000000000040","strPassAuthentication":""}
 
     /**
      * Describe：开关阀请求控制(0：关阀；1：开阀)
@@ -561,36 +664,43 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
         }
     }
 
-//    private void swichDataTest(String meteraddr, Integer stuts) {
-//        String titleStr;
-//        try {
-//            JSONObject jsobj = new JSONObject();
-//            try {
-//                jsobj.put("meterAddr", meteraddr);
-//                jsobj.put("operationId", String.valueOf(stuts));
-//                jsobj.put("userid", preference.getString(Preference.CACHE_USER));
-//            } catch (JSONException ex) {
-//                Logger.getLogger(activity.getClass().getName()).log(Level.SEVERE, null, ex);
-//
-//            }
-//
-//            Map<String, Object> map = new HashMap<String, Object>();
-//            map.put("ngNbMeter", jsobj.toString());
-//
-//            if (stuts == 0) {
-//                titleStr = "正在执行关阀操作";
-//            } else {
-//                titleStr = "正在执行开阀操作";
-//            }
-//            loading.show();
-//            setDialogLabel(titleStr);
-//            SystemAPI.meter_onwater(map, dataCallback);
-////            SystemAPI.query_readdata_his(map, dataCallback);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    private void swichDataTest(String meteraddr, Integer stuts) {
+        try {
+            JSONObject jsobj = new JSONObject();
+            try {
+                jsobj.put("meterAddr", meteraddr);
+                jsobj.put("operationId", String.valueOf(stuts));
+                jsobj.put("userid", preference.getString(Preference.CACHE_USER));
+                if (stuts == 4) {
+                    jsobj.put("taskStatuId", rwbhText.getText().toString());
+                }
+            } catch (JSONException ex) {
+                Logger.getLogger(activity.getClass().getName()).log(Level.SEVERE, null, ex);
 
+            }
+
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("ngNbMeter", jsobj.toString());
+
+            String titleStr = "";
+            switch (stuts) {
+                case 0:
+                    titleStr = "正在执行关阀操作";
+                    break;
+                case 1:
+                    titleStr = "正在执行开阀操作";
+                    break;
+                case 4:
+                    titleStr = "正在刷新中...";
+                    break;
+            }
+            loading.show();
+            setDialogLabel(titleStr);
+            SystemAPI.meter_ongas(map, dataCallback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private void initCallBackWater() {
         dataCallback = new HttpServiceUtil.CallBack() {
@@ -602,49 +712,43 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
                 // 解析json
                 if (json.length() > 3) {
                     try {
-                        JSONObject jsonObject = new JSONObject(json);
-                        String jStatus = jsonObject.getString("strBackFlag");
-                        String actionFlag = jsonObject.getString("actionFlag");
                         waterLayout.setVisibility(View.VISIBLE);
-                        if (jStatus.equals("1") && actionFlag.equals("open")) {
-                            mDashSpinner.resetValues();
-                            mnProgress = 0.0f;
-                            mHandler.post(runnableSuccess);
-                            isOpen = true;
-                        } else if (jStatus.equals("1") && actionFlag.equals("close")) {
-                            mDashSpinner.resetValues();
-                            mnProgress = 0.0f;
-                            mHandler.post(runnableFailure);
-                            isOpen = false;
-                        } else {
-                            requestFlag = isOpen;
-                            openOrCloseBtn.setChecked(isOpen);
-                            requestFlag = false;
+                        if (userType != 4) {
+                            JSONObject jsonObject = new JSONObject(json);
+                            String jStatus = jsonObject.getString("strBackFlag");
+                            String actionFlag = jsonObject.getString("actionFlag");
+                            if (jStatus.equals("1") && actionFlag.equals("open")) {
+                                isOpen = true;
+                                mDashSpinner.resetValues();
+                                mnProgress = 0.0f;
+                                mHandler.post(runnableSuccess);
+                                setToast("打开阀门成功");
+                            } else if (jStatus.equals("1") && actionFlag.equals("close")) {
+                                isOpen = false;
+//                            mDashSpinner.resetValues();
+//                            mnProgress = 0.0f;
+//                            mHandler.post(runnableFailure);
+                                mDashSpinner.resetValues();
+                                mnProgress = 0.0f;
+                                mHandler.post(runnableSuccess);
+                                setToast("关闭阀门成功");
+                            } else {
+//                            requestFlag = isOpen;
+//                            openOrCloseBtn.setChecked(isOpen);
+//                            requestFlag = false;
 
-                            mDashSpinner.resetValues();
-                            mnProgress = 0.0f;
-                            mHandler.post(runnableUnknown);
+//                            mDashSpinner.resetValues();
+//                            mnProgress = 0.0f;
+//                            mHandler.post(runnableUnknown);
+
+                                mDashSpinner.resetValues();
+                                mnProgress = 0.0f;
+                                mHandler.post(runnableFailure);
+                                setToast("操作失败，请重试!");
+                            }
+                        } else {
 
                         }
-
-//                        if (jStatus.equals("1") && actionFlag.equals("open")){
-//                            Toast.makeText(context,"打开阀门成功",Toast.LENGTH_SHORT).show();
-//                            waveProgress.setProgress(75);
-//                        } else if (jStatus.equals("1") && actionFlag.equals("close")){
-//                            Toast.makeText(context,"关闭阀门成功",Toast.LENGTH_SHORT).show();
-//                            waveProgress.setProgress(0);
-//                        } else
-//                        if (jStatus.equals("-1")){
-//                            Toast.makeText(context,"操作阀门失败",Toast.LENGTH_SHORT).show();
-//                            waveProgress.setProgress(0);
-//                        } else
-//                        if (jStatus.equals("-5")){
-//                            Toast.makeText(context,"该表地址不存在",Toast.LENGTH_SHORT).show();
-//                            waveProgress.setProgress(0);
-//                        } else {
-//                            Toast.makeText(context,"操作阀门失败",Toast.LENGTH_SHORT).show();
-//                            waveProgress.setProgress(0);
-//                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -652,7 +756,6 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
 
                 }
             }
-
         };
     }
 
@@ -673,30 +776,30 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
 //                            waveProgress.setProgress(75);
 
                             openSwitch();
-                            openOrCloseBtn.setChecked(true);
+//                            openOrCloseBtn.setChecked(true);
                             setToast("打开阀门成功");
                             isOpen = true;
                         } else if (jStatus.equals("1") && actionFlag.equals("close")) {
 //                            waveProgress.setProgress(0);
 
                             closeSwitch();
-                            openOrCloseBtn.setChecked(false);
+//                            openOrCloseBtn.setChecked(false);
                             setToast("关闭阀门成功");
                             isOpen = false;
                         } else if (jStatus.equals("-1")) {
 //                            waveProgress.setProgress(0);
 
-                            openOrCloseBtn.setChecked(isOpen);
+//                            openOrCloseBtn.setChecked(isOpen);
                             setToast("操作阀门失败");
                         } else if (jStatus.equals("-5")) {
 //                            waveProgress.setProgress(0);
 
-                            openOrCloseBtn.setChecked(isOpen);
+//                            openOrCloseBtn.setChecked(isOpen);
                             setToast("该表地址不存在");
                         } else {
 //                            waveProgress.setProgress(0);
 
-                            openOrCloseBtn.setChecked(isOpen);
+//                            openOrCloseBtn.setChecked(isOpen);
                             setToast("操作阀门失败");
                         }
                     } catch (JSONException e) {
@@ -710,17 +813,143 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
         };
     }
 
+
+    private void initCallBackGasNb() {
+        dataCallback = new HttpServiceUtil.CallBack() {
+            @Override
+            public void callback(String json) {
+                setDialogLabel("开关阀完成");
+                loading.dismiss();
+//                loading.hide();
+                // 解析json
+                try {
+                    statusLayout.setVisibility(View.VISIBLE);
+                    JSONObject jsonObject = new JSONObject(json);
+                    String jStatus = jsonObject.getString("strBackFlag");
+                    String actionFlag = jsonObject.getString("actionFlag");
+                    String consuList = jsonObject.getString("consuList");
+                    GsonBuilder gsonB = new GsonBuilder();
+                    Gson gson = gsonB.create();
+                    valveStatusInfoList = gson.fromJson(consuList, new TypeToken<ArrayList<ValveStatusInfo>>() {
+                    }.getType());
+
+                    if (valveStatusInfoList != null || valveStatusInfoList.size() > 0) {
+                        eleLayout.setVisibility(View.GONE);
+                        statusLayout.setVisibility(View.VISIBLE);
+                        waterLayout.setVisibility(View.GONE);
+                        //设置页面数据
+                        setStatusView(valveStatusInfoList, actionFlag);
+//                            mValveStatusInfoAdapter = new ValveStatusInfoAdapter(context, valveStatusInfoList);
+//                            taskList.setAdapter(mValveStatusInfoAdapter);
+//                            mValveStatusInfoAdapter.notifyDataSetChanged();
+                    } else {
+                        //此处提示用户查询数据失败
+                        setToast("获取数据失败，请重新尝试！");
+                    }
+//                        if (jStatus.equals("1") && actionFlag.equals("open")) {
+//                            isOpen = true;
+//                            mDashSpinner.resetValues();
+//                            mnProgress = 0.0f;
+//                            mHandler.post(runnableSuccess);
+//                            setToast("打开阀门成功");
+//                        } else if (jStatus.equals("1") && actionFlag.equals("close")) {
+//                            isOpen = false;
+////                            mDashSpinner.resetValues();
+////                            mnProgress = 0.0f;
+////                            mHandler.post(runnableFailure);
+//                            mDashSpinner.resetValues();
+//                            mnProgress = 0.0f;
+//                            mHandler.post(runnableSuccess);
+//                            setToast("关闭阀门成功");
+//                        } else {
+////                            requestFlag = isOpen;
+////                            openOrCloseBtn.setChecked(isOpen);
+////                            requestFlag = false;
+//
+////                            mDashSpinner.resetValues();
+////                            mnProgress = 0.0f;
+////                            mHandler.post(runnableUnknown);
+//
+//                            mDashSpinner.resetValues();
+//                            mnProgress = 0.0f;
+//                            mHandler.post(runnableFailure);
+//                            setToast("操作失败，请重试!");
+//                        }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+    }
+
+    /**
+     * Describe：设置页面数据
+     * Params: [dataList]
+     * Return: void
+     * Date：2018-05-06 14:10:35
+     */
+    private void setStatusView(List<ValveStatusInfo> dataList, String taskName) {
+        hisDate.setText(dataList.get(0).getSTART_TIME());
+        //任务名称
+//        String jobStr = dataList.get(0).getJOB_ACTION_DEF_ID();
+//        String rwmcStr = "";
+//        //开关阀操作
+//        if (jobStr.equals("101")) {
+//            rwmcStr = "关闭阀门";
+//        }else if (jobStr.equals("102")){
+//            rwmcStr = "打开阀门";
+//        }
+        rwmcText.setText(taskName);
+
+        //任务状态(0:等待执行；1:正在执行；2:成功；3:失败)
+        int typeStr = Integer.valueOf(dataList.get(0).getIS_LOCKED());
+        String rwztStr = "";
+        int textColor = 0;
+        switch (typeStr) {
+            case 0:
+                rwztStr = "等待执行";
+                textColor = getResources().getColor(R.color.yellow_900);
+                break;
+            case 1:
+                rwztStr = "正在执行";
+                textColor = getResources().getColor(R.color.yellow_900);
+                break;
+            case 2:
+                rwztStr = "成功";
+                textColor = getResources().getColor(R.color.green_900);
+                break;
+            case 3:
+                rwztStr = "失败";
+                textColor = getResources().getColor(R.color.red);
+                break;
+            default:
+                rwztStr = "";
+                textColor = getResources().getColor(R.color.black);
+                break;
+        }
+        rwztText.setText(rwztStr);
+        rwztText.setTextColor(textColor);
+        khxmText.setText(dataList.get(0).getCUSTOMER_NAME());
+        bhdzText.setText(dataList.get(0).getMETER_SERIAL_NUM());
+        rwbhText.setText(dataList.get(0).getID());
+    }
+
     @Override
     public void onDownloadIntimationDone(DashSpinner.DASH_MODE dashMode) {
         switch (dashMode) {
             case SUCCESS:
-                Toast.makeText(this, "打开阀门成功!", Toast.LENGTH_SHORT).show();
+//                if (isOpen == true) {
+//                    Toast.makeText(this, "打开阀门成功!", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(this, "关闭阀门成功!", Toast.LENGTH_SHORT).show();
+//                }
+
                 break;
             case FAILURE:
-                Toast.makeText(this, "关闭阀门成功!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "关闭阀门成功!", Toast.LENGTH_SHORT).show();
                 break;
             case UNKNOWN:
-                Toast.makeText(this, "系统异常，请重试!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "系统异常，请重试!", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -763,7 +992,7 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
             case R.id.backHome:
                 finish();
                 break;
-            case R.id.select_addr:
+            case R.id.searchNum:
 //                if (meterInfoDialog == null) {
 //                    meterInfoDialog = new MeterInfoDialog(activity);
 //                    meterInfoDialog.setCall(new MeterInfoDialog.CallBack() {
@@ -787,6 +1016,72 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
                     popViewisShow();
                 }
                 break;
+            case R.id.openBtn:
+//                //检测表号是否为空
+                if (meterAddr.getText().length() == 0) {
+                    Toast.makeText(context, "请先输入表地址！", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                waterLayout.setVisibility(View.GONE);
+                swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 1);
+                break;
+            case R.id.closeBtn:
+                //检测表号是否为空
+                if (meterAddr.getText().length() == 0) {
+                    Toast.makeText(context, "请先输入表地址！", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                waterLayout.setVisibility(View.GONE);
+                swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 0);
+//                if (userType != 4) {
+//                    swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 0);
+//                } else {
+//                    //关阀
+//                    swichDataTest(CommonUtil.AddZeros(meterAddr.getText().toString()), 0);
+//                    //更改备用气价
+////                    swichDataTest(CommonUtil.AddZeros(meterAddr.getText().toString()), 6);
+//                }
+                break;
+            case R.id.openBtn1:
+//                //检测表号是否为空
+                if (meterAddr.getText().length() == 0) {
+                    setToast("请先输入表地址！");
+                    return;
+                }
+                waterLayout.setVisibility(View.GONE);
+                swichDataTest(CommonUtil.AddZeros(meterAddr.getText().toString()), 1);
+
+                break;
+            case R.id.closeBtn1:
+                //检测表号是否为空
+                if (meterAddr.getText().length() == 0) {
+                    setToast("请先输入表地址！");
+                    return;
+                }
+                waterLayout.setVisibility(View.GONE);
+                swichDataTest(CommonUtil.AddZeros(meterAddr.getText().toString()), 0);
+                break;
+            case R.id.ggdqBtn:
+                //检测表号是否为空
+                if (meterAddr.getText().length() == 0) {
+                    setToast("请先输入表地址！");
+                    return;
+                }
+                waterLayout.setVisibility(View.GONE);
+                swichDataTest(CommonUtil.AddZeros(meterAddr.getText().toString()), 5);
+                break;
+            case R.id.ggbyBtn:
+                //检测表号是否为空
+                if (meterAddr.getText().length() == 0) {
+                    setToast("请先输入表地址！");
+                    return;
+                }
+                waterLayout.setVisibility(View.GONE);
+                swichDataTest(CommonUtil.AddZeros(meterAddr.getText().toString()), 6);
+                break;
+            case R.id.flashImage:
+                swichDataTest(CommonUtil.AddZeros(meterAddr.getText().toString()), 4);
+                break;
             case R.id.btn_close:
                 if (meterAddr.getText().length() == 0) {
                     Toast.makeText(context, "请先输入表地址！", Toast.LENGTH_SHORT).show();
@@ -801,28 +1096,6 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
                 }
                 swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 1);
                 break;
-//            case R.id.switch_main_1:
-//                if (switchButton.isChecked()) {
-//                    //              开关阀
-//                    if (meterAddr.getText().length() == 0){
-//                        Toast.makeText(context,"请先输入表号！",Toast.LENGTH_SHORT).show();
-//                        return;
-//                    } else{
-//                        swichData(CommonUtil.AddZeros(meterAddr.getText().toString()),0);
-//                        waveProgress.setProgress(75);
-//                    }
-//
-//                } else {
-//                    if (meterAddr.getText().length() == 0){
-//                        Toast.makeText(context,"请先输入表号！",Toast.LENGTH_SHORT).show();
-//                        return;
-//                    } else{
-//                        swichData(CommonUtil.AddZeros(meterAddr.getText().toString()),1);
-//                        waveProgress.setProgress(0);
-//                    }
-//
-//                }
-//                break;
         }
     }
 

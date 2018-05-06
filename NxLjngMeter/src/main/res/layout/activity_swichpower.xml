@@ -63,6 +63,15 @@
                         android:paddingLeft="5dp"
                         android:singleLine="true"
                         android:textSize="13dp" />
+
+                    <ImageView
+                        android:id="@+id/searchNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/search_meter" />
                 </RelativeLayout>
 
                 <!--抄表表号隐藏内容-->
@@ -116,39 +125,132 @@
             android:layout_below="@+id/meterNumlayout"
             android:background="#ffc8c8c8" />
 
-        <RelativeLayout
-            android:id="@+id/ssss"
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_below="@+id/lineView"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="15dp">
-
-            <Button
-                android:id="@+id/select_addr"
-                android:layout_width="wrap_content"
-                android:layout_height="31dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/selector_circle"
-                android:paddingBottom="3dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:paddingTop="3dp"
-                android:text="选择表号"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-
-            <CheckBox
-                android:id="@+id/openOrCloseBtn"
-                android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:button="@drawable/selector_switch"
-                android:clickable="true"
-                android:gravity="center_horizontal" />
-        </RelativeLayout>
+                android:gravity="center_vertical"
+                android:padding="15dp">
+
+                <Button
+                    android:id="@+id/openBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="31dp"
+                    android:background="@drawable/selector_circle"
+                    android:paddingLeft="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="打开阀门"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+
+                <Button
+                    android:id="@+id/closeBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="31dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/selector_circle"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="关闭阀门"
+                    android:layout_marginRight="15dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lineView"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_height="31dp">
+                    <Button
+                        android:id="@+id/openBtn1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="31dp"
+                        android:background="@drawable/selector_open"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:text="开阀"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+
+                    <Button
+                        android:id="@+id/closeBtn1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="31dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/openBtn1"
+                        android:background="@drawable/selector_close"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:text="关阀"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="31dp">
+                    <Button
+                        android:id="@+id/ggdqBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="31dp"
+                        android:layout_toLeftOf="@+id/ggbyBtn"
+                        android:background="@drawable/selector_open"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="改当前气价"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+
+                    <Button
+                        android:id="@+id/ggbyBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="31dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/selector_close"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="改备用气价"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+
+
+                <CheckBox
+                    android:id="@+id/openOrCloseBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:button="@drawable/selector_switch"
+                    android:clickable="true"
+                    android:gravity="center_horizontal"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+        </LinearLayout>
     </RelativeLayout>
 
 
@@ -210,22 +312,37 @@
                 app:textColorTo="#FFFFFF" />
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/taskList"
+        <LinearLayout
+            android:id="@+id/statusLayout"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/t_login_layout_editor_bg"
-            android:cacheColorHint="#00000000"
-            android:dividerHeight="0.8dip"
-            android:fadingEdge="none"
-            android:listSelector="@color/transparent"
-            android:overScrollFooter="@android:color/transparent"
-            android:overScrollHeader="@android:color/transparent"
-            android:overScrollMode="never"
+            android:layout_marginTop="10dp"
             android:visibility="gone"
-            android:scrollbars="none" />
+            android:layout_marginRight="15dp">
+
+            <include
+                android:id="@+id/mLayout"
+                layout="@layout/valve_status" />
+        </LinearLayout>
+
+
+        <!--<ListView-->
+            <!--android:id="@+id/taskList"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="300dp"-->
+            <!--android:layout_marginLeft="15dp"-->
+            <!--android:layout_marginRight="15dp"-->
+            <!--android:background="@drawable/t_login_layout_editor_bg"-->
+            <!--android:cacheColorHint="#00000000"-->
+            <!--android:dividerHeight="0.8dip"-->
+            <!--android:fadingEdge="none"-->
+            <!--android:listSelector="@color/transparent"-->
+            <!--android:overScrollFooter="@android:color/transparent"-->
+            <!--android:overScrollHeader="@android:color/transparent"-->
+            <!--android:overScrollMode="never"-->
+            <!--android:scrollbars="none"-->
+            <!--android:visibility="gone" />-->
 
     </RelativeLayout>
 

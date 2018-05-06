@@ -2,25 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@drawable/t_login_layout_editor_bg"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/trend_up_normal">
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/trend_up_normal">-->
 
-        <TextView
-            android:id="@+id/hisDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:padding="3dp"
-            android:text="执行时间：2018.04.11"
-            android:textColor="@color/white"
-            android:textSize="13sp" />
-    </RelativeLayout>
+        <!--<TextView-->
+            <!--android:id="@+id/hisDate"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:padding="3dp"-->
+            <!--android:text="执行时间：2018.04.11"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="13sp" />-->
+    <!--</RelativeLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,7 +30,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -50,7 +53,7 @@
                     android:textSize="15sp" />
 
                 <TextView
-                    android:id="@+id/yszlText"
+                    android:id="@+id/rwmcText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
@@ -73,12 +76,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="客户姓名："
+                    android:text="姓名："
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
                 <TextView
-                    android:id="@+id/gscsText"
+                    android:id="@+id/khxmText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -99,7 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="任务编号："
+                    android:text="编号："
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
@@ -119,7 +122,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -148,6 +154,12 @@
                     android:text="任务成功"
                     android:textColor="@color/black"
                     android:textSize="13sp" />
+                <ImageView
+                    android:id="@+id/flashImage"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/flash"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -164,7 +176,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="表号地址："
+                    android:text="表号："
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
@@ -188,23 +200,23 @@
 
 
                 <TextView
-                    android:id="@+id/rwcsTextLable"
+                    android:id="@+id/hisDateLable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="任务参数："
+                    android:text="时间："
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
                 <TextView
-                    android:id="@+id/rwcsText"
+                    android:id="@+id/hisDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/rwcsTextLable"
-                    android:text="201700013957"
+                    android:layout_toEndOf="@+id/hisDateLable"
+                    android:text="2018.04.11"
                     android:textColor="@color/black"
-                    android:textSize="13sp" />
+                    android:textSize="11sp" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

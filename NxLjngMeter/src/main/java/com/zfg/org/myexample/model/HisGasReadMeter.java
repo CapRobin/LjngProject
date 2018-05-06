@@ -12,20 +12,6 @@ package com.zfg.org.myexample.model;
  */
 public class HisGasReadMeter {
 
-
-
-//holder.GasConsumption.setText("用气量示值" + dto.getGASCONSUMPTION()+"m³");
-//holder.StmtConsu.setText("结算周期量示值" + dto.getSTMTCONSU()+"m³");
-//holder.CrgBal.setText("剩余金额(总)" + dto.getCRGBAL() +"元");
-//holder.SurplusAmtLcl.setText("剩余金额(本地)" + dto.getSURPLUSAMTLCL() +"元");
-//holder.SurplusAmtRmt.setText("剩余金额(远程)" + dto.getSURPLUSAMTRMT() +"元");
-//holder.CrgCntLcl.setText("购气次数(本地)" + dto.getCRGCNTLCL() +"次");
-//holder.CrgCntRmt.setText("购气次数(远程)" + dto.getCRGCNTRMT() +"次");
-//holder.DATE_TIME.setText("时间" + dto.getDATE_TIME());
-
-
-
-
 	//时间
 	private String DATE_TIME;
 	//用气量示值

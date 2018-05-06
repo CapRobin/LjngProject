@@ -243,7 +243,8 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
      * Date：2018-04-21 09:18:18
      */
     private void inituserTypeList() {
-        String[] userTypeArray = {"水表( LORA )","水表(NBIOT)","电    表","气    表","气表(NBIOT)","热    表"};
+//        String[] userTypeArray = {"水表( LORA )","水表(NBIOT)","电    表","气    表","气表(NBIOT)","热    表"};
+        String[] userTypeArray = {"气表( LORA )","气表(NBIOT)"};
         userTypeList = new ArrayList<String>();
         for(int i = 0;i < userTypeArray.length;i++){
             userTypeList.add(userTypeArray[i]);
@@ -263,49 +264,110 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
         ListView myListView = (ListView) layout.findViewById(R.id.formcustomspinner_list);
         DialogAdapt adapter = new DialogAdapt(context, userTypeList);
         myListView.setAdapter(adapter);
+
+//
+//        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                switch (position) {
+//                    //水表用户Lora
+//                    case 0:
+////                        ContantsUtil.setHOst("http://longi.nxlgg.com:8039/lggmr");
+//                        ContantsUtil.setHOst("http://longi.nxlgg.com:8084/lggmr");
+////                        ContantsUtil.setHOst( "http://192.168.0.46:8046/lggmr");
+////                        ContantsUtil.setHOst("http://longi.nxlgg.com:8084/lggmr");
+////                        ContantsUtil.setHOst("http://longi.nxlgg.com:8046/lggmr");
+////                        ContantsUtil.setHOst("http://longi.nxlgg.com:8084/lggmr");
+//                        nameEditText.setText("jel");
+//                        pswEditText.setText("123456");
+//                        userTypeEdit.setText("水表(LORA)");
+//                        userType = 1;
+//                        break;
+//                    //水表用户Nbiot
+//                    case 1:
+//                        ContantsUtil.setHOst("http://222.75.144.94:8808/lggmr");
+//                        //暂无内网地址
+//                        nameEditText.setText("lgg_nbiot");
+//                        pswEditText.setText("123456");
+//                        userTypeEdit.setText("水表(NBIOT)");
+//                        userType = 1;
+//                        break;
+//                    //选择电表用户
+//                    case 2:
+////                        ContantsUtil.setHOst("http://192.168.2.136:8088/lggmr");
+////                        ContantsUtil.setHOst("http://222.75.144.94:80/lggmr");
+////                        ContantsUtil.setHOst("http://192.168.2.157:80/lggmr");
+////                        ContantsUtil.setHOst("http://192.168.2.84:8088/lggmr");
+////                        ContantsUtil.setHOst("http://192.168.2.84:8084/lggmr");
+//                        ContantsUtil.setHOst("http://longi.nxlgg.com:8084/lggmr");
+////                        nameEditText.setText("lgg_nbiot");
+////                        pswEditText.setText("123456");
+//                        nameEditText.setText("luoj");
+//                        pswEditText.setText("123456");
+//                        userTypeEdit.setText("电表");
+//                        userType = 2;
+//                        break;
+//                    //选择气表用户(暂时跟Lora水表地址一样)
+//                    case 3:
+////                        ContantsUtil.setHOst( "http://longi.nxlgg.com:8039/lggmr");
+////                        ContantsUtil.setHOst( "http://longi.nxlgg.com:8046/lggmr");
+////                        ContantsUtil.setHOst( "http://192.168.2.136:8008/lggmr");
+////                        ContantsUtil.setHOst("http://longi.nxlgg.com:8084/lggmr");
+//
+//                        //气表外网测试地址
+////                        ContantsUtil.setHOst("http://:222.75.144.94:6608/lggmr");
+////                        ContantsUtil.setHOst("http://longi.nxlgg.com:6608/lggmr");
+//                        ContantsUtil.setHOst("http://longi.nxlgg.com:80/lggmr");
+////                        nameEditText.setText("ng1");
+////                        pswEditText.setText("1");
+////                        nameEditText.setText("wangtong");
+////                        pswEditText.setText("123456");
+////                        nameEditText.setText("loragas");
+////                        pswEditText.setText("123456");
+//                        nameEditText.setText("xts");
+//                        pswEditText.setText("1");
+//                        userTypeEdit.setText("气表");
+//                        userType = 3;
+//                        break;
+//                    //选择热表用户
+//                    case 4:
+////                        Toast.makeText(context, "该用户角色暂无数据", Toast.LENGTH_SHORT).show();
+//                        ContantsUtil.setHOst("http://222.75.144.94:9157/lggmr");
+//                        nameEditText.setText("wangtong");
+//                        pswEditText.setText("123456");
+//                        userTypeEdit.setText("气表(NBIOT)");
+//                        userType = 4;
+//                        break;
+//                    case 5:
+//                        Toast.makeText(context, "该用户角色暂无数据", Toast.LENGTH_SHORT).show();
+//                        userTypeEdit.setText("");
+//                        userType = 5;
+//                        break;
+//                    default:
+//                        userType = -1;
+//                        break;
+//                }
+//                //本地存储用户类型
+//                preference.putInt(Preference.USERTYPE, userType);
+//                AppApplication.userType = userType;
+//
+//                if (alertDialog != null) {
+//                    alertDialog.dismiss();
+//                }
+//            }
+//        });
+
+
+
+
+
+        //临时使用
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
-                    //水表用户Lora
+                    //气表Lora
                     case 0:
-//                        ContantsUtil.setHOst("http://longi.nxlgg.com:8039/lggmr");
-                        ContantsUtil.setHOst("http://longi.nxlgg.com:8084/lggmr");
-//                        ContantsUtil.setHOst( "http://192.168.0.46:8046/lggmr");
-//                        ContantsUtil.setHOst("http://longi.nxlgg.com:8084/lggmr");
-//                        ContantsUtil.setHOst("http://longi.nxlgg.com:8046/lggmr");
-//                        ContantsUtil.setHOst("http://longi.nxlgg.com:8084/lggmr");
-                        nameEditText.setText("jel");
-                        pswEditText.setText("123456");
-                        userTypeEdit.setText("水表(LORA)");
-                        userType = 1;
-                        break;
-                    //水表用户Nbiot
-                    case 1:
-                        ContantsUtil.setHOst("http://222.75.144.94:8808/lggmr");
-                        //暂无内网地址
-                        nameEditText.setText("lgg_nbiot");
-                        pswEditText.setText("123456");
-                        userTypeEdit.setText("水表(NBIOT)");
-                        userType = 1;
-                        break;
-                    //选择电表用户
-                    case 2:
-//                        ContantsUtil.setHOst("http://192.168.2.136:8088/lggmr");
-//                        ContantsUtil.setHOst("http://222.75.144.94:80/lggmr");
-//                        ContantsUtil.setHOst("http://192.168.2.157:80/lggmr");
-//                        ContantsUtil.setHOst("http://192.168.2.84:8088/lggmr");
-//                        ContantsUtil.setHOst("http://192.168.2.84:8084/lggmr");
-                        ContantsUtil.setHOst("http://longi.nxlgg.com:8084/lggmr");
-//                        nameEditText.setText("lgg_nbiot");
-//                        pswEditText.setText("123456");
-                        nameEditText.setText("luoj");
-                        pswEditText.setText("123456");
-                        userTypeEdit.setText("电表");
-                        userType = 2;
-                        break;
-                    //选择气表用户(暂时跟Lora水表地址一样)
-                    case 3:
 //                        ContantsUtil.setHOst( "http://longi.nxlgg.com:8039/lggmr");
 //                        ContantsUtil.setHOst( "http://longi.nxlgg.com:8046/lggmr");
 //                        ContantsUtil.setHOst( "http://192.168.2.136:8008/lggmr");
@@ -313,7 +375,8 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
 
                         //气表外网测试地址
 //                        ContantsUtil.setHOst("http://:222.75.144.94:6608/lggmr");
-                        ContantsUtil.setHOst("http://longi.nxlgg.com:6608/lggmr");
+//                        ContantsUtil.setHOst("http://longi.nxlgg.com:6608/lggmr");
+                        ContantsUtil.setHOst("http://longi.nxlgg.com:80/lggmr");
 //                        nameEditText.setText("ng1");
 //                        pswEditText.setText("1");
 //                        nameEditText.setText("wangtong");
@@ -322,23 +385,19 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
 //                        pswEditText.setText("123456");
                         nameEditText.setText("xts");
                         pswEditText.setText("1");
-                        userTypeEdit.setText("气表");
+                        userTypeEdit.setText("气表(LORA)");
                         userType = 3;
                         break;
-                    //选择热表用户
-                    case 4:
+                    //水表用户Nbiot
+                    case 1:
 //                        Toast.makeText(context, "该用户角色暂无数据", Toast.LENGTH_SHORT).show();
                         ContantsUtil.setHOst("http://222.75.144.94:9157/lggmr");
-                        nameEditText.setText("wangtong");
+                        nameEditText.setText("luocr");
                         pswEditText.setText("123456");
                         userTypeEdit.setText("气表(NBIOT)");
                         userType = 4;
                         break;
-                    case 5:
-                        Toast.makeText(context, "该用户角色暂无数据", Toast.LENGTH_SHORT).show();
-                        userTypeEdit.setText("");
-                        userType = 5;
-                        break;
+                    //选择电表用户
                     default:
                         userType = -1;
                         break;
@@ -352,6 +411,29 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                 }
             }
         });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         builder = new AlertDialog.Builder(context,R.style.newPassword);
         builder.setView(layout);
         alertDialog = builder.create();

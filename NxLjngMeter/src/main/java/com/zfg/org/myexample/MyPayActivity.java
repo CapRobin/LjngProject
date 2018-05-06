@@ -1,5 +1,6 @@
 package com.zfg.org.myexample;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.zfg.org.myexample.activity.BasicActivity;
 import com.zfg.org.myexample.activity.DialogLoading;
+import com.zfg.org.myexample.application.AppApplication;
 import com.zfg.org.myexample.dto.readmeterModel;
 import com.zfg.org.myexample.pay.alipay.AlipayAPI;
 import com.zfg.org.myexample.pay.alipay.AuthResult;
@@ -223,6 +225,7 @@ public class MyPayActivity extends BasicActivity implements View.OnClickListener
         Toast.makeText(this, version, Toast.LENGTH_SHORT).show();
     }
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -275,6 +278,7 @@ public class MyPayActivity extends BasicActivity implements View.OnClickListener
     };
 
 
+    @SuppressLint("HandlerLeak")
     Handler WePayHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -306,6 +310,14 @@ public class MyPayActivity extends BasicActivity implements View.OnClickListener
                 jsobj.put("meterAddr", meteraddr);
                 jsobj.put("chargeAmount", money);
                 jsobj.put("userid",preference.getString(Preference.CACHE_USER));
+
+                //NB气表充值
+                if(AppApplication.userType == 4){
+                    jsobj.put("total_fee", money);
+                    jsobj.put("operationId", String.valueOf(1));
+                    jsobj.put("userid", preference.getString(Preference.CACHE_USER));
+                }
+
             } catch (JSONException ex) {
                 Logger.getLogger(activity.getClass().getName()).log(Level.SEVERE, null, ex);
             }
@@ -314,9 +326,19 @@ public class MyPayActivity extends BasicActivity implements View.OnClickListener
             Map<String, Object> map = new HashMap<String, Object>();
             //"{\"name\":\"admin\",\"password\":admin\"}"
             map.put("ngMeter", jsobj.toString());
+            if(AppApplication.userType == 4){
+                map.put("ngMeterPay", jsobj.toString());
+            }else {
+                map.put("ngMeter", jsobj.toString());
+            }
             loading.show();
             setDialogLabel("开始向表中充值请等待...");
-            SystemAPI.meter_rechargewater(map, dataCallback);
+
+            if(AppApplication.userType == 4){
+                SystemAPI.meter_recharge_nb(map, dataCallback);
+            }else {
+                SystemAPI.meter_rechargewater(map, dataCallback);
+            }
 //            SystemAPI.query_readdata_his(map, dataCallback);
         } catch (Exception e) {
             e.printStackTrace();
@@ -483,6 +505,39 @@ public class MyPayActivity extends BasicActivity implements View.OnClickListener
         };
     }
 
+//    //  充值  zhdl 微信充值发起流程
+//    private void weipayrechargeData() {
+//        try {
+////            String userId = ContantsUtil.curUser.getId().toString();
+//            JSONObject jsobj = new JSONObject();
+//            try {
+//                final String trade_no = System.currentTimeMillis() + ""; // 每次交易号不一样
+//                final String total_fee = productprice.getText().toString();
+//                final String subject = "测试的商品";
+//                jsobj.put("trade_no", trade_no);
+//                jsobj.put("total_fee", total_fee);
+//                jsobj.put("subject", subject);
+//                jsobj.put("meterAddr", productsubjectnum.getText().toString());
+//
+////                jsobj.put("meterType","水表");
+//            } catch (JSONException ex) {
+//                Logger.getLogger(activity.getClass().getName()).log(Level.SEVERE, null, ex);
+//            }
+//
+////          String jsobj="{\"name\":\"admin\",\"password\":\"admin\"}";
+//            Map<String, Object> map = new HashMap<String, Object>();
+//            //"{\"name\":\"admin\",\"password\":admin\"}"
+//            map.put("ngMeterPay", jsobj.toString());
+//
+//            loading.show();
+//            setDialogLabel("开始获取订单中请等待");
+//            SystemAPI.meter_weipay_rechargewater(map, weipaydataCallback);
+////            SystemAPI.query_readdata_his(map, dataCallback);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+
     //  充值  zhdl 微信充值发起流程
     private void weipayrechargeData() {
         try {
@@ -517,6 +572,17 @@ public class MyPayActivity extends BasicActivity implements View.OnClickListener
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
     //返回带签名信息
     private void weipayinitCallBack() {
         weipaydataCallback = new HttpServiceUtil.CallBack() {
@@ -545,7 +611,6 @@ public class MyPayActivity extends BasicActivity implements View.OnClickListener
                             final IWXAPI msgApi = WXAPIFactory.createWXAPI(context, null);// 将该app注册到微信
                             msgApi.registerApp(Constants.WX_APP_ID);
                             api.sendReq(req);
-
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

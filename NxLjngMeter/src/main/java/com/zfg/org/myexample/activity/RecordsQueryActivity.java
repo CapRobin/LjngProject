@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bigkoo.pickerview.TimePickerView;
 import com.google.gson.Gson;
@@ -30,6 +31,7 @@ import com.google.gson.reflect.TypeToken;
 import com.zfg.org.myexample.R;
 import com.zfg.org.myexample.SystemAPI;
 import com.zfg.org.myexample.ViewInject;
+import com.zfg.org.myexample.adapter.GasNbReportDataAdapter;
 import com.zfg.org.myexample.adapter.HisEleOptionAdapter;
 import com.zfg.org.myexample.adapter.HisEleReadMeterAdapter;
 import com.zfg.org.myexample.adapter.HisGasReadMeterAdapter;
@@ -37,14 +39,17 @@ import com.zfg.org.myexample.adapter.HisWaterReadMeterAdapter;
 import com.zfg.org.myexample.adapter.MeterAllInfoAdapter;
 import com.zfg.org.myexample.adapter.NoScrollGridView;
 import com.zfg.org.myexample.adapter.RcAdapterWholeChange;
+import com.zfg.org.myexample.adapter.ValveStatusInfoAdapter;
 import com.zfg.org.myexample.db.MeterInfoBo;
 import com.zfg.org.myexample.db.dao.MeterInfo;
+import com.zfg.org.myexample.model.GasNbReportData;
 import com.zfg.org.myexample.model.HisEleOption;
 import com.zfg.org.myexample.model.HisEleReadMeter;
 import com.zfg.org.myexample.model.HisGasReadMeter;
 import com.zfg.org.myexample.model.HisWaterReadMeter;
 import com.zfg.org.myexample.model.MeterAllInfo;
-import com.zfg.org.myexample.model.ReadDataHisGasItemModel;
+import com.zfg.org.myexample.model.ReadDataItemModel;
+import com.zfg.org.myexample.model.ValveStatusInfo;
 import com.zfg.org.myexample.utils.CheckUtil;
 import com.zfg.org.myexample.utils.CommonUtil;
 import com.zfg.org.myexample.utils.HttpServiceUtil;
@@ -111,6 +116,10 @@ public class RecordsQueryActivity extends MyBaseActivity implements OnTouchListe
     private ListView waterRecordsQueryList;
     @ViewInject(id = R.id.recordsQueryList_gas)
     private ListView gasRecordsQueryList;
+    @ViewInject(id = R.id.recordsQueryList_gas_nb)
+    private ListView gasNbRecordsQueryList;
+    @ViewInject(id = R.id.typeAllView)
+    private LinearLayout typeAllView;
 
     private List<String> showListData1;
     private List<MeterAllInfo> getListData;
@@ -118,10 +127,12 @@ public class RecordsQueryActivity extends MyBaseActivity implements OnTouchListe
     private List<HisEleReadMeter> eleHisReadMeterList;
     private List<HisWaterReadMeter> waterHisReadMeterList;
     private List<HisGasReadMeter> gasHisReadMeterList;
+    private List<GasNbReportData> gasNbReportDataList;
     private List<HisEleOption> eleHisOptionList;
     private HisEleReadMeterAdapter mHisEleReadMeterAdapter;
     private HisWaterReadMeterAdapter mHisWaterReadMeterAdapter;
     private HisGasReadMeterAdapter mHisGasReadMeterAdapter;
+    private GasNbReportDataAdapter mGasNbReportDataAdapter;
     private com.zfg.org.myexample.adapter.HisEleOptionAdapter HisEleOptionAdapter;
     private HttpServiceUtil.CallBack optionCallback;
     private HttpServiceUtil.CallBack readMeterCallback;
@@ -185,18 +196,25 @@ public class RecordsQueryActivity extends MyBaseActivity implements OnTouchListe
         eleHisReadMeterList = new ArrayList<HisEleReadMeter>();
         waterHisReadMeterList = new ArrayList<HisWaterReadMeter>();
         eleHisOptionList = new ArrayList<HisEleOption>();
+        gasNbReportDataList = new ArrayList<GasNbReportData>();
 
         loading = new DialogLoading(this);
         settingView.setVisibility(View.VISIBLE);
         eleRecordsQueryList.setVisibility(View.GONE);
         waterRecordsQueryList.setVisibility(View.GONE);
         gasRecordsQueryList.setVisibility(View.GONE);
+        gasNbRecordsQueryList.setVisibility(View.GONE);
 
         backHome.setOnClickListener(this);
         settingBtn.setOnClickListener(this);
         searchNum.setOnClickListener(this);
         query_submit.setOnClickListener(this);
-        queryTypeEdit.setOnTouchListener(this);
+        if(userType !=4){
+            queryTypeEdit.setOnTouchListener(this);
+            typeAllView.setVisibility(View.VISIBLE);
+        }else {
+            typeAllView.setVisibility(View.GONE);
+        }
         startTimetEdit.setOnTouchListener(this);
         endTimeEdit.setOnTouchListener(this);
         queryNumEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -245,7 +263,10 @@ public class RecordsQueryActivity extends MyBaseActivity implements OnTouchListe
                 getListData.add(allInfo);
             }
         }
-        showView1(showListData1);
+        if(userType !=4){
+            showView1(showListData1);
+        }
+//        showView1(showListData1);
         showView2(getListData);
     }
 
@@ -433,11 +454,13 @@ public class RecordsQueryActivity extends MyBaseActivity implements OnTouchListe
                     eleRecordsQueryList.setVisibility(View.GONE);
                     waterRecordsQueryList.setVisibility(View.GONE);
                     gasRecordsQueryList.setVisibility(View.GONE);
+                    gasNbRecordsQueryList.setVisibility(View.GONE);
                 } else {
                     int eleCount = eleRecordsQueryList.getCount();
                     int waterCount = waterRecordsQueryList.getCount();
                     int gasCount = gasRecordsQueryList.getCount();
-                    if (eleCount > 0 || waterCount > 0 || gasCount > 0) {
+                    int gasNbCount = gasNbRecordsQueryList.getCount();
+                    if (eleCount > 0 || waterCount > 0 || gasCount > 0 || gasNbCount > 0) {
                         settingView.setVisibility(View.GONE);
                         if (eleCount > 0) {
                             eleRecordsQueryList.setVisibility(View.VISIBLE);
@@ -445,6 +468,8 @@ public class RecordsQueryActivity extends MyBaseActivity implements OnTouchListe
                             waterRecordsQueryList.setVisibility(View.VISIBLE);
                         } else if (gasCount > 0) {
                             gasRecordsQueryList.setVisibility(View.VISIBLE);
+                        } else if (gasNbCount > 0) {
+                            gasNbRecordsQueryList.setVisibility(View.VISIBLE);
                         }
                     } else {
                         setToast("请先设置相关查询条件，再进行查询！");
@@ -462,39 +487,174 @@ public class RecordsQueryActivity extends MyBaseActivity implements OnTouchListe
                 }
                 break;
             case R.id.query_submit:
-                if (CheckUtil.isNull(queryTypeEdit.getText().toString())) {
-                    setToast("请输入查询类型！");
-                    return;
-                }
-                if (CheckUtil.isNull(queryNumEdit.getText().toString())) {
-                    setToast("请输入表地址！");
-                    return;
-                }
-                if (queryNumEdit.getText().toString().trim().length() < 12) {
-                    setToast("表地址输入有误请重新输入！");
-                    return;
-                }
-                if (CheckUtil.isNull(startTimetEdit.getText().toString())) {
-                    setToast("请选择查询开始日期！");
-                    return;
-                }
-                if (CheckUtil.isNull(endTimeEdit.getText().toString())) {
-                    setToast("请选择查询结束日期！");
-                    return;
-                }
-                String meterNum = CommonUtil.AddZeros(queryNumEdit.getText().toString());
-                //判断查询类型(抄表记录|操作记录)
-                if (queryType == 0) {
-                    //抄表记录
-                    queryReadMeterRecord(meterNum);
-                } else {
-                    //操作记录
+                if(userType == 4){
+                    String startTime = startTimetEdit.getText().toString();
+                    String endTime = endTimeEdit.getText().toString();
 
-                    queryOptionRecord(meterNum);
+                    if (CheckUtil.isNull(queryNumEdit.getText().toString())) {
+                        setToast("请输入表地址！");
+                        return;
+                    }
+                    if (queryNumEdit.getText().toString().trim().length() < 12) {
+                        setToast("表地址输入有误请重新输入！");
+                        return;
+                    }
+                    if (CheckUtil.isNull(startTimetEdit.getText().toString())) {
+                        setToast("请选择查询开始日期！");
+                        return;
+                    }
+                    if (CheckUtil.isNull(endTimeEdit.getText().toString())) {
+                        setToast("请选择查询结束日期！");
+                        return;
+                    }
+                    getGasNbData(CommonUtil.AddZeros(queryNumEdit.getText().toString()), 3,startTime,endTime);
+                }else {
+                    if (CheckUtil.isNull(queryTypeEdit.getText().toString())) {
+                        setToast("请输入查询类型！");
+                        return;
+                    }
+                    if (CheckUtil.isNull(queryNumEdit.getText().toString())) {
+                        setToast("请输入表地址！");
+                        return;
+                    }
+                    if (queryNumEdit.getText().toString().trim().length() < 12) {
+                        setToast("表地址输入有误请重新输入！");
+                        return;
+                    }
+                    if (CheckUtil.isNull(startTimetEdit.getText().toString())) {
+                        setToast("请选择查询开始日期！");
+                        return;
+                    }
+                    if (CheckUtil.isNull(endTimeEdit.getText().toString())) {
+                        setToast("请选择查询结束日期！");
+                        return;
+                    }
+                    String meterNum = CommonUtil.AddZeros(queryNumEdit.getText().toString());
+                    //判断查询类型(抄表记录|操作记录)
+                    if (queryType == 0) {
+                        //抄表记录
+                        queryReadMeterRecord(meterNum);
+                    } else {
+                        //操作记录
+                        queryOptionRecord(meterNum);
+                    }
                 }
                 break;
         }
     }
+    
+    /**
+     * Describe：NB气表请求方法
+     * Params: 
+     * Return: 
+     * Date：2018-05-06 16:16:23
+     */
+    
+    public void getGasNbData(String meteraddr, int stuts, String startTime, String endTime) {
+        String titleStr;
+        try {
+            JSONObject jsobj = new JSONObject();
+            try {
+                jsobj.put("meterAddr", meteraddr);
+                jsobj.put("operationId", String.valueOf(stuts));
+                jsobj.put("userid", preference.getString(Preference.CACHE_USER));
+                jsobj.put("bdate", startTime);
+                jsobj.put("edate", endTime);
+
+            } catch (JSONException ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            }
+
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("ngNbMeter", jsobj.toString());
+//            titleStr = "正在执行查询操作";
+//            if (stuts == 0) {
+//                titleStr = "正在执行关阀操作";
+//            } else {
+//                titleStr = "正在执行开阀操作";
+//            }
+            loading = new DialogLoading(this);
+            setDialogLabel("正在执行查询操作");
+            loading.show();
+            initCallBackGasNb();
+            SystemAPI.meter_ongas(map, dataCallback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Describe：NB气表回调函数
+     * Params: 
+     * Return:
+     * Date：2018-05-06 16:16:55
+     */
+    
+    private void initCallBackGasNb() {
+        listdata.clear();
+        dataCallback = new HttpServiceUtil.CallBack() {
+            @Override
+            public void callback(String json) {
+                setDialogLabel("抄表完成");
+                loading.dismiss();
+                // 解析json
+                if (json.length() > 3) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(json);
+                        String jStatus = jsonObject.getString("strBackFlag");
+
+                        if (jStatus.equals("1")) {
+                            String consuList = jsonObject.getString("consuList");
+                            GsonBuilder gsonB = new GsonBuilder();
+                            Gson gson = gsonB.create();
+                            gasNbReportDataList = gson.fromJson(consuList, new TypeToken<ArrayList<GasNbReportData>>() {
+                            }.getType());
+
+                            if (gasNbReportDataList != null || gasNbReportDataList.size() > 0) {
+                                settingView.setVisibility(View.GONE);
+                                eleRecordsQueryList.setVisibility(View.GONE);
+                                waterRecordsQueryList.setVisibility(View.GONE);
+                                gasNbRecordsQueryList.setVisibility(View.VISIBLE);
+                                gasRecordsQueryList.setVisibility(View.GONE);
+                            }
+                            mGasNbReportDataAdapter = new GasNbReportDataAdapter(context, gasNbReportDataList);
+                            gasNbRecordsQueryList.setAdapter(mGasNbReportDataAdapter);
+                            mGasNbReportDataAdapter.notifyDataSetChanged();
+                        } else if (jStatus.equals("-6")) {
+                            setToast("该表号暂时没有数据！");
+                        } else {
+                            Toast.makeText(context, "数据返回错误，请重新操作", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+
+                }
+            }
+        };
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Describe：抄表记录查询
@@ -564,6 +724,9 @@ public class RecordsQueryActivity extends MyBaseActivity implements OnTouchListe
                                 if (eleHisReadMeterList != null || eleHisReadMeterList.size() > 0) {
                                     settingView.setVisibility(View.GONE);
                                     eleRecordsQueryList.setVisibility(View.VISIBLE);
+                                    waterRecordsQueryList.setVisibility(View.GONE);
+                                    gasNbRecordsQueryList.setVisibility(View.GONE);
+                                    gasRecordsQueryList.setVisibility(View.GONE);
 
                                     mHisEleReadMeterAdapter = new HisEleReadMeterAdapter(context, eleHisReadMeterList, eleRecordsQueryList);
                                     eleRecordsQueryList.setAdapter(mHisEleReadMeterAdapter);
@@ -590,6 +753,8 @@ public class RecordsQueryActivity extends MyBaseActivity implements OnTouchListe
                                     settingView.setVisibility(View.GONE);
                                     eleRecordsQueryList.setVisibility(View.GONE);
                                     waterRecordsQueryList.setVisibility(View.VISIBLE);
+                                    gasNbRecordsQueryList.setVisibility(View.GONE);
+                                    gasRecordsQueryList.setVisibility(View.GONE);
 
                                     mHisWaterReadMeterAdapter = new HisWaterReadMeterAdapter(context, waterHisReadMeterList, waterRecordsQueryList);
                                     waterRecordsQueryList.setAdapter(mHisWaterReadMeterAdapter);
@@ -618,6 +783,7 @@ public class RecordsQueryActivity extends MyBaseActivity implements OnTouchListe
                                     settingView.setVisibility(View.GONE);
                                     eleRecordsQueryList.setVisibility(View.GONE);
                                     waterRecordsQueryList.setVisibility(View.GONE);
+                                    gasNbRecordsQueryList.setVisibility(View.GONE);
                                     gasRecordsQueryList.setVisibility(View.VISIBLE);
 
                                     mHisGasReadMeterAdapter = new HisGasReadMeterAdapter(context, gasHisReadMeterList, gasRecordsQueryList);
@@ -728,8 +894,8 @@ public class RecordsQueryActivity extends MyBaseActivity implements OnTouchListe
                                 //此处提示用户查询数据失败
                                 setToast("获取数据失败，请重新尝试！");
                             }
-                            String toastStr = jsonObject.getString("strBackFlag");
-                            setToast(toastStr);
+//                            String toastStr = jsonObject.getString("strBackFlag");
+//                            setToast(toastStr);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

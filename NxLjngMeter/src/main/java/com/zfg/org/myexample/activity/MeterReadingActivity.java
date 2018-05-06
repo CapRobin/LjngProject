@@ -20,22 +20,36 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.zfg.org.myexample.R;
+import com.zfg.org.myexample.SystemAPI;
 import com.zfg.org.myexample.ViewInject;
 import com.zfg.org.myexample.adapter.MeterAllInfoAdapter;
 import com.zfg.org.myexample.adapter.MyLocationAdapter;
 import com.zfg.org.myexample.adapter.NoScrollGridView;
 import com.zfg.org.myexample.adapter.RcAdapterWholeChange;
+import com.zfg.org.myexample.adapter.ValveStatusInfoAdapter;
 import com.zfg.org.myexample.db.MeterInfoBo;
 import com.zfg.org.myexample.db.dao.MeterInfo;
 import com.zfg.org.myexample.model.MeterAllInfo;
+import com.zfg.org.myexample.model.ValveStatusInfo;
 import com.zfg.org.myexample.utils.CheckUtil;
 import com.zfg.org.myexample.utils.CommonUtil;
+import com.zfg.org.myexample.utils.HttpServiceUtil;
 import com.zfg.org.myexample.utils.MethodUtil;
 import com.zfg.org.myexample.utils.Preference;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Copyright © 2018 LJNG All rights reserved.
@@ -73,6 +87,8 @@ public class MeterReadingActivity extends MyBaseActivity {
     private ImageView searchNum;
     @ViewInject(id = R.id.recordsQueryList_ele)
     private ListView getDataList_db;
+    @ViewInject(id = R.id.taskList)
+    private ListView taskList;
     @ViewInject(id = R.id.settingView)
     private LinearLayout settingView;
     @ViewInject(id = R.id.cxbhHideView)
@@ -87,6 +103,8 @@ public class MeterReadingActivity extends MyBaseActivity {
     private List<MeterInfo> meterinfos;
     private int userType = 0;
     private MyLocationAdapter locationAdapter;
+    private List<ValveStatusInfo> valveStatusInfoList;
+    private ValveStatusInfoAdapter mValveStatusInfoAdapter;
 
 
     private RcAdapterWholeChange recycleAdapter;
@@ -160,12 +178,18 @@ public class MeterReadingActivity extends MyBaseActivity {
                 if (View.GONE == settingView.getVisibility()) {
                     settingView.setVisibility(View.VISIBLE);
                     getDataList_db.setVisibility(View.GONE);
+                    taskList.setVisibility(View.GONE);
                 } else {
                     if (getDataList_db.getCount() > 0) {
                         settingView.setVisibility(View.GONE);
+                        taskList.setVisibility(View.GONE);
                         getDataList_db.setVisibility(View.VISIBLE);
+                    } else if(taskList.getCount() > 0){
+                        settingView.setVisibility(View.GONE);
+                        taskList.setVisibility(View.VISIBLE);
+                        getDataList_db.setVisibility(View.GONE);
                     } else {
-                        setToast("请设置相关查询条件，进行抄表！");
+                        setToast("请设置相关查询条件，进行查询！");
                     }
                 }
                 break;
@@ -191,10 +215,14 @@ public class MeterReadingActivity extends MyBaseActivity {
 
                 break;
             case R.id.startSearch:
-                if (CheckUtil.isNull(cbxmEdit.getText())) {
-                    Toast.makeText(context, "请选择查表项目！", Toast.LENGTH_SHORT).show();
-                    return;
+
+                if(userType != 4){
+                    if (CheckUtil.isNull(cbxmEdit.getText())) {
+                        Toast.makeText(context, "请选择查表项目！", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
+
                 if (CheckUtil.isNull(cxbhEdit.getText())) {
                     Toast.makeText(context, "请输入查询表号！", Toast.LENGTH_SHORT).show();
                     return;
@@ -203,13 +231,98 @@ public class MeterReadingActivity extends MyBaseActivity {
                     setToast("表地址输入有误请重新输入！");
                     return;
                 }
-                //清除刷新List数据
-                //clearData();
+
                 //开始加载数据
-                loadData(CommonUtil.AddZeros(cxbhEdit.getText().toString()));
+                if (userType != 4) {
+                    loadData(CommonUtil.AddZeros(cxbhEdit.getText().toString()));
+                } else {
+                    getGasNbData(CommonUtil.AddZeros(cxbhEdit.getText().toString()), 2, null, null);
+                }
                 break;
         }
     }
+
+    /**
+     * Describe：NB气表任务查询列表
+     * Params:
+     * Return:
+     * Date：2018-05-06 16:18:41
+     */
+
+    public void getGasNbData(String meteraddr, int stuts, String startTime, String endTime) {
+        String titleStr;
+        try {
+            JSONObject jsobj = new JSONObject();
+            try {
+                jsobj.put("meterAddr", meteraddr);
+                jsobj.put("operationId", String.valueOf(stuts));
+                jsobj.put("userid", preference.getString(Preference.CACHE_USER));
+            } catch (JSONException ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            }
+
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("ngNbMeter", jsobj.toString());
+            loading = new DialogLoading(this);
+            setDialogLabel("正在执行查询操作");
+            loading.show();
+            initCallBackGasNb();
+            SystemAPI.meter_ongas(map, dataCallback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Describe：NB气表任务查询回调函数
+     * Params:
+     * Return:
+     * Date：2018-05-06 16:19:08
+     */
+
+    private void initCallBackGasNb() {
+        listdata.clear();
+        dataCallback = new HttpServiceUtil.CallBack() {
+            @Override
+            public void callback(String json) {
+                setDialogLabel("抄表完成");
+                loading.dismiss();
+                // 解析json
+                if (json.length() > 3) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(json);
+                        String jStatus = jsonObject.getString("strBackFlag");
+
+                        if (jStatus.equals("1")) {
+                            settingView.setVisibility(View.GONE);
+                            taskList.setVisibility(View.VISIBLE);
+                            getDataList_db.setVisibility(View.GONE);
+
+                            String actionFlag = jsonObject.getString("actionFlag");
+                            String consuList = jsonObject.getString("consuList");
+                            GsonBuilder gsonB = new GsonBuilder();
+                            Gson gson = gsonB.create();
+                            valveStatusInfoList = gson.fromJson(consuList, new TypeToken<ArrayList<ValveStatusInfo>>() {
+                            }.getType());
+
+                            mValveStatusInfoAdapter = new ValveStatusInfoAdapter(context, valveStatusInfoList);
+                            taskList.setAdapter(mValveStatusInfoAdapter);
+                            mValveStatusInfoAdapter.notifyDataSetChanged();
+                        } else if (jStatus.equals("-6")) {
+                            setToast("该表号暂时没有实时数据！");
+                        } else {
+                            Toast.makeText(context, "数据返回错误，请重新操作", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+
+                }
+            }
+        };
+    }
+
 
     /**
      * Describe：络返回数据后回调
@@ -260,6 +373,13 @@ public class MeterReadingActivity extends MyBaseActivity {
                 dbCheckItemType = getResources().getStringArray(R.array.qbCheckItemType);
                 break;
             case 4:
+                pageType.setText("气表任务数据");
+                valveStatusInfoList = new ArrayList<ValveStatusInfo>();
+                taskList.setVisibility(View.VISIBLE);
+                cbxmAllView.setVisibility(View.GONE);
+                dbCheckItemType = getResources().getStringArray(R.array.qbCheckItemType);
+                break;
+            case 5:
                 pageType.setText("热表实时数据");
                 dbCheckItemType = getResources().getStringArray(R.array.rbCheckItemType);
                 break;

@@ -85,6 +85,16 @@ public class SystemAPI {
         HttpServiceUtil.request(ContantsUtil.URL_Rechargegas,
                 HttpContants.REQUEST_MOTHOD, map, callBack);
     }
+    /**
+     * http请求：气表NB充值
+     *
+     * @param map
+     * @param callBack
+     */
+    public static void meter_recharge_nb(Map<String, Object> map, CallBack callBack) {
+        HttpServiceUtil.request(ContantsUtil.URL_RechargeGasNb,
+                HttpContants.REQUEST_MOTHOD, map, callBack);
+    }
 
     /**
      * http请求：抄表
@@ -139,6 +149,16 @@ public class SystemAPI {
      */
     public static void meter_onwater(Map<String, Object> map, CallBack callBack) {
         HttpServiceUtil.request(ContantsUtil.URL_pullswitchwater,
+                HttpContants.REQUEST_MOTHOD, map, callBack);
+    }
+    /**
+     * http请求：合闸
+     *
+     * @param map
+     * @param callBack
+     */
+    public static void meter_ongas(Map<String, Object> map, CallBack callBack) {
+        HttpServiceUtil.request(ContantsUtil.URL_pullswitchwater2,
                 HttpContants.REQUEST_MOTHOD, map, callBack);
     }
 

@@ -123,7 +123,7 @@
                         style="@style/main_button_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="状态查询" />
+                        android:text="数据查询" />
                 </LinearLayout>
 
 
@@ -243,7 +243,7 @@
                         style="@style/main_button_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="数据查询" />
+                        android:text="任务查询" />
                 </LinearLayout>
 
                 <View style="@style/main_divider_line_ver" />

@@ -130,6 +130,9 @@ public class ContantsUtil {
 
     public static String URL_Rechargegas = HOST + "/rechargegas";
 
+    //气表NB充值成功后插入数据接口
+    public static String URL_RechargeGasNb = HOST + "/NbAppPayment";
+
     public static String URL_Rechargewater = HOST + "/rechargeMeter";
 
     public static String URL_WeiPay_Rechargewater = HOST + "/payment";
