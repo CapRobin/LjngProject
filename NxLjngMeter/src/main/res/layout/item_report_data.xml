@@ -103,7 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="用量："
+                    android:text="当前用量："
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
@@ -121,9 +121,9 @@
                     android:id="@+id/ylUnit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
+                    android:layout_toRightOf="@+id/ylText"
+                    android:layout_marginLeft="10dp"
                     android:text="m³"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
@@ -140,7 +140,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="价格："
+                    android:text="执行价格："
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
@@ -158,9 +158,9 @@
                     android:id="@+id/jgUnit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="15dp"
+                    android:layout_toRightOf="@+id/jgText"
+                    android:layout_marginLeft="10dp"
                     android:text="元"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
@@ -248,7 +248,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="费用："
+                    android:text="使用费用："
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
@@ -266,9 +266,9 @@
                     android:id="@+id/fyUnit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="15dp"
+                    android:layout_toRightOf="@+id/fyText"
+                    android:layout_marginLeft="10dp"
                     android:text="元"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
@@ -286,7 +286,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="余额："
+                    android:text="剩余金额："
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
@@ -304,9 +304,9 @@
                     android:id="@+id/yeUnit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="15dp"
+                    android:layout_toRightOf="@+id/yeText"
+                    android:layout_marginLeft="10dp"
                     android:text="元"
                     android:textColor="@color/black"
                     android:textSize="15sp" />

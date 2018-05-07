@@ -123,7 +123,7 @@
                         style="@style/main_button_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="数据查询" />
+                        android:text="上报查询" />
                 </LinearLayout>
 
 

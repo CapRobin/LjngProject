@@ -66,13 +66,26 @@ public class ValveStatusInfoAdapter extends MBaseAdapter {
         holder.hisDate.setText("记录时间："+dto.getSTART_TIME());
 
         //任务名称
-        String jobStr = dto.getJOB_ACTION_DEF_ID();
+        int actionType = Integer.valueOf(dto.getJOB_ACTION_DEF_ID().toString());
         String rwmcStr = "";
         //开关阀操作
-        if (jobStr.equals("101")) {
-            rwmcStr = "关闭阀门";
-        }else if (jobStr.equals("102")){
-            rwmcStr = "打开阀门";
+
+        switch (actionType){
+            case 10:
+                rwmcStr = "矫时操作";
+                break;
+            case 101:
+                rwmcStr = "关闭阀门";
+                break;
+            case 102:
+                rwmcStr = "打开阀门";
+                break;
+            case 124:
+                rwmcStr = "更改当前气价";
+                break;
+            case 127:
+                rwmcStr = "更改备用气价";
+                break;
         }
         holder.rwmcText.setText(rwmcStr);
 

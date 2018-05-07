@@ -421,6 +421,7 @@ public class RecordsQueryActivity extends MyBaseActivity implements OnTouchListe
                     popViewisShow(1);
                     break;
                 case R.id.starTimetEdit:
+                    closeInputMethod();
                     MethodUtil.animateClose(typeHideView);
                     MethodUtil.animateClose(numberHideView);
                     meterInfoList.setVisibility(View.GONE);
@@ -428,6 +429,7 @@ public class RecordsQueryActivity extends MyBaseActivity implements OnTouchListe
                     pvTime.show();
                     break;
                 case R.id.endTimeEdit:
+                    closeInputMethod();
                     MethodUtil.animateClose(typeHideView);
                     MethodUtil.animateClose(numberHideView);
                     meterInfoList.setVisibility(View.GONE);

@@ -48,9 +48,6 @@ import com.zfg.org.myexample.utils.Preference;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -664,7 +661,7 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
         }
     }
 
-    private void swichDataTest(String meteraddr, Integer stuts) {
+    private void getGasNbData(String meteraddr, Integer stuts) {
         try {
             JSONObject jsobj = new JSONObject();
             try {
@@ -692,6 +689,12 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
                     break;
                 case 4:
                     titleStr = "正在刷新中...";
+                    break;
+                case 5:
+                    titleStr = "正在更改当前气价";
+                    break;
+                case 6:
+                    titleStr = "正在更改备用气价";
                     break;
             }
             loading.show();
@@ -837,8 +840,23 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
                         eleLayout.setVisibility(View.GONE);
                         statusLayout.setVisibility(View.VISIBLE);
                         waterLayout.setVisibility(View.GONE);
+
+                        String actionType = valveStatusInfoList.get(0).getJOB_ACTION_DEF_ID();
+                        String actionName = "";
+                        if(actionFlag.length() > 0 || actionFlag == ""){
+                            actionName = actionFlag;
+                        }else {if(actionType.equals("124")){
+                            actionName = "更改当前气价";
+                        }else if(actionType.equals("127")){
+                            actionName = "更改备用气价";
+                        }else if(actionType.equals("101")){
+                            actionName = "关闭阀门";
+                        }else if(actionType.equals("102")){
+                            actionName = "打开阀门";
+                        }
+                        }
                         //设置页面数据
-                        setStatusView(valveStatusInfoList, actionFlag);
+                        setStatusView(valveStatusInfoList, actionName);
 //                            mValveStatusInfoAdapter = new ValveStatusInfoAdapter(context, valveStatusInfoList);
 //                            taskList.setAdapter(mValveStatusInfoAdapter);
 //                            mValveStatusInfoAdapter.notifyDataSetChanged();
@@ -890,15 +908,6 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
      */
     private void setStatusView(List<ValveStatusInfo> dataList, String taskName) {
         hisDate.setText(dataList.get(0).getSTART_TIME());
-        //任务名称
-//        String jobStr = dataList.get(0).getJOB_ACTION_DEF_ID();
-//        String rwmcStr = "";
-//        //开关阀操作
-//        if (jobStr.equals("101")) {
-//            rwmcStr = "关闭阀门";
-//        }else if (jobStr.equals("102")){
-//            rwmcStr = "打开阀门";
-//        }
         rwmcText.setText(taskName);
 
         //任务状态(0:等待执行；1:正在执行；2:成功；3:失败)
@@ -1037,9 +1046,9 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
 //                    swichData(CommonUtil.AddZeros(meterAddr.getText().toString()), 0);
 //                } else {
 //                    //关阀
-//                    swichDataTest(CommonUtil.AddZeros(meterAddr.getText().toString()), 0);
+//                    getGasNbData(CommonUtil.AddZeros(meterAddr.getText().toString()), 0);
 //                    //更改备用气价
-////                    swichDataTest(CommonUtil.AddZeros(meterAddr.getText().toString()), 6);
+////                    getGasNbData(CommonUtil.AddZeros(meterAddr.getText().toString()), 6);
 //                }
                 break;
             case R.id.openBtn1:
@@ -1049,7 +1058,7 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
                     return;
                 }
                 waterLayout.setVisibility(View.GONE);
-                swichDataTest(CommonUtil.AddZeros(meterAddr.getText().toString()), 1);
+                getGasNbData(CommonUtil.AddZeros(meterAddr.getText().toString()), 1);
 
                 break;
             case R.id.closeBtn1:
@@ -1059,7 +1068,7 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
                     return;
                 }
                 waterLayout.setVisibility(View.GONE);
-                swichDataTest(CommonUtil.AddZeros(meterAddr.getText().toString()), 0);
+                getGasNbData(CommonUtil.AddZeros(meterAddr.getText().toString()), 0);
                 break;
             case R.id.ggdqBtn:
                 //检测表号是否为空
@@ -1068,7 +1077,7 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
                     return;
                 }
                 waterLayout.setVisibility(View.GONE);
-                swichDataTest(CommonUtil.AddZeros(meterAddr.getText().toString()), 5);
+                getGasNbData(CommonUtil.AddZeros(meterAddr.getText().toString()), 5);
                 break;
             case R.id.ggbyBtn:
                 //检测表号是否为空
@@ -1077,10 +1086,10 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
                     return;
                 }
                 waterLayout.setVisibility(View.GONE);
-                swichDataTest(CommonUtil.AddZeros(meterAddr.getText().toString()), 6);
+                getGasNbData(CommonUtil.AddZeros(meterAddr.getText().toString()), 6);
                 break;
             case R.id.flashImage:
-                swichDataTest(CommonUtil.AddZeros(meterAddr.getText().toString()), 4);
+                getGasNbData(CommonUtil.AddZeros(meterAddr.getText().toString()), 4);
                 break;
             case R.id.btn_close:
                 if (meterAddr.getText().length() == 0) {

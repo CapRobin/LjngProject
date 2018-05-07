@@ -283,7 +283,7 @@
                     android:layout_marginBottom="30dp"
                     android:background="@drawable/selector_bg"
                     android:padding="2dip"
-                    android:text="抄    表"
+                    android:text="查    询"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
             </RelativeLayout>
