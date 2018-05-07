@@ -290,7 +290,7 @@ public class SwichPowerActivity extends BasicActivity implements DashSpinner.OnD
                 valveStatusInfoList = new ArrayList<ValveStatusInfo>();
                 view2.setVisibility(View.VISIBLE);
                 view1.setVisibility(View.GONE);
-                pageTitle.setText("气表开关阀");
+                pageTitle.setText("气表操作");
 //                eleLayout.setVisibility(View.GONE);
 ////                taskList.setVisibility(View.VISIBLE);
 //                waterLayout.setVisibility(View.GONE);
