@@ -357,6 +357,8 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
 //            }
 //        });
 
+
+
         //NB气表临时使用
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
