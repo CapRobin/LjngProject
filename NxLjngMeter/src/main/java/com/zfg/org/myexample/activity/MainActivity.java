@@ -30,6 +30,8 @@ import com.zfg.org.myexample.utils.Preference;
 
 import java.util.ArrayList;
 
+import butterknife.OnClick;
+
 //import com.zfg.org.myexample.UploadExceptionActivity;
 
 public class MainActivity extends BasicActivity implements OnClickListener {
@@ -55,7 +57,6 @@ public class MainActivity extends BasicActivity implements OnClickListener {
     private LinearLayout contentView;
     @ViewInject(id = R.id.copyright1)
     private TextView copyright;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

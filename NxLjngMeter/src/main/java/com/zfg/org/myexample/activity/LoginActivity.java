@@ -357,11 +357,7 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
 //            }
 //        });
 
-
-
-
-
-        //临时使用
+        //NB气表临时使用
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -392,7 +388,9 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                     case 1:
 //                        Toast.makeText(context, "该用户角色暂无数据", Toast.LENGTH_SHORT).show();
                         ContantsUtil.setHOst("http://222.75.144.94:9157/lggmr");
-                        nameEditText.setText("luocr");
+//                        nameEditText.setText("wangtong");
+//                        nameEditText.setText("luocr");
+                        nameEditText.setText("administrator");
                         pswEditText.setText("123456");
                         userTypeEdit.setText("气表(NBIOT)");
                         userType = 4;
@@ -411,27 +409,6 @@ public class LoginActivity extends BasicActivity implements CompoundButton.OnChe
                 }
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         builder = new AlertDialog.Builder(context,R.style.newPassword);

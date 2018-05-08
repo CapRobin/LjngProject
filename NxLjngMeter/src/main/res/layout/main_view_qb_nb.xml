@@ -61,7 +61,7 @@
                         style="@style/main_button_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="开阀关阀" />
+                        android:text="气表操作" />
                 </LinearLayout>
 
                 <View style="@style/main_divider_line_ver" />
